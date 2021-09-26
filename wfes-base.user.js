@@ -3,7 +3,7 @@
 // @namespace    https://gitlab.com/fotofreund0815/WFES
 // @version      0.0.0
 // @description  basic functionality for WFES
-// @author       AlterTobi
+// @author       fotofreund0815
 // @match        https://wayfarer.nianticlabs.com/new/*
 // @downloadURL  https://gitlab.com/fotofreund0815/WFES/-/raw/dev/wfes-base.user.js
 // @grant        none
@@ -11,6 +11,10 @@
 
 (function() {
 	'use strict';
+
+	const PREFIX = '/api/v1/vault/';
+
+	window.wfes.showcase = {};
 
 	let openOrig = window.XMLHttpRequest.prototype.open,
 	    sendOrig = window.XMLHttpRequest.prototype.send;
@@ -26,11 +30,8 @@
 		  if(this.onreadystatechange) {
 		    this._onreadystatechange = this.onreadystatechange;
 		  }
-		  /**
-		   * PLACE HERE YOUR CODE WHEN REQUEST IS SENT
-		   */
-		  console.log( "WFES SEND: ", this.responseText );
-		  console.dir( this );
+		  //console.log( "WFES SEND: ", data );
+		  //console.dir( data );
 		  // this.onreadystatechange = onReadyStateChangeReplacement;
 		  return sendOrig.apply(this, arguments);
 		}
@@ -38,31 +39,19 @@
 	function handleLoadEvent(e) {
 		try {
 			const response = this.response;
-			  console.log( "WFES LOADEVENT --> ", response );
-			  console.dir( response );
+			switch (this._url) {
+				case PREFIX + 'home':
+					const json = JSON.parse(response);
+					window.wfes.showcase.list = json.showcase;
+					window.dispatchEvent(new Event("WFTHomePageLoad"));
+					break;
+			}
 		} catch (e)	{
 			console.log(e);
 		}
 	}
 
 	/*
-	function parseNominations(e) {
-		try {
-			const response = this.response;
-			const json = JSON.parse(response);
-			sentNominations = json && json.result;
-			if (!sentNominations) {
-				logMessage('Failed to parse nominations from Wayfarer');
-				return;
-			}
-			analyzeCandidates();
-
-		} catch (e)	{
-			console.log(e); // eslint-disable-line no-console
-		}
-
-	}
-
 	function onReadyStateChangeReplacement() {
 		   // PLACE HERE YOUR CODE FOR READYSTATECHANGE
 		  if(this._onreadystatechange) {
@@ -73,5 +62,5 @@
 
 	window.XMLHttpRequest.prototype.open = openReplacement;
 	window.XMLHttpRequest.prototype.send = sendReplacement;
-
+	console.log( "WFES BASE loaded");
 })();
