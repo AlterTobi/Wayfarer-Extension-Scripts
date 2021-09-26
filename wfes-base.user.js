@@ -14,7 +14,10 @@
 
 	const PREFIX = '/api/v1/vault/';
 
-	window.wfes.showcase = {};
+	window.wfes = {};
+//	window.wfes.showcase = "";
+
+	// window.wfes.showcase;
 
 	let openOrig = window.XMLHttpRequest.prototype.open,
 	    sendOrig = window.XMLHttpRequest.prototype.send;
@@ -37,12 +40,13 @@
 		}
 
 	function handleLoadEvent(e) {
+        let json;
 		try {
 			const response = this.response;
 			switch (this._url) {
 				case PREFIX + 'home':
-					const json = JSON.parse(response);
-					window.wfes.showcase.list = json.showcase;
+					json = JSON.parse(response);
+					window.wfes.showcase = json.result.showcase;
 					window.dispatchEvent(new Event("WFTHomePageLoad"));
 					break;
 			}
