@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Showcase
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.1.0
+// @version      0.1.1
 // @description  Improve Wayfarer Showcase
 // @author       fotofreund0815
 // @match        https://wayfarer.nianticlabs.com/new/*
@@ -69,7 +69,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     }
 
 	function showDetails(details) {
-		console.log( "WFES showDetails", details);
+		// console.log( "WFES showDetails", details);
 		let myDescID = "wfesDescrition";
 		let myGameID = "wfesGame";
 		
@@ -106,7 +106,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 	}
 
 	function homePageLoaded() {
-		console.log( "WFES Showcase Event triggered");
+		// console.log( "WFES Showcase Event triggered");
 		addCSS();
 
 		showDetails(window.wfes.showcase.list[0]);
