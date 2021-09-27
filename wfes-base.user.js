@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.0.0
+// @version      0.1.0
 // @description  basic functionality for WFES
 // @author       fotofreund0815
 // @match        https://wayfarer.nianticlabs.com/new/*
