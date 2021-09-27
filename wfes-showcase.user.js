@@ -18,7 +18,7 @@
 	}
 
     let loadHomeTimerId = null;
-    window.addEventListener("WFTHomePageLoad",
+    window.addEventListener("WFESHomePageLoad",
     		() => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,250)});
 
 	console.log( "WFES Showcase loaded");

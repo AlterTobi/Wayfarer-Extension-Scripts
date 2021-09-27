@@ -14,8 +14,8 @@
 
 	const PREFIX = '/api/v1/vault/';
 
-	window.wfes = {};
-//	window.wfes.showcase = "";
+    window.wfes = {};
+    window.wfes.showcase = {};
 
 	// window.wfes.showcase;
 
@@ -46,8 +46,8 @@
 			switch (this._url) {
 				case PREFIX + 'home':
 					json = JSON.parse(response);
-					window.wfes.showcase = json.result.showcase;
-					window.dispatchEvent(new Event("WFTHomePageLoad"));
+					window.wfes.showcase.list = json.result.showcase;
+					window.dispatchEvent(new Event("WFESHomePageLoad"));
 					break;
 			}
 		} catch (e)	{
