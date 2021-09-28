@@ -47,7 +47,7 @@
 			  		window.dispatchEvent(new Event("WFESReviewDecisionSent"));
 			  		break;
 			  	case PREFIX + 'skip':
-                    json = JSON.parse(daten);
+			  		json = JSON.parse(daten);
 			  		candidate = window.wfes.review.sessionHist[json.id];
 			  		window.wfes.review.decision.candidate = candidate;
 			  		json.skipped = true;
