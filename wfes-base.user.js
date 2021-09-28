@@ -4,8 +4,8 @@
 // @version      0.1.0
 // @description  basic functionality for WFES
 // @author       fotofreund0815
-// @match        https://wayfarer.nianticlabs.com/new/*
-// @downloadURL  https://gitlab.com/fotofreund0815/WFES/-/raw/main/wfes-base.user.js
+// @match        https://wayfarer.nianticlabs.com/*
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
 // @grant        none
 // ==/UserScript==
 
