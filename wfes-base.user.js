@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.2.0
+// @version      0.2.1
 // @description  basic functionality for WFES
 // @author       fotofreund0815
 // @match        https://wayfarer.nianticlabs.com/*
@@ -43,6 +43,14 @@
                     json = JSON.parse(daten);
 			  		candidate = window.wfes.review.sessionHist[json.id];
 			  		window.wfes.review.decision.candidate = candidate;
+			  		window.wfes.review.decision.decision = json;
+			  		window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+			  		break;
+			  	case PREFIX + 'skip':
+                    json = JSON.parse(daten);
+			  		candidate = window.wfes.review.sessionHist[json.id];
+			  		window.wfes.review.decision.candidate = candidate;
+			  		json.skipped = true;
 			  		window.wfes.review.decision.decision = json;
 			  		window.dispatchEvent(new Event("WFESReviewDecisionSent"));
 			  		break;
