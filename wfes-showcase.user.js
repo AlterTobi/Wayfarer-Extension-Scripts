@@ -62,7 +62,6 @@ msqzhMX9D7VJotwvKKA1oVMgNaNJDNsjZTvo2WdEpXjaryj2PFGizxWvVQjbPzdTzPg88biHDRZF\
 ao7gTYkYY4ufrWjxhNVUQhcNLyHFFPN89trIG7UviJSZLPv8Hdh37+8x2JqqqjJMj4GiMKaq9unf\
 IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
             	}
-            	
     `;
             headElem.appendChild(customStyleElem);
     	}
@@ -72,7 +71,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 		// console.log( "WFES showDetails", details);
 		let myDescID = "wfesDescrition";
 		let myGameID = "wfesGame";
-		
+
 		if ( null === document.getElementById(myDescID)) {
 			let descriptionText = document.createElement("div");
 			descriptionText.setAttribute('id',myDescID);
@@ -90,7 +89,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 			gameLogo.setAttribute('id',myGameID);
 			userBox.appendChild(gameLogo);
 		}
-		
+
 		switch (details.discovererGame) {
 			case '': // no logo
 				klasse = 'bgNone';
