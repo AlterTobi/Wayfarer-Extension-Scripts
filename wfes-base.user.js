@@ -47,7 +47,7 @@
 				case PREFIX + 'home':
 					json = JSON.parse(response);
 					window.wfes.showcase.list = json.result.showcase;
-					window.dispatchEvent(new Event("WFESHomePageLoad"));
+					window.dispatchEvent(new Event("WFESHomePageLoaded"));
 					break;
 			}
 		} catch (e)	{

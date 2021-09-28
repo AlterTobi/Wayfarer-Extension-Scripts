@@ -121,8 +121,8 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 	}
 
     let loadHomeTimerId = null;
-    window.addEventListener("WFESHomePageLoad",
+    window.addEventListener("WFESHomePageLoaded",
     		() => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,250)});
 
-	console.log( "WFES Showcase loaded");
+	console.log( "WFES Showcase loadeded");
 })();
