@@ -29,7 +29,7 @@
             	}
             	.bgNone {
             		display: none;
-            	}  
+            	}
             	.bgPGO {
             	background-image:  url('data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
