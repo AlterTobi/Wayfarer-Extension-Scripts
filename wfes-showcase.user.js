@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Showcase
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.1.1
+// @version      0.2.0
 // @description  Improve Wayfarer Showcase
 // @author       fotofreund0815
 // @match        https://wayfarer.nianticlabs.com/*
@@ -72,6 +72,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 		let myDescID = "wfesDescrition";
 		let myGameID = "wfesGame";
 
+/*
 		if ( null === document.getElementById(myDescID)) {
 			let descriptionText = document.createElement("div");
 			descriptionText.setAttribute('id',myDescID);
@@ -80,7 +81,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 		} else {
 			document.getElementById(myDescID).innerText = details.description;
 		}
-
+*/
 		let userBox = window.document.getElementsByClassName('showcase-item__image-caption nightwind-prevent')[0];
 		let klasse = null;
 
