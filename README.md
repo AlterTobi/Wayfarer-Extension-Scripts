@@ -13,7 +13,7 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
 
 ## List of scripts
 * [showcase](https://github.com/AlterTobi/WFES/raw/main/wfes-showcase.user.js)
-    - shows wayspot description and the game used for submitting
+    - add's an icon for the game used for submitting the featured wayspot
 
 ## Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
