@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.4.0
+// @version      0.5.0
 // @description  basic functionality for WFES
-// @author       fotofreund0815
+// @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
 // @grant        none
@@ -146,6 +146,17 @@
 
 		window.wfes.review.pageData = result;
 		window.dispatchEvent(new Event("WFESReviewPageLoaded"));
+		switch(window.wfes.review.pageData.type) {
+		    case 'NEW':
+		        window.dispatchEvent(new Event("WFESReviewPageNewLoaded"));
+		        break;
+		    case 'EDIT':
+	                window.dispatchEvent(new Event("WFESReviewPageEditLoaded"));
+                        break;
+                    case 'PHOTO':
+                        window.dispatchEvent(new Event("WFESReviewPagePhotoLoaded"));
+                        break;
+		}
 	}
 
 /* we are done :-) */
