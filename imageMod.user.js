@@ -53,7 +53,8 @@
                 elem.parentNode.style.position = "relative";
                 break;
             case 'beforeEnd':
-                // elem.style.position = "relative";
+            case 'afterBegin':
+                elem.style.position = "relative";
                 break;
         }
     	elem.insertAdjacentElement(position,a);
