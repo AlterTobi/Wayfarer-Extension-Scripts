@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name         WFES Nomination Notify
+// @name         WFES - Nomination Notify
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.1.0
+// @version      0.2.0
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/nominationNotify.user.js
+// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @grant        none
 // ==/UserScript==
 
@@ -44,8 +45,6 @@
 				.wfesNotifyCloseButton{
 				  float: right;
 				}
-
-
     `;
             headElem.appendChild(customStyleElem);
     	}
@@ -54,25 +53,24 @@
     function createNotificationArea() {
     	let myID = "wfesNotify"
     	if ( null === document.getElementById(myID)) {
-			var container = document.createElement("div");
+			let container = document.createElement("div");
 			container.id = myID;
 			document.getElementsByTagName("body")[0].appendChild(container);
     	}
     }
 
 	function createNotification(message){
-	    console.log('WFES notification');
-		var notification = document.createElement("div");
+		let notification = document.createElement("div");
 		notification.setAttribute("class", "wfesNotification");
 		notification.onclick = function(){
 			notification.remove();
 		};
 
-		var content = document.createElement("p");
+		let content = document.createElement("p");
 		content.innerText = message;
 
 		//Purely aesthetic (The whole div closes the notification)
-		var closeButton = document.createElement("div");
+		let closeButton = document.createElement("div");
 		closeButton.innerText = "X";
 		closeButton.setAttribute("class", "wfesNotifyCloseButton");
 		closeButton.setAttribute("style", "cursor: pointer;");
@@ -88,9 +86,9 @@
 	//This way on checking we can simply find the ID when looking at a current state nomination
 	//and immediately find it's previous state.
 	function makeNominationDictionary(nomList){
-		var dict = {};
-		for (var i = 0; i < nomList.length; i++){
-			var nom = nomList[i];
+		let dict = {};
+		for (let i = 0; i < nomList.length; i++){
+			let nom = nomList[i];
 			dict[nom.id] = nom;
 		}
 		return dict;
@@ -99,7 +97,7 @@
 	function detectChange(){
 		let nomList = window.wfes.nominations.list;
 		let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
-		
+
 		if ( 0 === historyDict.length){
 		    // first run, import from Wayfarer+, if exists
 		    let wfpList = JSON.parse(localStorage.getItem('wfpNomList'));
@@ -110,36 +108,56 @@
 		        localSave(lStoreList, wfpList);
 		    }
 		}else{
-		    console.log('WFES ELSE', nomList.length);
 			//Only makes sense to look for change if we have data of the previous state!
-			for (var i = 0; i < nomList.length; i++){
-				var nom = nomList[i];
-				var historicalData = historyDict[nom.id];
+		    let today = new Date().toISOString().substr(0,10);
+		    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED'];
 
-				if (historicalData === undefined) {
-					continue; //Skip to next as this is a brand new entry so we don't know it's previous state
-                                }
-				// upgrade?
-				if (historicalData.upgraded === false && nom.upgraded === true){
-					createNotification(`${nom.title} was upgraded!`)
-				}
-				//In queue -> In voting
-				if (historicalData.status !== "VOTING" && nom.status === "VOTING"){
-					createNotification(`${nom.title} went into voting!`);
-				}else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE"){
-					if (nom.status === "ACCEPTED") {
-						createNotification(`${nom.title} was accepted!`);
-					}else if(nom.status === "REJECTED"){
-						createNotification(`${nom.title} was rejected!`);
-					}else if(nom.status === "DUPLICATE"){
-						createNotification(`${nom.title} was marked as a duplicate!`);
-					}
+		    for (let i = 0; i < nomList.length; i++){
+			let nom = nomList[i];
+			let historicalData = historyDict[nom.id];
+			let myDates = {};
+
+			if (historicalData === undefined) {
+			    myDates[nom.status] = today; // save current date and state
+			    nom.Dates = myDates;
+			    continue; //Skip to next as this is a brand new entry so we don't know it's previous state
+                        } else {
+                         // get saved dates
+                            myDates = historicalData.Dates;
+                        }
+
+			// upgrade?
+			if (historicalData.upgraded === false && nom.upgraded === true){
+			    myDates.UPGRADE = today;
+			    createNotification(`${nom.title} was upgraded!`);
+			}
+
+			//In queue -> In voting
+			if (historicalData.status !== "VOTING" && nom.status === "VOTING"){
+				createNotification(`${nom.title} went into voting!`);
+			}else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE"){
+				if (nom.status === "ACCEPTED") {
+					createNotification(`${nom.title} was accepted!`);
+				}else if(nom.status === "REJECTED"){
+					createNotification(`${nom.title} was rejected!`);
+				}else if(nom.status === "DUPLICATE"){
+					createNotification(`${nom.title} was marked as a duplicate!`);
 				}
 			}
 
-			//Store the new state
-			console.log('WFES save localstorage');
-			localSave(lStoreList,makeNominationDictionary(nomList));
+			// save Dates of each state change
+                        for (let j = 0; j < states.length; j++) {
+                                if (historicalData.status !== states[j] && nom.status === states[j]){
+                                        myDates[states[j]] = today;
+                                }
+                        }
+
+                        nom.Dates = myDates;
+                        nomList[i] = nom;
+		}
+
+		//Store the new state
+		localSave(lStoreList,makeNominationDictionary(nomList));
 		}
 	}
 
