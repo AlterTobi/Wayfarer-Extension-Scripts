@@ -14,7 +14,11 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
 ## List of scripts
 * [showcase](https://github.com/AlterTobi/WFES/raw/main/wfes-showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
-
+* [imagemod](https://github.com/AlterTobi/WFES/raw/main/imageMod.user.js)
+    - open fullsize images in "named" tabs
+* [open in](https://github.com/AlterTobi/WFES/raw/main/OpenIn.user.js)
+    - add "Open In" for maps
+    
 ## Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
 Pull-Requests welcome - please use the dev-branch.
