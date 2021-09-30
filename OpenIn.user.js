@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         WFTU Open In
-// @namespace    http://tampermonkey.net/
-// @version      0.2.3
+// @name         WFES - maps open in
+// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @version      0.3.0
 // @description  add "Open In" for maps
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WayFarer-Toolkit-Userscripts/raw/release/OpenIn.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/OpenIn.user.js
 // @grant        none
 // ==/UserScript==
 
@@ -130,42 +130,39 @@
     function addDropdownReview() {
         let elem, elemlist;
 
-        console.warn('WFTU addDropdownReview triggered - ', window.wft.reviewApp.pageData.type);
         addCSS();
-    	let mainButton = getMapDropdown(window.wft.reviewApp.pageData.lat, window.wft.reviewApp.pageData.lng);
+    	let mainButton = getMapDropdown(window.wfes.review.pageData.lat, window.wfes.review.pageData.lng);
 
-    	switch (window.wft.reviewApp.pageData.type) {
+    	switch (window.wfes.review.pageData.type) {
     		case "NEW":
-                elem = document.getElementById("location-accuracy-card");
-                if (null === elem) {
-                    if (tryCounter++ > 10) {
-                        console.warn('WFTU - Open In - no DOM - abort');
-                    } else {
-                        setTimeout(addDropdownReview,100);
+                    elem = document.getElementById("location-accuracy-card");
+                    if (null === elem) {
+                        if (tryCounter++ > 10) {
+                            console.warn('WFES - Open In - no DOM - abort');
+                        } else {
+                            setTimeout(addDropdownReview,100);
+                        }
+                        return;
                     }
-                    return;
-                }
-                tryCounter = 0;
-    			elem.children[2].insertAdjacentElement('afterbegin', mainButton);
-    			break;
+                    tryCounter = 0;
+                    elem.children[2].insertAdjacentElement('afterbegin', mainButton);
+                    break;
     		case "EDIT":
-                console.log('WFTU -- EDIT');
-                elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
-                elem = elemlist[elemlist.length-1];
-                elem.insertAdjacentElement('afterEnd', mainButton);
-    			break;
+                    console.log('WFES -- EDIT');
+                    elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
+                    elem = elemlist[elemlist.length-1];
+                    elem.insertAdjacentElement('afterEnd', mainButton);
+                    break;
     		case "PHOTO":
-                console.log('WFTU -- PHOTO');
-                elem = document.getElementsByClassName("review-photo__info")[0];
-                elem.children[0].insertAdjacentElement('beforeend', mainButton);
-    			break;
+                    console.log('WFES -- PHOTO');
+                    elem = document.getElementsByClassName("review-photo__info")[0];
+                    elem.children[0].insertAdjacentElement('beforeend', mainButton);
+                    break;
     	}
-        console.log('addDropdownReview loaded');
     }
 
     function NominationPageLoaded() {
         addCSS();
-        console.log('NominationPageLoaded loaded');
     }
 
     function addDropdownNomination(){
@@ -173,20 +170,19 @@
     	// remove existing first
     	let button = document.getElementById(buttonID);
     	if (button !== null) {
-    		button.parentNode.removeChild(button);
+    	    button.remove();
     	}
-        let mainButton = getMapDropdown(window.wft.nominationsApp.selectedNomination.nomination.lat, window.wft.nominationsApp.selectedNomination.nomination.lng);
+        let mainButton = getMapDropdown(window.wfes.nominations.detail.lat, window.wfes.nominations.detail.lng);
         elem = document.getElementsByClassName("details-pane__map")[0];
         elem.parentNode.appendChild(mainButton);
-        console.log('addDropdownNomination loaded');
     }
 
     let selNomTimerId = null;
     let loadNomTimerId = null;
 
-    window.addEventListener("WFTReviewPageLoad", () => {setTimeout(addDropdownReview,100)});
-    window.addEventListener("WFTNominationSelected", () => { clearTimeout(selNomTimerId); selNomTimerId = setTimeout(addDropdownNomination,250)});
-    window.addEventListener("WFTNominationListLoad", () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250)});
+    window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addDropdownReview,100)});
+    window.addEventListener("WFESNominationDetailLoaded", () => { clearTimeout(selNomTimerId); selNomTimerId = setTimeout(addDropdownNomination,250)});
+    window.addEventListener("WFESNominationListLoaded", () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250)});
 
-    console.log('WFTU Script loaded: Open In');
+    console.log('WFES Script loaded: Open In');
 })();
