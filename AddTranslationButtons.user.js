@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         Wayfarer Add Translation Buttons
-// @namespace    http://tampermonkey.net/
-// @version      0.3
+// @name         WFES - Add Translation Buttons
+// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @version      0.1.0
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/AddTranslationButtons.user.js
 // @grant        none
 // ==/UserScript==
 
@@ -49,7 +49,7 @@
 
         for (let i = 0; i < elems.length; i++){
             let translateButton = document.createElement("a");
-                translateButton.setAttribute("target", "wfpTranslate");
+                translateButton.setAttribute("target", "wfesTranslate");
             translateButton.setAttribute("class", "translateButton");
             translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
 
@@ -62,7 +62,7 @@
             let elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
 
             let translateButton = document.createElement("a");
-            translateButton.setAttribute("target", "wfpTranslate");
+            translateButton.setAttribute("target", "wfesTranslate");
             translateButton.setAttribute("class", "translateButton");
             translateButton.href = "https://translate.google.com/?sl=auto&q=" + (encodeURIComponent(elem.getElementsByClassName("wf-review-card__body")[0].innerText));
 
@@ -72,7 +72,7 @@
         }
 
         let translateButton = document.createElement("a");
-        translateButton.setAttribute("target", "wfpTranslate");
+        translateButton.setAttribute("target", "wfesTranslate");
         translateButton.setAttribute("class", "translateButton");
         translateButton.setAttribute("style", "display: inline; color: black; background-image: none;");
         translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(allText);
@@ -97,7 +97,7 @@
 
         for (let i = 0; i < elems.length; i++){
             let translateButton = document.createElement("a");
-                translateButton.setAttribute("target", "wfpTranslate");
+                translateButton.setAttribute("target", "wfesTranslate");
             translateButton.setAttribute("class", "translateButton");
             translateButton.setAttribute("style", style);
             translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
@@ -106,5 +106,6 @@
         }
     }
 
-    window.addEventListener("WFTReviewPageLoad", () => {setTimeout(addTranslationButtons,1)});
+    window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addTranslationButtons,10)});
+    console.log( "WFES Script loaded: add translation buttons");
 })();

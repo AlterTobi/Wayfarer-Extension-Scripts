@@ -20,6 +20,8 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
     - add "Open In" for maps
 * [Nomination Notify](https://github.com/AlterTobi/WFES/raw/main/nominationNotify.user.js)
     - show nomination status updates
+* [Add translation Buttons](https://github.com/AlterTobi/WFES/raw/main/AddTranslationButtons.user.js)
+    - Adds buttons to translate text associated with a wayspot
 
 ## Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
