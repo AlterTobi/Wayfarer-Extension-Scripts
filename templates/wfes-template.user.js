@@ -18,5 +18,5 @@
 
     window.addEventListener("EVENT", myTemplate);
 
-    console.log( "WFES TEMPLATE loadeded");
+    console.log( "WFES Script loaded: TEMPLATE");
 })();
