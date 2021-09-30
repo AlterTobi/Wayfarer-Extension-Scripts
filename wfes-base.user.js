@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.5.0
+// @version      0.5.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
+// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @grant        none
 // ==/UserScript==
 
@@ -160,5 +161,5 @@
 	}
 
 /* we are done :-) */
-	console.log( "WFES BASE loaded");
+	console.log( "WFES Script loaded: BASE");
 })();
