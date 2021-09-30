@@ -6,6 +6,7 @@
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-template.user.js
+// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @grant        none
 // ==/UserScript==
 
