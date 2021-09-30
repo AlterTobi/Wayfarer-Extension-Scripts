@@ -3,7 +3,7 @@
 // @namespace    https://gitlab.com/fotofreund0815/WFES
 // @version      0.5.0
 // @description  basic functionality for WFES
-// @author       fotofreund0815
+// @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
 // @grant        none

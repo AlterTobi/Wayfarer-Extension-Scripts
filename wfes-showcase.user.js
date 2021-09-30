@@ -3,7 +3,7 @@
 // @namespace    https://gitlab.com/fotofreund0815/WFES
 // @version      0.2.1
 // @description  Improve Wayfarer Showcase
-// @author       fotofreund0815
+// @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-showcase.user.js
 // @grant        none
