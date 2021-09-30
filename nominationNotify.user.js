@@ -1,16 +1,23 @@
 // ==UserScript==
-// @name         WFTU nomination Notify
-// @namespace    http://tampermonkey.net/
+// @name         WFES Nomination Notify
+// @namespace    https://gitlab.com/fotofreund0815/WFES
 // @version      0.1.0
-// @description  show nomination Status updates
+// @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WayFarer-Toolkit-Userscripts/raw/release/nominationNotify.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/nominationNotify.user.js
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    const lStoreList = 'wfesNomList';
+
+    function localSave(name,content){
+        let json = JSON.stringify(content)
+        localStorage.setItem(name,json)
+    }
 
     function addCSS(){
     	let myID = 'nominationNotifyCSS';
@@ -20,21 +27,21 @@
             let customStyleElem = document.createElement("style");
             customStyleElem.setAttribute('id',myID);
             customStyleElem.innerText = `
-	            #wftuNotify{
+	            #wfesNotify{
 				  position: absolute;
 				  bottom: 1em;
 				  right: 1em;
 				  width: 30em;
 				  z-index: 100;
 				}
-				.wftuNotification{
+				.wfesNotification{
 				  border-radius: 0.5em;
 				  background-color: #3e8e41CC;
 				  padding: 1em;
 				  margin-top: 1.5em;
 				  color: white;
 				}
-				.wftuNotifyCloseButton{
+				.wfesNotifyCloseButton{
 				  float: right;
 				}
 
@@ -45,17 +52,18 @@
     }
 
     function createNotificationArea() {
-    	let myID = "wftuNotify"
+    	let myID = "wfesNotify"
     	if ( null === document.getElementById(myID)) {
 			var container = document.createElement("div");
 			container.id = myID;
-			document.getElementsByTagName("html")[0].appendChild(container);
+			document.getElementsByTagName("body")[0].appendChild(container);
     	}
-	}
+    }
 
 	function createNotification(message){
+	    console.log('WFES notification');
 		var notification = document.createElement("div");
-		notification.setAttribute("class", "wftuNotification");
+		notification.setAttribute("class", "wfesNotification");
 		notification.onclick = function(){
 			notification.remove();
 		};
@@ -66,13 +74,13 @@
 		//Purely aesthetic (The whole div closes the notification)
 		var closeButton = document.createElement("div");
 		closeButton.innerText = "X";
-		closeButton.setAttribute("class", "wftuNotifyCloseButton");
+		closeButton.setAttribute("class", "wfesNotifyCloseButton");
 		closeButton.setAttribute("style", "cursor: pointer;");
 
 		notification.appendChild(closeButton);
 		notification.appendChild(content);
 
-		document.getElementById("wftuNotify").appendChild(notification);
+		document.getElementById("wfesNotify").appendChild(notification);
 	}
 
 	//Useful to make comparing easier. Essentially this function iterates over all nominations
@@ -89,30 +97,28 @@
 	}
 
 	function detectChange(){
-        console.log('WFTU nomination Notify: detectChange');
-
-		let nomList = window.wft.nominationsApp.listData.nominationsList.nominations;
-
-		if (localStorage.wftuNomList === undefined){
-			// first run
-			if (localStorage.wfpNomList === undefined) {
-				localStorage.wftuNomList = JSON.stringify(makeNominationDictionary(nomList));
-			} else {
-				// import WF+ Data
-				localStorage.wftuNomList = localStorage.wfpNomList;
-			}
+		let nomList = window.wfes.nominations.list;
+		let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+		
+		if ( 0 === historyDict.length){
+		    // first run, import from Wayfarer+, if exists
+		    let wfpList = JSON.parse(localStorage.getItem('wfpNomList'));
+		    if (wfpList === null) {
+			localSave(lStoreList, makeNominationDictionary(nomList));
+		    } else {
+			// import WF+ Data
+		        localSave(lStoreList, wfpList);
+		    }
 		}else{
+		    console.log('WFES ELSE', nomList.length);
 			//Only makes sense to look for change if we have data of the previous state!
-
-			var historyDict = JSON.parse(localStorage.wftuNomList);
-
 			for (var i = 0; i < nomList.length; i++){
 				var nom = nomList[i];
 				var historicalData = historyDict[nom.id];
 
 				if (historicalData === undefined) {
 					continue; //Skip to next as this is a brand new entry so we don't know it's previous state
-                }
+                                }
 				// upgrade?
 				if (historicalData.upgraded === false && nom.upgraded === true){
 					createNotification(`${nom.title} was upgraded!`)
@@ -132,20 +138,20 @@
 			}
 
 			//Store the new state
-			localStorage.wftuNomList = JSON.stringify(makeNominationDictionary(nomList));
+			console.log('WFES save localstorage');
+			localSave(lStoreList,makeNominationDictionary(nomList));
 		}
 	}
 
     function NominationPageLoaded() {
-    	console.log('WFTU nomination Notify: NominationPageLoaded loaded');
     	addCSS();
     	createNotificationArea();
     	detectChange();
     }
 
     let loadNomTimerId = null;
-    window.addEventListener("WFTNominationListLoad",
+    window.addEventListener("WFESNominationListLoaded",
     		() => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250)});
 
-    console.log('WFTU Script loaded: nomination Notify');
+    console.log('WFES Script loaded: Nomination Notify');
 })();
