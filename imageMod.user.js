@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name         WFES image Mods
+// @name         WFES - image Mods
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.1.0
+// @version      0.1.1
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/imageMod.user.js
+// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
 
@@ -52,7 +54,8 @@
                 elem.parentNode.style.position = "relative";
                 break;
             case 'beforeEnd':
-                // elem.style.position = "relative";
+            case 'afterBegin':
+                elem.style.position = "relative";
                 break;
         }
     	elem.insertAdjacentElement(position,a);
@@ -92,5 +95,5 @@
 
     window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinks,100)});
 
-    console.log('WFES imageMod loaded');
+    console.log('WFES Script loaded: imageMod');
 })();
