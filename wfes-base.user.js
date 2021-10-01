@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.5.1
+// @version      0.6.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
 
@@ -23,6 +24,7 @@
     window.wfes.review.decision = {};
     window.wfes.profile = {};
     window.wfes.nominations = {};
+    window.wfes.edit = {};
 
 /* overwrite XHR */
 
@@ -145,19 +147,26 @@
 			window.wfes.review.sessionHist[result.id] = result;
 		}
 
+		window.wfes.edit.isEdit = false;
+
 		window.wfes.review.pageData = result;
-		window.dispatchEvent(new Event("WFESReviewPageLoaded"));
 		switch(window.wfes.review.pageData.type) {
 		    case 'NEW':
 		        window.dispatchEvent(new Event("WFESReviewPageNewLoaded"));
 		        break;
 		    case 'EDIT':
+		        window.wfes.edit.isEdit = true;
+		        window.wfes.edit.what = {};
+		        window.wfes.edit.what.location = result.locationEdits.length > 1;
+		        window.wfes.edit.what.description = result.descriptionEdits.length > 0;
+		        window.wfes.edit.what.title = result.titleEdits.length > 0;
 	                window.dispatchEvent(new Event("WFESReviewPageEditLoaded"));
                         break;
                     case 'PHOTO':
                         window.dispatchEvent(new Event("WFESReviewPagePhotoLoaded"));
                         break;
 		}
+                window.dispatchEvent(new Event("WFESReviewPageLoaded"));
 	}
 
 /* we are done :-) */
