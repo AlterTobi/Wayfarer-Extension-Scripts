@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name         WF+ Dark Mode
-// @namespace    http://tampermonkey.net/
-// @version      1.0
+// @name         WFES - WF+ Dark Mode
+// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @version      1.0.1
 // @description  Apply WayFarer+ like dark mode on the "new" (sept 21) Wayfarer
-// @author       MrJPGames
+// @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/no_suppport/DarkMode.user.js
+// @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
 
@@ -38,5 +40,7 @@
     headElem.appendChild(styleElem);
 
     //Apply default dark mode if not already enabled:
-    window.addEventListener("WFTConstantsLoad", () => document.getElementsByTagName("body")[0].classList.add("dark"));
+    window.addEventListener("WFESPropertiesLoaded", () => document.getElementsByTagName("body")[0].classList.add("dark"));
+    
+    console.log( "WFES Script loaded: Dark Mode");
 })();
