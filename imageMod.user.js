@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - image Mods
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.1.1
+// @version      0.1.2
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -63,7 +63,7 @@
 
     function addFullSizeImageLinks() {
     	let elem, imageUrl;
-    	let myData = window.wft.reviewApp.pageData;
+    	let myData = window.wfes.review.pageData;
 
         addCSS();
     	switch (myData.type) {
