@@ -51,7 +51,7 @@
 
         for (let i = 0; i < elems.length; i++){
             let translateButton = document.createElement("a");
-                translateButton.setAttribute("target", "wfesTranslate");
+            translateButton.setAttribute("target", "wfesTranslate");
             translateButton.setAttribute("class", "translateButton");
             translateButton.setAttribute("style", style);
             translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
@@ -61,7 +61,14 @@
     }
 
     function addPhotoTranslationButtons(){
-        // addCSS();
+        console.warn('WFES: addPhotoTranslationButtons');
+        addCSS();
+        let elem = document.getElementsByClassName("text-lg")[0];
+        let translateButton = document.createElement("a");
+        translateButton.setAttribute("target", "wfesTranslate");
+        translateButton.setAttribute("class", "translateButton");
+        translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elem.innerText);
+        elem.appendChild(translateButton);
     }
     
     function addTranslationButtons(){
@@ -81,7 +88,7 @@
             elems[i].appendChild(translateButton);
         }
 
-        if (window.wft.reviewApp.pageData.supportingImageUrl != ""){
+        if (window.wfes.review.pageData.supportingImageUrl != ""){
             let elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
 
             let translateButton = document.createElement("a");
