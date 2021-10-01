@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.6.0
+// @version      0.6.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -25,6 +25,7 @@
     window.wfes.profile = {};
     window.wfes.nominations = {};
     window.wfes.edit = {};
+    window.wfes.properties = {};
 
 /* overwrite XHR */
 
@@ -111,8 +112,14 @@
                                         console.log('WFES nomination detail load error', response);
                                     }
 				    break;
+				case PREFIX + 'properties':
+                                    json = JSON.parse(response);
+                                    if ('OK' === json.code) {
+                                        window.wfes.properties = json.result;
+                                        window.dispatchEvent(new Event("WFESPropertiesLoaded"));
+                                    }
 				default:
-					break;
+				    break;
 			}
 		} catch (e)	{
 			console.warn(e);
