@@ -79,5 +79,5 @@
     }
 
     window.addEventListener("WFESNominationDetailLoaded", setStreetView);
-    console.log( "WFES Script loaded: NominationsStreetView");
+    console.log( "WFES Beta Script loaded: NominationsStreetView");
 })();

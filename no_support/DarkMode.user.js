@@ -42,5 +42,5 @@
     //Apply default dark mode if not already enabled:
     window.addEventListener("WFESPropertiesLoaded", () => document.getElementsByTagName("body")[0].classList.add("dark"));
     
-    console.log( "WFES Script loaded: Dark Mode");
+    console.log( "WFES Beta Script loaded: Dark Mode");
 })();
