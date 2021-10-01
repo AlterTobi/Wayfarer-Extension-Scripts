@@ -7,6 +7,7 @@
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/AddTranslationButtons.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
 
