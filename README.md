@@ -23,6 +23,17 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
 * [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/main/AddTranslationButtons.user.js)
     - Adds buttons to translate text associated with a wayspot
 
+### Unsupported scripts / scripts in beta state
+These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
+may work or not. If you are a developer, have a look at it and fix bugs. :-)
+
+* [Expire Timer](https://github.com/AlterTobi/WFES/raw/main/no_support/ExpireTimer.user.js)
+    - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
+* [Nomination page StreetView](https://github.com/AlterTobi/WFES/raw/main/no_support/NominationsStreetView.user.js)
+    - Adds the streetview view a reviewer will see on your own nominations!
+* [WF+ Dark Mode](https://github.com/AlterTobi/WFES/raw/main/no_suppport/DarkMode.user.js)
+    - Apply WayFarer+ like dark mode
+
 ## Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
 Pull-Requests welcome - please use the dev-branch.
