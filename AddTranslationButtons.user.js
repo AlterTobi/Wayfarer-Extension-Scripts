@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Add Translation Buttons
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.1.1
+// @version      0.1.2
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -64,12 +64,16 @@
     function addPhotoTranslationButtons(){
         console.warn('WFES: addPhotoTranslationButtons');
         addCSS();
-        let elem = document.getElementsByClassName("text-lg")[0];
-        let translateButton = document.createElement("a");
-        translateButton.setAttribute("target", "wfesTranslate");
-        translateButton.setAttribute("class", "translateButton");
-        translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elem.innerText);
-        elem.appendChild(translateButton);
+        let elems = [];
+        elems.push(document.getElementsByClassName("text-lg")[0]);
+        elems.push(document.getElementsByClassName("mt-2")[0]);
+        for (let i = 0; i < elems.length; i++){
+            let translateButton = document.createElement("a");
+            translateButton.setAttribute("target", "wfesTranslate");
+            translateButton.setAttribute("class", "translateButton");
+            translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elem.innerText);
+            elems[i].appendChild(translateButton);
+        }
     }
     
     function addTranslationButtons(){
