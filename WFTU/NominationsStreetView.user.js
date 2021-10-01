@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name         Nomination page StreetView
-// @namespace    http://tampermonkey.net/
-// @version      1.0
+// @name         WFES - Nomination page StreetView
+// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @version      1.0.1
 // @description  Adds the streetview view a reviewer will see on your own nominations!
-// @author       MrJPGames
+// @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/no_support/NominationsStreetView.user.js
+// @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
 
@@ -28,8 +30,8 @@
             lastPane.parentElement.insertBefore(SVMapElement, lastPane.nextSibling);
         }
 
-        var lat = window.wft.nominationsApp.selectedNomination.nomination.lat;
-        var lng = window.wft.nominationsApp.selectedNomination.nomination.lng;
+        var lat = window.wfes.nominations.detail.lat;
+        var lng = window.wfes.nominations.detail.lng;
 
         SVMap = new google.maps.Map(document.getElementById("pano"),{
             center: {
@@ -49,7 +51,7 @@
                 lat: parseFloat(lat),
                 lng: parseFloat(lng)
             },
-            title: window.wft.nominationsApp.selectedNomination.nomination.title
+            title: window.wfes.nominations.detail.title
         });
         var panorama = SVMap.getStreetView();
         var client = new google.maps.StreetViewService;
@@ -76,5 +78,6 @@
         console.log("[NomSVMap] Setting Nomination Streetview image");
     }
 
-    window.addEventListener("WFTNominationSelected", setStreetView);
+    window.addEventListener("WFESNominationDetailLoaded", setStreetView);
+    console.log( "WFES Script loaded: NominationsStreetView");
 })();
