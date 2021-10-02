@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Add Translation Buttons
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.1.2
+// @version      0.1.3
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -71,7 +71,7 @@
             let translateButton = document.createElement("a");
             translateButton.setAttribute("target", "wfesTranslate");
             translateButton.setAttribute("class", "translateButton");
-            translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elem.innerText);
+            translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
             elems[i].appendChild(translateButton);
         }
     }
