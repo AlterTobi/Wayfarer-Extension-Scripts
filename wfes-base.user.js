@@ -35,7 +35,10 @@
         this._url = url;
         this._method = method;
         // console.log( "WFES OPEN: ", method, url );
-        this.addEventListener('load', handleLoadEvent);
+        if (PREFIX === this._url.substr(0,PREFIX.length)){
+            // handle only Wayfarer URLs
+            this.addEventListener('load', handleLoadEvent);
+        }
         return openOrig.apply(this, arguments);
     }
 
