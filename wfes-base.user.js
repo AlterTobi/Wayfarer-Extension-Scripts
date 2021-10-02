@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.6.1
+// @version      0.6.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -67,56 +67,49 @@
     }
 
     function handleLoadEvent(e) {
-        let json;
         try {
             const response = this.response;
+            const json = JSON.parse(response) || console
+                                 .warn("WFES: failed to parse response from server");
+            // ignore captcha
+            if (json.captcha) {
+                return;
+            }
+            if ('OK' !== json.code) {
+                console.warn("WFES: got no OK from server", response);
+            }
+            if (!json.result) {
+                console.warn("WFES: got no result from server");
+                return;
+            }
+
             switch (this._url) {
                 case PREFIX + 'home':
-                    json = JSON.parse(response);
                     window.wfes.showcase.list = json.result.showcase;
                     window.dispatchEvent(new Event("WFESHomePageLoaded"));
                     break;
                 case PREFIX + 'review':
                     if ('GET' === this._method) {
-                        json = JSON.parse(response);
                         handleReviewData(json.result);
                     }
                     break;
                 case PREFIX + 'profile':
-                    json = JSON.parse(response);
-                    if ('OK' === json.code) {
-                        window.wfes.profile = json.result;
-                        window.dispatchEvent(new Event("WFESProfileLoaded"));
-                    } else {
-                        console.log('WFES profile load error', response);
-                    }
+                    window.wfes.profile = json.result;
+                    window.dispatchEvent(new Event("WFESProfileLoaded"));
                     break;
                 case PREFIX + 'manage':
                     // nomination list
-                    json = JSON.parse(response);
-                    if ('OK' === json.code) {
-                        window.wfes.nominations.list = json.result;
-                        window.dispatchEvent(new Event("WFESNominationListLoaded"));
-                    } else {
-                        console.log('WFES nomination list load error', response);
-                    }
+                    window.wfes.nominations.list = json.result;
+                    window.dispatchEvent(new Event("WFESNominationListLoaded"));
                     break;
                 case PREFIX + 'manage/detail':
                     // nomination detail
-                    json = JSON.parse(response);
-                    if ('OK' === json.code) {
-                        window.wfes.nominations.detail = json.result;
-                        window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-                    } else {
-                        console.log('WFES nomination detail load error', response);
-                    }
+                    window.wfes.nominations.detail = json.result;
+                    window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
                     break;
                 case PREFIX + 'properties':
-                    json = JSON.parse(response);
-                    if ('OK' === json.code) {
-                        window.wfes.properties = json.result;
-                        window.dispatchEvent(new Event("WFESPropertiesLoaded"));
-                    }
+                    window.wfes.properties = json.result;
+                    window.dispatchEvent(new Event("WFESPropertiesLoaded"));
                 default:
                     break;
             }
