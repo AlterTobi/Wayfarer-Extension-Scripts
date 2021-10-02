@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.6.2
+// @version      0.6.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -110,6 +110,7 @@
                 case PREFIX + 'properties':
                     window.wfes.properties = json.result;
                     window.dispatchEvent(new Event("WFESPropertiesLoaded"));
+                    break;
                 default:
                     break;
             }
