@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         WFES - Showcase
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.2.1
+// @version      0.2.3
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-showcase.user.js
+// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
 
@@ -122,5 +124,5 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     window.addEventListener("WFESHomePageLoaded",
     		() => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,200)});
 
-	console.log( "WFES Showcase loadeded");
+	console.log( "WFES Script loaded: Showcase");
 })();
