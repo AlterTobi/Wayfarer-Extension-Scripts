@@ -22,6 +22,8 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
     - show nomination status updates
 * [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/main/AddTranslationButtons.user.js)
     - Adds buttons to translate text associated with a wayspot
+* [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/main/wfes-WayfarerSstats.user.js)
+    - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
