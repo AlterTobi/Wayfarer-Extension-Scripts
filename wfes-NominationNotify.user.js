@@ -15,15 +15,16 @@
     'use strict';
 
     const lStoreList = 'wfesNomList';
+    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED'];
 
     function localSave(name,content){
-        let json = JSON.stringify(content)
-        localStorage.setItem(name,json)
+        let json = JSON.stringify(content);
+        localStorage.setItem(name,json);
     }
 
     function addCSS(){
     	let myID = 'nominationNotifyCSS';
-    	//already there?
+    	// already there?
     	if ( null === document.getElementById(myID)) {
             let headElem = document.getElementsByTagName("HEAD")[0];
             let customStyleElem = document.createElement("style");
@@ -46,7 +47,7 @@
 				.wfesNotifyCloseButton{
 				  float: right;
 				}
-    `;
+                `;
             headElem.appendChild(customStyleElem);
     	}
     }
@@ -60,58 +61,61 @@
     	}
     }
 
-	function createNotification(message){
-		let notification = document.createElement("div");
-		notification.setAttribute("class", "wfesNotification");
-		notification.onclick = function(){
-			notification.remove();
-		};
+    function createNotification(message){
+        let notification = document.createElement("div");
+        notification.setAttribute("class", "wfesNotification");
+        notification.onclick = function(){
+            notification.remove();
+        };
 
-		let content = document.createElement("p");
-		content.innerText = message;
+	let content = document.createElement("p");
+	content.innerText = message;
 
-		//Purely aesthetic (The whole div closes the notification)
-		let closeButton = document.createElement("div");
-		closeButton.innerText = "X";
-		closeButton.setAttribute("class", "wfesNotifyCloseButton");
-		closeButton.setAttribute("style", "cursor: pointer;");
+	// Purely aesthetic (The whole div closes the notification)
+	let closeButton = document.createElement("div");
+	closeButton.innerText = "X";
+	closeButton.setAttribute("class", "wfesNotifyCloseButton");
+	closeButton.setAttribute("style", "cursor: pointer;");
 
-		notification.appendChild(closeButton);
-		notification.appendChild(content);
+	notification.appendChild(closeButton);
+	notification.appendChild(content);
 
-		document.getElementById("wfesNotify").appendChild(notification);
+	document.getElementById("wfesNotify").appendChild(notification);
+    }
+
+    // Useful to make comparing easier. Essentially this function iterates
+    // over all nominations
+    // and uses it's unique ID as key and stores relevant values under that
+    // key.
+    // This way on checking we can simply find the ID when looking at a
+    // current state nomination
+    // and immediately find it's previous state.
+    function makeNominationDictionary(nomList){
+        let dict = {};
+	for (let i = 0; i < nomList.length; i++){
+	    let nom = nomList[i];
+	    dict[nom.id] = nom;
 	}
-
-	//Useful to make comparing easier. Essentially this function iterates over all nominations
-	//and uses it's unique ID as key and stores relevant values under that key.
-	//This way on checking we can simply find the ID when looking at a current state nomination
-	//and immediately find it's previous state.
-	function makeNominationDictionary(nomList){
-		let dict = {};
-		for (let i = 0; i < nomList.length; i++){
-			let nom = nomList[i];
-			dict[nom.id] = nom;
-		}
-		return dict;
-	}
+	return dict;
+    }
 
 	function detectChange(){
-		let nomList = window.wfes.nominations.list;
-		let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+	    let nomList = window.wfes.nominations.list;
+	    let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
 
-		if ( 0 === historyDict.length){
-		    // first run, import from Wayfarer+, if exists
-		    let wfpList = JSON.parse(localStorage.getItem('wfpNomList'));
-		    if (wfpList === null) {
-			localSave(lStoreList, makeNominationDictionary(nomList));
-		    } else {
-			// import WF+ Data
-		        localSave(lStoreList, wfpList);
-		    }
+	    if ( 0 === historyDict.length){
+	        // first run, import from Wayfarer+, if exists
+	        let wfpList = JSON.parse(localStorage.getItem('wfpNomList'));
+	        if (wfpList === null) {
+	            localSave(lStoreList, makeNominationDictionary(nomList));
+		} else {
+		    // import WF+ Data
+		    localSave(lStoreList, wfpList);
+		 }
 		}else{
-			//Only makes sense to look for change if we have data of the previous state!
+			// Only makes sense to look for change if we have data
+        // of the previous state!
 		    let today = new Date().toISOString().substr(0,10);
-		    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED'];
 
 		    for (let i = 0; i < nomList.length; i++){
 			let nom = nomList[i];
@@ -119,13 +123,16 @@
 			let myDates = {};
 
 			if (historicalData === undefined) {
-			    myDates[nom.status] = today; // save current date and state
+			    myDates[nom.status] = today; // save current date
+                                            // and state
 			    nom.Dates = myDates;
-			    continue; //Skip to next as this is a brand new entry so we don't know it's previous state
-                        } else {
-                         // get saved dates
+			    continue; // Skip to next as this is a brand new
+                        // entry so we don't know it's previous
+                        // state
+        } else {
+         // get saved dates
                             myDates = historicalData.Dates;
-                        }
+                       }
 
 			// upgrade?
 			if (historicalData.upgraded === false && nom.upgraded === true){
@@ -133,7 +140,7 @@
 			    createNotification(`${nom.title} was upgraded!`);
 			}
 
-			//In queue -> In voting
+			// In queue -> In voting
 			if (historicalData.status !== "VOTING" && nom.status === "VOTING"){
 				createNotification(`${nom.title} went into voting!`);
 			}else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE"){
@@ -147,20 +154,44 @@
 			}
 
 			// save Dates of each state change
-                        for (let j = 0; j < states.length; j++) {
-                                if (historicalData.status !== states[j] && nom.status === states[j]){
-                                        myDates[states[j]] = today;
-                                }
-                        }
+		    for (let j = 0; j < states.length; j++) {
+		        if (historicalData.status !== states[j] && nom.status === states[j]){
+		            myDates[states[j]] = today;
+		        }
+		    }
 
-                        nom.Dates = myDates;
-                        nomList[i] = nom;
+			nom.Dates = myDates;
+			nomList[i] = nom;
 		}
 
-		//Store the new state
+		// Store the new state
 		localSave(lStoreList,makeNominationDictionary(nomList));
 		}
-	}
+    }
+
+    function NominationSelected() {
+        addCSS();
+        const myID = window.wfes.nominations.detail.id;
+        let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+        let myDates = historyDict[myID].Dates || {};
+        let elem = window.document.querySelector('div.card.details-pane > div.flex.flex-row > span');
+        // Inhalt entfernen
+        while (elem.childNodes.length > 0) {
+            elem.removeChild(elem.firstChild);
+        }
+        elem.innerText = '';
+        let p = document.createElement("p");
+        p.innerText = window.wfes.nominations.detail.day + ' - NOMINATED';
+        elem.appendChild(p);
+        for ( let dat in myDates) {
+            if ('NOMINATED' === dat) {
+                continue;
+            }
+            p = document.createElement("p");
+            p.innerText = myDates[dat] + ' - ' + dat;
+            elem.appendChild(p);
+        }
+    }
 
     function NominationPageLoaded() {
     	addCSS();
@@ -171,6 +202,7 @@
     let loadNomTimerId = null;
     window.addEventListener("WFESNominationListLoaded",
     		() => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250)});
+    window.addEventListener("WFESNominationDetailLoaded",() => {setTimeout(NominationSelected,10)});
 
     console.log('WFES Script loaded: Nomination Notify');
 })();
