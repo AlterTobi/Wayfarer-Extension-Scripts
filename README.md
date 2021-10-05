@@ -8,20 +8,22 @@ Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues)
 
 ## How to install / use?
-Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js) first!
+Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-Base.user.js) first!
 > **It's required for all other scripts to work.**
 
 ## List of scripts
-* [Showcase](https://github.com/AlterTobi/WFES/raw/main/wfes-showcase.user.js)
+* [Showcase](https://github.com/AlterTobi/WFES/raw/main/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
-* [ImageMod](https://github.com/AlterTobi/WFES/raw/main/imageMod.user.js)
+* [ImageMod](https://github.com/AlterTobi/WFES/raw/main/wfes-ImageMod.user.js)
     - open fullsize images in "named" tabs
-* [Open In](https://github.com/AlterTobi/WFES/raw/main/OpenIn.user.js)
+* [Open In](https://github.com/AlterTobi/WFES/raw/main/wfes-OpenIn.user.js)
     - add "Open In" for maps
-* [Nomination Notify](https://github.com/AlterTobi/WFES/raw/main/nominationNotify.user.js)
+* [Nomination Notify](https://github.com/AlterTobi/WFES/raw/main/wfes-NominationNotify.user.js)
     - show nomination status updates
-* [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/main/AddTranslationButtons.user.js)
+* [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/main/wfes-AddTranslationButtons.user.js)
     - Adds buttons to translate text associated with a wayspot
+* [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/main/wfes-WayfarerStats.user.js)
+    - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
@@ -36,4 +38,4 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 
 ## Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
-Pull-Requests welcome - please use the dev-branch.
+Pull-Requests welcome - please use the **dev** branch.

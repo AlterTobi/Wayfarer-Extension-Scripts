@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.6.3
+// @version      0.6.5
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-base.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-Base.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
@@ -35,7 +35,7 @@
         this._url = url;
         this._method = method;
         // console.log( "WFES OPEN: ", method, url );
-        if (PREFIX === this._url.substr(0,PREFIX.length)){
+        if (PREFIX === this._url.substr(0, PREFIX.length)) {
             // handle only Wayfarer URLs
             this.addEventListener('load', handleLoadEvent);
         }
