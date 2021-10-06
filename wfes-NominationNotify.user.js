@@ -92,11 +92,11 @@
     // and immediately find it's previous state.
     function makeNominationDictionary(nomList){
         let dict = {};
-	for (let i = 0; i < nomList.length; i++){
-	    let nom = nomList[i];
-	    dict[nom.id] = nom;
-	}
-	return dict;
+    	for (let i = 0; i < nomList.length; i++){
+    	    let nom = nomList[i];
+    	    dict[nom.id] = nom;
+    	}
+    	return dict;
     }
 
 	function detectChange(){
@@ -108,64 +108,64 @@
 	        let wfpList = JSON.parse(localStorage.getItem('wfpNomList'));
 	        if (wfpList === null) {
 	            localSave(lStoreList, makeNominationDictionary(nomList));
-		} else {
-		    // import WF+ Data
-		    localSave(lStoreList, wfpList);
-		 }
-		}else{
-			// Only makes sense to look for change if we have data
-        // of the previous state!
+	        } else {
+	            // import WF+ Data
+	            localSave(lStoreList, wfpList);
+	        }
+	    }else{
+	        // Only makes sense to look for change if we have data
+	        // of the previous state!
 		    let today = new Date().toISOString().substr(0,10);
 
 		    for (let i = 0; i < nomList.length; i++){
-			let nom = nomList[i];
-			let historicalData = historyDict[nom.id];
-			let myDates = {};
+    			let nom = nomList[i];
+    			let historicalData = historyDict[nom.id];
+    			let myDates = {};
 
-			if (historicalData === undefined) {
-			    myDates[nom.status] = today; // save current date
-                                            // and state
-			    nom.Dates = myDates;
-			    continue; // Skip to next as this is a brand new
-                        // entry so we don't know it's previous
-                        // state
-        } else {
-         // get saved dates
-                            myDates = historicalData.Dates;
-                       }
+    			if (historicalData === undefined) {
+    			    myDates[nom.status] = today; // save current date
+                                                // and state
+    			    nom.Dates = myDates;
+    			    continue; // Skip to next as this is a brand new
+                            // entry so we don't know it's previous
+                            // state
+    			} else {
+    			    // get saved dates
+    			    myDates = historicalData.Dates;
+    			}
 
-			// upgrade?
-			if (historicalData.upgraded === false && nom.upgraded === true){
-			    myDates.UPGRADE = today;
-			    createNotification(`${nom.title} was upgraded!`);
-			}
+    			// upgrade?
+    			if (historicalData.upgraded === false && nom.upgraded === true){
+    			    myDates.UPGRADE = today;
+    			    createNotification(`${nom.title} was upgraded!`);
+    			}
+    
+    			// In queue -> In voting
+    			if (historicalData.status !== "VOTING" && nom.status === "VOTING"){
+    				createNotification(`${nom.title} went into voting!`);
+    			}else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE"){
+    				if (nom.status === "ACCEPTED") {
+    					createNotification(`${nom.title} was accepted!`);
+    				}else if(nom.status === "REJECTED"){
+    					createNotification(`${nom.title} was rejected!`);
+    				}else if(nom.status === "DUPLICATE"){
+    					createNotification(`${nom.title} was marked as a duplicate!`);
+    				}
+    			}
 
-			// In queue -> In voting
-			if (historicalData.status !== "VOTING" && nom.status === "VOTING"){
-				createNotification(`${nom.title} went into voting!`);
-			}else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE"){
-				if (nom.status === "ACCEPTED") {
-					createNotification(`${nom.title} was accepted!`);
-				}else if(nom.status === "REJECTED"){
-					createNotification(`${nom.title} was rejected!`);
-				}else if(nom.status === "DUPLICATE"){
-					createNotification(`${nom.title} was marked as a duplicate!`);
-				}
-			}
-
-			// save Dates of each state change
-		    for (let j = 0; j < states.length; j++) {
-		        if (historicalData.status !== states[j] && nom.status === states[j]){
-		            myDates[states[j]] = today;
-		        }
+    			// save Dates of each state change
+    		    for (let j = 0; j < states.length; j++) {
+    		        if (historicalData.status !== states[j] && nom.status === states[j]){
+    		            myDates[states[j]] = today;
+    		        }
+    		    }
+    
+    			nom.Dates = myDates;
+    			nomList[i] = nom;
 		    }
 
-			nom.Dates = myDates;
-			nomList[i] = nom;
-		}
-
-		// Store the new state
-		localSave(lStoreList,makeNominationDictionary(nomList));
+    		// Store the new state
+    		localSave(lStoreList,makeNominationDictionary(nomList));
 		}
     }
 
