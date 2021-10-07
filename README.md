@@ -33,7 +33,7 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 * [Nomination page StreetView](https://github.com/AlterTobi/WFES/raw/main/no_support/NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!
-* [WF+ Dark Mode](https://github.com/AlterTobi/WFES/raw/main/no_suppport/DarkMode.user.js)
+* [WF+ Dark Mode](https://github.com/AlterTobi/WFES/raw/main/no_support/DarkMode.user.js)
     - Apply WayFarer+ like dark mode
 
 ## Developer documentation
