@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.6.5
+// @version      0.6.6
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -17,6 +17,7 @@
     /* WFES data structures */
     const PREFIX = '/api/v1/vault/';
     const sStoreReview = 'wfes_Reviews';
+    const sStoreNominationsDetails = 'wfes_nominationDetails';
 
     window.wfes = {};
     window.wfes.showcase = {};
@@ -27,8 +28,7 @@
     window.wfes.edit = {};
     window.wfes.properties = {};
 
-    /* overwrite XHR */
-
+    /* ================ overwrite XHR ================ */
     let openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
 
     function openReplacement(method, url, async, user, password) {
@@ -86,6 +86,7 @@
                 return;
             }
 
+            let nominationDict;
             switch (this._url) {
                 case PREFIX + 'home':
                     window.wfes.showcase.list = json.result.showcase;
@@ -108,6 +109,10 @@
                 case PREFIX + 'manage/detail':
                     // nomination detail
                     window.wfes.nominations.detail = json.result;
+                    // save nomination Details in Sessionstorage
+                    nominationDict = JSON.parse(sessionStorage.getItem(sStoreNominationsDetails)) || {};
+                    nominationDict[window.wfes.nominations.detail.id] = window.wfes.nominations.detail;
+                    sessionSave(sStoreNominationsDetails, nominationDict);
                     window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
                     break;
                 case PREFIX + 'properties':
@@ -127,28 +132,14 @@
 
     /* handle data */
 
-    // Useful to make comparing easier. Essentially this function iterates over
-    // all items
-    // and uses it's unique ID as key and stores relevant values under that key.
-    // This way on checking we can simply find the ID when looking at a current
-    // item
-    function makeIDbasedDictionary(itemList) {
-        let dict = {};
-        for (let i = 0; i < itemList.length; i++) {
-            let item = itemList[i];
-            dict[item.id] = item;
-        }
-        return dict;
-    }
-
     function handleReviewData(result) {
         // save review data in ...pagedata and sessionstore
-        let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || []
+        let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
         window.wfes.review.sessionHist = makeIDbasedDictionary(reviewSessionHist);
 
         if (undefined === window.wfes.review.sessionHist[result.id]) {
             reviewSessionHist.push(result);
-            sessionStorage.setItem(sStoreReview, JSON.stringify(reviewSessionHist));
+            sessionSave(sStoreReview, reviewSessionHist);
             window.wfes.review.sessionHist[result.id] = result;
         }
 
@@ -173,6 +164,60 @@
         }
         window.dispatchEvent(new Event("WFESReviewPageLoaded"));
     }
+    /* ================ /overwrite XHR ================ */
+
+    /* ================ helper functions ============== */
+    // Useful to make comparing easier. Essentially this function iterates over
+    // all items
+    // and uses it's unique ID as key and stores relevant values under that key.
+    // This way on checking we can simply find the ID when looking at a current
+    // item
+    function makeIDbasedDictionary(itemList) {
+        let dict = {};
+        for (let i = 0; i < itemList.length; i++) {
+            let item = itemList[i];
+            dict[item.id] = item;
+        }
+        return dict;
+    }
+
+    function sessionSave(name, content) {
+        let json = JSON.stringify(content);
+        sessionStorage.setItem(name, json);
+    }
+
+    /* ================ /helper functions ============= */
+
+    /* ================ nomination page =============== */
+    function loadCachedNomination(nomItem) {
+        if (undefined === window.wfes.nominations.detail) {
+            window.setTimeout(loadCachedNomination, 250, nomItem);
+        }
+        const myID = nomItem.__ngContext__[22].id;
+        if (myID === window.wfes.nominations.detail.id) {
+            // already loaded, do nothing
+            return;
+        }
+        const nominationDict = JSON.parse(sessionStorage.getItem(sStoreNominationsDetails)) || [];
+        const nomDetail = nominationDict[myID];
+        if (undefined === nomDetail) {
+            // nothing there, ignore
+            return;
+        }
+        // set cached values
+        window.wfes.nominations.detail = nomDetail;
+        window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+    }
+    function nominationsClickHander(elem) {
+        const nomItem = elem.target.closest('app-nominations-list-item');
+        window.setTimeout(loadCachedNomination, 250, nomItem);
+    }
+    function addNominationsClickHandler() {
+        const nomList = document.getElementsByTagName('app-nominations-list')[0];
+        nomList.addEventListener('click', nominationsClickHander);
+    }
+    window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
+    /* ================ /nomination page ============== */
 
     /* we are done :-) */
     console.log("WFES Script loaded: BASE");
