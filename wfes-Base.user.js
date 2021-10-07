@@ -134,7 +134,7 @@
 
     function handleReviewData(result) {
         // save review data in ...pagedata and sessionstore
-        let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || {};
+        let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
         window.wfes.review.sessionHist = makeIDbasedDictionary(reviewSessionHist);
 
         if (undefined === window.wfes.review.sessionHist[result.id]) {
