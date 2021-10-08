@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - maps open in
 // @namespace    https://gitlab.com/fotofreund0815/WFES
-// @version      0.3.4
+// @version      0.3.5
 // @description  add "Open In" for maps
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -26,7 +26,7 @@
 
     function addCSS(){
     	let myID = 'openInCSS';
-    	//already there?
+    	// already there?
     	if ( null === document.getElementById(myID)) {
             let headElem = document.getElementsByTagName("HEAD")[0];
             let customStyleElem = document.createElement("style");
@@ -76,7 +76,7 @@
     }
 
     function getMapDropdown(lat, lng){
-    	//Create main dropdown menu ("button")
+    	// Create main dropdown menu ("button")
     	let mainButton = document.createElement("div");
     	mainButton.setAttribute("class","mapsDropdown");
     	mainButton.id = buttonID;
@@ -91,7 +91,8 @@
     	mainButton.appendChild(dropdownContainer);
     	mainButton.appendChild(buttonText);
 
-    	// let customMaps = JSON.parse(settings["customMaps"]); settings später vielleicht
+    	// let customMaps = JSON.parse(settings["customMaps"]); settings später
+        // vielleicht
     	if (customMaps.length === 0){
     		let emptySpan = document.createElement("span");
     		emptySpan.innerText = "No custom maps set!";
@@ -101,13 +102,14 @@
         		let title = customMaps[i].title;
         		let link = customMaps[i].url;
 
-        		//Link editing:
+        		// Link editing:
         		link = link.replace(/%lat%/g, lat).replace(/%lng%/g, lng);
 
         		let button = document.createElement("a");
         		button.href = link;
        			button.setAttribute("target", getStringHash(customMaps[i].url));
-                // On URL with placeholders as those are the same between different wayspots but not between different maps!
+                // On URL with placeholders as those are the same between
+                // different wayspots but not between different maps!
         		button.innerText = title;
         		dropdownContainer.appendChild(button);
         	}
@@ -115,7 +117,7 @@
     	return mainButton;
     }
 
-    //NON-SECURE (But good enough for uniqueID on URLs)
+    // NON-SECURE (But good enough for uniqueID on URLs)
     function getStringHash(str){
         var hash = 0;
         if (str.length === 0) {
@@ -157,8 +159,8 @@
                     break;
     		case "PHOTO":
                     console.log('WFES -- PHOTO');
-                    elem = document.getElementsByClassName("review-photo__info")[0];
-                    elem.children[0].insertAdjacentElement('beforeend', mainButton);
+                    elem = document.querySelector(".review-photo__info > div.flex.flex-col");
+                    elem.insertAdjacentElement('beforeend', mainButton);
                     break;
     	}
     }
