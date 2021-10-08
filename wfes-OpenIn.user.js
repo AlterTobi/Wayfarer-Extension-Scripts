@@ -152,13 +152,11 @@
                     elem.children[2].insertAdjacentElement('afterbegin', mainButton);
                     break;
     		case "EDIT":
-                    console.log('WFES -- EDIT');
                     elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
                     elem = elemlist[elemlist.length-1];
                     elem.insertAdjacentElement('afterEnd', mainButton);
                     break;
     		case "PHOTO":
-                    console.log('WFES -- PHOTO');
                     elem = document.querySelector(".review-photo__info > div.flex.flex-col");
                     elem.insertAdjacentElement('beforeend', mainButton);
                     break;

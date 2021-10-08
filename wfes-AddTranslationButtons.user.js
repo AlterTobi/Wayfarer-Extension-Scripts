@@ -81,7 +81,6 @@
     }
 
     function addPhotoTranslationButtons(){
-        console.warn('WFES: addPhotoTranslationButtons');
         addCSS();
         let elems = [];
         let allText = "";
