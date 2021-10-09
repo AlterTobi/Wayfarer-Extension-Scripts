@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WFES - Add Translation Buttons
-// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @namespace    https://github.com/AlterTobi/WFES/
 // @version      0.1.6
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi

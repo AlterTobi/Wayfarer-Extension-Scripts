@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WFES - Userscript
-// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @namespace    https://github.com/AlterTobi/WFES/
 // @version      0.0.1
 // @description  WFES 
 // @author       AlterTobi
@@ -15,10 +15,10 @@
     'use strict';
 
     function myTemplate() {
-        //CODE HERE
+        // CODE HERE
     }
 
     window.addEventListener("EVENT", myTemplate);
 
-    console.log( "WFES Script loaded: TEMPLATE");
+    console.log("WFES Script loaded: TEMPLATE");
 })();

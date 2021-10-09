@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WFES - Nomination page StreetView
-// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @namespace    https://github.com/AlterTobi/WFES/
 // @version      1.0.2
 // @description  Adds the streetview view a reviewer will see on your own nominations!
 // @author       MrJPGames / AlterTobi

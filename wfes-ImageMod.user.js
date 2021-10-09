@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WFES - image Mods
-// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @namespace    https://github.com/AlterTobi/WFES/
 // @version      0.1.4
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi

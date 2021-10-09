@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WFES - WF+ Dark Mode
-// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @namespace    https://github.com/AlterTobi/WFES/
 // @version      1.0.1
 // @description  Apply WayFarer+ like dark mode on the "new" (sept 21) Wayfarer
 // @author       MrJPGames / AlterTobi
@@ -39,7 +39,7 @@
     styleElem.innerText = customStyleSheet;
     headElem.appendChild(styleElem);
 
-    //Apply default dark mode if not already enabled:
+    // Apply default dark mode if not already enabled:
     window.addEventListener("WFESPropertiesLoaded", () => document.getElementsByTagName("body")[0].classList.add("dark"));
     
     console.log( "WFES Beta Script loaded: Dark Mode");

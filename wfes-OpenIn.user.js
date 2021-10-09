@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WFES - maps open in
-// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @namespace    https://github.com/AlterTobi/WFES/
 // @version      0.3.5
 // @description  add "Open In" for maps
 // @author       AlterTobi

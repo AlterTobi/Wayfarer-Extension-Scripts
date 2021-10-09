@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
-// @namespace    https://gitlab.com/fotofreund0815/WFES
+// @namespace    https://github.com/AlterTobi/WFES/
 // @version      0.2.4
 // @description  show nomination status updates
 // @author       AlterTobi

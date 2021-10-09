@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        WFES - Wayfarer Stats
-// @namespace   https://gitlab.com/fotofreund0815/WFES
+// @namespace   https://github.com/AlterTobi/WFES/
 // @version     0.1.2
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
