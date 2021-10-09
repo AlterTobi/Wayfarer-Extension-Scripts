@@ -16,24 +16,24 @@
 
     function addCSS(){
     	let myID = 'imageModsCSS';
-    	//already there?
+    	// already there?
     	if ( null === document.getElementById(myID)) {
             let headElem = document.getElementsByTagName("HEAD")[0];
             let customStyleElem = document.createElement("style");
             customStyleElem.setAttribute('id',myID);
             customStyleElem.innerText = `
-.material-icons-fontsize {
-  font-size: 48px;
-}
-.lupe {
-  z-index: 9999;
-  position: absolute;
-  left: 0px;
-}
-.bottom {
-  bottom: 0px;
-}
-    `;
+                .material-icons-fontsize {
+                  font-size: 48px;
+                }
+                .lupe {
+                  z-index: 9999;
+                  position: absolute;
+                  left: 0px;
+                }
+                .bottom {
+                  bottom: 0px;
+                }
+                `;
             headElem.appendChild(customStyleElem);
     	}
     }
@@ -72,7 +72,7 @@
     			imageUrl = myData.imageUrl + "=s0";
     			addFullImageButton(elem[0],imageUrl,'mainImage');
 
-    			//Supporting Image
+    			// Supporting Image
         		if (myData.supportingImageUrl){
         			imageUrl = myData.supportingImageUrl + "=s0";
         			addFullImageButton(elem[1],imageUrl,'supportingImage')
