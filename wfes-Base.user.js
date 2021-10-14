@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.6.6
+// @version      0.6.7
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -131,7 +131,6 @@
     window.XMLHttpRequest.prototype.send = sendReplacement;
 
     /* handle data */
-
     function handleReviewData(result) {
         // save review data in ...pagedata and sessionstore
         let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
@@ -185,7 +184,6 @@
         let json = JSON.stringify(content);
         sessionStorage.setItem(name, json);
     }
-
     /* ================ /helper functions ============= */
 
     /* ================ nomination page =============== */
