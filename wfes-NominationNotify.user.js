@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.2.4
+// @version      0.3.0
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -99,9 +99,14 @@
         return dict;
     }
 
+    function getCurrentDateStr(){
+        return new Date().toISOString().substr(0,10);
+    }
+
     function detectChange(){
         let nomList = window.wfes.nominations.list;
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+        const missingDict = detectMissing();
 
         if ( 0 === historyDict.length){
             // first run, import from Wayfarer+, if exists
@@ -115,7 +120,7 @@
         }else{
             // Only makes sense to look for change if we have data
             // of the previous state!
-            let today = new Date().toISOString().substr(0,10);
+            let today = getCurrentDateStr();
 
             for (let i = 0; i < nomList.length; i++){
                 let nom = nomList[i];
@@ -139,7 +144,11 @@
                     myDates.UPGRADE = today;
                     createNotification(`${nom.title} was upgraded!`);
                 }
-    
+
+                // was missing?
+                if ((historicalData.status === "MISSING")){
+                    createNotification(`${nom.title} returned`);
+                }
                 // In queue -> In voting
                 if ((historicalData.status !== "VOTING") && (nom.status === "VOTING")){
                     createNotification(`${nom.title} went into voting!`);
@@ -159,14 +168,41 @@
                         myDates[states[j]] = today;
                     }
                 }
-    
+
                 nom.Dates = myDates;
                 nomList[i] = nom;
             }
 
             // Store the new state
-            localSave(lStoreList,makeNominationDictionary(nomList));
+
+            let nomDict = makeNominationDictionary(nomList);
+            let fullDict = Object.assign(nomDict,missingDict);
+            localSave(lStoreList,fullDict);
         }
+    }
+
+    function detectMissing(){
+        // check if saved nomination is not in current list
+        // might be in review by Niantic staff
+        let nomDict = makeNominationDictionary(window.wfes.nominations.list);
+        let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+        let today = getCurrentDateStr();
+        let missingDict = {};
+        let myDates = {};
+        let miss = {};
+
+        for (let histID in historyDict){
+            if (undefined === nomDict[histID]){
+                // missing
+                miss = historyDict[histID];
+                if ((miss.status !== "MISSING")){
+                    miss.Dates.MISSING = today;
+                    createNotification(`${miss.title} is missing`);
+                    missingDict[histID] = miss;
+                }
+            }
+        }
+        return missingDict;
     }
 
     function NominationSelected() {
