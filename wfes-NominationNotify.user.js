@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.3.0
+// @version      0.3.1
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -197,9 +197,10 @@
                 miss = historyDict[histID];
                 if ((miss.status !== "MISSING")){
                     miss.Dates.MISSING = today;
+                    miss.status = 'MISSING';
                     createNotification(`${miss.title} is missing`);
-                    missingDict[histID] = miss;
                 }
+                missingDict[histID] = miss;
             }
         }
         return missingDict;
