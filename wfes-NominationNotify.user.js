@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.3.1
+// @version      0.3.2
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -39,10 +39,18 @@
                 }
                 .wfesNotification{
                 border-radius: 0.5em;
-                background-color: #3e8e41CC;
                 padding: 1em;
                 margin-top: 1.5em;
                 color: white;
+                }
+                .wfesBgGreen{
+                background-color: #3e8e41CC;
+                }
+                .wfesBgRed{
+                background-color: #CC0000B0;
+                }
+                .wfesBgOrange{
+                background-color: #FC9000D0;
                 }
                 .wfesNotifyCloseButton{
                 float: right;
@@ -61,9 +69,19 @@
         }
     }
 
-    function createNotification(message){
+    function createNotification(message, color = 'green'){
         let notification = document.createElement("div");
-        notification.setAttribute("class", "wfesNotification");
+        switch (color) {
+            case 'red':
+                notification.setAttribute("class", "wfesNotification wfesBgRed");
+                break;
+            case 'orange':
+                notification.setAttribute("class", "wfesNotification wfesBgOrange");
+                break;
+            default:
+                notification.setAttribute("class", "wfesNotification wfesBgGreen");
+                break;
+        }
         notification.onclick = function(){
             notification.remove();
         };
@@ -147,7 +165,7 @@
 
                 // was missing?
                 if ((historicalData.status === "MISSING")){
-                    createNotification(`${nom.title} returned`);
+                    createNotification(`${nom.title} returned`, 'orange');
                 }
                 // In queue -> In voting
                 if ((historicalData.status !== "VOTING") && (nom.status === "VOTING")){
@@ -198,7 +216,7 @@
                 if ((miss.status !== "MISSING")){
                     miss.Dates.MISSING = today;
                     miss.status = 'MISSING';
-                    createNotification(`${miss.title} is missing`);
+                    createNotification(`${miss.title} is missing`,'red');
                 }
                 missingDict[histID] = miss;
             }
