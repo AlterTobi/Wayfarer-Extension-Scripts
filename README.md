@@ -21,9 +21,11 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-Base.user.js
 * [Nomination Notify](https://github.com/AlterTobi/WFES/raw/main/wfes-NominationNotify.user.js)
     - show nomination status updates
 * [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/main/wfes-AddTranslationButtons.user.js)
-    - Adds buttons to translate text associated with a wayspot
+    - adds buttons to translate text associated with a wayspot
 * [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/main/wfes-WayfarerStats.user.js)
     - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
+* [Dupes Scroll](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/main/wfes-dupesScroll.user.js)
+    - use mouse wheel to scroll the dupes filmstrip
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
