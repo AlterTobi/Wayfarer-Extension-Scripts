@@ -30,6 +30,7 @@
         if (null !== elem) {
             elem.innerHTML = URLify(elem.innerHTML);
         } else {
+            // @TODO set maxTries
             setTimeout(detectURL, 100);
         }
     }
