@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Add Translation Buttons
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.1.6
+// @version      0.1.7
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -92,9 +92,9 @@
             translateButton.setAttribute("target", "wfesTranslate");
             translateButton.setAttribute("class", "translateButton");
             translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
-            
+
             allText += elems[i].innerText + "\n\n";
-            
+
             elems[i].appendChild(translateButton);
         }
 
@@ -104,7 +104,7 @@
         let titleDiv = document.querySelector("app-review-photo > div > div.review-photo__info > div.flex.flex-col")
         titleDiv.insertAdjacentElement('afterbegin', translateButton);
     }
-    
+
     function addTranslationButtons(){
         addCSS();
         let elems = document.getElementById("title-description-card").children[1].children[0].children;
@@ -129,10 +129,14 @@
             translateButton.setAttribute("target", "wfesTranslate");
             translateButton.setAttribute("class", "translateButton");
             translateButton.href = "https://translate.google.com/?sl=auto&q=" + (encodeURIComponent(elem.getElementsByClassName("wf-review-card__body")[0].innerText));
+            let translateDiv = document.createElement("div");
+            translateDiv.setAttribute("class", "bg-gray-200 px-4");
+            translateDiv.appendChild(translateButton);
 
             allText += elem.getElementsByClassName("wf-review-card__body")[0].innerText + "\n\n";
 
-            document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0].getElementsByClassName("wf-review-card__body")[0].children[0].children[1].appendChild(translateButton);
+            document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0].getElementsByClassName("wf-review-card__body")[0].children[0].children[1].insertAdjacentElement('afterend', translateDiv);
+
         }
 
         let translateButton = getTranslateAllButton(allText);
