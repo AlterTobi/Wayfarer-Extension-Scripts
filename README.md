@@ -26,6 +26,8 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-Base.user.js
     - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 * [Dupes Scroll](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/main/wfes-dupesScroll.user.js)
     - use mouse wheel to scroll the dupes filmstrip
+* [URLify](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/main/wfes-URLify.user.js)
+    - detect URLs in supporting text and create links
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
