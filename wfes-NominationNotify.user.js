@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.3.2
+// @version      0.3.3
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -139,22 +139,25 @@
             // Only makes sense to look for change if we have data
             // of the previous state!
             let today = getCurrentDateStr();
+            let myDates, historicalData, nom;
 
             for (let i = 0; i < nomList.length; i++){
-                let nom = nomList[i];
-                let historicalData = historyDict[nom.id];
-                let myDates = {};
+                nom = nomList[i];
+                historicalData = historyDict[nom.id];
+                myDates = {};
 
                 if (historicalData === undefined) {
-                    myDates[nom.status] = today; // save current date
-                    // and state
+                    myDates[nom.status] = today; // save current date and
+                                                 // state
                     nom.Dates = myDates;
                     continue; // Skip to next as this is a brand new
                     // entry so we don't know it's previous
                     // state
                 } else {
-                    // get saved dates
-                    myDates = historicalData.Dates;
+                    // get saved dates - if they exist
+                    if (undefined !== historicalData.Dates) {
+                        myDates = historicalData.Dates;
+                    }
                 }
 
                 // upgrade?
