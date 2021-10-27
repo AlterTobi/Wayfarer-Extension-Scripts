@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WFES - Wayfarer Stats
 // @namespace   https://github.com/AlterTobi/WFES/
-// @version     0.1.2
+// @version     0.1.3
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 // @match       https://wayfarer.nianticlabs.com/*
@@ -220,11 +220,10 @@
                         break; // den Rest können wir uns sparen :-)
                 }
             }
-            if (hasText) {
-                console.log(selfname + ' ERGEBNIS: ' + was + ' gefunden');
-            } else {
-                console.log(selfname + ' ERGEBNIS: ' + was + ' frei :-)');
-            }
+/*
+ * if (hasText) { console.log(selfname + ' ERGEBNIS: ' + was + ' gefunden'); }
+ * else { console.log(selfname + ' ERGEBNIS: ' + was + ' frei :-)'); }
+ */
             return (hasText);
         }
         function set_warning(image) {
