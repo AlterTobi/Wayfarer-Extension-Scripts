@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - review Add Orig Location
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.0.1
+// @version      0.1.0
 // @description  WFES location edits - add marker for original location
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -28,7 +28,6 @@
     }
 
     function addOrigMarker() {
-        console.log("WFES addOrigMarker");
         // only on location edits
         if (window.wfes.edit.what.location) {
             if (typeof(google) === 'undefined') {
