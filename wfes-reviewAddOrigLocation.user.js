@@ -31,6 +31,10 @@
         console.log("WFES addOrigMarker");
         // only on location edits
         if (window.wfes.edit.what.location) {
+            if (typeof(google) === 'undefined') {
+                setTimeout(addOrigMarker, 200);
+                return;
+            }
             // get the map - thx tehstone ;-)
             const gmap = document.querySelector('app-select-location-edit nia-map');
             let mapCtx = gmap.__ngContext__.at(-1);
