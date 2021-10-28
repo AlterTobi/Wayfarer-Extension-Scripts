@@ -28,6 +28,8 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-Base.user.js
     - use mouse wheel to scroll the dupes filmstrip
 * [URLify](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/main/wfes-URLify.user.js)
     - detect URLs in supporting text and create links
+* [Add Orig Location](https://github.com/AlterTobi/WFES/raw/main/wfes-reviewAddOrigLocation.user.js)
+    - add marker for original location on location edits
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
