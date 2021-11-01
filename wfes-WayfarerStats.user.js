@@ -97,66 +97,65 @@
 }
 
     function wfrstats() {
-                var heute, last, ut;
+        var heute, last, ut;
 
-                // nur tun, wenn heute noch nicht und Stunde > 3
-                let jetzt = new Date();
-                let stunde = jetzt.getHours();
+        // nur tun, wenn heute noch nicht und Stunde > 3
+        let jetzt = new Date();
+        let stunde = jetzt.getHours();
 
-            if (stunde < 3) {
-                heute = new Date(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate()-1 );
-            } else {
-                heute = new Date(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate() );
-            }
-
-            let heuteTS = heute.getTime();
-
-                if (wfrStats.length > 0) {
-                        last = wfrStats[wfrStats.length-1].datum;
-                } else {
-                        last = 0;
-                }
-
-                if (heuteTS > last) {
-
-                        console.log(selfname + ' saving stats');
-
-                        const reviewed = window.wfes.profile.finished;
-                        const accepted = window.wfes.profile.accepted;
-                        const rejected = window.wfes.profile.rejected;
-            const duplicated = window.wfes.profile.duplicated;
-
-                        if ( last > 0 ) {
-                                // nur wenn schon gespeicherte Werte vorhanden.
-                                let einTag = 24*60*60*1000; // milliseconds
-
-                                let letzter = new Date();
-                    letzter.setTime(last);
-                                let letzterTS = new Date(letzter.getFullYear(), letzter.getMonth(), letzter.getDate()).getTime();
-
-                                while ( (heuteTS - letzterTS) > einTag ) {
-                                        letzterTS += einTag;
-                                        var curstats = {'datum':letzterTS,'reviewed':reviewed,'accepted':accepted,'rejected':rejected,'duplicated':duplicated};
-                                        wfrStats.push(curstats);
-                                }
-                        }
-
-                if (stunde > 3) {
-                    ut = jetzt.getTime();
-                } else {
-                    ut = heuteTS;
-                }
-
-                        curstats = {'datum':ut,'reviewed':reviewed,'accepted':accepted,'rejected':rejected,'duplicated':duplicated};
-
-                    wfrStats.push(curstats);
-                    localSave(lStoreStats,wfrStats);
-
-                } else {
-                        console.log('stats already saved today');
-                }
+        if (stunde < 3) {
+            heute = new Date(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate()-1 );
+        } else {
+            heute = new Date(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate() );
         }
 
+        let heuteTS = heute.getTime();
+
+        if (wfrStats.length > 0) {
+            last = wfrStats[wfrStats.length-1].datum;
+        } else {
+            last = 0;
+        }
+
+        if (heuteTS > last) {
+
+            console.log(selfname + ' saving stats');
+
+            const reviewed = window.wfes.profile.finished;
+            const accepted = window.wfes.profile.accepted;
+            const rejected = window.wfes.profile.rejected;
+            const duplicated = window.wfes.profile.duplicated;
+
+            if ( last > 0 ) {
+                // nur wenn schon gespeicherte Werte vorhanden.
+                let einTag = 24*60*60*1000; // milliseconds
+ 
+                let letzter = new Date();
+                letzter.setTime(last);
+                let letzterTS = new Date(letzter.getFullYear(), letzter.getMonth(), letzter.getDate()).getTime();
+
+                while ( (heuteTS - letzterTS) > einTag ) {
+                    letzterTS += einTag;
+                    var curstats = {'datum':letzterTS,'reviewed':reviewed,'accepted':accepted,'rejected':rejected,'duplicated':duplicated};
+                    wfrStats.push(curstats);
+                }
+            }
+
+            if (stunde > 3) {
+                ut = jetzt.getTime();
+            } else {
+                ut = heuteTS;
+            }
+
+            curstats = {'datum':ut,'reviewed':reviewed,'accepted':accepted,'rejected':rejected,'duplicated':duplicated};
+
+            wfrStats.push(curstats);
+            localSave(lStoreStats,wfrStats);
+
+            } else {
+                console.log('stats already saved today');
+            }
+        }
 
     function emptyPage(histText){
         // fake history Eintrag (wegen zurückbutton)
@@ -254,8 +253,8 @@
         }
 
         if (usertext !== "") {
-                let hasPoketext = pruefeText(usertext, pokeArr, 'Pokémon');
-                let hasHPWUtext = pruefeText(usertext, HPWUArr, 'HPWU');
+            let hasPoketext = pruefeText(usertext, pokeArr, 'Pokémon');
+            let hasHPWUtext = pruefeText(usertext, HPWUArr, 'HPWU');
 
             // Statistik speichern
             let jetzt = new Date();
@@ -287,6 +286,7 @@
         wfrstats();
         upgrades();
     }
+
     function handleShowcase() {
         let section = document.getElementsByClassName('showcase')[0];
 
@@ -300,6 +300,7 @@
                    '<button class="button-primary" id="WFRStatsBtn">show my stats</button></div>'
                    );
         }
+
         function buttonFuncs() {
             // Stats
             function _writeLine(stats){
@@ -320,6 +321,7 @@
                 localSave(lStoreCheck,isChecked);
             })
         }
+
         function showStatsTable() {
             // Stats - Tabelle
 
@@ -339,48 +341,49 @@
             for (var i = wfrStats.length - 1; i >= end; i--) {
                 let ymd = YMDfromTime(wfrStats[i].datum);
 
-           let prozent = wfrStats[i].reviewed > 0 ? 100*(wfrStats[i].accepted + wfrStats[i].rejected + wfrStats[i].duplicated)/ wfrStats[i].reviewed : 0;
-           if (i > 0) {
-               grev = wfrStats[i].reviewed - wfrStats[i-1].reviewed;
-               gacc = wfrStats[i].accepted - wfrStats[i-1].accepted;
-               grej = wfrStats[i].rejected - wfrStats[i-1].rejected;
-               gdup = wfrStats[i].duplicated - wfrStats[i-1].duplicated;
-               gproz = grev > 0 ? (100*(gacc+grej+gdup)/grev).toFixed(2) : ' -- ';
-               trev += grev;
-               tacc += gacc;
-               trej += grej;
-               tdup += gdup;
-           } else {
-               gproz = grev = gacc = grej = gdup = ' -- ';
-           }
-           if (i > week-1) {
-               wrev = wfrStats[i].reviewed - wfrStats[i-week].reviewed;
-               wacc = wfrStats[i].accepted - wfrStats[i-week].accepted;
-               wrej = wfrStats[i].rejected - wfrStats[i-week].rejected;
-               wdup = wfrStats[i].duplicated - wfrStats[i-week].duplicated;
-               wproz = wrev > 0 ? (100*(wacc+wrej+wdup)/wrev).toFixed(2) : ' -- ';
-           } else {
-               wproz = wrev = wacc = wrej = wdup = ' -- ';
-           }
-           innertable.insertAdjacentHTML("beforeEnd", '<tr><td>' + ymd +'</td><td>' + wfrStats[i].reviewed + '</td><td>'+
+                let prozent = wfrStats[i].reviewed > 0 ? 100*(wfrStats[i].accepted + wfrStats[i].rejected + wfrStats[i].duplicated)/ wfrStats[i].reviewed : 0;
+                if (i > 0) {
+                    grev = wfrStats[i].reviewed - wfrStats[i-1].reviewed;
+                    gacc = wfrStats[i].accepted - wfrStats[i-1].accepted;
+                    grej = wfrStats[i].rejected - wfrStats[i-1].rejected;
+                    gdup = wfrStats[i].duplicated - wfrStats[i-1].duplicated;
+                    gproz = grev > 0 ? (100*(gacc+grej+gdup)/grev).toFixed(2) : ' -- ';
+                    trev += grev;
+                    tacc += gacc;
+                    trej += grej;
+                    tdup += gdup;
+                } else {
+                    gproz = grev = gacc = grej = gdup = ' -- ';
+                }
+                if (i > week-1) {
+                    wrev = wfrStats[i].reviewed - wfrStats[i-week].reviewed;
+                    wacc = wfrStats[i].accepted - wfrStats[i-week].accepted;
+                    wrej = wfrStats[i].rejected - wfrStats[i-week].rejected;
+                    wdup = wfrStats[i].duplicated - wfrStats[i-week].duplicated;
+                    wproz = wrev > 0 ? (100*(wacc+wrej+wdup)/wrev).toFixed(2) : ' -- ';
+                } else {
+                    wproz = wrev = wacc = wrej = wdup = ' -- ';
+                }
+                innertable.insertAdjacentHTML("beforeEnd", '<tr><td>' + ymd +'</td><td>' + wfrStats[i].reviewed + '</td><td>'+
                        wfrStats[i].accepted + '</td><td>' + wfrStats[i].rejected + '</td><td>' + wfrStats[i].duplicated + '</td><td>' + prozent.toFixed(2) + '%</td>'+
                        '<td>' + grev + '</td><td>' + gacc + '</td><td>' + grej + '</td><td>' + gdup + '</td><td>(' + gproz + '%)</td>' +
                        '<td>' + wrev + '</td><td>' + wacc + '</td><td>' + wrej + '</td><td>' + wdup + '</td><td>(' + wproz + '%)</td></tr>');
-            }
-            tproz = trev > 0 ? (100*(tacc+trej+tdup)/trev).toFixed(2) : ' -- ';
-            agr = tacc+trej+tdup;
-            aproz = agr > 0 ? (100*tacc/agr).toFixed(2) : ' -- ';
-            rproz = agr > 0 ? (100*trej/agr).toFixed(2) : ' -- ';
-            dproz = agr > 0 ? (100*tdup/agr).toFixed(2) : ' -- ';
+                }
+                tproz = trev > 0 ? (100*(tacc+trej+tdup)/trev).toFixed(2) : ' -- ';
+                agr = tacc+trej+tdup;
+                aproz = agr > 0 ? (100*tacc/agr).toFixed(2) : ' -- ';
+                rproz = agr > 0 ? (100*trej/agr).toFixed(2) : ' -- ';
+                dproz = agr > 0 ? (100*tdup/agr).toFixed(2) : ' -- ';
 
-            innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><td colspan="6" rowspan="2"></td>'+
+                innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><td colspan="6" rowspan="2"></td>'+
                        '<td>' + trev + '</td><td>' + tacc + '</td><td>' + trej + '</td><td>' + tdup + '</td><td>(' + tproz + '%)</td>' +
                        '<td colspan="5" rowspan="2"></td></tr>' +
                        '<td></td><td>' + aproz + '%</td><td>' + rproz + '%</td><td>' + dproz + '%</td><td></td>');
-        }
-        function showGamesTable() {
-            let gamesdiv = document.getElementById('gamesdiv');
-            gamesdiv.insertAdjacentHTML("afterBegin",
+            }
+        
+            function showGamesTable() {
+                let gamesdiv = document.getElementById('gamesdiv');
+                gamesdiv.insertAdjacentHTML("afterBegin",
                     '<table border="2"><colgroup><col width="4%"><col width="19%"><col width="8%"><col width="8%"><col width="8%">' +
                     '<col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="14%"></colgroup>' +
                     '<thead><tr><th rowspan="2" colspan="2"></th><th colspan="4">Portaleinreichungen</th>' +
@@ -389,41 +392,41 @@
                     '<th colspan="2">Prime/Pokémon Go</th></tr></thead>' +
                     '<tbody id="gamesTBbody"></tbody></table>');
 
-            let innertable = document.getElementById('gamesTBbody');
-            let redg, redp, prig, prip, edig, edip, edih, redh, prih, phog, phop, phoh;
-            redg = redp = prig = prip = edig = edip = edih = redh = prih = phog = phop = phoh = 0;
+                let innertable = document.getElementById('gamesTBbody');
+                let redg, redp, prig, prip, edig, edip, edih, redh, prih, phog, phop, phoh;
+                redg = redp = prig = prip = edig = edip = edih = redh = prih = phog = phop = phoh = 0;
 
-    // Zählen
-    for (let i = 0; i < PoGoStats.length; i++) {
-            switch (PoGoStats[i].typ) {
+                // Zählen
+                for (let i = 0; i < PoGoStats.length; i++) {
+                    switch (PoGoStats[i].typ) {
                     case "EDIT":
-                            edig++;
-                            if (PoGoStats[i].pogo) { edip++; }
-                            if (PoGoStats[i].hpwu) { edih++; }
-                            break;
+                        edig++;
+                        if (PoGoStats[i].pogo) { edip++; }
+                        if (PoGoStats[i].hpwu) { edih++; }
+                        break;
                     case "NEW":
-                            switch (PoGoStats[i].subtyp) {
-                                    case 0:
-                                            redg++;
-                                            if (PoGoStats[i].pogo) { redp++; }
-                                            if (PoGoStats[i].hpwu) { redh++; }
-                                            break;
-                                    case 1:
-                                            prig++;
-                                            if (PoGoStats[i].pogo) { prip++; }
-                                            if (PoGoStats[i].hpwu) { prih++; }
-                                            break;
-                                    default:
-                                            console.warn('PoGoTable: falscher subtyp: ' + PoGoStats[i].subtyp);
+                        switch (PoGoStats[i].subtyp) {
+                            case 0:
+                                redg++;
+                                if (PoGoStats[i].pogo) { redp++; }
+                                if (PoGoStats[i].hpwu) { redh++; }
+                                break;
+                            case 1:
+                                prig++;
+                                if (PoGoStats[i].pogo) { prip++; }
+                                if (PoGoStats[i].hpwu) { prih++; }
+                                break;
+                            default:
+                                console.warn('PoGoTable: falscher subtyp: ' + PoGoStats[i].subtyp);
                             }
                             break;
                     case "PHOTO":
-                            phog++;
-                            if (PoGoStats[i].pogo) { phop++; }
-                            if (PoGoStats[i].hpwu) { phoh++; }
-                            break;
+                        phog++;
+                        if (PoGoStats[i].pogo) { phop++; }
+                        if (PoGoStats[i].hpwu) { phoh++; }
+                        break;
                     default:
-                            console.warn(selfname + ' falscher typ: ' + PoGoStats[i].typ);
+                        console.warn(selfname + ' falscher typ: ' + PoGoStats[i].typ);
                 }
         }
 
@@ -444,7 +447,7 @@
         let phogp = revg > 0 ? (100*phog/revg).toFixed(2) : ' -- ';
 
         innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><th colspan="2">reviews gesamt </th><td>' + redg + '</td><td>'+redgp+'%</td><td>'+
-                        prig + '</td><td>'+prigp+'%</td><td>' + edig + '</td><td>'+edigp+'%</td><td>' + phog + '</td><td>'+phogp+'%</td><td>' + revg + '</td></tr>');
+                         prig + '</td><td>'+prigp+'%</td><td>' + edig + '</td><td>'+edigp+'%</td><td>' + phog + '</td><td>'+phogp+'%</td><td>' + revg + '</td></tr>');
 
         // PoGo Prozente
         let redgpp = revp > 0 ? (100*redp/revp).toFixed(2) : ' -- ';
