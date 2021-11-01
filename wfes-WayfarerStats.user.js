@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WFES - Wayfarer Stats
 // @namespace   https://github.com/AlterTobi/WFES/
-// @version     0.1.3
+// @version     0.1.4
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 // @match       https://wayfarer.nianticlabs.com/*
@@ -128,8 +128,9 @@
 
             if ( last > 0 ) {
                 // nur wenn schon gespeicherte Werte vorhanden.
-                let einTag = 24*60*60*1000; // milliseconds
- 
+                let einTag = 25*60*60*1000; // milliseconds
+                                            // 25hours because of DST
+
                 let letzter = new Date();
                 letzter.setTime(last);
                 let letzterTS = new Date(letzter.getFullYear(), letzter.getMonth(), letzter.getDate()).getTime();
