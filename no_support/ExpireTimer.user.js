@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Expire Timer
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.1.1
+// @version      0.1.2
 // @description  Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -17,7 +17,7 @@
     let headerTimer;
 
     function createTimer(message) {
-        let header = document.getElementsByTagName("app-header")[0].children[0].children[0];
+        let header = document.getElementsByTagName("wf-header")[0].children[0].children[0];
         let headerTimerWrapper = document.createElement("div");
         headerTimer = document.createElement("span");
         headerTimer.innerText = message;
