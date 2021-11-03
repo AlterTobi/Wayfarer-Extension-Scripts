@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - image Mods
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.1.4
+// @version      0.1.5
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -26,7 +26,6 @@
                   font-size: 48px;
                 }
                 .lupe {
-                  z-index: 9999;
                   position: absolute;
                   left: 0px;
                 }
