@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - URLify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.1.0
+// @version      0.1.1
 // @description  WFES - detect links in supporting information
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -28,7 +28,7 @@
         let elem = document
                 .querySelector('app-review-new app-supporting-info > wf-review-card.wf-review-card.card.ng-star-inserted > div > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted');
         if (null !== elem) {
-            elem.innerHTML = URLify(elem.innerHTML);
+            elem.innerText = URLify(elem.innerText);
         } else {
             // @TODO set maxTries
             setTimeout(detectURL, 100);
