@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.3.3
+// @version      0.4.0
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -122,7 +122,8 @@
     }
 
     function detectChange(){
-        let nomList = window.wfes.nominations.list;
+        // make a copy
+        let nomList = JSON.parse(JSON.stringify(wfes.nominations.list));
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
         const missingDict = detectMissing();
 
@@ -164,6 +165,12 @@
                 if (historicalData.upgraded === false && nom.upgraded === true){
                     myDates.UPGRADE = today;
                     createNotification(`${nom.title} was upgraded!`);
+                }
+
+                // Niantic Review?
+                if (historicalData.isNianticControlled === false && nom.isNianticControlled === true){
+                    myDates.NIANTICREVIEW = today;
+                    createNotification(`${nom.title} went into Niantic review!`, red);
                 }
 
                 // was missing?
