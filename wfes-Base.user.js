@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.6.7
+// @version      0.7.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -27,6 +27,7 @@
     window.wfes.nominations = {};
     window.wfes.edit = {};
     window.wfes.properties = {};
+    window.wfes.messages = {};
 
     /* ================ overwrite XHR ================ */
     let openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
@@ -86,7 +87,7 @@
                 return;
             }
 
-            let nominationDict;
+            let nominationDict, lang;
             switch (this._url) {
                 case PREFIX + 'home':
                     window.wfes.showcase.list = json.result.showcase;
@@ -120,6 +121,14 @@
                     window.dispatchEvent(new Event("WFESPropertiesLoaded"));
                     break;
                 default:
+                    // messages?language=de
+                    if (PREFIX + 'messages?language=' === this._url.substr(0, 18 + PREFIX.length)) {
+                        lang = this._url.substr(18 + PREFIX.length);
+                        window.wfes.messages[lang] = json.result;
+                    } else {
+                        // console.log('WFES Base - unhandled URL: ',
+                        // this._url);
+                    }
                     break;
             }
         } catch (e) {
