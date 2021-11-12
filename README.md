@@ -26,8 +26,6 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-Base.user.js
     - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 * [Dupes Scroll](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/main/wfes-dupesScroll.user.js)
     - use mouse wheel to scroll the dupes filmstrip
-* [URLify](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/main/wfes-URLify.user.js)
-    - detect URLs in supporting text and create links
 * [Add Orig Location](https://github.com/AlterTobi/WFES/raw/main/wfes-reviewAddOrigLocation.user.js)
     - add marker for original location on location edits
 
@@ -39,6 +37,8 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 * [Nomination page StreetView](https://github.com/AlterTobi/WFES/raw/main/no_support/NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!
+* [URLify](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/main/no_support/wfes-URLify.user.js)
+    - detect URLs in supporting text and create links
 * [WF+ Dark Mode](https://github.com/AlterTobi/WFES/raw/main/no_support/DarkMode.user.js)
     - Apply WayFarer+ like dark mode
 

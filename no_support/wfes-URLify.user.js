@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - URLify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.1.1
+// @version      0.1.2
 // @description  WFES - detect links in supporting information
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
