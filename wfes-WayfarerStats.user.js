@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WFES - Wayfarer Stats
 // @namespace   https://github.com/AlterTobi/WFES/
-// @version     0.1.4
+// @version     0.2.0
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 // @match       https://wayfarer.nianticlabs.com/*
@@ -187,8 +187,8 @@
                 head.appendChild(fav);
     }
 
-        /* PoGO und HPWU zählen */
-        function handleReview() {
+    /* PoGO zählen */
+    function handleReview() {
 
         // hier die zu suchenden Begriffe rein
         let pokeArr= [
@@ -203,16 +203,8 @@
                 'Nester',
                 'Pokespot'
                 ];
-        let HPWUArr = [
-                'Gasthaus',
-                'Festung',
-                'Gewächshaus',
-                'Wizard',
-                'Potter'
-                ];
-
         function pruefeText(text, arr, was){
-                let hasText = false;
+            let hasText = false;
             for (let p of arr) {
                 let r = new RegExp(p,'im');
                 if (r.test(text)) {
@@ -255,7 +247,6 @@
 
         if (usertext !== "") {
             let hasPoketext = pruefeText(usertext, pokeArr, 'Pokémon');
-            let hasHPWUtext = pruefeText(usertext, HPWUArr, 'HPWU');
 
             // Statistik speichern
             let jetzt = new Date();
@@ -264,7 +255,7 @@
                         'typ' : type,
                         'subtyp' : subtype,
                         'pogo' : hasPoketext,
-                        'hpwu' : hasHPWUtext,
+                        'hpwu' : false,
                         'latE6' : newPortalData.lat * 1E6,
                         'lngE6' : newPortalData.lng * 1E6,
                         'titel' : newPortalData.title
@@ -274,10 +265,6 @@
             if (hasPoketext){
                 set_warning(WARN_POGO);
             }
-            if (hasHPWUtext){
-                set_warning(WARN_HPWU);
-            }
-
         } else {
             console.warn(selfname + ' kein Text - das ist ein Bug');
         }
@@ -503,17 +490,6 @@
  * *** Section Const
  * **************************************************************
  */
-const WARN_HPWU = `data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
-bWFnZVJlYWR5ccllPAAAAEJQTFRF///////M//+Z//9m//8z/8yZ/5mZzJlmzGZmzGYzzDMzmWZm
-mWYzmTMAZmYzZjMzZjMAZgAAMzMzMzMAMwAAAAAAXZu2egAAAThJREFUeNqck9tywyAMROW4QmCE
-hZHz/7/axZfGaTKdTvaFGR+0uiDT15+if2M69B4TS1LVFInGF3yjVGp1aKnp4UAnLdWbHypxeMKg
-3h7y5eQbHqlcIW4ucntgODfzFbYGOoP7wuOJKXbqImIA+1HT8IOLNW/Ms3C/lTtuNRx4pApLGfRu
-HJBAgiHJIrTj7u3GrKsFNpvvIQPX+A7rqlndkE1PnHpluzmrSZAZ3Msl2rZwYbY5Z96wXjHaziKB
-5/UueYU5Jn9WXoBNbUVz5jPnnruele995yHf9abeAsbSrBX6wamg0EGUxZtFYfXD+5j5hFkrpum9
-CEPlR/CBpdv3F9mEkZZIl/eGvTU7BTrR07ZQnPrnHVpJ9GvXCAZli60IpZdNHYlimqbp/aZeFn38
-6C/5AH8LMADPWh06LhCQOwAAAABJRU5ErkJggg==`;
-
 const WARN_POGO = `data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
 bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz
