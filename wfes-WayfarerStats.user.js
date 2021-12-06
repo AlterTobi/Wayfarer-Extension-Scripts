@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        WFES - Wayfarer Stats
 // @namespace   https://github.com/AlterTobi/WFES/
-// @version     0.2.0
+// @version     0.3.0
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 // @match       https://wayfarer.nianticlabs.com/*
@@ -94,7 +94,7 @@
                         myWFRupgrades.push(curstats);
                         localSave(lStoreUpgrades,myWFRupgrades);
                 }
-}
+    }
 
     function wfrstats() {
         var heute, last, ut;
@@ -156,7 +156,7 @@
             } else {
                 console.log('stats already saved today');
             }
-        }
+    }
 
     function emptyPage(histText){
         // fake history Eintrag (wegen zurückbutton)
@@ -212,10 +212,6 @@
                         break; // den Rest können wir uns sparen :-)
                 }
             }
-/*
- * if (hasText) { console.log(selfname + ' ERGEBNIS: ' + was + ' gefunden'); }
- * else { console.log(selfname + ' ERGEBNIS: ' + was + ' frei :-)'); }
- */
             return (hasText);
         }
         function set_warning(image) {
@@ -285,29 +281,12 @@
                    '<div id="statsdiv"></div>' +
                    '<div id="gamesdiv"></div>' +
                    '<div id="buttonsdiv" class="pull-right">reverse: <input type="checkbox" id="reversebox" ' + cText + '/>' +
-                   '<button class="button-primary" id="WFRStatsBtn">show my stats</button></div>'
+                   '<button class="button-primary" id="WFRStatsBtn">show my stats</button>'+
+                   '<button class="button-primary" id="WFRSUpgrBtn">show my upgrades</button>' +
+                   '<button class="button-primary" id="WFRMarkBtn">WFR Marker Map</button>' +
+                   '<button class="button-primary" id="WFRHeatBtn">WFR HeatMap</button>' +
+                   '</div>'
                    );
-        }
-
-        function buttonFuncs() {
-            // Stats
-            function _writeLine(stats){
-                    let dupes = "undefined" === typeof(stats.duplicated) ? "" : stats.duplicated;
-                    body.insertAdjacentHTML("beforeEnd", YMDfromTime(stats.datum) + ';' + stats.reviewed + ';' + stats.accepted + ';' + stats.rejected + ';' + dupes + '<br/>');
-            }
-            document.getElementById('WFRStatsBtn').addEventListener('click', function(){
-                    emptyPage("/#mystats");
-                    if (isChecked) {
-                    for (let i = wfrStats.length -1 ; i >= 0 ; i--) {
-                            _writeLine(wfrStats[i]);
-                    }
-                    } else {
-                    for (let i = 0 ; i < wfrStats.length ; i++) {
-                            _writeLine(wfrStats[i]);
-                    }
-                    }
-                localSave(lStoreCheck,isChecked);
-            })
         }
 
         function showStatsTable() {
@@ -368,8 +347,154 @@
                        '<td colspan="5" rowspan="2"></td></tr>' +
                        '<td></td><td>' + aproz + '%</td><td>' + rproz + '%</td><td>' + dproz + '%</td><td></td>');
             }
-        
-            function showGamesTable() {
+
+
+        function buttonFuncs() {
+            // Stats
+            function _writeLine(stats){
+                    let dupes = "undefined" === typeof(stats.duplicated) ? "" : stats.duplicated;
+                    body.insertAdjacentHTML("beforeEnd", YMDfromTime(stats.datum) + ';' + stats.reviewed + ';' + stats.accepted + ';' + stats.rejected + ';' + dupes + '<br/>');
+            }
+            document.getElementById('WFRStatsBtn').addEventListener('click', function(){
+                emptyPage("/#mystats");
+                if (isChecked) {
+                    for (let i = wfrStats.length -1 ; i >= 0 ; i--) {
+                            _writeLine(wfrStats[i]);
+                    }
+                } else {
+                    for (let i = 0 ; i < wfrStats.length ; i++) {
+                            _writeLine(wfrStats[i]);
+                    }
+                }
+                localSave(lStoreCheck,isChecked);
+            });
+
+            // Upgrades
+            document.getElementById('WFRSUpgrBtn').addEventListener('click', function(){
+                emptyPage("/#myupgrades")
+                let myup = JSON.parse(localStorage.getItem(lStoreUpgrades)) || [];
+                if (isChecked) {
+                    for (let i = myup.length -1 ; i >= 0 ; i--) {
+                        body.insertAdjacentHTML("beforeEnd", myup[i].datum + ';' + myup[i].progress + ';' + myup[i].total + '<br/>');
+                    }
+                } else {
+                    for (let i = 0 ; i < myup.length ; i++) {
+                        body.insertAdjacentHTML("beforeEnd", myup[i].datum + ';' + myup[i].progress + ';' + myup[i].total + '<br/>');
+                    }
+                }
+                localSave(lStoreCheck,isChecked);
+            });
+
+            // Marker Map
+            document.getElementById('WFRHeatBtn').addEventListener('click', showMap);
+
+            // Heatmap
+            document.getElementById('WFRMarkBtn').addEventListener('click', showMap);
+
+            function showMap() {
+                let histText, innerScript = '';
+                if ('WFRHeatBtn' === this.id ) {
+                    histText = '/#wfrheatmap';
+                    innerScript += `
+                        function getPoints() {
+                        return [`;
+                    for (let i = PoGoStats.length - 1; i > PoGoStats.length -501; i--) {
+                        // nur die neuesten 500
+                        let lat = PoGoStats[i].latE6/1E6;
+                        let lng = PoGoStats[i].lngE6/1E6;
+                        innerScript += "new google.maps.LatLng("+lat+","+lng+"),";
+                        if ( 0 === i) { break; }// weniger geht nicht
+                    }
+                    innerScript += `]}
+                        heatmap = new google.maps.visualization.HeatmapLayer({
+                          data: getPoints(),
+                          opacity: 0.6,
+                          map: map
+                        })`;
+                } else if ('WFRMarkBtn' === this.id ) {
+                    histText = '/#wfrmarker';
+                    let iconBase = 'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/';
+
+                    for (let i = PoGoStats.length - 1; i > PoGoStats.length -501; i--) {
+                        // nur die neuesten 500
+                        let lat = PoGoStats[i].latE6/1E6;
+                        let lng = PoGoStats[i].lngE6/1E6;
+                        let ti1, ti2, ico;
+                        let color = 'Azure';
+                        ti1 = ti2 = '';
+                        if (PoGoStats[i].pogo) { ti2 = 'PoGo'; color = 'Pink' ;}
+                        if (PoGoStats[i].hpwu) { ti2 = 'HPWU'; color = 'Chartreuse' ;}
+
+                        switch (PoGoStats[i].typ) {
+                            case "EDIT":
+                                ti1 = 'Edit';
+                                ico = 'Map-Marker-Ball-Right-' + color + '-icon.png';
+                                break;
+                            case "NEW":
+                                switch (PoGoStats[i].subtyp) {
+                                    case 0:
+                                        ti1 = 'NEW R';
+                                        ico = 'Map-Marker-Push-Pin-1-'+color+'-icon.png';
+                                        break;
+                                    case 1:
+                                        ti1 = 'NEW P';
+                                        ico = 'Map-Marker-Marker-Outside-'+color+'-icon.png';
+                                        break;
+                                }
+                                break;
+                            case "PHOTO":
+                                ti1 = 'Photo';
+                                ico = 'Map-Marker-Flag-1-Right-' + color + '-icon.png';
+                                break;
+                            default:
+                                ti1 = 'unknowm';
+                                ico = 'Map-Marker-Chequered-Flag-Right-' + color + '-icon.png';
+                                break;
+                        }
+                        let title = ti1 + " " + ti2;
+                        let icon = iconBase + ico;
+                        innerScript += "marker = new google.maps.Marker({" +
+                                "position: {lat:"+lat+",lng:"+lng+"}," +
+                                "map: map," +
+                                "title: '" + title + "'," +
+                                "icon: '"+ icon + "'"+
+                                "});\n";
+                        if ( 0 === i) { break; }// weniger geht nicht
+                    }
+                }
+
+                // Body leeren
+                emptyPage(histText);
+
+                let style = document.createElement("style");
+                    style.innerHTML= `#map { height: 100%; }
+                    html, body { height: 100%; margin: 0; padding: 0;}`;
+                head.appendChild(style);
+
+                body.insertAdjacentHTML("afterBegin",'<div id="map"></div>');
+
+                let script = document.createElement("script");
+                script.type = "text/javascript";
+                script.innerHTML=`
+                    function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                      zoom: 7,
+                      center: {lat: 51.38, lng: 10.12},
+                      mapTypeId: 'hybrid'
+                    })
+                    `;
+                script.innerHTML += innerScript + "}";
+
+                body.appendChild(script);
+
+                script = document.createElement("script");
+                script.type = "text/javascript";
+                script.setAttribute("src",'https://maps.googleapis.com/maps/api/js?key=AIzaSyB8G-1vuHW3Sx8ONsM71G9TzWJHHWXfAf8&libraries=visualization,geometry&callback=initMap');
+                body.appendChild(script);
+            }
+        }
+
+        function showGamesTable() {
                 let gamesdiv = document.getElementById('gamesdiv');
                 gamesdiv.insertAdjacentHTML("afterBegin",
                     '<table border="2"><colgroup><col width="4%"><col width="19%"><col width="8%"><col width="8%"><col width="8%">' +
@@ -464,15 +589,16 @@
                         '</td><td>'+prighp+'%</td><td>' + edih + '</td><td>'+edighp+'%</td><td>' + phoh + '</td><td>'+phoghp+'%</td><td>' + revh + '</td></tr>');
         innertable.insertAdjacentHTML("beforeEnd", '<tr><th></th><th>in Prozent </th><th colspan="2">' + redhp + '%</th><th colspan="2">'+ prihp +
                         '%</th><th colspan="2">' + edihp + '%</th><th colspan="2">' + phohp + '%</th><th>' + revhp + '%</th></tr>');
-        }
-     // ---
-        addCSS();
-        addDivs();
-        showStatsTable();
-        showGamesTable();
-        buttonFuncs();
+     }
 
-    }
+    // ---
+    addCSS();
+    addDivs();
+    showStatsTable();
+    showGamesTable();
+    buttonFuncs();
+
+}
 
 /*******************************************************************************
  * MAIN
@@ -484,7 +610,6 @@
     window.addEventListener("WFESHomePageLoaded", handleShowcase);
 
     console.log( "WFES Script loaded: Wayfarer Stats");
-
 
 /**
  * *** Section Const
