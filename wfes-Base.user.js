@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.7.0
+// @version      0.7.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -104,7 +104,7 @@
                     break;
                 case PREFIX + 'manage':
                     // nomination list
-                    window.wfes.nominations.list = json.result;
+                    window.wfes.nominations.list = json.result.nominations;
                     window.dispatchEvent(new Event("WFESNominationListLoaded"));
                     break;
                 case PREFIX + 'manage/detail':
