@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.5.0
+// @version      0.6.0
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -108,12 +108,10 @@
     }
 
     // Useful to make comparing easier. Essentially this function iterates
-    // over all nominations
-    // and uses it's unique ID as key and stores relevant values under that
-    // key.
+    // over all nominations and uses it's unique ID as key and stores relevant
+    // values under that key.
     // This way on checking we can simply find the ID when looking at a
-    // current state nomination
-    // and immediately find it's previous state.
+    // current state nomination and immediately find it's previous state.
     function makeNominationDictionary(nomList){
         let dict = {};
         for (let i = 0; i < nomList.length; i++){
@@ -131,7 +129,7 @@
         // make a copy
         let nomList = JSON.parse(JSON.stringify(window.wfes.nominations.list));
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
-        const missingDict = detectMissing();
+        // const missingDict = detectMissing();
 
         if ( 0 === historyDict.length){
             // first run, import from Wayfarer+, if exists
@@ -217,8 +215,9 @@
             // Store the new state
 
             let nomDict = makeNominationDictionary(nomList);
-            let fullDict = Object.assign(nomDict,missingDict);
-            localSave(lStoreList,fullDict);
+            localSave(lStoreList,nomDict);
+// let fullDict = Object.assign(nomDict,missingDict);
+// localSave(lStoreList,fullDict);
         }
     }
 
