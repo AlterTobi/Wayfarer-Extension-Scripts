@@ -1,0 +1,56 @@
+// ==UserScript==
+// @name         WFES - Nomination Detail
+// @namespace    https://github.com/AlterTobi/WFES/
+// @version      0.0.1
+// @description  WFES improvements for nomination detail page
+// @author       AlterTobi
+// @match        https://wayfarer.nianticlabs.com/*
+// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/feature/NominationDetail/wfes-NominationDetail.user.js
+// @supportURL   https://github.com/AlterTobi/WFES/issues
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    let propsLoaded = false;
+
+    function modifyNomDetail() {
+
+        if (propsLoaded) {
+            if ('REJECTED' === window.wfes.nominations.detail.status) {
+                const myLang = window.wfes.properties.language;
+                const allStr = window.wfes.messages[myLang];
+
+                let rejectReasons = [], rlc, rName, rNameShort, fullText;
+
+                for (let i=0; i < window.wfes.nominations.detail.rejectReasons.length;i++) {
+                    rlc = window.wfes.nominations.detail.rejectReasons[i].reason.toLowerCase();
+                    rName = "reject.reason." + rlc;
+                    rNameShort = rName + ".short";
+                    if (undefined == allStr[rName]) {
+                        fullText = rName;
+                    } else {
+                        fullText = "<strong>" + rlc + "</strong>: " + allStr[rNameShort]+" - "+allStr[rName];
+                    }
+                    rejectReasons.push(fullText);
+                }
+                const rejSection = document.querySelector("div.details-pane__section");
+                // first child is heading, so start with 1 (second child)
+                for (let i = 1; i <= rejectReasons.length; i++) {
+                    rejSection.children[i].innerHTML = rejectReasons[i-1];
+                }
+            }
+        } else {
+            console.log("WFES Nomination Detail: properties not loaded, retry");
+            setTimeout(modifyNomDetail,500);
+            return;
+        }
+    }
+
+    window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(modifyNomDetail,200)});
+    window.addEventListener("WFESPropertiesLoaded", () => {propsLoaded = true});
+
+    console.log("WFES Script loaded: Nomination Detail");
+})();
