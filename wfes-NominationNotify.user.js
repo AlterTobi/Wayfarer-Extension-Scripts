@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.4.0
+// @version      0.5.0
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -15,7 +15,7 @@
     'use strict';
 
     const lStoreList = 'wfesNomList';
-    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED'];
+    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED'];
 
     function localSave(name,content){
         let json = JSON.stringify(content);
@@ -52,6 +52,9 @@
                 .wfesBgOrange{
                 background-color: #FC9000D0;
                 }
+                .wfesBgBlue{
+                background-color: #0010DFD0;
+                }
                 .wfesNotifyCloseButton{
                 float: right;
                 }
@@ -77,6 +80,9 @@
                 break;
             case 'orange':
                 notification.setAttribute("class", "wfesNotification wfesBgOrange");
+                break;
+            case 'blue':
+                notification.setAttribute("class", "wfesNotification wfesBgBlue");
                 break;
             default:
                 notification.setAttribute("class", "wfesNotification wfesBgGreen");
@@ -123,7 +129,7 @@
 
     function detectChange(){
         // make a copy
-        let nomList = JSON.parse(JSON.stringify(wfes.nominations.list));
+        let nomList = JSON.parse(JSON.stringify(window.wfes.nominations.list));
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
         const missingDict = detectMissing();
 
@@ -146,6 +152,11 @@
                 nom = nomList[i];
                 historicalData = historyDict[nom.id];
                 myDates = {};
+
+                // detect unknown states
+                if (!states.includes(nom.status)) {
+                    createNotification(`${nom.title} has unknown state: ${nom.status}`,'blue');
+                }
 
                 if (historicalData === undefined) {
                     myDates[nom.status] = today; // save current date and
@@ -170,7 +181,7 @@
                 // Niantic Review?
                 if (historicalData.isNianticControlled === false && nom.isNianticControlled === true){
                     myDates.NIANTICREVIEW = today;
-                    createNotification(`${nom.title} went into Niantic review!`, red);
+                    createNotification(`${nom.title} went into Niantic review!`, 'red');
                 }
 
                 // was missing?
@@ -188,7 +199,9 @@
                     }else if(nom.status === "DUPLICATE"){
                         createNotification(`${nom.title} was marked as a duplicate!`);
                     }
-                }
+                } else if ((historicalData.status !== "APPEALED") && (nom.status === "APPEALED")){
+                    createNotification(`${nom.title} was appealed!`);
+                } 
 
                 // save Dates of each state change
                 for (let j = 0; j < states.length; j++) {
