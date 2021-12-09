@@ -157,7 +157,7 @@
                 if (!states.includes(nom.status)) {
                     createNotification(`${nom.title} has unknown state: ${nom.status}`,'blue');
                 }
-                
+
                 if (historicalData === undefined) {
                     myDates[nom.status] = today; // save current date and
                                                  // state
