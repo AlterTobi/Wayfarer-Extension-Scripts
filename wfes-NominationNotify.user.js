@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.6.0
+// @version      0.7.0
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -15,11 +15,17 @@
     'use strict';
 
     const lStoreList = 'wfesNomList';
+    const sCanAppeal = 'wfesCanAppeal';
     const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED'];
 
     function localSave(name,content){
         let json = JSON.stringify(content);
         localStorage.setItem(name,json);
+    }
+
+    function sessionSave(name,content){
+        let json = JSON.stringify(content);
+        sessionStorage.setItem(name,json);
     }
 
     function addCSS(){
@@ -123,6 +129,20 @@
 
     function getCurrentDateStr(){
         return new Date().toISOString().substr(0,10);
+    }
+
+    function checkAppeal() {
+        let savedState = JSON.parse(sessionStorage.getItem(sCanAppeal)) || false;
+        if (!savedState) {
+            if(window.wfes.nominations.canAppeal) {
+                createNotification('Appeal is now possible', 'red');
+                sessionSave(sCanAppeal,true);
+            }
+        } else {
+            if(!window.wfes.nominations.canAppeal) {
+                sessionSave(sCanAppeal,false);
+            }
+        }
     }
 
     function detectChange(){
@@ -274,6 +294,7 @@
         addCSS();
         createNotificationArea();
         detectChange();
+        checkAppeal();
     }
 
     let loadNomTimerId = null;
