@@ -15,13 +15,34 @@
     'use strict';
 
     let propsLoaded = false;
+    let needDiv = true;
+    let rejDiv,flexDiv;
 
     function modifyNomDetail() {
+        const myLang = window.wfes.properties.language;
+        const allStr = window.wfes.messages[myLang];
+        const myID = 'nominationDetailRejectDiv';
 
         if (propsLoaded) {
-            if ('REJECTED' === window.wfes.nominations.detail.status) {
-                const myLang = window.wfes.properties.language;
-                const allStr = window.wfes.messages[myLang];
+
+            if (needDiv && ('APPEALED' === window.wfes.nominations.detail.status)) {
+                // add a DIV to bring back reject reasons
+                rejDiv = document.createElement("div");
+                rejDiv.setAttribute("class","ng-star-inserted");
+                rejDiv.setAttribute('id',myID);
+                rejDiv.innerHTML = '<div class="details-pane__section"><h5>' +
+                    allStr["criteria.rejection"] +'</h5><div></div><div></div>';
+                flexDiv = document.querySelector("app-details-pane > div > div > div > div.flex.flex-row.justify-between");
+                flexDiv.insertAdjacentElement('afterEnd',rejDiv);
+                needDiv = false;
+            } else if ('REJECTED' === window.wfes.nominations.detail.status) {
+                if (flexDiv && document.getElementById(myID)) {
+                    flexDiv.parentNode.removeChild(rejDiv);
+                    needDiv = true;
+                }
+            }
+
+            if (['REJECTED','APPEALED'].includes(window.wfes.nominations.detail.status)) {
 
                 let rejectReasons = [], rlc, rName, rNameShort, fullText;
 
