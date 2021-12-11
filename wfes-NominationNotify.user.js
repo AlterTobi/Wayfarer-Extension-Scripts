@@ -15,17 +15,12 @@
     'use strict';
 
     const lStoreList = 'wfesNomList';
-    const sCanAppeal = 'wfesCanAppeal';
+    const lCanAppeal = 'wfesCurrentAppealState';
     const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED'];
 
     function localSave(name,content){
         let json = JSON.stringify(content);
         localStorage.setItem(name,json);
-    }
-
-    function sessionSave(name,content){
-        let json = JSON.stringify(content);
-        sessionStorage.setItem(name,json);
     }
 
     function addCSS(){
@@ -132,15 +127,15 @@
     }
 
     function checkAppeal() {
-        let savedState = JSON.parse(sessionStorage.getItem(sCanAppeal)) || false;
+        let savedState = JSON.parse(localStorage.getItem(lCanAppeal)) || false;
         if (!savedState) {
             if(window.wfes.nominations.canAppeal) {
                 createNotification('Appeal is now possible', 'red');
-                sessionSave(sCanAppeal,true);
+                localSave(lCanAppeal,true);
             }
         } else {
             if(!window.wfes.nominations.canAppeal) {
-                sessionSave(sCanAppeal,false);
+                localSave(lCanAppeal,false);
             }
         }
     }
