@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.8.0
+// @version      0.9.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -23,6 +23,7 @@
     window.wfes.showcase = {};
     window.wfes.review = {};
     window.wfes.review.decision = {};
+    window.wfes.review.appeal = {};
     window.wfes.profile = {};
     window.wfes.nominations = {};
     window.wfes.edit = {};
@@ -62,6 +63,11 @@
                     json.skipped = true;
                     window.wfes.review.decision.decision = json;
                     window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+                    break;
+                case PREFIX + 'manage/appeal':
+                    json = JSON.parse(daten);
+                    window.wfes.review.appeal = json;
+                    window.dispatchEvent(new Event("WFESReviewAppealSent"));
                     break;
                 default:
                     break;
