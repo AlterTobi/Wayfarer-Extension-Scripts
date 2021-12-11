@@ -15,7 +15,7 @@
     'use strict';
 
     const lStoreList = 'wfesNomList';
-    const lCanAppeal = 'wfesCurrentAppealState';
+    const lCanAppeal = 'wfes_CurrentAppealState';
     const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED'];
 
     function localSave(name,content){
