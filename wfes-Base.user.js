@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @version      0.9.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -56,7 +56,7 @@
                     window.wfes.review.decision.decision = json;
                     window.dispatchEvent(new Event("WFESReviewDecisionSent"));
                     break;
-                case PREFIX + 'skip':
+                case PREFIX + 'review/skip':
                     json = JSON.parse(daten);
                     candidate = window.wfes.review.sessionHist[json.id];
                     window.wfes.review.decision.candidate = candidate;
