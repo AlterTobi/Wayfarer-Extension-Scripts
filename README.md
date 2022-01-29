@@ -29,7 +29,7 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/main/wfes-Base.user.js
 * [Add Orig Location](https://github.com/AlterTobi/WFES/raw/main/wfes-reviewAddOrigLocation.user.js)
     - add marker for original location on location edits
 * [Store Appeal Information](https://github.com/AlterTobi/WFES/raw/main/wfes-AppealData.user.js)
-    - saves your appeal statement in brwoser storage for future review
+    - saves your appeal statement in browser storage for future review
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
