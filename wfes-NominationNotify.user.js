@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.7.0
+// @version      0.8.0
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -16,7 +16,7 @@
 
     const lStoreList = 'wfesNomList';
     const lCanAppeal = 'wfes_CurrentAppealState';
-    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED'];
+    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED','NIANTIC_REVIEW'];
 
     function localSave(name,content){
         let json = JSON.stringify(content);
@@ -193,7 +193,6 @@
 
                 // Niantic Review?
                 if (historicalData.isNianticControlled === false && nom.isNianticControlled === true){
-                    myDates.NIANTICREVIEW = today;
                     createNotification(`${nom.title} went into Niantic review!`, 'red');
                 }
 
