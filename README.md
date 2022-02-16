@@ -24,7 +24,7 @@ Install [WFES Base](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Base
     - adds buttons to translate text associated with a wayspot
 * [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-WayfarerStats.user.js)
     - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
-* [Dupes Scroll](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/release/v0.9/wfes-dupesScroll.user.js)
+* [Dupes Scroll](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-dupesScroll.user.js)
     - use mouse wheel to scroll the dupes filmstrip
 * [Add Orig Location](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-reviewAddOrigLocation.user.js)
     - add marker for original location on location edits
