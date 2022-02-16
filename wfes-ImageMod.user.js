@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         WFES - image Mods
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.1.5
+// @version      0.9.0
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-ImageMod.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/release/v0.9/wfes-ImageMod.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none

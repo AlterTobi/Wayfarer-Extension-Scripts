@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         WFES - Nomination page StreetView
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      1.0.2
+// @version      1.0.3
 // @description  Adds the streetview view a reviewer will see on your own nominations!
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/no_support/NominationsStreetView.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/release/v0.9/no_support/NominationsStreetView.user.js
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
