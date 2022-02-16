@@ -5,7 +5,7 @@
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/release/v0.9/wfes-Showcase.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none

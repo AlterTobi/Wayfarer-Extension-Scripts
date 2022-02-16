@@ -5,7 +5,7 @@
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/release/v0.9/wfes-AddTranslationButtons.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AddTranslationButtons.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none

@@ -5,7 +5,7 @@
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/release/v0.9/wfes-Base.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Base.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
