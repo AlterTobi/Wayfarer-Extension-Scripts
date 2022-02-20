@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         WFES - maps open in
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.3.5
+// @version      0.9.0
 // @description  add "Open In" for maps
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/main/wfes-OpenIn.user.js
+// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-OpenIn.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
