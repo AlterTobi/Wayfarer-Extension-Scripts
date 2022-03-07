@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - Base
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.2
+// @version      0.9.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -87,6 +87,7 @@
             }
             if ('OK' !== json.code) {
                 console.warn("WFES: got no OK from server", response);
+                return;
             }
             if (!json.result) {
                 console.warn("WFES: got no result from server");
