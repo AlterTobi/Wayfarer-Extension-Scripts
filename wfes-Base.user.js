@@ -29,6 +29,7 @@
     window.wfes.edit = {};
     window.wfes.properties = {};
     window.wfes.messages = {};
+    window.wfes.f = window.wfes.g = window.wfes.s = {}; // function, get, set
 
     /* ================ overwrite XHR ================ */
     let openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
@@ -233,6 +234,11 @@
     }
     window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
     /* ================ /nomination page ============== */
+
+    // make objects immutable
+    Object.freeze(window.wfes.f);
+    Object.freeze(window.wfes.g);
+    Object.freeze(window.wfes.s);
 
     /* we are done :-) */
     console.log("WFES Script loaded: BASE");
