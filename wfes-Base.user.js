@@ -88,6 +88,7 @@
             }
             if ('OK' !== json.code) {
                 console.warn("WFES: got no OK from server", response);
+                return;
             }
             if (!json.result) {
                 console.warn("WFES: got no result from server");
