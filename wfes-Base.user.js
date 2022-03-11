@@ -19,17 +19,19 @@
     const sStoreReview = 'wfes_Reviews';
     const sStoreNominationsDetails = 'wfes_nominationDetails';
 
-    window.wfes = {};
-    window.wfes.showcase = {};
-    window.wfes.review = {};
-    window.wfes.review.decision = {};
-    window.wfes.review.appeal = {};
-    window.wfes.profile = {};
-    window.wfes.nominations = {};
-    window.wfes.edit = {};
-    window.wfes.properties = {};
-    window.wfes.messages = {};
-    window.wfes.f = window.wfes.g = window.wfes.s = {}; // function, get, set
+    let wfes = {};
+    wfes.showcase = {};
+    wfes.review = {};
+    wfes.review.decision = {};
+    wfes.review.appeal = {};
+    wfes.profile = {};
+    wfes.nominations = {};
+    wfes.edit = {};
+    wfes.properties = {};
+    wfes.messages = {};
+
+    window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter,
+                                                        // setter
 
     /* ================ overwrite XHR ================ */
     let openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
@@ -52,22 +54,22 @@
             switch (this._url) {
                 case PREFIX + 'review':
                     json = JSON.parse(daten);
-                    candidate = window.wfes.review.sessionHist[json.id];
-                    window.wfes.review.decision.candidate = candidate;
-                    window.wfes.review.decision.decision = json;
+                    candidate = wfes.review.sessionHist[json.id];
+                    wfes.review.decision.candidate = candidate;
+                    wfes.review.decision.decision = json;
                     window.dispatchEvent(new Event("WFESReviewDecisionSent"));
                     break;
                 case PREFIX + 'review/skip':
                     json = JSON.parse(daten);
-                    candidate = window.wfes.review.sessionHist[json.id];
-                    window.wfes.review.decision.candidate = candidate;
+                    candidate = wfes.review.sessionHist[json.id];
+                    wfes.review.decision.candidate = candidate;
                     json.skipped = true;
-                    window.wfes.review.decision.decision = json;
+                    wfes.review.decision.decision = json;
                     window.dispatchEvent(new Event("WFESReviewDecisionSent"));
                     break;
                 case PREFIX + 'manage/appeal':
                     json = JSON.parse(daten);
-                    window.wfes.review.appeal = json;
+                    wfes.review.appeal = json;
                     window.dispatchEvent(new Event("WFESReviewAppealSent"));
                     break;
                 default:
@@ -98,7 +100,7 @@
             let nominationDict, lang;
             switch (this._url) {
                 case PREFIX + 'home':
-                    window.wfes.showcase.list = json.result.showcase;
+                    wfes.showcase.list = json.result.showcase;
                     window.dispatchEvent(new Event("WFESHomePageLoaded"));
                     break;
                 case PREFIX + 'review':
@@ -107,34 +109,34 @@
                     }
                     break;
                 case PREFIX + 'profile':
-                    window.wfes.profile = json.result;
+                    wfes.profile = json.result;
                     window.dispatchEvent(new Event("WFESProfileLoaded"));
                     break;
                 case PREFIX + 'manage':
                     // nomination list
-                    window.wfes.nominations.list = json.result.nominations;
-                    window.wfes.nominations.canAppeal = json.result.canAppeal;
-                    window.wfes.nominations.wayspots = json.result.wayspots;
+                    wfes.nominations.list = json.result.nominations;
+                    wfes.nominations.canAppeal = json.result.canAppeal;
+                    wfes.nominations.wayspots = json.result.wayspots;
                     window.dispatchEvent(new Event("WFESNominationListLoaded"));
                     break;
                 case PREFIX + 'manage/detail':
                     // nomination detail
-                    window.wfes.nominations.detail = json.result;
+                    wfes.nominations.detail = json.result;
                     // save nomination Details in Sessionstorage
                     nominationDict = JSON.parse(sessionStorage.getItem(sStoreNominationsDetails)) || {};
-                    nominationDict[window.wfes.nominations.detail.id] = window.wfes.nominations.detail;
+                    nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
                     sessionSave(sStoreNominationsDetails, nominationDict);
                     window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
                     break;
                 case PREFIX + 'properties':
-                    window.wfes.properties = json.result;
+                    wfes.properties = json.result;
                     window.dispatchEvent(new Event("WFESPropertiesLoaded"));
                     break;
                 default:
                     // messages?language=de
                     if (PREFIX + 'messages?language=' === this._url.substr(0, 18 + PREFIX.length)) {
                         lang = this._url.substr(18 + PREFIX.length);
-                        window.wfes.messages[lang] = json.result;
+                        wfes.messages[lang] = json.result;
                     } else {
                         // console.log('WFES Base - unhandled URL: ',
                         // this._url);
@@ -153,27 +155,27 @@
     function handleReviewData(result) {
         // save review data in ...pagedata and sessionstore
         let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
-        window.wfes.review.sessionHist = makeIDbasedDictionary(reviewSessionHist);
+        wfes.review.sessionHist = makeIDbasedDictionary(reviewSessionHist);
 
-        if (undefined === window.wfes.review.sessionHist[result.id]) {
+        if (undefined === wfes.review.sessionHist[result.id]) {
             reviewSessionHist.push(result);
             sessionSave(sStoreReview, reviewSessionHist);
-            window.wfes.review.sessionHist[result.id] = result;
+            wfes.review.sessionHist[result.id] = result;
         }
 
-        window.wfes.edit.isEdit = false;
+        wfes.edit.isEdit = false;
 
-        window.wfes.review.pageData = result;
-        switch (window.wfes.review.pageData.type) {
+        wfes.review.pageData = result;
+        switch (wfes.review.pageData.type) {
             case 'NEW':
                 window.dispatchEvent(new Event("WFESReviewPageNewLoaded"));
                 break;
             case 'EDIT':
-                window.wfes.edit.isEdit = true;
-                window.wfes.edit.what = {};
-                window.wfes.edit.what.location = result.locationEdits.length > 1;
-                window.wfes.edit.what.description = result.descriptionEdits.length > 0;
-                window.wfes.edit.what.title = result.titleEdits.length > 0;
+                wfes.edit.isEdit = true;
+                wfes.edit.what = {};
+                wfes.edit.what.location = result.locationEdits.length > 1;
+                wfes.edit.what.description = result.descriptionEdits.length > 0;
+                wfes.edit.what.title = result.titleEdits.length > 0;
                 window.dispatchEvent(new Event("WFESReviewPageEditLoaded"));
                 break;
             case 'PHOTO':
@@ -207,11 +209,11 @@
 
     /* ================ nomination page =============== */
     function loadCachedNomination(nomItem) {
-        if (undefined === window.wfes.nominations.detail) {
+        if (undefined === wfes.nominations.detail) {
             window.setTimeout(loadCachedNomination, 250, nomItem);
         }
         const myID = nomItem.__ngContext__[22].id;
-        if (myID === window.wfes.nominations.detail.id) {
+        if (myID === wfes.nominations.detail.id) {
             // already loaded, do nothing
             return;
         }
@@ -222,7 +224,7 @@
             return;
         }
         // set cached values
-        window.wfes.nominations.detail = nomDetail;
+        wfes.nominations.detail = nomDetail;
         window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
     }
     function nominationsClickHander(elem) {
