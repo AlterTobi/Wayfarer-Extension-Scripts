@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - show Wayfarer version
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @version      0.9.1
 // @description  WFES - show current Wayfarer version
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -56,5 +56,5 @@
     window.addEventListener("WFESNominationListLoaded", showVersion);
 
     /* we are done :-) */
-    console.log("WFES Script loaded:", GM_info.script.name, 'v', GM_info.script.version);
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();

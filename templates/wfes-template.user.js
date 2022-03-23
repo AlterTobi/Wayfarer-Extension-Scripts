@@ -22,5 +22,5 @@
     window.addEventListener("EVENT", myTemplate);
 
     /* we are done :-) */
-    console.log("WFES Script loaded:", GM_info.script.name, 'v', GM_info.script.version);
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
