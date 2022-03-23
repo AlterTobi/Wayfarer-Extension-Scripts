@@ -6,6 +6,7 @@
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/feature/immutable/wfes-Base.user.js
+// @updateURL    https://github.com/AlterTobi/WFES/raw/feature/immutable/wfes-Base.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
@@ -31,7 +32,7 @@
     wfes.messages = {};
 
     window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter,
-                                                        // setter
+    // setter
 
     /* ================ overwrite XHR ================ */
     let openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
@@ -244,5 +245,5 @@
     Object.freeze(window.wfes.s);
 
     /* we are done :-) */
-    console.log("WFES Script loaded: BASE");
+    console.log("WFES Script loaded:", GM_info.script.name, 'v', GM_info.script.version);
 })();
