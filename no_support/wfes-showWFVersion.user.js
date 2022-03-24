@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - show Wayfarer version
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.1
+// @version      0.9.2
 // @description  WFES - show current Wayfarer version
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -31,7 +31,7 @@
                 top: 10px;
                 background-color: white;
                 border: 2px solid red;
-                padding: 5px; }
+                padding: 5px; box-shadow: 7px 7px 5px grey;}
                 `;
             headElem.appendChild(customStyleElem);
         }
