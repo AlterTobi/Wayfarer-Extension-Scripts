@@ -7,6 +7,7 @@
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-template.user.js
+// @updateURL    https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-template.user.js
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
@@ -20,5 +21,6 @@
 
     window.addEventListener("EVENT", myTemplate);
 
-    console.log("WFES Script loaded: TEMPLATE");
+    /* we are done :-) */
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();

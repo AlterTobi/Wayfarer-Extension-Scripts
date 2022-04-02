@@ -40,13 +40,12 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 * [Nomination page StreetView](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!
 * [URLify](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/release/v0.9/no_support/wfes-URLify.user.js)
-           https://github.com/AlterTobi/Wayfarer-Extension-Scripts/raw/release/v0.9/no_support/wfes-URLify.user.js
     - detect URLs in supporting text and create links
 * [Nomination Details](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-NominationDetail.user.js)
     - adds long text description for rejection criteria
     - shows reject reasons for appealed nominations
-* [WF+ Dark Mode](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/DarkMode.user.js)
-    - Apply WayFarer+ like dark mode
+* [Show version](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-showWFVersion.user.js)
+    - show current Wayfarer version
 
 ## Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
