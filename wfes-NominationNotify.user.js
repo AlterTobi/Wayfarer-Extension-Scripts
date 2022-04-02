@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         WFES - Nomination Notify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @version      0.9.1
 // @description  show nomination status updates
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-NominationNotify.user.js
+// @updateURL    https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-NominationNotify.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
@@ -15,6 +16,7 @@
     'use strict';
 
     const lStoreList = 'wfesNomList';
+    const lStoreVersion = 'wfesNomListVersion';
     const lCanAppeal = 'wfes_CurrentAppealState';
     const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED','NIANTIC_REVIEW'];
 
@@ -130,13 +132,34 @@
         let savedState = JSON.parse(localStorage.getItem(lCanAppeal)) || false;
         if (!savedState) {
             if(window.wfes.nominations.canAppeal) {
-                createNotification('Appeal is now possible', 'red');
+                createNotification('new Appeal available', 'red');
                 localSave(lCanAppeal,true);
             }
         } else {
             if(!window.wfes.nominations.canAppeal) {
                 localSave(lCanAppeal,false);
             }
+        }
+    }
+
+    function checkNomListVersion() {
+        let version = JSON.parse(localStorage.getItem(lStoreVersion)) || 0;
+        if (version < 1) {
+            console.warn('NomListVersion less then 1, converting');
+            // convert Dates
+            let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+            let myDates;
+            // only if we have any saved data
+            for (let histID in historyDict){
+                myDates = [];
+                for (let dat in historyDict[histID].Dates) {
+                  myDates.push([historyDict[histID].Dates[dat],dat]);    
+                }
+                historyDict[histID].wfesDates = myDates;
+                delete historyDict[histID].Dates;
+            }
+            localSave(lStoreList,historyDict);
+            localSave(lStoreVersion,1);
         }
     }
 
@@ -164,7 +187,7 @@
             for (let i = 0; i < nomList.length; i++){
                 nom = nomList[i];
                 historicalData = historyDict[nom.id];
-                myDates = {};
+                myDates = [];
 
                 // detect unknown states
                 if (!states.includes(nom.status)) {
@@ -172,22 +195,22 @@
                 }
 
                 if (historicalData === undefined) {
-                    myDates[nom.status] = today; // save current date and
-                                                 // state
-                    nom.Dates = myDates;
+                    myDates.push([today,nom.status]); // save current date and
+                                                    // status
+                    nom.wfesDates = myDates;
                     continue; // Skip to next as this is a brand new
                     // entry so we don't know it's previous
-                    // state
+                    // status
                 } else {
                     // get saved dates - if they exist
-                    if (undefined !== historicalData.Dates) {
-                        myDates = historicalData.Dates;
+                    if (undefined !== historicalData.wfesDates) {
+                        myDates = historicalData.wfesDates;
                     }
                 }
 
                 // upgrade?
                 if (historicalData.upgraded === false && nom.upgraded === true){
-                    myDates.UPGRADE = today;
+                    myDates.push([today,'UPGRADE']);
                     createNotification(`${nom.title} was upgraded!`);
                 }
 
@@ -215,14 +238,12 @@
                     createNotification(`${nom.title} was appealed!`);
                 } 
 
-                // save Dates of each state change
-                for (let j = 0; j < states.length; j++) {
-                    if (historicalData.status !== states[j] && nom.status === states[j]){
-                        myDates[states[j]] = today;
-                    }
+                // save Date if state changes
+                if (historicalData.status !== nom.status){
+                        myDates.push([today,nom.status]);
                 }
 
-                nom.Dates = myDates;
+                nom.wfesDates = myDates;
                 nomList[i] = nom;
             }
 
@@ -242,7 +263,6 @@
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
         let today = getCurrentDateStr();
         let missingDict = {};
-        let myDates = {};
         let miss = {};
 
         for (let histID in historyDict){
@@ -250,7 +270,7 @@
                 // missing
                 miss = historyDict[histID];
                 if ((miss.status !== "MISSING")){
-                    miss.Dates.MISSING = today;
+                    miss.wfesDates.push([today,'MISSING']);
                     miss.status = 'MISSING';
                     createNotification(`${miss.title} is missing`,'red');
                 }
@@ -264,7 +284,7 @@
         addCSS();
         const myID = window.wfes.nominations.detail.id;
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
-        let myDates = historyDict[myID].Dates || {};
+        let myDates = historyDict[myID].wfesDates || [];
         let elem = window.document.querySelector('div.card.details-pane > div.flex.flex-row > span');
         // Inhalt entfernen
         while (elem.childNodes.length > 0) {
@@ -274,12 +294,12 @@
         let p = document.createElement("p");
         p.innerText = window.wfes.nominations.detail.day + ' - NOMINATED';
         elem.appendChild(p);
-        for ( let dat in myDates) {
-            if ('NOMINATED' === dat) {
+        for ( let i = 0 ; i < myDates.length; i++) {
+            if ('NOMINATED' === myDates[i][1]) {
                 continue;
             }
             p = document.createElement("p");
-            p.innerText = myDates[dat] + ' - ' + dat;
+            p.innerText = myDates[i][0] + ' - ' + myDates[i][1];
             elem.appendChild(p);
         }
     }
@@ -287,6 +307,7 @@
     function NominationPageLoaded() {
         addCSS();
         createNotificationArea();
+        checkNomListVersion();
         detectChange();
         checkAppeal();
     }
@@ -296,5 +317,5 @@
                             () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250);});
     window.addEventListener("WFESNominationDetailLoaded",() => {setTimeout(NominationSelected,10);});
 
-    console.log('WFES Script loaded: Nomination Notify');
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
