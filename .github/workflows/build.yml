@@ -14,7 +14,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           mkdir build
-          cp -av *.js *.md no_support/*.js build
+          cp -av *.js *.md no_support build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.0
