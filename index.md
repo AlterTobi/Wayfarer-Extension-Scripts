@@ -1,2 +1,3 @@
-[[readme]]
-[[readme_de]]
+[English](README.html)
+
+[Deutsch](readme_de.html)
