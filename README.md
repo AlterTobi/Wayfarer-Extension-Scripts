@@ -1,3 +1,7 @@
+---
+  permalink: README.html
+---
+
 # Wayfarer Extension Scripts
 
 Tools and scripts for Niantic Wayfarer
