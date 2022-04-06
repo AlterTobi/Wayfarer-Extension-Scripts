@@ -8,20 +8,23 @@ jobs:
     # concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
-
       - name: Checkout Tools
         uses: actions/checkout@v3
         with:
           ref: build-tools
+
+      - name: Checkout Main 🛎️
+        uses: actions/checkout@v3
+        with:
+          clean: false
 
       - name: Install and Build 🔧
         run: |
           ls -lR
           git checkout build-tools .
           ls -lR
-          /usr/bin/python3 ./scripts/build.py
+          cd scripts
+          /usr/bin/python3 ./build.py
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.0
