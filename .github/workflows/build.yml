@@ -18,8 +18,10 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
+          ls -lR
           git checkout build-tools .
-          ./scripts/build.py
+          ls -lR
+          /usr/bin/python3 ./scripts/build.py
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.0
