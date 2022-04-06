@@ -10,19 +10,20 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-
-      - name: List branches
-        run: |
-          git branch
-          git branch -a
-
-      - name: Checkout fd0
-        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: List branches fd0
+      - name: Install and Build 🔧
         run: |
-          git branch
-          git branch -a
+          ls -lR
+          git checkout origin/build-tools .
+          ls -lR
+          cd scripts
+          /usr/bin/python3 ./build.py
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          folder: build # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
       
