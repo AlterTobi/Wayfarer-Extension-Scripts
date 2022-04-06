@@ -15,11 +15,14 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
+          set -e
           ls -lR
           git checkout origin/build-tools .
           ls -lR
           cd scripts
           /usr/bin/python3 ./build.py
+          cd ..
+          ls -lR build/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.0
