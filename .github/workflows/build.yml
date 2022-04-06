@@ -11,9 +11,13 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
+      - name: Checkout Tools
+        uses: actions/checkout@v3
+        with:
+          ref: build-tools
+
       - name: Install and Build 🔧
         run: |
-          git fetch origin build-tools
           git checkout build-tools .
           ./scripts/build.py
 
