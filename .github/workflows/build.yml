@@ -13,6 +13,7 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
+          git fetch origin build-tools
           git checkout build-tools .
           ./scripts/build.py
 
