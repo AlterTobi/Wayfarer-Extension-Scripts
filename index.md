@@ -1,5 +1,7 @@
 # WFES
 
-[English](README.html)
-
-[Deutsch](README_DE.html)
+  * [shortlist](shortlist.html) (automatically created - all scripts, short description)
+  
+  * [English](english.html)
+  
+  * [Deutsch](deutsch.html)

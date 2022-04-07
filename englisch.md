@@ -2,9 +2,6 @@
 
 Tools and scripts for Niantic Wayfarer
 
-## NEW
-Scripts now available at [github pages](https://altertobi.github.io/Wayfarer-Extension-Scripts/)
-
 ## What is it?
 Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > Userscript manager such as [Tampermonkey](https://tampermonkey.net/) required!
