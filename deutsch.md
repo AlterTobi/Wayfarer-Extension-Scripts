@@ -1,4 +1,3 @@
-# Wayfarer Extension Scripts
 
 Tools und Skripte für Niantic Wayfarer
 
