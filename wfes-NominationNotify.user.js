@@ -18,7 +18,7 @@
     const lStoreList = 'wfesNomList';
     const lStoreVersion = 'wfesNomListVersion';
     const lCanAppeal = 'wfes_CurrentAppealState';
-    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED','NIANTIC_REVIEW'];
+    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED','NIANTIC_REVIEW','HELD'];
 
     function localSave(name,content){
         let json = JSON.stringify(content);
