@@ -295,7 +295,7 @@
         p.innerText = window.wfes.nominations.detail.day + ' - NOMINATED';
         elem.appendChild(p);
         for ( let i = 0 ; i < myDates.length; i++) {
-            if ('NOMINATED' === myDates[i][1]) {
+            if ((0 === i ) && ('NOMINATED' === myDates[i][1])) {
                 continue;
             }
             p = document.createElement("p");
