@@ -1,4 +1,4 @@
-// @name         WFES - Userscript
+// @name         Template
 // @version      0.9.1
 // @description  WFES Template 
 // @author       AlterTobi
