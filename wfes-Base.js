@@ -1,16 +1,7 @@
-// ==UserScript==
-// @name         WFES - Base
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      1.0.0
+// @name         Base
+// @version      1.0.0alpha
 // @description  basic functionality for WFES
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/feature/immutable/wfes-Base.user.js
-// @updateURL    https://github.com/AlterTobi/WFES/raw/feature/immutable/wfes-Base.user.js
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';

@@ -1,16 +1,7 @@
-// ==UserScript==
-// @name         WFES - Nomination Notify
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.1
+// @name         Nomination Notify
+// @version      1.0.0alpha
 // @description  show nomination status updates
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-NominationNotify.user.js
-// @updateURL    https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-NominationNotify.user.js
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';

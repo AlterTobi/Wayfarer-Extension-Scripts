@@ -1,11 +1,10 @@
-# Wayfarer Extension Scripts
 
-Tools und Skripte für Niantic Wayfarer
+Tools and scripts for Niantic Wayfarer
 
-## Was ist das hier?
-Userscripts für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
-> ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) ist erforderlich!
-> Bugs und/oder feature requests bitte im [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues) melden.
+## What is it?
+Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+> Userscript manager such as [Tampermonkey](https://tampermonkey.net/) required!
+> Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues)
 
 ## How to install / use?
 Install [WFES Base](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Base.user.js) first!
