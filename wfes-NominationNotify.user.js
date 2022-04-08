@@ -18,7 +18,7 @@
     const lStoreList = 'wfesNomList';
     const lStoreVersion = 'wfesNomListVersion';
     const lCanAppeal = 'wfes_CurrentAppealState';
-    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED','NIANTIC_REVIEW'];
+    const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED','NIANTIC_REVIEW','HELD'];
 
     function localSave(name,content){
         let json = JSON.stringify(content);
@@ -295,7 +295,7 @@
         p.innerText = window.wfes.nominations.detail.day + ' - NOMINATED';
         elem.appendChild(p);
         for ( let i = 0 ; i < myDates.length; i++) {
-            if ('NOMINATED' === myDates[i][1]) {
+            if ((0 === i ) && ('NOMINATED' === myDates[i][1])) {
                 continue;
             }
             p = document.createElement("p");
