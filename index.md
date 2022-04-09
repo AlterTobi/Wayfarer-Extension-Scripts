@@ -9,4 +9,5 @@
 
 ## Information for developers
 
-Please look at the [GitHub repository](https://github.com/AlterTobi/WFES/)
+Please look at the [GitHub repository](https://github.com/AlterTobi/WFES/) and the
+[Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
