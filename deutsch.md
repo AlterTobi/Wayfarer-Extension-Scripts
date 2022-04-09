@@ -8,7 +8,7 @@ Userscripts für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 
 ## Installation
 Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-Base.user.js) installieren!
-> **Dieses Skript ist erforderlich, damit alle anderen funktionieren**
+> **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
 ## List of scripts
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
