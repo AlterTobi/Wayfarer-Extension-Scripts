@@ -11,14 +11,16 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes
 > **It's required for all other scripts to work.**
 
 ## List of scripts
+* [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-NominationNotify.user.js)
+    - show nomination status updates
+
+### scripts below this line are not yet update to work with version 1 and won't work at the moment
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
 * [ImageMod](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-ImageMod.user.js)
     - open fullsize images in "named" tabs
 * [Open In](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-OpenIn.user.js)
     - add "Open In" for maps
-* [Nomination Notify](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-NominationNotify.user.js)
-    - show nomination status updates
 * [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AddTranslationButtons.user.js)
     - adds buttons to translate text associated with a wayspot
 * [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-WayfarerStats.user.js)

@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.0.0alpha
+// @version      0.9.99
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -11,19 +11,8 @@
     const lCanAppeal = 'wfes_CurrentAppealState';
     const states = ['ACCEPTED','REJECTED','VOTING','DUPLICATE','WITHDRAWN','NOMINATED','APPEALED','NIANTIC_REVIEW','HELD'];
 
-    function localSave(name,content){
-        let json = JSON.stringify(content);
-        localStorage.setItem(name,json);
-    }
-
-    function addCSS(){
-        let myID = 'nominationNotifyCSS';
-        // already there?
-        if ( null === document.getElementById(myID)) {
-            let headElem = document.getElementsByTagName("HEAD")[0];
-            let customStyleElem = document.createElement("style");
-            customStyleElem.setAttribute('id',myID);
-                customStyleElem.innerText = `
+    const myCssId = 'nominationNotifyCSS';
+    const myStyle = `
                 #wfesNotify{
                 position: absolute;
                 bottom: 1em;
@@ -53,9 +42,6 @@
                 float: right;
                 }
                 `;
-            headElem.appendChild(customStyleElem);
-        }
-    }
 
     function createNotificationArea() {
         let myID = "wfesNotify";
@@ -101,34 +87,21 @@
         document.getElementById("wfesNotify").appendChild(notification);
     }
 
-    // Useful to make comparing easier. Essentially this function iterates
-    // over all nominations and uses it's unique ID as key and stores relevant
-    // values under that key.
-    // This way on checking we can simply find the ID when looking at a
-    // current state nomination and immediately find it's previous state.
-    function makeNominationDictionary(nomList){
-        let dict = {};
-        for (let i = 0; i < nomList.length; i++){
-            let nom = nomList[i];
-            dict[nom.id] = nom;
-        }
-        return dict;
-    }
-
     function getCurrentDateStr(){
         return new Date().toISOString().substr(0,10);
     }
 
     function checkAppeal() {
+        let canAppeal = window.wfes.g.canAppeal();
         let savedState = JSON.parse(localStorage.getItem(lCanAppeal)) || false;
         if (!savedState) {
-            if(window.wfes.nominations.canAppeal) {
+            if(canAppeal) {
                 createNotification('new Appeal available', 'red');
-                localSave(lCanAppeal,true);
+                window.wfes.f.localSave(lCanAppeal,true);
             }
         } else {
-            if(!window.wfes.nominations.canAppeal) {
-                localSave(lCanAppeal,false);
+            if(!canAppeal) {
+                window.wfes.f.localSave(lCanAppeal,false);
             }
         }
     }
@@ -149,14 +122,13 @@
                 historyDict[histID].wfesDates = myDates;
                 delete historyDict[histID].Dates;
             }
-            localSave(lStoreList,historyDict);
-            localSave(lStoreVersion,1);
+            window.wfes.f.localSave(lStoreList,historyDict);
+            window.wfes.f.localSave(lStoreVersion,1);
         }
     }
 
     function detectChange(){
-        // make a copy
-        let nomList = JSON.parse(JSON.stringify(window.wfes.nominations.list));
+        let nomList = window.wfes.g.nominationsList();
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
         // const missingDict = detectMissing();
 
@@ -164,10 +136,10 @@
             // first run, import from Wayfarer+, if exists
             let wfpList = JSON.parse(localStorage.getItem('wfpNomList'));
             if (wfpList === null) {
-                localSave(lStoreList, makeNominationDictionary(nomList));
+                window.wfes.f.localSave(lStoreList, window.wfes.f.makeIDbasedDictionary(nomList));
             } else {
                 // import WF+ Data
-                localSave(lStoreList, wfpList);
+                window.wfes.f.localSave(lStoreList, wfpList);
             }
         }else{
             // Only makes sense to look for change if we have data
@@ -240,17 +212,17 @@
 
             // Store the new state
 
-            let nomDict = makeNominationDictionary(nomList);
-            localSave(lStoreList,nomDict);
+            let nomDict = window.wfes.f.makeIDbasedDictionary(nomList);
+            window.wfes.f.localSave(lStoreList,nomDict);
 // let fullDict = Object.assign(nomDict,missingDict);
-// localSave(lStoreList,fullDict);
+// window.wfes.f.localSave(lStoreList,fullDict);
         }
     }
 
     function detectMissing(){
         // check if saved nomination is not in current list
         // might be in review by Niantic staff
-        let nomDict = makeNominationDictionary(window.wfes.nominations.list);
+        let nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.nominations.list);
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
         let today = getCurrentDateStr();
         let missingDict = {};
@@ -271,9 +243,18 @@
         return missingDict;
     }
 
+    function NominationPageLoaded() {
+        window.wfes.f.addCSS(myCssId,myStyle);
+        createNotificationArea();
+        checkNomListVersion();
+        detectChange();
+        checkAppeal();
+    }
+
     function NominationSelected() {
-        addCSS();
-        const myID = window.wfes.nominations.detail.id;
+        window.wfes.f.addCSS(myCssId,myStyle);
+        let nomDetail = window.wfes.g.nominationDetail();
+        const myID = nomDetail.id;
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
         let myDates = historyDict[myID].wfesDates || [];
         let elem = window.document.querySelector('div.card.details-pane > div.flex.flex-row > span');
@@ -283,7 +264,7 @@
         }
         elem.innerText = '';
         let p = document.createElement("p");
-        p.innerText = window.wfes.nominations.detail.day + ' - NOMINATED';
+        p.innerText = nomDetail.day + ' - NOMINATED';
         elem.appendChild(p);
         for ( let i = 0 ; i < myDates.length; i++) {
             if ((0 === i ) && ('NOMINATED' === myDates[i][1])) {
@@ -293,14 +274,6 @@
             p.innerText = myDates[i][0] + ' - ' + myDates[i][1];
             elem.appendChild(p);
         }
-    }
-
-    function NominationPageLoaded() {
-        addCSS();
-        createNotificationArea();
-        checkNomListVersion();
-        detectChange();
-        checkAppeal();
     }
 
     let loadNomTimerId = null;
