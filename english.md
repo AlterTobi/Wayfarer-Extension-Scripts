@@ -7,7 +7,7 @@ Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues)
 
 ## How to install / use?
-Install [WFES Base](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Base.user.js) first!
+Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-Base.user.js) first!
 > **It's required for all other scripts to work.**
 
 ## List of scripts

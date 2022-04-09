@@ -6,9 +6,9 @@ Userscripts für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) ist erforderlich!
 > Bugs und/oder feature requests bitte im [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues) melden.
 
-## How to install / use?
-Install [WFES Base](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Base.user.js) first!
-> **It's required for all other scripts to work.**
+## Installation
+Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-Base.user.js) installieren!
+> **Dieses Skript ist erforderlich, damit alle anderen funktionieren**
 
 ## List of scripts
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)

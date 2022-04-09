@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.0.0alpha
+// @version      0.9.99
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -180,14 +180,13 @@
 
     /* ================ helper functions ============== */
     // Useful to make comparing easier. Essentially this function iterates over
-    // all items
-    // and uses it's unique ID as key and stores relevant values under that key.
-    // This way on checking we can simply find the ID when looking at a current
-    // item
+    // all items and uses it's unique ID as key and stores relevant values under
+    // that key. This way on checking we can simply find the ID when looking at
+    // a current item
     function makeIDbasedDictionary(itemList) {
-        let dict = {};
+        let dict = {}, item;
         for (let i = 0; i < itemList.length; i++) {
-            let item = itemList[i];
+            item = itemList[i];
             dict[item.id] = item;
         }
         return dict;
