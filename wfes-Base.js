@@ -117,7 +117,7 @@
                     // save nomination Details in Sessionstorage
                     nominationDict = JSON.parse(sessionStorage.getItem(sStoreNominationsDetails)) || {};
                     nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-                    sessionSave(sStoreNominationsDetails, nominationDict);
+                    window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict);
                     window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
                     break;
                 case PREFIX + 'properties':
@@ -151,7 +151,7 @@
 
         if (undefined === wfes.review.sessionHist[result.id]) {
             reviewSessionHist.push(result);
-            sessionSave(sStoreReview, reviewSessionHist);
+            window.wfes.f.sessionSave(sStoreReview, reviewSessionHist);
             wfes.review.sessionHist[result.id] = result;
         }
 
@@ -177,26 +177,6 @@
         window.dispatchEvent(new Event("WFESReviewPageLoaded"));
     }
     /* ================ /overwrite XHR ================ */
-
-    /* ================ helper functions ============== */
-    // Useful to make comparing easier. Essentially this function iterates over
-    // all items and uses it's unique ID as key and stores relevant values under
-    // that key. This way on checking we can simply find the ID when looking at
-    // a current item
-    function makeIDbasedDictionary(itemList) {
-        let dict = {}, item;
-        for (let i = 0; i < itemList.length; i++) {
-            item = itemList[i];
-            dict[item.id] = item;
-        }
-        return dict;
-    }
-
-    function sessionSave(name, content) {
-        let json = JSON.stringify(content);
-        sessionStorage.setItem(name, json);
-    }
-    /* ================ /helper functions ============= */
 
     /* ================ nomination page =============== */
     function loadCachedNomination(nomItem) {
@@ -228,6 +208,65 @@
     }
     window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
     /* ================ /nomination page ============== */
+
+    /* ================ basic functions =============== */
+
+    // make a copy of data
+    function jCopy(data) {
+        return (JSON.parse(JSON.stringify(data)));
+    }
+
+    // save data in localstorage
+    window.wfes.f.localSave = function(name, content) {
+        let json = JSON.stringify(content);
+        localStorage.setItem(name, json);
+    }
+    // save data in sessionstorage
+    window.wfes.f.sessionSave = function(name, content) {
+        let json = JSON.stringify(content);
+        sessionStorage.setItem(name, json);
+    }
+
+    // add CSS to the head, if not there
+    window.wfes.f.addCSS = function(myID, styles) {
+        // already there?
+        if (null === document.getElementById(myID)) {
+            let headElem = document.getElementsByTagName("HEAD")[0];
+            let customStyleElem = document.createElement("style");
+            customStyleElem.setAttribute('id', myID);
+            customStyleElem.innerText = styles;
+            headElem.appendChild(customStyleElem);
+        }
+    }
+
+    // Useful to make comparing easier. Essentially this function iterates over
+    // all items and uses it's unique ID as key and stores relevant values under
+    // that key. This way on checking we can simply find the ID when looking at
+    // a current item
+    window.wfes.f.makeIDbasedDictionary = function(itemList) {
+        let dict = {}, item;
+        for (let i = 0; i < itemList.length; i++) {
+            item = itemList[i];
+            dict[item.id] = item;
+        }
+        return dict;
+    }
+
+    /* ================ /basic functions=============== */
+    /* ================ getter ======================== */
+    window.wfes.g.nominationDetail = function() {
+        return jCopy(wfes.nominations.detail);
+    }
+    window.wfes.g.nominationsList = function() {
+        return jCopy(wfes.nominations.list);
+    }
+    window.wfes.g.canAppeal = function() {
+        return jCopy(wfes.nominations.canAppeal);
+    }
+    /* ================ /getter ======================= */
+    /* ================ setter ======================== */
+
+    /* ================ /setter ======================= */
 
     // make objects immutable
     Object.freeze(window.wfes.f);
