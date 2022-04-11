@@ -6,8 +6,14 @@
 (function() {
     'use strict';
 
+    const myCssId = 'templateCSS';
+    const myStyle = `.body {
+        display: none;
+    `;
+    
     function myTemplate() {
-        // CODE HERE
+        window.wfes.f.addCSS(myCssId,myStyle);
+        // YOUR CODE HERE
     }
 
     window.addEventListener("EVENT", myTemplate);

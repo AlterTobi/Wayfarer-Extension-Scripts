@@ -275,6 +275,10 @@
     window.wfes.g.wfVersion = function() {
         return jCopy(wfes.version);
     }
+    window.wfes.g.reviewPageData = function() {
+        return jCopy(wfes.review.pageData);
+    }
+
     /* ================ /getter ======================= */
     /* ================ setter ======================== */
 

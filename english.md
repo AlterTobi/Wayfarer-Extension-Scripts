@@ -7,7 +7,7 @@ Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues)
 
 ## How to install / use?
-Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-Base.user.js) first!
+Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js) first!
 > **It's required for all other scripts to work.**
 
 ## List of scripts
@@ -15,12 +15,12 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes
     - show nomination status updates
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - show current Wayfarer version
+* [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.user.js)
+    - open fullsize images in "named" tabs
 
 ### scripts below this line are not yet update to work with version 1 and won't work at the moment
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
-* [ImageMod](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-ImageMod.user.js)
-    - open fullsize images in "named" tabs
 * [Open In](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-OpenIn.user.js)
     - add "Open In" for maps
 * [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AddTranslationButtons.user.js)

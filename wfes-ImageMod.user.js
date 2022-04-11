@@ -1,28 +1,13 @@
-// ==UserScript==
-// @name         WFES - image Mods
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @name         Image Mods
+// @version      0.9.99
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-ImageMod.user.js
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
 
-    function addCSS(){
-    	let myID = 'imageModsCSS';
-    	// already there?
-    	if ( null === document.getElementById(myID)) {
-            let headElem = document.getElementsByTagName("HEAD")[0];
-            let customStyleElem = document.createElement("style");
-            customStyleElem.setAttribute('id',myID);
-            customStyleElem.innerText = `
-                .material-icons-fontsize {
+    const myCssId = 'imageModsCSS';
+    const myStyle = `.material-icons-fontsize {
                   font-size: 48px;
                 }
                 .lupe {
@@ -32,10 +17,7 @@
                 .bottom {
                   bottom: 0px;
                 }
-                `;
-            headElem.appendChild(customStyleElem);
-    	}
-    }
+        `;
 
     function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = 'lupe'){
     	let a = document.createElement("a");
@@ -62,9 +44,9 @@
 
     function addFullSizeImageLinks() {
     	let elem, imageUrl;
-    	let myData = window.wfes.review.pageData;
+    	let myData = window.wfes.g.reviewPageData();
 
-        addCSS();
+    	window.wfes.f.addCSS(myCssId,myStyle);
     	switch (myData.type) {
     		case "NEW":
     			elem = document.getElementsByClassName("wf-image-modal flex-grow bg-contain bg-center bg-no-repeat");
@@ -94,5 +76,5 @@
 
     window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinks,100)});
 
-    console.log('WFES Script loaded: imageMod');
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
