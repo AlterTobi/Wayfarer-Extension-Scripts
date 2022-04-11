@@ -32,10 +32,10 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-
 * [Store Appeal Information](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AppealData.user.js)
     - saves your appeal statement in browser storage for future review
 
-### Unsupported scripts / scripts in beta state
-These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
-may work or not. If you are a developer, have a look at it and fix bugs. :-)
-
+### Nichtunterstützte Skripte / Skripte in Entwicklung
+Diese Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
+Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
+ 
 * [Expire Timer](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/ExpireTimer.user.js)
     - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 * [Nomination page StreetView](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/NominationsStreetView.user.js)
@@ -48,6 +48,3 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 * [Show version](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-showWFVersion.user.js)
     - show current Wayfarer version
 
-## Developer documentation
-Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
-Pull-Requests welcome - please use the **dev** branch.

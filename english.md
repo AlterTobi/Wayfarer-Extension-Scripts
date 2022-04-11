@@ -48,6 +48,3 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 * [Show version](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-showWFVersion.user.js)
     - show current Wayfarer version
 
-## Developer documentation
-Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
-Pull-Requests welcome - please use the **dev** branch.
