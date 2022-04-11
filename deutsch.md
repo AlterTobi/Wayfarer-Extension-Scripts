@@ -15,12 +15,12 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - show nomination status updates
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
+* [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.user.js)
+    - öffne Originalfotos in "benannten" Tabs
 
 ### Die Skripte unterhalb diese Zeile sind noch nicht auf Version 1 angepasst und funktionieren nicht
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
-* [ImageMod](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-ImageMod.user.js)
-    - open fullsize images in "named" tabs
 * [Open In](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-OpenIn.user.js)
     - add "Open In" for maps
 * [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AddTranslationButtons.user.js)
