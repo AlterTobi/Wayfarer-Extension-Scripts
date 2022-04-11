@@ -1,4 +1,4 @@
-// @name         Image Mods
+// @name         image Mods
 // @version      0.9.99
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
