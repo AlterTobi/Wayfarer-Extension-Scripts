@@ -1,6 +1,6 @@
 // @name         Template
-// @version      0.9.1
-// @description  WFES Template 
+// @version      0.9.99
+// @description  Template 
 // @author       AlterTobi
 
 (function() {
