@@ -21,6 +21,7 @@
     wfes.edit = {};
     wfes.properties = {};
     wfes.messages = {};
+    wfes.version = '0.0.0';
 
     window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter,
     // setter
@@ -87,6 +88,8 @@
             if (!json.result) {
                 console.warn("WFES: got no result from server");
                 return;
+            } else {
+                checkWfVersion(json.version);
             }
 
             let nominationDict, lang;
@@ -178,6 +181,12 @@
     }
     /* ================ /overwrite XHR ================ */
 
+    function checkWfVersion(v) {
+        if (wfes.version !== v) {
+            wfes.version = v;
+            window.dispatchEvent(new Event("WFESVersionChanged"));
+        }
+    }
     /* ================ nomination page =============== */
     function loadCachedNomination(nomItem) {
         if (undefined === wfes.nominations.detail) {
@@ -262,6 +271,9 @@
     }
     window.wfes.g.canAppeal = function() {
         return jCopy(wfes.nominations.canAppeal);
+    }
+    window.wfes.g.wfVersion = function() {
+        return jCopy(wfes.version);
     }
     /* ================ /getter ======================= */
     /* ================ setter ======================== */

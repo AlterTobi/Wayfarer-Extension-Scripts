@@ -11,8 +11,10 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
 ## List of scripts
-* [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts//wfes-NominationNotify.user.js)
+* [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationNotify.user.js)
     - show nomination status updates
+* [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
+    - zeigt die aktuelle Wayfarer-Version an
 
 ### Die Skripte unterhalb diese Zeile sind noch nicht auf Version 1 angepasst und funktionieren nicht
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
@@ -45,6 +47,3 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
 * [Nomination Details](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-NominationDetail.user.js)
     - adds long text description for rejection criteria
     - shows reject reasons for appealed nominations
-* [Show version](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-showWFVersion.user.js)
-    - show current Wayfarer version
-
