@@ -17,13 +17,13 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - zeigt die aktuelle Wayfarer-Version an
 * [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.user.js)
     - öffne Originalfotos in "benannten" Tabs
+* [Add Translation Buttons](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AddTranslationButtons.user.js)
 
 ### Die Skripte unterhalb diese Zeile sind noch nicht auf Version 1 angepasst und funktionieren nicht
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
 * [Open In](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-OpenIn.user.js)
     - add "Open In" for maps
-* [Add Translation Buttons](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AddTranslationButtons.user.js)
     - adds buttons to translate text associated with a wayspot
 * [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-WayfarerStats.user.js)
     - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)

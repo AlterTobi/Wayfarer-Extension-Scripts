@@ -1,29 +1,14 @@
-// ==UserScript==
-// @name         WFES - Add Translation Buttons
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @name         Add Translation Buttons
+// @version      0.9.99
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AddTranslationButtons.user.js
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 // Dirt port from WF+
-
 (function() {
     'use strict';
 
-    function addCSS(){
-        let myID = 'translButtonsCSS';
-        if ( null === document.getElementById(myID)) {
-            let headElem = document.getElementsByTagName("HEAD")[0];
-            let customStyleElem = document.createElement("style");
-            customStyleElem.setAttribute('id',myID);
-            customStyleElem.innerText = `
-                .translateButton{
+    const myCssId = 'translButtonsCSS';
+    const myStyle = `.translateButton{
                     border: 2pt solid white;
                     border-radius: 2pt;
                     width: 17pt;
@@ -40,9 +25,6 @@
                     .translateButton > *{
                     display:inline;
                 }`;
-            headElem.appendChild(customStyleElem);
-        }
-    }
 
     function getTranslateAllButton(allText){
         let translateButton = document.createElement("a");
@@ -64,7 +46,7 @@
     }
 
     function addEditTranslationButtons(){
-        addCSS();
+        window.wfes.f.addCSS(myCssId,myStyle);
         let elems = document.getElementsByClassName("poi-edit-text");
 
         let style = "margin-botton: 0 !important; margin-left: 5pt; display: inline-block;";
@@ -81,7 +63,7 @@
     }
 
     function addPhotoTranslationButtons(){
-        addCSS();
+        window.wfes.f.addCSS(myCssId,myStyle);
         let elems = [];
         let allText = "";
 
@@ -106,7 +88,7 @@
     }
 
     function addTranslationButtons(){
-        addCSS();
+        window.wfes.f.addCSS(myCssId,myStyle);
         let elems = document.getElementById("title-description-card").children[1].children[0].children;
 
         let allText = "";
@@ -122,7 +104,9 @@
             elems[i].appendChild(translateButton);
         }
 
-        if (window.wfes.review.pageData.supportingImageUrl != ""){
+        let pageData = window.wfes.g.reviewPageData();
+        
+        if (pageData.supportingImageUrl != ""){
             let elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
 
             let translateButton = document.createElement("a");
@@ -147,5 +131,6 @@
     window.addEventListener("WFESReviewPageNewLoaded", () => { setTimeout(addTranslationButtons, 10)});
     window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addEditTranslationButtons, 10)});
     window.addEventListener("WFESReviewPagePhotoLoaded", () => { setTimeout(addPhotoTranslationButtons, 10)});
-    console.log( "WFES Script loaded: add translation buttons");
+
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
