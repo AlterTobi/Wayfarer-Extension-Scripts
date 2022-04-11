@@ -1,79 +1,61 @@
-// ==UserScript==
-// @name         WFES - maps open in
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @name         maps open in
+// @version      0.9.99
 // @description  add "Open In" for maps
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-OpenIn.user.js
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
 
     // map URLs, %lat%, %lng% will be replaced by nominations coordinates
-    let customMaps = [
+    const customMaps = [
     	{ title: "Google", url: "https://maps.google.com/maps?q=%lat%,%lng%"},
     	{ title: "Intel", url: "https://intel.ingress.com/intel?ll=%lat%,%lng%&z=18"},
     	{ title: "OSM", url: "https://www.openstreetmap.org/?mlat=%lat%&mlon=%lng%#map=18/%lat%/%lng%"}
     ];
 
     let tryCounter = 0;
-    let buttonID = 'openInButton';
+    const buttonID = 'openInButton';
 
-    function addCSS(){
-    	let myID = 'openInCSS';
-    	// already there?
-    	if ( null === document.getElementById(myID)) {
-            let headElem = document.getElementsByTagName("HEAD")[0];
-            let customStyleElem = document.createElement("style");
-            customStyleElem.setAttribute('id',myID);
-            customStyleElem.innerText = `
-    			.mapsDropdown {
-    			  background-color: white;
-    			  border-radius: 5px;
-    			  box-shadow: grey 2px 2px 10px;
-    			  margin-bottom: .5em;
-    			  font-size: 1.1em;
-    			  color: black;
-    			  padding: .25em;
-    			  width: 7em;
-    			  text-align: center;
-    			}
-    			.dropdown-content {
-    			  display: none;
-    			  position: absolute;
-    			  /* left: -.25em; */
-    			  transform: translateY(-100%);
-    			  border-radius: 5px;
-    			  background-color: #f9f9f9;
-    			  min-width: 160px;
-    			  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    			  z-index: 9001;
-    			}
-    			.dropdown-content a {
-    			  color: black;
-    			  padding: 12px 16px;
-    			  text-decoration: none;
-    			  display: block;
-    			}
-    			.dropdown-content a:hover {
-    			  background-color: #f1f1f1
-    			  border-radius: 5px;
-    			}
-    			.mapsDropdown:hover .dropdown-content {
-    			  display: block;
-    			}
-    			.mapsDropdown:hover .dropbtn {
-    			  background-color: #3e8e41;
-    			}
+    const myCssId = 'openInCSS';
+    const myStyle = `.mapsDropdown {
+                  background-color: white;
+                  border-radius: 5px;
+                  box-shadow: grey 2px 2px 10px;
+                  margin-bottom: .5em;
+                  font-size: 1.1em;
+                  color: black;
+                  padding: .25em;
+                  width: 7em;
+                  text-align: center;
+                }
+                .dropdown-content {
+                  display: none;
+                  position: absolute;
+                  /* left: -.25em; */
+                  transform: translateY(-100%);
+                  border-radius: 5px;
+                  background-color: #f9f9f9;
+                  min-width: 160px;
+                  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                  z-index: 9001;
+                }
+                .dropdown-content a {
+                  color: black;
+                  padding: 12px 16px;
+                  text-decoration: none;
+                  display: block;
+                }
+                .dropdown-content a:hover {
+                  background-color: #f1f1f1
+                  border-radius: 5px;
+                }
+                .mapsDropdown:hover .dropdown-content {
+                  display: block;
+                }
+                .mapsDropdown:hover .dropbtn {
+                  background-color: #3e8e41;
+                }
     `;
-            headElem.appendChild(customStyleElem);
-    	}
-    }
 
     function getMapDropdown(lat, lng){
     	// Create main dropdown menu ("button")
@@ -133,11 +115,13 @@
 
     function addDropdownReview() {
         let elem, elemlist;
+      
+        window.wfes.f.addCSS(myCssId,myStyle);
 
-        addCSS();
-    	let mainButton = getMapDropdown(window.wfes.review.pageData.lat, window.wfes.review.pageData.lng);
+        let pageData = window.wfes.g.reviewPageData();
+    	let mainButton = getMapDropdown(pageData.lat, pageData.lng);
 
-    	switch (window.wfes.review.pageData.type) {
+    	switch (pageData.type) {
     		case "NEW":
                     elem = document.getElementById("location-accuracy-card");
                     if (null === elem) {
@@ -164,7 +148,7 @@
     }
 
     function NominationPageLoaded() {
-        addCSS();
+        window.wfes.f.addCSS(myCssId,myStyle);
     }
 
     function addDropdownNomination(){
@@ -174,7 +158,9 @@
     	if (button !== null) {
     	    button.remove();
     	}
-        let mainButton = getMapDropdown(window.wfes.nominations.detail.lat, window.wfes.nominations.detail.lng);
+    	let nomDetail = window.wfes.g.nominationDetail();
+    	
+        let mainButton = getMapDropdown(nomDetail.lat, nomDetail.lng);
         elem = document.getElementsByClassName("details-pane__map")[0];
         elem.parentNode.appendChild(mainButton);
     }
@@ -186,5 +172,5 @@
     window.addEventListener("WFESNominationDetailLoaded", () => { clearTimeout(selNomTimerId); selNomTimerId = setTimeout(addDropdownNomination,250)});
     window.addEventListener("WFESNominationListLoaded", () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250)});
 
-    console.log('WFES Script loaded: Open In');
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
