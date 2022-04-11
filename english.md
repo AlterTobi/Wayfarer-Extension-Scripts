@@ -15,7 +15,7 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
     - show nomination status updates
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - show current Wayfarer version
-* [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.user.js)
+* [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.js)
     - open fullsize images in "named" tabs
 * [Add Translation Buttons](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AddTranslationButtons.user.js)
 

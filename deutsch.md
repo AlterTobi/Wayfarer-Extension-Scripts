@@ -15,7 +15,7 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - show nomination status updates
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
-* [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.user.js)
+* [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.js)
     - öffne Originalfotos in "benannten" Tabs
 * [Add Translation Buttons](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AddTranslationButtons.user.js)
 
