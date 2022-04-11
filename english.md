@@ -22,7 +22,7 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
 * [Open In](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-OpenIn.user.js)
     - add "Open In" for maps
 
-### scripts below this line are not yet update to work with version 1 and won't work at the moment
+### scripts below this line are not yet updated to work with version 1 and won't work at the moment
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
 * [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-WayfarerStats.user.js)
