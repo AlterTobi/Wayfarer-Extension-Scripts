@@ -23,6 +23,7 @@
     wfes.messages = {};
     wfes.version = '0.0.0';
 
+    window.wfes = {};
     window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter,
     // setter
 
@@ -297,6 +298,7 @@
     Object.freeze(window.wfes.f);
     Object.freeze(window.wfes.g);
     Object.freeze(window.wfes.s);
+    Object.freeze(window.wfes);
 
     /* we are done :-) */
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
