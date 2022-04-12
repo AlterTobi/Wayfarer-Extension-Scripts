@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.9.99
+// @version      0.9.99.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -183,6 +183,7 @@
 
     function checkWfVersion(v) {
         if (wfes.version !== v) {
+            console.log('WF version changed from', wfes.version, 'to', v);
             wfes.version = v;
             window.dispatchEvent(new Event("WFESVersionChanged"));
         }
@@ -281,7 +282,12 @@
     window.wfes.g.reviewPageData = function() {
         return jCopy(wfes.review.pageData);
     }
-
+    window.wfes.g.showcase = function() {
+        return jCopy(wfes.showcase);
+    }
+    window.wfes.g.reviewDecision = function() {
+        return jCopy(wfes.review.decision);
+    }
     /* ================ /getter ======================= */
     /* ================ setter ======================== */
 
