@@ -27,5 +27,5 @@
 
     window.addEventListener("WFESReviewPageNewLoaded", filmStripScroll);
 
-    console.log("WFES Script loaded: Dupes Scroll");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
