@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.9.99.1
+// @version      0.9.99.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -151,7 +151,7 @@
     function handleReviewData(result) {
         // save review data in ...pagedata and sessionstore
         let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
-        wfes.review.sessionHist = makeIDbasedDictionary(reviewSessionHist);
+        wfes.review.sessionHist = window.wfes.f.makeIDbasedDictionary(reviewSessionHist);
 
         if (undefined === wfes.review.sessionHist[result.id]) {
             reviewSessionHist.push(result);
