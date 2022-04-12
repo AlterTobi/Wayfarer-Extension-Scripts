@@ -21,12 +21,12 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
     - adds buttons to translate text associated with a wayspot
 * [Open In](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-OpenIn.user.js)
     - add "Open In" for maps
+* [Wayfarer Stats](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-WayfarerStats.user.js)
+    - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 
 ### scripts below this line are not yet updated to work with version 1 and won't work at the moment
 * [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
-* [Wayfarer Stats](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-WayfarerStats.user.js)
-    - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 * [Dupes Scroll](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-dupesScroll.user.js)
     - use mouse wheel to scroll the dupes filmstrip
 * [Add Orig Location](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-reviewAddOrigLocation.user.js)

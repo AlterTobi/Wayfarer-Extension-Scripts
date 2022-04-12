@@ -263,11 +263,14 @@
 
     /* ================ /basic functions=============== */
     /* ================ getter ======================== */
-    window.wfes.g.nominationDetail = function() {
-        return jCopy(wfes.nominations.detail);
+    window.wfes.g.profile = function() {
+        return jCopy(wfes.profile);
     }
     window.wfes.g.nominationsList = function() {
         return jCopy(wfes.nominations.list);
+    }
+    window.wfes.g.nominationDetail = function() {
+        return jCopy(wfes.nominations.detail);
     }
     window.wfes.g.canAppeal = function() {
         return jCopy(wfes.nominations.canAppeal);

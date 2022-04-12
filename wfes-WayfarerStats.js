@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name        WFES - Wayfarer Stats
-// @namespace   https://github.com/AlterTobi/WFES/
-// @version     0.9.0
+// @name        Wayfarer Stats
+// @version     0.9.99
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
-// @match       https://wayfarer.nianticlabs.com/*
-// @icon        https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-WayfarerStats.user.js
-// @supportURL  https://github.com/AlterTobi/WFES/issues
-// @grant       none
-// ==/UserScript==
 
 (function () {
     'use strict';
@@ -28,22 +20,8 @@
     const lStoreCheckO = selfnameO+'_IsChecked';
     const lStoreUpgradesO = selfnameO+'_myUpgrades';
 
-    // get Values from localStorage
-    let PoGoStats = JSON.parse(localStorage.getItem(lStorePogo)) || JSON.parse(localStorage.getItem(lStorePogoO)) || [];
-    let wfrStats = JSON.parse(localStorage.getItem(lStoreStats)) || JSON.parse(localStorage.getItem(lStoreStatsO)) || [];
-    let isChecked = JSON.parse(localStorage.getItem(lStoreCheck)) || JSON.parse(localStorage.getItem(lStoreCheckO)) || false;
-
-    let body = document.getElementsByTagName('body')[0];
-    let head = document.getElementsByTagName('head')[0];
-
-    function addCSS() {
-        let myID = 'wayfarerStatsCSS';
-        // already there?
-        if ( null === document.getElementById(myID)) {
-            let headElem = document.getElementsByTagName("head")[0];
-            let customStyleElem = document.createElement("style");
-            customStyleElem.setAttribute('id',myID);
-            customStyleElem.innerText = `
+    const myCssId = 'wayfarerStatsCSS';
+    const myStyle = `
                 th { text-align: center; }
                 td, th { padding: 5px; }
                 td { text-align: right; }
@@ -52,15 +30,15 @@
                 #reversebox { margin: 0 10px; }
                 #buttonsdiv button { margin: 0 10px; }
                 #buttonsdiv, #statsdiv, #gamesdiv { margin-bottom: 2em; }
-                `;
-            headElem.appendChild(customStyleElem);
-        }
-    }
+    `;
 
-    function localSave(name,content){
-        let json = JSON.stringify(content);
-        localStorage.setItem(name,json);
-    }
+    // get Values from localStorage
+    let PoGoStats = JSON.parse(localStorage.getItem(lStorePogo)) || JSON.parse(localStorage.getItem(lStorePogoO)) || [];
+    let wfrStats = JSON.parse(localStorage.getItem(lStoreStats)) || JSON.parse(localStorage.getItem(lStoreStatsO)) || [];
+    let isChecked = JSON.parse(localStorage.getItem(lStoreCheck)) || JSON.parse(localStorage.getItem(lStoreCheckO)) || false;
+
+    let body = document.getElementsByTagName('body')[0];
+    let head = document.getElementsByTagName('head')[0];
 
     function YMDfromTime(time){
         let curdate = new Date();
@@ -77,9 +55,10 @@
     function upgrades() {
         /* die Upgrades zählen */
         console.log(selfname + ' zähle Upgrades');
+        let profile = window.wfes.g.profile();
         let myWFRupgrades = JSON.parse(localStorage.getItem(lStoreUpgrades)) || JSON.parse(localStorage.getItem(lStoreUpgradesO)) || [];
-        let progress = window.wfes.profile.progress;
-                let total = window.wfes.profile.total;
+        let progress = profile.progress;
+                let total = profile.total;
                 let lastProgress = 0;
                 let lastTotal = 0;
 
@@ -92,7 +71,7 @@
                         let ut = new Date().getTime();
                         let curstats = {'datum':ut,'progress':progress,'total':total};
                         myWFRupgrades.push(curstats);
-                        localSave(lStoreUpgrades,myWFRupgrades);
+                        window.wfes.f.localSave(lStoreUpgrades,myWFRupgrades);
                 }
     }
 
@@ -121,10 +100,10 @@
 
             console.log(selfname + ' saving stats');
 
-            const reviewed = window.wfes.profile.finished;
-            const accepted = window.wfes.profile.accepted;
-            const rejected = window.wfes.profile.rejected;
-            const duplicated = window.wfes.profile.duplicated;
+            const reviewed = profile.finished;
+            const accepted = profile.accepted;
+            const rejected = profile.rejected;
+            const duplicated = profile.duplicated;
 
             if ( last > 0 ) {
                 // nur wenn schon gespeicherte Werte vorhanden.
@@ -151,7 +130,7 @@
             curstats = {'datum':ut,'reviewed':reviewed,'accepted':accepted,'rejected':rejected,'duplicated':duplicated};
 
             wfrStats.push(curstats);
-            localSave(lStoreStats,wfrStats);
+            window.wfes.f.localSave(lStoreStats,wfrStats);
 
             } else {
                 console.log('stats already saved today');
@@ -219,10 +198,10 @@
                 elem.insertAdjacentHTML('beforeEnd', '<img style="width: 64px;height: 64px;" src="' + image + '">');
         }
 
-        const newPortalData = window.wfes.review.pageData;
+        const newPortalData = window.wfes.g.reviewPageData;
 
         let statement = newPortalData.statement === undefined ? "" : newPortalData.statement.trim();
-        let type = window.wfes.review.pageData.type;
+        let type = newPortalData.type;
         let subtype = 0;
         let usertext = statement + ' ' +
                 newPortalData.title + ' ' +
@@ -257,7 +236,7 @@
                         'titel' : newPortalData.title
                         };
             PoGoStats.push(curstats);
-            localSave(lStorePogo,PoGoStats);
+            window.wfes.f.localSave(lStorePogo,PoGoStats);
             if (hasPoketext){
                 set_warning(WARN_POGO);
             }
@@ -366,7 +345,7 @@
                             _writeLine(wfrStats[i]);
                     }
                 }
-                localSave(lStoreCheck,isChecked);
+                window.wfes.f.localSave(lStoreCheck,isChecked);
             });
 
             // Upgrades
@@ -382,7 +361,7 @@
                         body.insertAdjacentHTML("beforeEnd", myup[i].datum + ';' + myup[i].progress + ';' + myup[i].total + '<br/>');
                     }
                 }
-                localSave(lStoreCheck,isChecked);
+                window.wfes.f.localSave(lStoreCheck,isChecked);
             });
 
             // Marker Map
@@ -592,7 +571,7 @@
      }
 
     // ---
-    addCSS();
+    window.wfes.f.addCSS(myCssId,myStyle);
     addDivs();
     showStatsTable();
     showGamesTable();
@@ -609,7 +588,7 @@
     window.addEventListener("WFESProfileLoaded", handleProfile);
     window.addEventListener("WFESHomePageLoaded", handleShowcase);
 
-    console.log( "WFES Script loaded: Wayfarer Stats");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 
 /**
  * *** Section Const
