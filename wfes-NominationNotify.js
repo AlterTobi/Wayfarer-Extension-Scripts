@@ -117,7 +117,7 @@
             for (let histID in historyDict){
                 myDates = [];
                 for (let dat in historyDict[histID].Dates) {
-                  myDates.push([historyDict[histID].Dates[dat],dat]);    
+                  myDates.push([historyDict[histID].Dates[dat],dat]);
                 }
                 historyDict[histID].wfesDates = myDates;
                 delete historyDict[histID].Dates;
@@ -199,7 +199,7 @@
                     }
                 } else if ((historicalData.status !== "APPEALED") && (nom.status === "APPEALED")){
                     createNotification(`${nom.title} was appealed!`);
-                } 
+                }
 
                 // save Date if state changes
                 if (historicalData.status !== nom.status){
