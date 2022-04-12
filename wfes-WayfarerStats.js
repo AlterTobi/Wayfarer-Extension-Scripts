@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     0.9.99
+// @version     0.9.99.1
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -97,9 +97,10 @@
         }
 
         if (heuteTS > last) {
-
             console.log(selfname + ' saving stats');
 
+            let profile = window.wfes.g.profile();
+            
             const reviewed = profile.finished;
             const accepted = profile.accepted;
             const rejected = profile.rejected;
