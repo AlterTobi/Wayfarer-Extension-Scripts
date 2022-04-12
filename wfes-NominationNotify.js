@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      0.9.99
+// @version      0.9.99.1
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -222,7 +222,7 @@
     function detectMissing(){
         // check if saved nomination is not in current list
         // might be in review by Niantic staff
-        let nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.nominations.list);
+        let nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
         let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
         let today = getCurrentDateStr();
         let missingDict = {};
