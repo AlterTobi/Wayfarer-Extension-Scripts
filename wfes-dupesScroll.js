@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name         WFES - dupes Scroll
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
-// @description  WFES make duplicates strip scrollable by mouse wheel
+// @name         dupes Scroll
+// @version      0.9.99
+// @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-dupesScroll.user.js
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
