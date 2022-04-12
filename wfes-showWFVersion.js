@@ -17,7 +17,7 @@
                 border: 2px solid red;
                 padding: 5px; box-shadow: 7px 7px 5px grey;}
                 `;
-    
+
     function showVersion() {
         let wfVersion = window.wfes.g.wfVersion();
         window.wfes.f.addCSS(myCssId,myStyle);

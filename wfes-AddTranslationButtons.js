@@ -105,7 +105,7 @@
         }
 
         let pageData = window.wfes.g.reviewPageData();
-        
+
         if (pageData.supportingImageUrl != ""){
             let elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
 

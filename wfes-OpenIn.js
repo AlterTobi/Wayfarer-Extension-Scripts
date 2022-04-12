@@ -115,7 +115,7 @@
 
     function addDropdownReview() {
         let elem, elemlist;
-      
+
         window.wfes.f.addCSS(myCssId,myStyle);
 
         let pageData = window.wfes.g.reviewPageData();
@@ -159,7 +159,7 @@
     	    button.remove();
     	}
     	let nomDetail = window.wfes.g.nominationDetail();
-    	
+
         let mainButton = getMapDropdown(nomDetail.lat, nomDetail.lng);
         elem = document.getElementsByClassName("details-pane__map")[0];
         elem.parentNode.appendChild(mainButton);
