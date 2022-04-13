@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name         WFES - URLify
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.1
-// @description  WFES - detect links in supporting information
+// @name         URLify
+// @version      0.9.99
+// @description  detect links in supporting information
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-URLify.user.js
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
@@ -39,5 +31,5 @@
 
     window.addEventListener("WFESReviewPageNewLoaded", detectURL);
 
-    console.log("WFES Script loaded: URLify");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
