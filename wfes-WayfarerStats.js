@@ -100,7 +100,7 @@
             console.log(selfname + ' saving stats');
 
             let profile = window.wfes.g.profile();
-            
+
             const reviewed = profile.finished;
             const accepted = profile.accepted;
             const rejected = profile.rejected;
@@ -199,7 +199,7 @@
                 elem.insertAdjacentHTML('beforeEnd', '<img style="width: 64px;height: 64px;" src="' + image + '">');
         }
 
-        const newPortalData = window.wfes.g.reviewPageData;
+        const newPortalData = window.wfes.g.reviewPageData();
 
         let statement = newPortalData.statement === undefined ? "" : newPortalData.statement.trim();
         let type = newPortalData.type;
