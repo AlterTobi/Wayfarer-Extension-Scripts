@@ -1,5 +1,5 @@
 // @name         Template
-// @version      0.9.99
+// @version      1.0.0
 // @description  Template 
 // @author       AlterTobi
 

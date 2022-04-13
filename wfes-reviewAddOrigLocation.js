@@ -1,5 +1,5 @@
 // @name         review Add Orig Location
-// @version      0.9.99
+// @version      1.0.0
 // @description  location edits - add marker for original location
 // @author       AlterTobi
 

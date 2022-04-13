@@ -1,5 +1,5 @@
 // @name         maps open in
-// @version      0.9.99
+// @version      1.0.0
 // @description  add "Open In" for maps
 // @author       AlterTobi
 

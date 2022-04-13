@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      0.9.99
+// @version      1.0.0
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 

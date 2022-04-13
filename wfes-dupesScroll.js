@@ -1,5 +1,5 @@
 // @name         dupes Scroll
-// @version      0.9.99
+// @version      1.0.0
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 

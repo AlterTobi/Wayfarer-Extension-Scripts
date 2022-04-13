@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      0.9.99.1
+// @version      1.0.0
 // @description  show nomination status updates
 // @author       AlterTobi
 

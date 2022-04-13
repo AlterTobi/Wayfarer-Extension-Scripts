@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      0.9.99
+// @version      1.0.0
 // @description  show current Wayfarer version
 // @author       AlterTobi
 

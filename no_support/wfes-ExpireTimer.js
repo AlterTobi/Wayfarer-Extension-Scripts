@@ -1,5 +1,5 @@
 // @name         Expire Timer
-// @version      0.9.99
+// @version      1.0.0
 // @description  Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author       MrJPGames / AlterTobi
 
