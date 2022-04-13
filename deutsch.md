@@ -25,10 +25,10 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - speichert persönliche Statistiken im Browser Local Storage
 * [Dupes Scroll](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-dupesScroll.user.js)
     - Nutze das Mausrad zum Scrollen in der Dupes-Liste
+* [Showcase](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Showcase.user.js)
+    - add's an icon for the game used for submitting the featured wayspot
 
 ### Die Skripte unterhalb diese Zeile sind noch nicht auf Version 1 angepasst und funktionieren nicht
-* [Showcase](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js)
-    - add's an icon for the game used for submitting the featured wayspot
 
 * [Add Orig Location](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-reviewAddOrigLocation.user.js)
     - add marker for original location on location edits
