@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name         WFES - review Add Orig Location
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
-// @description  WFES location edits - add marker for original location
+// @name         review Add Orig Location
+// @version      0.9.99
+// @description  location edits - add marker for original location
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-reviewAddOrigLocation.user.js
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
@@ -28,8 +20,10 @@
     }
 
     function addOrigMarker() {
+        let edit = window.wfes.g.edit();
+        
         // only on location edits
-        if (window.wfes.edit.what.location) {
+        if (edit.what.location) {
             if (typeof(google) === 'undefined') {
                 setTimeout(addOrigMarker, 200);
                 return;
@@ -38,11 +32,12 @@
             const gmap = document.querySelector('app-select-location-edit nia-map');
             let mapCtx = gmap.__ngContext__.at(-1);
             let map = mapCtx.componentRef.map;
-            addMarker(map, window.wfes.review.pageData.lat, window.wfes.review.pageData.lng);
+            let pageData = window.wfes.g.reviewPageData();
+            addMarker(map, pageData.lat, pageData.lng);
         }
     }
 
     window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addOrigMarker,200);} );
 
-    console.log("WFES Script loaded: review Add Orig Location");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();

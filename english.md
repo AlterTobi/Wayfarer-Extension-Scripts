@@ -27,11 +27,11 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
     - use mouse wheel to scroll the dupes filmstrip
 * [Showcase](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Showcase.user.js)
     - add's an icon for the game used for submitting the featured wayspot
+* [Add Orig Location](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewAddOrigLocation.user.js)
+    - add marker for original location on location edits
 
 ### scripts below this line are not yet updated to work with version 1 and won't work at the moment
 
-* [Add Orig Location](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-reviewAddOrigLocation.user.js)
-    - add marker for original location on location edits
 * [Store Appeal Information](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AppealData.user.js)
     - saves your appeal statement in browser storage for future review
 

@@ -265,6 +265,12 @@
 
     /* ================ /basic functions=============== */
     /* ================ getter ======================== */
+    window.wfes.g.wfVersion = function() {
+        return jCopy(wfes.version);
+    }
+    window.wfes.g.showcase = function() {
+        return jCopy(wfes.showcase);
+    }
     window.wfes.g.profile = function() {
         return jCopy(wfes.profile);
     }
@@ -277,18 +283,16 @@
     window.wfes.g.canAppeal = function() {
         return jCopy(wfes.nominations.canAppeal);
     }
-    window.wfes.g.wfVersion = function() {
-        return jCopy(wfes.version);
-    }
     window.wfes.g.reviewPageData = function() {
         return jCopy(wfes.review.pageData);
-    }
-    window.wfes.g.showcase = function() {
-        return jCopy(wfes.showcase);
     }
     window.wfes.g.reviewDecision = function() {
         return jCopy(wfes.review.decision);
     }
+    window.wfes.g.edit = function() {
+        return jCopy(wfes.edit);
+    }
+
     /* ================ /getter ======================= */
     /* ================ setter ======================== */
 
