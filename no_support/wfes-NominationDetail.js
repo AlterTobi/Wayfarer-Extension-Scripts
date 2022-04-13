@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name         WFES - Nomination Detail
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
-// @description  WFES improvements for nomination detail page
+// @name          Nomination Detail
+// @version      0.9.99
+// @description  improvements for nomination detail page
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-NominationDetail.user.js
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
@@ -19,13 +11,15 @@
     let rejDiv,flexDiv;
 
     function modifyNomDetail() {
-        const myLang = window.wfes.properties.language;
-        const allStr = window.wfes.messages[myLang];
+        const myLang = window.wfes.g.properties().language;
+        const messages = window.wfes.g.messages()
+        const allStr = messages[myLang];
         const myID = 'nominationDetailRejectDiv';
 
         if (propsLoaded) {
+            let nomDetail = window.wfes.g.nominationDetail();
 
-            if (needDiv && ('APPEALED' === window.wfes.nominations.detail.status)) {
+            if (needDiv && ('APPEALED' === nomDetail.status)) {
                 // add a DIV to bring back reject reasons
                 rejDiv = document.createElement("div");
                 rejDiv.setAttribute("class","ng-star-inserted");
@@ -35,19 +29,19 @@
                 flexDiv = document.querySelector("app-details-pane > div > div > div > div.flex.flex-row.justify-between");
                 flexDiv.insertAdjacentElement('afterEnd',rejDiv);
                 needDiv = false;
-            } else if ('REJECTED' === window.wfes.nominations.detail.status) {
+            } else if ('REJECTED' === nomDetail.status) {
                 if (flexDiv && document.getElementById(myID)) {
                     flexDiv.parentNode.removeChild(rejDiv);
                     needDiv = true;
                 }
             }
 
-            if (['REJECTED','APPEALED'].includes(window.wfes.nominations.detail.status)) {
+            if (['REJECTED','APPEALED'].includes(nomDetail.status)) {
 
                 let rejectReasons = [], rlc, rName, rNameShort, fullText;
 
-                for (let i=0; i < window.wfes.nominations.detail.rejectReasons.length;i++) {
-                    rlc = window.wfes.nominations.detail.rejectReasons[i].reason.toLowerCase();
+                for (let i=0; i < nomDetail.rejectReasons.length;i++) {
+                    rlc = nomDetail.rejectReasons[i].reason.toLowerCase();
                     rName = "reject.reason." + rlc;
                     rNameShort = rName + ".short";
                     if (undefined == allStr[rName]) {
@@ -73,5 +67,5 @@
     window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(modifyNomDetail,200)});
     window.addEventListener("WFESPropertiesLoaded", () => {propsLoaded = true});
 
-    console.log("WFES Script loaded: Nomination Detail");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();

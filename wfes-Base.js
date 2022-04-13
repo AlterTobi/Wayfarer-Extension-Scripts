@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.9.99.2
+// @version      0.9.99.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -294,6 +294,12 @@
     }
     window.wfes.g.edit = function() {
         return jCopy(wfes.edit);
+    }
+    window.wfes.g.properties = function() {
+        return jCopy(wfes.properties);
+    }
+    window.wfes.g.messages = function() {
+        return jCopy(wfes.messages);
     }
 
     /* ================ /getter ======================= */

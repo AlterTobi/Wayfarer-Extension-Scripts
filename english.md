@@ -32,9 +32,6 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
 * [Store Appeal Information](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AppealData.user.js)
     - saves your appeal statement in browser storage for future review
 
-### scripts below this line are not yet updated to work with version 1 and won't work at the moment
-
-
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
 may work or not. If you are a developer, have a look at it and fix bugs. :-)
@@ -45,6 +42,6 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - Adds the streetview view a reviewer will see on your own nominations!
 * [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
     - detect URLs in supporting text and create links
-* [Nomination Details](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-NominationDetail.user.js)
+* [Nomination Details](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationDetail.user.js)
     - adds long text description for rejection criteria
     - shows reject reasons for appealed nominations
