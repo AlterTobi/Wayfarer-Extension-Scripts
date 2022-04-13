@@ -36,10 +36,10 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
 
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
-Diese Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
+Manche dieser Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
 Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
  
-* [Expire Timer](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/ExpireTimer.user.js)
+* [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
     - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 * [Nomination page StreetView](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!

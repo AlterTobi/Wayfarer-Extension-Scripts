@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name         WFES - Expire Timer
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @name         Expire Timer
+// @version      0.9.99
 // @description  Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author       MrJPGames / AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/ExpireTimer.user.js
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
@@ -34,7 +26,7 @@
 
     function updateTimer() {
         const now = Date.now();
-        const tDiff = window.wfes.review.pageData.expires - now;
+        const tDiff = window.wfes.g.reviewPageData().expires - now;
 
         if (tDiff > 0) {
             var tDiffMin = Math.floor(tDiff / 1000 / 60);
@@ -57,5 +49,5 @@
     }
 
     window.addEventListener("WFESReviewPageLoaded", () => createTimer("Time remaining: "));
-    console.log( "WFES Beta Script loaded: ExpireTimer");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
