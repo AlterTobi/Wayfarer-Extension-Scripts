@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name         WFES - Nomination page StreetView
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      1.0.3
+// @name         Nomination page StreetView
+// @version      1.0.99
 // @description  Adds the streetview view a reviewer will see on your own nominations!
 // @author       MrJPGames / AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/NominationsStreetView.user.js
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
@@ -30,8 +22,9 @@
             lastPane.parentElement.insertBefore(SVMapElement, lastPane.nextSibling);
         }
 
-        var lat = window.wfes.nominations.detail.lat;
-        var lng = window.wfes.nominations.detail.lng;
+        let nomDetail = window.wfes.g.nominationDetail();
+        let lat = nomDetail.lat;
+        let lng = nomDetail.lng;
 
         SVMap = new google.maps.Map(document.getElementById("pano"), {
             center : {
@@ -45,13 +38,13 @@
             gestureHandling : 'greedy',
             mapTypeControl : false
         });
-        var marker = new google.maps.Marker({
+        let marker = new google.maps.Marker({
             map : SVMap,
             position : {
                 lat : parseFloat(lat),
                 lng : parseFloat(lng)
             },
-            title : window.wfes.nominations.detail.title
+            title : nomDetail.title
         });
         var panorama = SVMap.getStreetView();
         var client = new google.maps.StreetViewService;
@@ -79,5 +72,5 @@
     }
 
     window.addEventListener("WFESNominationDetailLoaded", setStreetView);
-    console.log("WFES Beta Script loaded: NominationsStreetView");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();

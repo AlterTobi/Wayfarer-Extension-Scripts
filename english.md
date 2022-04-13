@@ -41,7 +41,7 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 
 * [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
     - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
-* [Nomination page StreetView](https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/NominationsStreetView.user.js)
+* [Nomination page StreetView](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!
 * [URLify](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/release/v0.9/no_support/wfes-URLify.user.js)
     - detect URLs in supporting text and create links
