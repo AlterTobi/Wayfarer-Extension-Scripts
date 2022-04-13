@@ -1,15 +1,7 @@
-// ==UserScript==
-// @name         WFES - Appeal Data
-// @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @name         Appeal Data
+// @version      0.9.99
 // @description  save and show appeal your statements
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
-// @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AppealData.user.js
-// @supportURL   https://github.com/AlterTobi/WFES/issues
-// @grant        none
-// ==/UserScript==
 
 (function() {
     'use strict';
@@ -20,13 +12,14 @@
     let haveDiv = false;
 
     function storeAppealData() {
+        let appeal = window.wfes.g.reviewAppeal();
         let appealHistory = JSON.parse(localStorage.getItem(lStoreList)) || {};
-        appealHistory[window.wfes.review.appeal.id] = window.wfes.review.appeal.statement;
-        localStorage.setItem(lStoreList, JSON.stringify(appealHistory));
+        appealHistory[appeal.id] = appeal.statement;
+        window.wfes.f.localSave(lStoreList, appealHistory);
     }
 
     function NominationSelected() {
-        const nomID = window.wfes.nominations.detail.id;
+        const nomID = window.wfes.g.nominationDetail().id;
         let appealHistory = JSON.parse(localStorage.getItem(lStoreList)) || {};
         if (nomID in appealHistory) {
             nomImage = document.querySelector("app-details-pane > div > div > div > img.wf-image-modal.details-pane__image");
@@ -52,5 +45,5 @@
     window.addEventListener("WFESReviewAppealSent", storeAppealData);
     window.addEventListener("WFESNominationDetailLoaded",() => {setTimeout(NominationSelected,10);});
 
-    console.log("WFES Script loaded: Appeal Data");
+    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();

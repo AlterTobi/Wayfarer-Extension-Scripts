@@ -289,6 +289,9 @@
     window.wfes.g.reviewDecision = function() {
         return jCopy(wfes.review.decision);
     }
+    window.wfes.g.reviewAppeal = function() {
+        return jCopy(wfes.review.appeal);
+    }
     window.wfes.g.edit = function() {
         return jCopy(wfes.edit);
     }

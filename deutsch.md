@@ -29,11 +29,11 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - add's an icon for the game used for submitting the featured wayspot
 * [Add Orig Location](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewAddOrigLocation.user.js)
     - add marker for original location on location edits
+* [Store Appeal Information](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AppealData.user.js)
+    - saves your appeal statement in browser storage for future review
 
 ### Die Skripte unterhalb diese Zeile sind noch nicht auf Version 1 angepasst und funktionieren nicht
 
-* [Store Appeal Information](https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-AppealData.user.js)
-    - saves your appeal statement in browser storage for future review
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
 Diese Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
