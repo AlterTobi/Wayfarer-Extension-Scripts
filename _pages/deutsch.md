@@ -23,22 +23,22 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
 * [Dupes Scroll](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-dupesScroll.user.js)
     - Nutze das Mausrad zum Scrollen in der Dupes-Liste
 * [Showcase](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Showcase.user.js)
-    - add's an icon for the game used for submitting the featured wayspot
+    - zeigt, über welches Spiel der Wayspot eingereicht wurde 
 * [Add Orig Location](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewAddOrigLocation.user.js)
-    - add marker for original location on location edits
+    - zeigt bei Standortbearbeitung einen Marker für den Originalstandort 
 * [Store Appeal Information](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AppealData.user.js)
-    - saves your appeal statement in browser storage for future review
+    - eigene Appealtexte im Browser speichern
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
 Manche dieser Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
 Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
  
 * [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
-    - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
+    - Countdown der verbleibenden Zeit für die aktuelle Bewertung 
 * [Nomination page StreetView](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationsStreetView.user.js)
-    - Adds the streetview view a reviewer will see on your own nominations!
+    - Fügt bei den eigenen Nominierungen eine Streetview-Ansicht hinzu, wie es die Bewerter sehen würden
 * [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
-    - detect URLs in supporting text and create links
+    - erkennt URLs im Zusatztext und macht Links daraus
 * [Nomination Details](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationDetail.user.js)
-    - adds long text description for rejection criteria
-    - shows reject reasons for appealed nominations
+    - ergänzt die Ablehngründe um den Langtext
+    - Zeigt die Ablehngründe auch bei Einsprüchen an
