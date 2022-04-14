@@ -1,6 +1,3 @@
-
-Tools and scripts for Niantic Wayfarer
-
 ## What is it?
 Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > Userscript manager such as [Tampermonkey](https://tampermonkey.net/) required!

@@ -1,4 +1,4 @@
-## Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+## Download
  
   * [English](english.html)
     > full description in English
