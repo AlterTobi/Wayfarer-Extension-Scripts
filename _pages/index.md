@@ -1,9 +1,9 @@
 ## Download
  
   * [English](english.html)
-    > full description in English
+    > all scripts with full description in English
   * [Deutsch](deutsch.html)
-    > ausführliche Beschreibung auf Deutsch
+    > alle Skripte mit ausführlicher Beschreibung auf Deutsch
 
 ---
 
