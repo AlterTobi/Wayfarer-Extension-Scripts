@@ -7,11 +7,9 @@ Userscripts für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js) installieren!
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
-## List of scripts
+## Liste der Skripte
 * [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationNotify.user.js)
     - show nomination status updates
-* [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
-    - zeigt die aktuelle Wayfarer-Version an
 * [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.js)
     - öffne Originalfotos in "benannten" Tabs
 * [Add Translation Buttons](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AddTranslationButtons.user.js)
@@ -28,13 +26,13 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - zeigt bei Standortbearbeitung einen Marker für den Originalstandort 
 * [Store Appeal Information](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AppealData.user.js)
     - eigene Appealtexte im Browser speichern
+* [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
+    - Countdown der verbleibenden Zeit für die aktuelle Bewertung 
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
 Manche dieser Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
 Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
  
-* [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
-    - Countdown der verbleibenden Zeit für die aktuelle Bewertung 
 * [Nomination page StreetView](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationsStreetView.user.js)
     - Fügt bei den eigenen Nominierungen eine Streetview-Ansicht hinzu, wie es die Bewerter sehen würden
 * [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
@@ -42,3 +40,5 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
 * [Nomination Details](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationDetail.user.js)
     - ergänzt die Ablehngründe um den Langtext
     - Zeigt die Ablehngründe auch bei Einsprüchen an
+* [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
+    - zeigt die aktuelle Wayfarer-Version an
