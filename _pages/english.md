@@ -26,13 +26,13 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
     - add marker for original location on location edits
 * [Store Appeal Information](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AppealData.user.js)
     - saves your appeal statement in browser storage for future review
+* [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
+    - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
 may work or not. If you are a developer, have a look at it and fix bugs. :-)
 
-* [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
-    - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 * [Nomination page StreetView](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!
 * [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
