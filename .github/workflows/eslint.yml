@@ -11,10 +11,10 @@ name: ESLint
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ dev, release/v0.9 ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ dev ]
+    branches: [ dev, release/v0.9 ]
   schedule:
     - cron: '24 17 * * 3'
 
@@ -33,6 +33,8 @@ jobs:
         run: |
           npm install eslint@8.10.0
           npm install @microsoft/eslint-formatter-sarif@2.1.7
+          npm init @eslint/config
+          ls -la
 
       - name: Run ESLint
         run: npx eslint .
