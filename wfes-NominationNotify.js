@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.0.0
+// @version      1.0.1
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -276,10 +276,25 @@
         }
     }
 
+    function garbageCollection(){
+        // remove old entries, if new ones exist
+        if (localStorage.hasOwnProperty(lStoreList)){
+            if(localStorage.hasOwnProperty('wfpNomList')){
+                localStorage.removeItem('wfpNomList');
+            }
+        }
+        if (localStorage.hasOwnProperty(lStoreList)){
+            if(localStorage.hasOwnProperty('wftuNomList')){
+                localStorage.removeItem('wftuNomList');
+            }
+        }
+    }
+
     let loadNomTimerId = null;
     window.addEventListener("WFESNominationListLoaded",
                             () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250);});
     window.addEventListener("WFESNominationDetailLoaded",() => {setTimeout(NominationSelected,10);});
+    garbageCollection();
 
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();

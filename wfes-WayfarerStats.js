@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.0.0
+// @version     1.0.1
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -577,8 +577,32 @@
     showStatsTable();
     showGamesTable();
     buttonFuncs();
+    
+    }
 
-}
+    function garbageCollection(){
+        // remove old entries, if new ones exist
+        if (localStorage.hasOwnProperty(lStoreStats)){
+            if(localStorage.hasOwnProperty(lStoreStatsO)){
+                localStorage.removeItem(lStoreStatsO);
+            }
+        }
+        if (localStorage.hasOwnProperty(lStorePogo)){
+            if(localStorage.hasOwnProperty(lStorePogoO)){
+                localStorage.removeItem(lStorePogoO);
+            }
+        }
+        if (localStorage.hasOwnProperty(lStoreCheck)){
+            if(localStorage.hasOwnProperty(lStoreCheckO)){
+                localStorage.removeItem(lStoreCheckO);
+            }
+        }
+        if (localStorage.hasOwnProperty(lStoreUpgrades)){
+            if(localStorage.hasOwnProperty(lStoreUpgradesO)){
+                localStorage.removeItem(lStoreUpgradesO);
+            }
+        }
+    }
 
 /*******************************************************************************
  * MAIN
@@ -588,6 +612,7 @@
     window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(handleReview,2000)});
     window.addEventListener("WFESProfileLoaded", handleProfile);
     window.addEventListener("WFESHomePageLoaded", handleShowcase);
+    garbageCollection();
 
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 
