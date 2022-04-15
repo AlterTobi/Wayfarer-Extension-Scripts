@@ -10,8 +10,6 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
 ## Liste der Skripte
 * [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationNotify.user.js)
     - show nomination status updates
-* [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
-    - zeigt die aktuelle Wayfarer-Version an
 * [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.js)
     - öffne Originalfotos in "benannten" Tabs
 * [Add Translation Buttons](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AddTranslationButtons.user.js)
@@ -42,3 +40,5 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
 * [Nomination Details](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationDetail.user.js)
     - ergänzt die Ablehngründe um den Langtext
     - Zeigt die Ablehngründe auch bei Einsprüchen an
+* [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
+    - zeigt die aktuelle Wayfarer-Version an

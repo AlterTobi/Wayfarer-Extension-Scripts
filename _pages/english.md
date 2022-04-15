@@ -10,8 +10,6 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
 ## List of scripts
 * [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationNotify.user.js)
     - show nomination status updates
-* [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
-    - show current Wayfarer version
 * [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.js)
     - open fullsize images in "named" tabs
 * [Add Translation Buttons](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AddTranslationButtons.user.js)
@@ -42,3 +40,5 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 * [Nomination Details](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationDetail.user.js)
     - adds long text description for rejection criteria
     - shows reject reasons for appealed nominations
+* [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
+    - show current Wayfarer version
