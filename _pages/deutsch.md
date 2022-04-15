@@ -7,7 +7,7 @@ Userscripts für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js) installieren!
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
-## List of scripts
+## Liste der Skripte
 * [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationNotify.user.js)
     - show nomination status updates
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
