@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.0.0
+// @version      1.0.1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -53,16 +53,8 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     `;
 
 	function showDetails(details) {
-		let myDescID = "wfesDescrition";
 		let myGameID = "wfesGame";
 
-/*
- * if ( null === document.getElementById(myDescID)) { let descriptionText =
- * document.createElement("div"); descriptionText.setAttribute('id',myDescID);
- * descriptionText.innerText = details.description;
- * window.document.getElementsByClassName('showcase-item__title')[0].appendChild(descriptionText); }
- * else { document.getElementById(myDescID).innerText = details.description; }
- */
 		let userBox = window.document.getElementsByClassName('showcase-item__image-caption nightwind-prevent')[0];
 		let klasse = null;
 
