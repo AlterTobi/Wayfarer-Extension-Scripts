@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.0.0
+// @version      1.0.0.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -304,7 +304,13 @@
 
     /* ================ /getter ======================= */
     /* ================ setter ======================== */
-
+    window.wfes.s.callback = function(what, func) {
+        switch (what) {
+            case 'showcaseclick':
+                window.addEventListener("showcaseclick", func);
+                break;
+        }
+    }
     /* ================ /setter ======================= */
 
     // make objects immutable

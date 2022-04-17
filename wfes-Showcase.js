@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.0.2
+// @version      1.0.2.1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -90,6 +90,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 			buttons[i].addEventListener('click', () => setTimeout(()=>{
 				let myDetail = window.document.getElementsByTagName('app-showcase-item')[0].__ngContext__[29];
 				showDetails(myDetail);
+				window.dispatchEvent(new Event("showcaseclick"));
 				},100));
 		}
 	}
