@@ -10,7 +10,7 @@
     const myStyle = `.body {
         display: none;
     `;
-    
+
     function myTemplate() {
         window.wfes.f.addCSS(myCssId,myStyle);
         // YOUR CODE HERE
