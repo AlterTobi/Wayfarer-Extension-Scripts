@@ -20,6 +20,8 @@ jobs:
           /usr/bin/python3 ./build.py -d -c build_dev.ini
           cd ..
           git archive --format=tar --prefix=build/ origin/gh-pages | tar xvf -
+          git add .
+          git commit -am "dev pages"
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.0
