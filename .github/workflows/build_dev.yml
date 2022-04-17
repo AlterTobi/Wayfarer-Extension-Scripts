@@ -1,0 +1,27 @@
+name: DEVELOP buld and deploy
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install and Build
+        run: |
+          git checkout origin/build-tools .
+          git archive --format=tar --prefix=build/ origin/gh-pages | tar xvf -
+          cd scripts
+          /usr/bin/python3 ./build.py -d -c build_dev.ini
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          folder: build # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
