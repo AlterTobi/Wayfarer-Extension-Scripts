@@ -16,9 +16,10 @@ jobs:
       - name: Install and Build
         run: |
           git checkout origin/build-tools .
-          git archive --format=tar --prefix=build/ origin/gh-pages | tar xvf -
           cd scripts
           /usr/bin/python3 ./build.py -d -c build_dev.ini
+          cd ..
+          git archive --format=tar --prefix=build/ origin/gh-pages | tar xvf -
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.0
