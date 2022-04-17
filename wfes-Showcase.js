@@ -82,7 +82,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 	    window.wfes.f.addCSS(myCssId,myStyle);
 
 	    let showcase = window.wfes.g.showcase();
-	    
+
 		showDetails(showcase.list[0]);
 
 		let buttons = window.document.getElementsByClassName('wf-button showcase-gallery__button wf-button--icon ng-star-inserted');
