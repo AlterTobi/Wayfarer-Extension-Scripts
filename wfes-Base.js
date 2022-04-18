@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.1.0.beta1
+// @version      1.1.0.beta2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -201,6 +201,8 @@
             },100));
         }
     }
+
+    window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showcaseLoaded,250)});
     /* ================ /showcase ===================== */
     
     /* ================ nomination page =============== */
