@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.0.1
+// @version     1.0.2
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -31,6 +31,21 @@
                 #buttonsdiv button { margin: 0 10px; }
                 #buttonsdiv, #statsdiv, #gamesdiv { margin-bottom: 2em; }
     `;
+
+/**
+ * *** Section Const
+ * **************************************************************
+ */
+const WARN_POGO = `data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz
+zDMAmczMmZnMmZmZmTMzmTMAZpnMZpmZZmZmZjMzM2ZmMzMzMwAAADMzAAAAQu3hzgAAAR1JREFU
+eNqc09GSgyAMBdC0QRFRQ6mI8v8fuglQRrednZ3eR4656IBw+zPwb0ZEpRTiR0bVdb3ljKN5Z1XM
+lgfwyth1DZ1zdlQXPunVoTTLcs+p7Fzth1yd0e17sHZ6PB55vrFU9zbEdUvJCYuXengNh00D6Fg8
+11fmb+LmQxR02qepsDOVbQghReBovaWdEwLvrgqPxxG3GGWWuD0eiRNjGAubWUsr8SxQeoJeiNZ1
+OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq
+3jRG+DXKSqfzvkOdbOovl0n81ZsVr3cNhRsO7xfZDDNvvXjvCT/+BmgGosHgV3/JF/wjwACvbhgT
+fnV1HwAAAABJRU5ErkJggg==`;
 
     // get Values from localStorage
     let PoGoStats = JSON.parse(localStorage.getItem(lStorePogo)) || JSON.parse(localStorage.getItem(lStorePogoO)) || [];
@@ -365,12 +380,6 @@
                 window.wfes.f.localSave(lStoreCheck,isChecked);
             });
 
-            // Marker Map
-            document.getElementById('WFRHeatBtn').addEventListener('click', showMap);
-
-            // Heatmap
-            document.getElementById('WFRMarkBtn').addEventListener('click', showMap);
-
             function showMap() {
                 let histText, innerScript = '';
                 if ('WFRHeatBtn' === this.id ) {
@@ -472,6 +481,12 @@
                 script.setAttribute("src",'https://maps.googleapis.com/maps/api/js?key=AIzaSyB8G-1vuHW3Sx8ONsM71G9TzWJHHWXfAf8&libraries=visualization,geometry&callback=initMap');
                 body.appendChild(script);
             }
+            
+            // Marker Map
+            document.getElementById('WFRHeatBtn').addEventListener('click', showMap);
+
+            // Heatmap
+            document.getElementById('WFRMarkBtn').addEventListener('click', showMap);
         }
 
         function showGamesTable() {
@@ -615,19 +630,4 @@
     garbageCollection();
 
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
-
-/**
- * *** Section Const
- * **************************************************************
- */
-const WARN_POGO = `data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
-bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz
-zDMAmczMmZnMmZmZmTMzmTMAZpnMZpmZZmZmZjMzM2ZmMzMzMwAAADMzAAAAQu3hzgAAAR1JREFU
-eNqc09GSgyAMBdC0QRFRQ6mI8v8fuglQRrednZ3eR4656IBw+zPwb0ZEpRTiR0bVdb3ljKN5Z1XM
-lgfwyth1DZ1zdlQXPunVoTTLcs+p7Fzth1yd0e17sHZ6PB55vrFU9zbEdUvJCYuXengNh00D6Fg8
-11fmb+LmQxR02qepsDOVbQghReBovaWdEwLvrgqPxxG3GGWWuD0eiRNjGAubWUsr8SxQeoJeiNZ1
-OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq
-3jRG+DXKSqfzvkOdbOovl0n81ZsVr3cNhRsO7xfZDDNvvXjvCT/+BmgGosHgV3/JF/wjwACvbhgT
-fnV1HwAAAABJRU5ErkJggg==`;
 })();

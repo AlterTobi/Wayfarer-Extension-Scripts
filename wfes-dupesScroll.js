@@ -8,13 +8,13 @@
 
     function filmStripScroll() {
         // Make film strip (duplicates) scrollable
+        let filmStripElem = document
+                .querySelector('#check-duplicates-card div.w-full.flex.overflow-x-auto.overflow-y-hidden.ng-star-inserted');
+
         function horizontalScroll(e) {
             filmStripElem.scrollLeft += e.deltaY;
             e.preventDefault(); // Stop regular scroll
         }
-
-        let filmStripElem = document
-                .querySelector('#check-duplicates-card div.w-full.flex.overflow-x-auto.overflow-y-hidden.ng-star-inserted');
 
         if (null === filmStripElem) {
             setTimeout(filmStripScroll, 100);
