@@ -52,4 +52,5 @@ jobs:
       - name: Deploy to testbranch
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
+          folder: .
           branch: autofix # The branch the action should deploy to.
