@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.1.0.beta2
+// @version      1.1.0.beta3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -189,7 +189,7 @@
             window.dispatchEvent(new Event("WFESVersionChanged"));
         }
     }
-    
+
     /* ================ showcase ====================== */
     function showCaseLoaded(){
         let buttons = window.document.getElementsByClassName('wf-button showcase-gallery__button wf-button--icon ng-star-inserted');
@@ -202,9 +202,9 @@
         }
     }
 
-    window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showcaseLoaded,250)});
+    window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showCaseLoaded,250)});
     /* ================ /showcase ===================== */
-    
+
     /* ================ nomination page =============== */
     function loadCachedNomination(nomItem) {
         if (undefined === wfes.nominations.detail) {
