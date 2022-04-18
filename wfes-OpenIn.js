@@ -1,5 +1,5 @@
 // @name         maps open in
-// @version      1.0.0.1
+// @version      1.1.0.beta1
 // @description  add "Open In" for maps
 // @author       AlterTobi
 
@@ -165,16 +165,12 @@
         elem.parentNode.appendChild(mainButton);
     }
 
-    function clickfunc(){
-        console.log('OpenIn clickfunc')
-    }
-
-    function showcaseLoaded() {
-        window.wfes.s.callback('showcaseclick',clickfunc)
-        return;
+    function showCaseLoaded() {
         window.wfes.f.addCSS(myCssId,myStyle);
         let showcase = window.wfes.g.showcase();
-        let mainButton = getMapDropdown(lat, lng);
+        let mainButton = getMapDropdown(showcase.current.lat, showcase.current.lng);
+        let elem = document.querySelector("div.showcase-item__info");
+        elem.insertAdjacentElement('beforeend', mainButton);
     }
 
     let selNomTimerId = null;
@@ -183,7 +179,7 @@
     window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addDropdownReview,100)});
     window.addEventListener("WFESNominationDetailLoaded", () => { clearTimeout(selNomTimerId); selNomTimerId = setTimeout(addDropdownNomination,250)});
     window.addEventListener("WFESNominationListLoaded", () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250)});
-    window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showcaseLoaded,250)});
+    window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showCaseLoaded,250)});
     
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
