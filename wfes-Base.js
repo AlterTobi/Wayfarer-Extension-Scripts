@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.0.0.1
+// @version      1.0.0.beta2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -189,6 +189,20 @@
             window.dispatchEvent(new Event("WFESVersionChanged"));
         }
     }
+    
+    /* ================ showcase ====================== */
+    function showCaseLoaded(){
+        let buttons = window.document.getElementsByClassName('wf-button showcase-gallery__button wf-button--icon ng-star-inserted');
+        for (let i=0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', () => setTimeout(()=>{
+                let myDetail = window.document.getElementsByTagName('app-showcase-item')[0].__ngContext__[29];
+                wfes.showcase.current = myDetail;
+                window.dispatchEvent(new Event("WFESShowCaseClick"));
+            },100));
+        }
+    }
+    /* ================ /showcase ===================== */
+    
     /* ================ nomination page =============== */
     function loadCachedNomination(nomItem) {
         if (undefined === wfes.nominations.detail) {

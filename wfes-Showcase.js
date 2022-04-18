@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.0.2.1
+// @version      1.0.2.beta2
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -78,26 +78,22 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 		document.getElementById(myGameID).setAttribute("class", klasse);
 	}
 
+	function showCaseClick() {
+	    let showcase = window.wfes.g.showcase();
+	    showDetails(showcase.current);
+	}
+
 	function homePageLoaded() {
 	    window.wfes.f.addCSS(myCssId,myStyle);
-
 	    let showcase = window.wfes.g.showcase();
-
-		showDetails(showcase.list[0]);
-
-		let buttons = window.document.getElementsByClassName('wf-button showcase-gallery__button wf-button--icon ng-star-inserted');
-		for (let i=0; i < buttons.length; i++) {
-			buttons[i].addEventListener('click', () => setTimeout(()=>{
-				let myDetail = window.document.getElementsByTagName('app-showcase-item')[0].__ngContext__[29];
-				showDetails(myDetail);
-				window.dispatchEvent(new Event("showcaseclick"));
-				},100));
-		}
+	    showDetails(showcase.list[0]);
 	}
 
     let loadHomeTimerId = null;
     window.addEventListener("WFESHomePageLoaded",
     		() => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,200)});
 
+    window.addEventListener("WFESShowCaseClick",showCaseClick);
+    
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
