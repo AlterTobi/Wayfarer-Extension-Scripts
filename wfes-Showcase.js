@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.1.0.beta1
+// @version      1.1.0
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
