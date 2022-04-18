@@ -85,8 +85,8 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 
 	function homePageLoaded() {
 	    window.wfes.f.addCSS(myCssId,myStyle);
-	    let showcase = window.wfes.g.showcase();
-	    showDetails(showcase.list[0]);
+            let showcase = window.wfes.g.showcase();
+            showDetails(showcase.list[0]);
 	}
 
     let loadHomeTimerId = null;
