@@ -23,7 +23,7 @@ jobs:
     name: Run eslint scanning
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       security-events: write
     steps:
       - name: Checkout code
