@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.1.0.beta3
+// @version      1.1.0.beta4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -192,6 +192,7 @@
 
     /* ================ showcase ====================== */
     function showCaseLoaded(){
+        wfes.showcase.current = wfes.showcase.list[0];
         let buttons = window.document.getElementsByClassName('wf-button showcase-gallery__button wf-button--icon ng-star-inserted');
         for (let i=0; i < buttons.length; i++) {
             buttons[i].addEventListener('click', () => setTimeout(()=>{
