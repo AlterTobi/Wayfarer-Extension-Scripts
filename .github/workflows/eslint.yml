@@ -40,6 +40,7 @@ jobs:
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif 
           --output-file eslint-results.sarif
+          --fix
         continue-on-error: true
 
       - name: Upload analysis results to GitHub
@@ -47,3 +48,8 @@ jobs:
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
+
+      - name: Deploy to testbranch
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: autofix # The branch the action should deploy to.
