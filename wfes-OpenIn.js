@@ -1,5 +1,5 @@
 // @name         maps open in
-// @version      1.1.0.beta1
+// @version      1.1.0.beta2
 // @description  add "Open In" for maps
 // @author       AlterTobi
 
@@ -165,12 +165,27 @@
         elem.parentNode.appendChild(mainButton);
     }
 
-    function showCaseLoaded() {
+    function addButtonShowCase(btn) {
         window.wfes.f.addCSS(myCssId,myStyle);
+        // remove if exists
+        let button = document.getElementById(buttonID);
+        if (button !== null) {
+            button.remove();
+        }
+        let elem = document.querySelector("div.showcase-item__info");
+        elem.insertAdjacentElement('beforeend', btn);
+    }
+
+    function showCaseLoaded() {
+        let showcase = window.wfes.g.showcase();
+        let mainButton = getMapDropdown(showcase.list[0].lat, showcase.list[0].lng);
+        addButtonShowCase(mainButton);
+    }
+
+    function showCaseClick() {
         let showcase = window.wfes.g.showcase();
         let mainButton = getMapDropdown(showcase.current.lat, showcase.current.lng);
-        let elem = document.querySelector("div.showcase-item__info");
-        elem.insertAdjacentElement('beforeend', mainButton);
+        addButtonShowCase(mainButton);
     }
 
     let selNomTimerId = null;
@@ -180,6 +195,7 @@
     window.addEventListener("WFESNominationDetailLoaded", () => { clearTimeout(selNomTimerId); selNomTimerId = setTimeout(addDropdownNomination,250)});
     window.addEventListener("WFESNominationListLoaded", () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded,250)});
     window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showCaseLoaded,250)});
-    
+    window.addEventListener("WFESShowCaseClick", showCaseClick);
+
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
 })();
