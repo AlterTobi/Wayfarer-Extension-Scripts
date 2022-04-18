@@ -1,4 +1,4 @@
-name: DEVELOP buld and deploy
+name: DEVELOP build and deploy
 on:
   push:
     branches:
