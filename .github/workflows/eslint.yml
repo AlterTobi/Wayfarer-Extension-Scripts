@@ -23,7 +23,8 @@ jobs:
     name: Run eslint scanning
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+#      contents: write
+      contents: read
       security-events: write
     steps:
       - name: Checkout code
@@ -43,14 +44,16 @@ jobs:
           --fix
         continue-on-error: true
 
-      - name: Deploy to testbranch
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
-        with:
-          folder: .
-          branch: lintresult # The branch the action should deploy to.
-
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
+
+#      - name: Deploy to testbranch
+#        uses: JamesIves/github-pages-deploy-action@v4.3.0
+#        with:
+#          folder: .
+#          branch: lintresult # The branch the action should deploy to.
+
+          
