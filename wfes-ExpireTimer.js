@@ -1,5 +1,5 @@
 // @name         Expire Timer
-// @version      1.0.1
+// @version      1.0.2
 // @description  Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author       MrJPGames / AlterTobi
 
@@ -8,20 +8,11 @@
     let timeElem;
     let headerTimer;
 
-    function createTimer(message) {
-        let header = document.getElementsByTagName("wf-header")[0].children[0].children[0];
-        let headerTimerWrapper = document.createElement("div");
-        headerTimer = document.createElement("span");
-        headerTimer.innerText = message;
-        headerTimerWrapper.appendChild(headerTimer);
-        headerTimerWrapper.setAttribute("style", "display: inline-block; margin-left: 5em;");
-        headerTimerWrapper.setAttribute("class", "revExprTimer");
-        timeElem = document.createElement("div");
-        timeElem.innerText = "??:??";
-        timeElem.style.display = "inline-block";
-        headerTimerWrapper.appendChild(timeElem);
-        header.insertAdjacentElement('afterend', headerTimerWrapper);
-        updateTimer();
+    // Helper functions
+    function pad(num, size) {
+        var s = num + "";
+        while (s.length < size){s = "0" + s;}
+        return s;
     }
 
     function updateTimer() {
@@ -40,11 +31,20 @@
         }
     }
 
-    // Helper functions
-    function pad(num, size) {
-        var s = num + "";
-        while (s.length < size){s = "0" + s;}
-        return s;
+    function createTimer(message) {
+        let header = document.getElementsByTagName("wf-header")[0].children[0].children[0];
+        let headerTimerWrapper = document.createElement("div");
+        headerTimer = document.createElement("span");
+        headerTimer.innerText = message;
+        headerTimerWrapper.appendChild(headerTimer);
+        headerTimerWrapper.setAttribute("style", "display: inline-block; margin-left: 5em;");
+        headerTimerWrapper.setAttribute("class", "revExprTimer");
+        timeElem = document.createElement("div");
+        timeElem.innerText = "??:??";
+        timeElem.style.display = "inline-block";
+        headerTimerWrapper.appendChild(timeElem);
+        header.insertAdjacentElement('afterend', headerTimerWrapper);
+        updateTimer();
     }
 
     window.addEventListener("WFESReviewPageLoaded", () => createTimer("Time remaining: "));

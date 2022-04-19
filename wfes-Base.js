@@ -27,50 +27,50 @@
     window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter,
     // setter
 
+    /* =========== helper ============================= */
+    function checkWfVersion(v) {
+        if (wfes.version !== v) {
+            console.log('WF version changed from', wfes.version, 'to', v);
+            wfes.version = v;
+            window.dispatchEvent(new Event("WFESVersionChanged"));
+        }
+    }
+
     /* ================ overwrite XHR ================ */
     let openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
 
-    function openReplacement(method, url, async, user, password) {
-        this._url = url;
-        this._method = method;
-        // console.log( "WFES OPEN: ", method, url );
-        if (PREFIX === this._url.substr(0, PREFIX.length)) {
-            // handle only Wayfarer URLs
-            this.addEventListener('load', handleLoadEvent);
-        }
-        return openOrig.apply(this, arguments);
-    }
+    /* handle data */
+    function handleReviewData(result) {
+        // save review data in ...pagedata and sessionstore
+        let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
+        wfes.review.sessionHist = window.wfes.f.makeIDbasedDictionary(reviewSessionHist);
 
-    function sendReplacement(daten) {
-        let candidate, json;
-        // handle only POST requests
-        if ('POST' === this._method) {
-            switch (this._url) {
-                case PREFIX + 'review':
-                    json = JSON.parse(daten);
-                    candidate = wfes.review.sessionHist[json.id];
-                    wfes.review.decision.candidate = candidate;
-                    wfes.review.decision.decision = json;
-                    window.dispatchEvent(new Event("WFESReviewDecisionSent"));
-                    break;
-                case PREFIX + 'review/skip':
-                    json = JSON.parse(daten);
-                    candidate = wfes.review.sessionHist[json.id];
-                    wfes.review.decision.candidate = candidate;
-                    json.skipped = true;
-                    wfes.review.decision.decision = json;
-                    window.dispatchEvent(new Event("WFESReviewDecisionSent"));
-                    break;
-                case PREFIX + 'manage/appeal':
-                    json = JSON.parse(daten);
-                    wfes.review.appeal = json;
-                    window.dispatchEvent(new Event("WFESReviewAppealSent"));
-                    break;
-                default:
-                    break;
-            }
+        if (undefined === wfes.review.sessionHist[result.id]) {
+            reviewSessionHist.push(result);
+            window.wfes.f.sessionSave(sStoreReview, reviewSessionHist);
+            wfes.review.sessionHist[result.id] = result;
         }
-        return sendOrig.apply(this, arguments);
+
+        wfes.edit.isEdit = false;
+
+        wfes.review.pageData = result;
+        switch (wfes.review.pageData.type) {
+            case 'NEW':
+                window.dispatchEvent(new Event("WFESReviewPageNewLoaded"));
+                break;
+            case 'EDIT':
+                wfes.edit.isEdit = true;
+                wfes.edit.what = {};
+                wfes.edit.what.location = result.locationEdits.length > 1;
+                wfes.edit.what.description = result.descriptionEdits.length > 0;
+                wfes.edit.what.title = result.titleEdits.length > 0;
+                window.dispatchEvent(new Event("WFESReviewPageEditLoaded"));
+                break;
+            case 'PHOTO':
+                window.dispatchEvent(new Event("WFESReviewPagePhotoLoaded"));
+                break;
+        }
+        window.dispatchEvent(new Event("WFESReviewPageLoaded"));
     }
 
     function handleLoadEvent(e) {
@@ -144,51 +144,53 @@
         }
     }
 
+    function openReplacement(method, url, async, user, password) {
+        this._url = url;
+        this._method = method;
+        // console.log( "WFES OPEN: ", method, url );
+        if (PREFIX === this._url.substr(0, PREFIX.length)) {
+            // handle only Wayfarer URLs
+            this.addEventListener('load', handleLoadEvent);
+        }
+        return openOrig.apply(this, arguments);
+    }
+
+    function sendReplacement(daten) {
+        let candidate, json;
+        // handle only POST requests
+        if ('POST' === this._method) {
+            switch (this._url) {
+                case PREFIX + 'review':
+                    json = JSON.parse(daten);
+                    candidate = wfes.review.sessionHist[json.id];
+                    wfes.review.decision.candidate = candidate;
+                    wfes.review.decision.decision = json;
+                    window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+                    break;
+                case PREFIX + 'review/skip':
+                    json = JSON.parse(daten);
+                    candidate = wfes.review.sessionHist[json.id];
+                    wfes.review.decision.candidate = candidate;
+                    json.skipped = true;
+                    wfes.review.decision.decision = json;
+                    window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+                    break;
+                case PREFIX + 'manage/appeal':
+                    json = JSON.parse(daten);
+                    wfes.review.appeal = json;
+                    window.dispatchEvent(new Event("WFESReviewAppealSent"));
+                    break;
+                default:
+                    break;
+            }
+        }
+        return sendOrig.apply(this, arguments);
+    }
+
     window.XMLHttpRequest.prototype.open = openReplacement;
     window.XMLHttpRequest.prototype.send = sendReplacement;
 
-    /* handle data */
-    function handleReviewData(result) {
-        // save review data in ...pagedata and sessionstore
-        let reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
-        wfes.review.sessionHist = window.wfes.f.makeIDbasedDictionary(reviewSessionHist);
-
-        if (undefined === wfes.review.sessionHist[result.id]) {
-            reviewSessionHist.push(result);
-            window.wfes.f.sessionSave(sStoreReview, reviewSessionHist);
-            wfes.review.sessionHist[result.id] = result;
-        }
-
-        wfes.edit.isEdit = false;
-
-        wfes.review.pageData = result;
-        switch (wfes.review.pageData.type) {
-            case 'NEW':
-                window.dispatchEvent(new Event("WFESReviewPageNewLoaded"));
-                break;
-            case 'EDIT':
-                wfes.edit.isEdit = true;
-                wfes.edit.what = {};
-                wfes.edit.what.location = result.locationEdits.length > 1;
-                wfes.edit.what.description = result.descriptionEdits.length > 0;
-                wfes.edit.what.title = result.titleEdits.length > 0;
-                window.dispatchEvent(new Event("WFESReviewPageEditLoaded"));
-                break;
-            case 'PHOTO':
-                window.dispatchEvent(new Event("WFESReviewPagePhotoLoaded"));
-                break;
-        }
-        window.dispatchEvent(new Event("WFESReviewPageLoaded"));
-    }
     /* ================ /overwrite XHR ================ */
-
-    function checkWfVersion(v) {
-        if (wfes.version !== v) {
-            console.log('WF version changed from', wfes.version, 'to', v);
-            wfes.version = v;
-            window.dispatchEvent(new Event("WFESVersionChanged"));
-        }
-    }
 
     /* ================ showcase ====================== */
     function showCaseLoaded(){
