@@ -24,11 +24,12 @@ jobs:
         with:
           folder: build # The folder the action should deploy.
           branch: gh-pages # The branch the action should deploy to.
+          single-commit: true # need no history
+          clean-exclude: dev # preserve the dev folder
+#          clean: false # preserve the dev folder 
       
       - name: Deploy2Main
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           folder: build # The folder the action should deploy.
           branch: main # The branch the action should deploy to.
-          clean: false # preserve the dev folder 
-          single-commit: true # need no history
