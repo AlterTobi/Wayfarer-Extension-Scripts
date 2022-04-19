@@ -3,7 +3,7 @@
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
-(function () {
+(function() {
     'use strict';
     const selfname = 'wfes_wayfarerStats';
     const maincount = 14;

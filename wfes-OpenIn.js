@@ -1,5 +1,5 @@
 // @name         maps open in
-// @version      1.1.0
+// @version      1.1.1
 // @description  add "Open In" for maps
 // @author       AlterTobi
 
@@ -57,6 +57,20 @@
                 }
     `;
 
+    // NON-SECURE (But good enough for uniqueID on URLs)
+    function getStringHash(str){
+        var hash = 0;
+        if (str.length === 0) {
+            return hash;
+        }
+        for (var i = 0; i < str.length; i++) {
+            var char = str.charCodeAt(i);
+            hash = ((hash<<5)-hash)+char;
+            hash = hash & hash;
+        }
+        return hash;
+    }
+
     function getMapDropdown(lat, lng){
     	// Create main dropdown menu ("button")
     	let mainButton = document.createElement("div");
@@ -97,20 +111,6 @@
         	}
     	}
     	return mainButton;
-    }
-
-    // NON-SECURE (But good enough for uniqueID on URLs)
-    function getStringHash(str){
-        var hash = 0;
-        if (str.length === 0) {
-            return hash;
-        }
-        for (var i = 0; i < str.length; i++) {
-            var char = str.charCodeAt(i);
-            hash = ((hash<<5)-hash)+char;
-            hash = hash & hash;
-        }
-        return hash;
     }
 
     function addDropdownReview() {
