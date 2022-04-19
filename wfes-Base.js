@@ -1,7 +1,9 @@
 // @name         Base
-// @version      1.1.0
+// @version      1.1.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
+
+/*eslint no-unused-vars: ["error", { "args": "none" }]*/
 
 (function() {
     'use strict';

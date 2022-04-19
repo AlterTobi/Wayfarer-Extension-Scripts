@@ -1,9 +1,10 @@
 // @name         review Add Orig Location
-// @version      1.0.0
+// @version      1.0.1
 // @description  location edits - add marker for original location
 // @author       AlterTobi
 
 /*global google */
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "marker" }]*/
 
 (function() {
     'use strict';
