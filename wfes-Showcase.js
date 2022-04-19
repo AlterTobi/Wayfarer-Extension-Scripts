@@ -4,7 +4,7 @@
 // @author       AlterTobi
 
 (function() {
-	'use strict';
+    'use strict';
 
     const myCssId = 'showcaseCSS';
     const myStyle = `.gamelogo{
@@ -52,46 +52,46 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 
     `;
 
-	function showDetails(details) {
-		let myGameID = "wfesGame";
+    function showDetails(details) {
+        let myGameID = "wfesGame";
 
-		let userBox = window.document.getElementsByClassName('showcase-item__image-caption nightwind-prevent')[0];
-		let klasse = null;
+        let userBox = window.document.getElementsByClassName('showcase-item__image-caption nightwind-prevent')[0];
+        let klasse = null;
 
-		if (null === document.getElementById(myGameID)) {
-			let gameLogo = document.createElement("div");
-			gameLogo.setAttribute('id',myGameID);
-			userBox.appendChild(gameLogo);
-		}
+        if (null === document.getElementById(myGameID)) {
+            let gameLogo = document.createElement("div");
+            gameLogo.setAttribute('id',myGameID);
+            userBox.appendChild(gameLogo);
+        }
 
-		switch (details.discovererGame) {
-			case '': // no logo
-				klasse = 'bgNone';
-				break;
-			case 'Pokémon GO':
-				klasse = 'gamelogo bgPGO';
-				break;
-			case 'Ingress':
-				klasse = 'gamelogo bgING';
-				break;
-		}
-		document.getElementById(myGameID).setAttribute("class", klasse);
-	}
+        switch (details.discovererGame) {
+            case '': // no logo
+                klasse = 'bgNone';
+                break;
+            case 'Pokémon GO':
+                klasse = 'gamelogo bgPGO';
+                break;
+            case 'Ingress':
+                klasse = 'gamelogo bgING';
+                break;
+        }
+        document.getElementById(myGameID).setAttribute("class", klasse);
+    }
 
-	function showCaseClick() {
-	    let showcase = window.wfes.g.showcase();
-	    showDetails(showcase.current);
-	}
+    function showCaseClick() {
+        let showcase = window.wfes.g.showcase();
+        showDetails(showcase.current);
+    }
 
-	function homePageLoaded() {
-	    window.wfes.f.addCSS(myCssId,myStyle);
+    function homePageLoaded() {
+        window.wfes.f.addCSS(myCssId,myStyle);
             let showcase = window.wfes.g.showcase();
             showDetails(showcase.list[0]);
-	}
+    }
 
     let loadHomeTimerId = null;
     window.addEventListener("WFESHomePageLoaded",
-    		() => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,200)});
+            () => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,200)});
 
     window.addEventListener("WFESShowCaseClick",showCaseClick);
     
