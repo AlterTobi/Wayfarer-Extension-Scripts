@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      1.0.1
+// @version      1.0.2
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 
@@ -106,7 +106,7 @@
 
         let pageData = window.wfes.g.reviewPageData();
 
-        if (pageData.supportingImageUrl != ""){
+        if ("" !== pageData.supportingImageUrl){
             let elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
 
             let translateButton = document.createElement("a");
