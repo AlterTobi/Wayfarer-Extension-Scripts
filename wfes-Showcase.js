@@ -8,17 +8,17 @@
 
     const myCssId = 'showcaseCSS';
     const myStyle = `.gamelogo{
-                  float: left;
-                  padding: 5px;
-                  width: 30px;
-                  height: 30px;
-                  background-repeat: no-repeat;
-                }
-                .bgNone {
-                    display: none;
-                }
-                .bgPGO {
-                background-image:  url('data:image/png;base64,
+            float: left;
+            padding: 5px;
+            width: 30px;
+            height: 30px;
+            background-repeat: no-repeat;
+        }
+        .bgNone {
+            display: none;
+        }
+        .bgPGO {
+            background-image:  url('data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz\
 zDMAmczMmZnMmZmZmTMzmTMAZpnMZpmZZmZmZjMzM2ZmMzMzMwAAADMzAAAAQu3hzgAAAR1JREFU\
@@ -28,9 +28,9 @@ lgfwyth1DZ1zdlQXPunVoTTLcs+p7Fzth1yd0e17sHZ6PB55vrFU9zbEdUvJCYuXengNh00D6Fg8\
 OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq\
 3jRG+DXKSqfzvkOdbOovl0n81ZsVr3cNhRsO7xfZDDNvvXjvCT/+BmgGosHgV3/JF/wjwACvbhgT\
 fnV1HwAAAABJRU5ErkJggg==');
-                }
-                .bgING {
-                background-image:  url('data:image/png;base64,
+        }
+            .bgING {
+            background-image:  url('data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAMBQTFRF7Oby5dvscj2aNQF2hFmp/Pv9WCaOSROFXCySdkCcwavUk2qy\
 ZDSWbTuZ8e31e1GlqozDvabRd0uinYC+bDSWnHu7Zi2SWx6LrJPH3dLny7rbiGaw9vP5lHC12c3l\
@@ -48,8 +48,7 @@ W/4cQluN7vLbZHJRMJ7JYdVx9tHDJtEn3HY0IYRuwYcgalkULQBUbPNvnhLMTitNifiYI8CSMoKp\
 msqzhMX9D7VJotwvKKA1oVMgNaNJDNsjZTvo2WdEpXjaryj2PFGizxWvVQjbPzdTzPg88biHDRZF\
 ao7gTYkYY4ufrWjxhNVUQhcNLyHFFPN89trIG7UviJSZLPv8Hdh37+8x2JqqqjJMj4GiMKaq9unf\
 IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
-                }
-
+        }
     `;
 
     function showDetails(details) {
@@ -85,8 +84,8 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 
     function homePageLoaded() {
         window.wfes.f.addCSS(myCssId,myStyle);
-            let showcase = window.wfes.g.showcase();
-            showDetails(showcase.list[0]);
+        let showcase = window.wfes.g.showcase();
+        showDetails(showcase.list[0]);
     }
 
     let loadHomeTimerId = null;

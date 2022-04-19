@@ -123,27 +123,27 @@
 
         switch (pageData.type) {
             case "NEW":
-                    elem = document.getElementById("location-accuracy-card");
-                    if (null === elem) {
-                        if (tryCounter++ > 10) {
-                            console.warn('WFES - Open In - no DOM - abort');
-                        } else {
-                            setTimeout(addDropdownReview,100);
-                        }
-                        return;
+                elem = document.getElementById("location-accuracy-card");
+                if (null === elem) {
+                    if (tryCounter++ > 10) {
+                        console.warn('WFES - Open In - no DOM - abort');
+                    } else {
+                        setTimeout(addDropdownReview,100);
                     }
-                    tryCounter = 0;
-                    elem.children[2].insertAdjacentElement('afterbegin', mainButton);
-                    break;
+                    return;
+                }
+                tryCounter = 0;
+                elem.children[2].insertAdjacentElement('afterbegin', mainButton);
+                break;
             case "EDIT":
-                    elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
-                    elem = elemlist[elemlist.length-1];
-                    elem.insertAdjacentElement('afterEnd', mainButton);
-                    break;
+                elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
+                elem = elemlist[elemlist.length-1];
+                elem.insertAdjacentElement('afterEnd', mainButton);
+                break;
             case "PHOTO":
-                    elem = document.querySelector(".review-photo__info > div.flex.flex-col");
-                    elem.insertAdjacentElement('beforeend', mainButton);
-                    break;
+                elem = document.querySelector(".review-photo__info > div.flex.flex-col");
+                elem.insertAdjacentElement('beforeend', mainButton);
+                break;
         }
     }
 
