@@ -135,7 +135,7 @@
         if ( 0 === historyDict.length){
             // first run, import from Wayfarer+, if exists
             let wfpList = JSON.parse(localStorage.getItem('wfpNomList'));
-            if (wfpList === null) {
+            if (null === wfpList) {
                 window.wfes.f.localSave(lStoreList, window.wfes.f.makeIDbasedDictionary(nomList));
             } else {
                 // import WF+ Data
@@ -157,7 +157,7 @@
                     createNotification(`${nom.title} has unknown state: ${nom.status}`,'blue');
                 }
 
-                if (historicalData === undefined) {
+                if (undefined === historicalData) {
                     myDates.push([today,nom.status]); // save current date and
                                                     // status
                     nom.wfesDates = myDates;
@@ -172,7 +172,7 @@
                 }
 
                 // upgrade?
-                if (historicalData.upgraded === false && nom.upgraded === true){
+                if (false === historicalData.upgraded && true === nom.upgraded){
                     myDates.push([today,'UPGRADE']);
                     createNotification(`${nom.title} was upgraded!`);
                 }
@@ -183,21 +183,21 @@
                 }
 
                 // was missing?
-                if ((historicalData.status === "MISSING")){
+                if (("MISSING" === historicalData.status)){
                     createNotification(`${nom.title} returned`, 'orange');
                 }
                 // In queue -> In voting
-                if ((historicalData.status !== "VOTING") && (nom.status === "VOTING")){
+                if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)){
                     createNotification(`${nom.title} went into voting!`);
                 }else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE"){
-                    if (nom.status === "ACCEPTED") {
+                    if ("ACCEPTED" === nom.status) {
                         createNotification(`${nom.title} was accepted!`);
-                    }else if(nom.status === "REJECTED"){
+                    }else if("REJECTED" === nom.status){
                         createNotification(`${nom.title} was rejected!`);
-                    }else if(nom.status === "DUPLICATE"){
+                    }else if("DUPLICATE" === nom.status){
                         createNotification(`${nom.title} was marked as a duplicate!`);
                     }
-                } else if ((historicalData.status !== "APPEALED") && (nom.status === "APPEALED")){
+                } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)){
                     createNotification(`${nom.title} was appealed!`);
                 }
 

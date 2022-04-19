@@ -1,7 +1,7 @@
-// @name         maps open in
-// @version      1.1.1
-// @description  add "Open In" for maps
-// @author       AlterTobi
+// @name maps open in
+// @version 1.1.1
+// @description add "Open In" for maps
+// @author AlterTobi
 
 (function() {
     'use strict';
@@ -89,7 +89,7 @@
 
         // let customMaps = JSON.parse(settings["customMaps"]); settings später
         // vielleicht
-        if (customMaps.length === 0){
+        if (0 === customMaps.length){
             let emptySpan = document.createElement("span");
             emptySpan.innerText = "No custom maps set!";
             dropdownContainer.appendChild(emptySpan);
