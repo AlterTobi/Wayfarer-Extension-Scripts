@@ -8,9 +8,9 @@
 
     // map URLs, %lat%, %lng% will be replaced by nominations coordinates
     const customMaps = [
-    	{ title: "Google", url: "https://maps.google.com/maps?q=%lat%,%lng%"},
-    	{ title: "Intel", url: "https://intel.ingress.com/intel?ll=%lat%,%lng%&z=18"},
-    	{ title: "OSM", url: "https://www.openstreetmap.org/?mlat=%lat%&mlon=%lng%#map=18/%lat%/%lng%"}
+        { title: "Google", url: "https://maps.google.com/maps?q=%lat%,%lng%"},
+        { title: "Intel", url: "https://intel.ingress.com/intel?ll=%lat%,%lng%&z=18"},
+        { title: "OSM", url: "https://www.openstreetmap.org/?mlat=%lat%&mlon=%lng%#map=18/%lat%/%lng%"}
     ];
 
     let tryCounter = 0;
@@ -72,45 +72,45 @@
     }
 
     function getMapDropdown(lat, lng){
-    	// Create main dropdown menu ("button")
-    	let mainButton = document.createElement("div");
-    	mainButton.setAttribute("class","mapsDropdown");
-    	mainButton.id = buttonID;
+        // Create main dropdown menu ("button")
+        let mainButton = document.createElement("div");
+        mainButton.setAttribute("class","mapsDropdown");
+        mainButton.id = buttonID;
 
-    	let buttonText = document.createElement("span");
-    	buttonText.innerText = "Open in ...";
+        let buttonText = document.createElement("span");
+        buttonText.innerText = "Open in ...";
 
-    	let dropdownContainer = document.createElement("div");
-    	dropdownContainer.setAttribute("class", "dropdown-content");
-    	dropdownContainer.innerHTML = null;
+        let dropdownContainer = document.createElement("div");
+        dropdownContainer.setAttribute("class", "dropdown-content");
+        dropdownContainer.innerHTML = null;
 
-    	mainButton.appendChild(dropdownContainer);
-    	mainButton.appendChild(buttonText);
+        mainButton.appendChild(dropdownContainer);
+        mainButton.appendChild(buttonText);
 
-    	// let customMaps = JSON.parse(settings["customMaps"]); settings später
+        // let customMaps = JSON.parse(settings["customMaps"]); settings später
         // vielleicht
-    	if (customMaps.length === 0){
-    		let emptySpan = document.createElement("span");
-    		emptySpan.innerText = "No custom maps set!";
-    		dropdownContainer.appendChild(emptySpan);
-    	} else {
-        	for (let i=0; i < customMaps.length; i++){
-        		let title = customMaps[i].title;
-        		let link = customMaps[i].url;
+        if (customMaps.length === 0){
+            let emptySpan = document.createElement("span");
+            emptySpan.innerText = "No custom maps set!";
+            dropdownContainer.appendChild(emptySpan);
+        } else {
+            for (let i=0; i < customMaps.length; i++){
+                let title = customMaps[i].title;
+                let link = customMaps[i].url;
 
-        		// Link editing:
-        		link = link.replace(/%lat%/g, lat).replace(/%lng%/g, lng);
+                // Link editing:
+                link = link.replace(/%lat%/g, lat).replace(/%lng%/g, lng);
 
-        		let button = document.createElement("a");
-        		button.href = link;
-       			button.setAttribute("target", getStringHash(customMaps[i].url));
+                let button = document.createElement("a");
+                button.href = link;
+                   button.setAttribute("target", getStringHash(customMaps[i].url));
                 // On URL with placeholders as those are the same between
                 // different wayspots but not between different maps!
-        		button.innerText = title;
-        		dropdownContainer.appendChild(button);
-        	}
-    	}
-    	return mainButton;
+                button.innerText = title;
+                dropdownContainer.appendChild(button);
+            }
+        }
+        return mainButton;
     }
 
     function addDropdownReview() {
@@ -119,10 +119,10 @@
         window.wfes.f.addCSS(myCssId,myStyle);
 
         let pageData = window.wfes.g.reviewPageData();
-    	let mainButton = getMapDropdown(pageData.lat, pageData.lng);
+        let mainButton = getMapDropdown(pageData.lat, pageData.lng);
 
-    	switch (pageData.type) {
-    		case "NEW":
+        switch (pageData.type) {
+            case "NEW":
                     elem = document.getElementById("location-accuracy-card");
                     if (null === elem) {
                         if (tryCounter++ > 10) {
@@ -135,16 +135,16 @@
                     tryCounter = 0;
                     elem.children[2].insertAdjacentElement('afterbegin', mainButton);
                     break;
-    		case "EDIT":
+            case "EDIT":
                     elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
                     elem = elemlist[elemlist.length-1];
                     elem.insertAdjacentElement('afterEnd', mainButton);
                     break;
-    		case "PHOTO":
+            case "PHOTO":
                     elem = document.querySelector(".review-photo__info > div.flex.flex-col");
                     elem.insertAdjacentElement('beforeend', mainButton);
                     break;
-    	}
+        }
     }
 
     function NominationPageLoaded() {
@@ -152,13 +152,13 @@
     }
 
     function addDropdownNomination(){
-    	let elem;
-    	// remove existing first
-    	let button = document.getElementById(buttonID);
-    	if (button !== null) {
-    	    button.remove();
-    	}
-    	let nomDetail = window.wfes.g.nominationDetail();
+        let elem;
+        // remove existing first
+        let button = document.getElementById(buttonID);
+        if (button !== null) {
+            button.remove();
+        }
+        let nomDetail = window.wfes.g.nominationDetail();
 
         let mainButton = getMapDropdown(nomDetail.lat, nomDetail.lng);
         elem = document.getElementsByClassName("details-pane__map")[0];
