@@ -14,8 +14,7 @@ module.exports = {
     "space-before-function-paren": ["error", "never"],
     // ab hier wieder noch fixen
     "no-mixed-spaces-and-tabs": "off",
-    "no-prototype-builtins": "warn",
-    "no-useless-escape": "off"
+    "no-useless-escape": "warn"
     // "no-mixed-spaces-and-tabs": ["error","smart-tabs"]
   },
 };
