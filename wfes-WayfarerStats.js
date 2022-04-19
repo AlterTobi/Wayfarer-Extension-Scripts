@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.0.2
+// @version     1.0.3
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -597,23 +597,23 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
     function garbageCollection(){
         // remove old entries, if new ones exist
-        if (localStorage.hasOwnProperty(lStoreStats)){
-            if(localStorage.hasOwnProperty(lStoreStatsO)){
+        if (Object.prototype.hasOwnProperty.call(localStorage,lStoreStats)){
+            if(Object.prototype.hasOwnProperty.call(localStorage,lStoreStatsO)){
                 localStorage.removeItem(lStoreStatsO);
             }
         }
-        if (localStorage.hasOwnProperty(lStorePogo)){
-            if(localStorage.hasOwnProperty(lStorePogoO)){
+        if (Object.prototype.hasOwnProperty.call(localStorage,lStorePogo)){
+            if(Object.prototype.hasOwnProperty.call(localStorage,lStorePogoO)){
                 localStorage.removeItem(lStorePogoO);
             }
         }
-        if (localStorage.hasOwnProperty(lStoreCheck)){
-            if(localStorage.hasOwnProperty(lStoreCheckO)){
+        if (Object.prototype.hasOwnProperty.call(localStorage,lStoreCheck)){
+            if(Object.prototype.hasOwnProperty.call(localStorage,lStoreCheckO)){
                 localStorage.removeItem(lStoreCheckO);
             }
         }
-        if (localStorage.hasOwnProperty(lStoreUpgrades)){
-            if(localStorage.hasOwnProperty(lStoreUpgradesO)){
+        if (Object.prototype.hasOwnProperty.call(localStorage,lStoreUpgrades)){
+            if(Object.prototype.hasOwnProperty.call(localStorage,lStoreUpgradesO)){
                 localStorage.removeItem(lStoreUpgradesO);
             }
         }

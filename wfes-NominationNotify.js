@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.0.2
+// @version      1.0.3
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -220,30 +220,18 @@
     }
 
 /*
-    function detectMissing(){
-        // check if saved nomination is not in current list
-        // might be in review by Niantic staff
-        let nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
-        let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
-        let today = getCurrentDateStr();
-        let missingDict = {};
-        let miss = {};
-
-        for (let histID in historyDict){
-            if (undefined === nomDict[histID]){
-                // missing
-                miss = historyDict[histID];
-                if ((miss.status !== "MISSING")){
-                    miss.wfesDates.push([today,'MISSING']);
-                    miss.status = 'MISSING';
-                    createNotification(`${miss.title} is missing`,'red');
-                }
-                missingDict[histID] = miss;
-            }
-        }
-        return missingDict;
-    }
-*/
+ * function detectMissing(){ // check if saved nomination is not in current list //
+ * might be in review by Niantic staff let nomDict =
+ * window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList()); let
+ * historyDict = JSON.parse(localStorage.getItem(lStoreList)) || []; let today =
+ * getCurrentDateStr(); let missingDict = {}; let miss = {};
+ * 
+ * for (let histID in historyDict){ if (undefined === nomDict[histID]){ //
+ * missing miss = historyDict[histID]; if ((miss.status !== "MISSING")){
+ * miss.wfesDates.push([today,'MISSING']); miss.status = 'MISSING';
+ * createNotification(`${miss.title} is missing`,'red'); } missingDict[histID] =
+ * miss; } } return missingDict; }
+ */
     function NominationPageLoaded() {
         window.wfes.f.addCSS(myCssId,myStyle);
         createNotificationArea();
@@ -279,13 +267,13 @@
 
     function garbageCollection(){
         // remove old entries, if new ones exist
-        if (localStorage.hasOwnProperty(lStoreList)){
+        if (Object.prototype.hasOwnProperty.call(localStorage,lStoreList)){
             if(localStorage.hasOwnProperty('wfpNomList')){
                 localStorage.removeItem('wfpNomList');
             }
         }
-        if (localStorage.hasOwnProperty(lStoreList)){
-            if(localStorage.hasOwnProperty('wftuNomList')){
+        if (Object.prototype.hasOwnProperty.call(localStorage,lStoreList)){
+            if(Object.prototype.hasOwnProperty.call(localStorage,'wftuNomList')){
                 localStorage.removeItem('wftuNomList');
             }
         }
