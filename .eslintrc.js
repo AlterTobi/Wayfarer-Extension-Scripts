@@ -9,12 +9,12 @@ module.exports = {
   ],
   rules: {
     // General
-    // 'no-console': 'off',
     "no-use-before-define": "error",
     "space-before-function-paren": ["error", "never"],
     // ab hier wieder noch fixen
-    "no-mixed-spaces-and-tabs": "off",
-    "no-useless-escape": "warn"
-    // "no-mixed-spaces-and-tabs": ["error","smart-tabs"]
+    "no-mixed-spaces-and-tabs": ["warn","smart-tabs"]
+    
+    // remove, when no longer used
+    // "no-useless-escape": "warn"
   },
 };
