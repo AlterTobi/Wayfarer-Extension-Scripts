@@ -1,11 +1,11 @@
 // @name        Wayfarer Stats
-// @version     1.0.4
+// @version     1.0.5
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
 (function() {
-    'use strict';
-    const selfname = 'wfes_wayfarerStats';
+    "use strict";
+    const selfname = "wfes_wayfarerStats";
     const maincount = 14;
 
     // define names
@@ -82,7 +82,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
                         lastTotal = myWFRupgrades[myWFRupgrades.length-1].total;
                 }
 
-                if ((total != lastTotal ) || (progress!=lastProgress)) {
+                if ((total !== lastTotal ) || (progress !== lastProgress)) {
                         let ut = new Date().getTime();
                         let curstats = {'datum':ut,'progress':progress,'total':total};
                         myWFRupgrades.push(curstats);
@@ -223,11 +223,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
                 newPortalData.title + ' ' +
                 newPortalData.description;
 
-        if ( ('NEW' == type) && ("" !== statement) ) {
+        if ( ('NEW' === type) && ("" !== statement) ) {
                 subtype = 1;
         }
 
-        if ( 'EDIT' == type ) {
+        if ( 'EDIT' === type ) {
             for (let d of newPortalData.descriptionEdits) {
                 usertext += ' ' + d.value;
             }

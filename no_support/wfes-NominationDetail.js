@@ -1,5 +1,5 @@
 // @name          Nomination Detail
-// @version      1.0.0
+// @version      1.0.1
 // @description  improvements for nomination detail page
 // @author       AlterTobi
 
@@ -44,7 +44,7 @@
                     rlc = nomDetail.rejectReasons[i].reason.toLowerCase();
                     rName = "reject.reason." + rlc;
                     rNameShort = rName + ".short";
-                    if (undefined == allStr[rName]) {
+                    if (undefined === allStr[rName]) {
                         fullText = rName;
                     } else {
                         fullText = "<strong>" + rlc + "</strong>: " + allStr[rNameShort]+" - "+allStr[rName];
