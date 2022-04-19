@@ -1,16 +1,16 @@
-// @name         Expire Timer
-// @version      1.0.2
-// @description  Adds a simple timer to the top of the screen showing how much time you have left on the current review.
-// @author       MrJPGames / AlterTobi
+// @name        Expire Timer
+// @version     1.0.3
+// @description Adds a simple timer to the top of the screen showing how much time you have left on the current review.
+// @author      MrJPGames / AlterTobi
 
 (function() {
-    'use strict';
+    "use strict";
     let timeElem;
     let headerTimer;
 
     // Helper functions
     function pad(num, size) {
-        var s = num + "";
+       let s = num + "";
         while (s.length < size){s = "0" + s;}
         return s;
     }
@@ -20,8 +20,8 @@
         const tDiff = window.wfes.g.reviewPageData().expires - now;
 
         if (tDiff > 0) {
-            var tDiffMin = Math.floor(tDiff / 1000 / 60);
-            var tDiffSec = Math.ceil(tDiff / 1000 - 60 * tDiffMin);
+            let tDiffMin = Math.floor(tDiff / 1000 / 60);
+            let tDiffSec = Math.ceil((tDiff / 1000) - (60 * tDiffMin));
             timeElem.innerText = pad(tDiffMin, 2) + ":" + pad(tDiffSec, 2);
             // Retrigger function in 1 second
             setTimeout(updateTimer, 1000);
