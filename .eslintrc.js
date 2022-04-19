@@ -11,10 +11,5 @@ module.exports = {
     // General
     "no-use-before-define": "error",
     "space-before-function-paren": ["error", "never"],
-    // ab hier wieder noch fixen
-    "no-mixed-spaces-and-tabs": ["warn","smart-tabs"]
-    
-    // remove, when no longer used
-    // "no-useless-escape": "warn"
   },
 };
