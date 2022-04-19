@@ -7,7 +7,7 @@
     'use strict';
 
     function URLify(s) {
-        const urls = s.match(/((https?:\/\/)[\-\w@:%_\+.~#?,&\/=]+)/g);
+        const urls = s.match(/((https?:\/\/)[-\w@:%_+.~#?,&/=]+)/g);
         if (urls) {
             urls.forEach(function(url) {
                 s = s.replace(url, '<a target="_blank" href="' + url + '">' + url + "</a>");
