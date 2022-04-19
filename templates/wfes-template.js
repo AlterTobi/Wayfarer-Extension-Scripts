@@ -7,16 +7,16 @@
     'use strict';
 
     const myCssId = 'templateCSS';
-    const myStyle = `.body {
+    const myStyle = `body {
         display: none;
     `;
-    
+
     function myTemplate() {
         window.wfes.f.addCSS(myCssId,myStyle);
         // YOUR CODE HERE
     }
 
-    window.addEventListener("EVENT", myTemplate);
+    window.addEventListener("WFESHomePageLoaded", myTemplate);
 
     /* we are done :-) */
     console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);

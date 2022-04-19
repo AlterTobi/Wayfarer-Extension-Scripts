@@ -3,6 +3,8 @@
 // @description  location edits - add marker for original location
 // @author       AlterTobi
 
+/*global google */
+
 (function() {
     'use strict';
 

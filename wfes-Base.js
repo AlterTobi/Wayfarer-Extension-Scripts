@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.0.0
+// @version      1.1.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -189,6 +189,23 @@
             window.dispatchEvent(new Event("WFESVersionChanged"));
         }
     }
+
+    /* ================ showcase ====================== */
+    function showCaseLoaded(){
+        wfes.showcase.current = wfes.showcase.list[0];
+        let buttons = window.document.getElementsByClassName('wf-button showcase-gallery__button wf-button--icon ng-star-inserted');
+        for (let i=0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', () => setTimeout(()=>{
+                let myDetail = window.document.getElementsByTagName('app-showcase-item')[0].__ngContext__[29];
+                wfes.showcase.current = myDetail;
+                window.dispatchEvent(new Event("WFESShowCaseClick"));
+            },100));
+        }
+    }
+
+    window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showCaseLoaded,250)});
+    /* ================ /showcase ===================== */
+
     /* ================ nomination page =============== */
     function loadCachedNomination(nomItem) {
         if (undefined === wfes.nominations.detail) {
@@ -304,7 +321,13 @@
 
     /* ================ /getter ======================= */
     /* ================ setter ======================== */
-
+    window.wfes.s.callback = function(what, func) {
+        switch (what) {
+            case 'showcaseclick':
+                window.addEventListener("showcaseclick", func);
+                break;
+        }
+    }
     /* ================ /setter ======================= */
 
     // make objects immutable

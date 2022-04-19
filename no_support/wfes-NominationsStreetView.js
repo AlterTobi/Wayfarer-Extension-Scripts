@@ -3,6 +3,8 @@
 // @description  Adds the streetview view a reviewer will see on your own nominations!
 // @author       MrJPGames / AlterTobi
 
+/*global google */
+
 (function() {
     'use strict';
 

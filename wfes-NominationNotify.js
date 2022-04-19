@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.0.1
+// @version      1.0.2
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -219,6 +219,7 @@
         }
     }
 
+/*
     function detectMissing(){
         // check if saved nomination is not in current list
         // might be in review by Niantic staff
@@ -242,7 +243,7 @@
         }
         return missingDict;
     }
-
+*/
     function NominationPageLoaded() {
         window.wfes.f.addCSS(myCssId,myStyle);
         createNotificationArea();
