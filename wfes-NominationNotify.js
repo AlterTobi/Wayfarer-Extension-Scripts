@@ -268,7 +268,7 @@
     function garbageCollection(){
         // remove old entries, if new ones exist
         if (Object.prototype.hasOwnProperty.call(localStorage,lStoreList)){
-            if(localStorage.hasOwnProperty('wfpNomList')){
+            if(Object.prototype.hasOwnProperty.call(localStorage,'wfpNomList')){
                 localStorage.removeItem('wfpNomList');
             }
         }
