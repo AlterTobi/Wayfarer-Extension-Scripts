@@ -1,5 +1,5 @@
 // @name Nomination Notify
-// @version 1.0.4
+// @version 1.0.5
 // @description show nomination status updates
 // @author AlterTobi
 
@@ -178,7 +178,7 @@
                 }
 
                 // Niantic Review?
-                if (historicalData.isNianticControlled === false && nom.isNianticControlled === true){
+                if (false === historicalData.isNianticControlled && true === nom.isNianticControlled){
                     createNotification(`${nom.title} went into Niantic review!`, 'red');
                 }
 

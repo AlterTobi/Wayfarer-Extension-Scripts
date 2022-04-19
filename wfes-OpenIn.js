@@ -1,10 +1,10 @@
 // @name maps open in
-// @version 1.1.1
+// @version 1.1.2
 // @description add "Open In" for maps
 // @author AlterTobi
 
 (function() {
-    'use strict';
+    "use strict";
 
     // map URLs, %lat%, %lng% will be replaced by nominations coordinates
     const customMaps = [
@@ -14,9 +14,9 @@
     ];
 
     let tryCounter = 0;
-    const buttonID = 'openInButton';
+    const buttonID = "openInButton";
 
-    const myCssId = 'openInCSS';
+    const myCssId = "openInCSS";
     const myStyle = `.mapsDropdown {
                   background-color: white;
                   border-radius: 5px;
@@ -59,8 +59,8 @@
 
     // NON-SECURE (But good enough for uniqueID on URLs)
     function getStringHash(str){
-        var hash = 0;
-        if (str.length === 0) {
+        let hash = 0;
+        if (0 === str.length) {
             return hash;
         }
         for (var i = 0; i < str.length; i++) {
