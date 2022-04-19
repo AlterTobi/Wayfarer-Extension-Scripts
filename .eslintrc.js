@@ -12,7 +12,10 @@ module.exports = {
     // 'no-console': 'off',
     "no-use-before-define": "error",
     "space-before-function-paren": ["error", "never"],
-    "no-mixed-spaces-and-tabs": "off"
+    // ab hier wieder noch fixen
+    "no-mixed-spaces-and-tabs": "off",
+    "no-prototype-builtins": "warn",
+    "no-useless-escape": "off"
     // "no-mixed-spaces-and-tabs": ["error","smart-tabs"]
   },
 };
