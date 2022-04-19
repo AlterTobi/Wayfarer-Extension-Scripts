@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.0.3
+// @version     1.0.4
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -198,7 +198,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
                 'Nester',
                 'Pokespot'
                 ];
-        function pruefeText(text, arr, was){
+        function pruefeText(text, arr){
             let hasText = false;
             for (let p of arr) {
                 let r = new RegExp(p,'im');
@@ -237,7 +237,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
         }
 
         if (usertext !== "") {
-            let hasPoketext = pruefeText(usertext, pokeArr, 'Pokémon');
+            let hasPoketext = pruefeText(usertext, pokeArr);
 
             // Statistik speichern
             let jetzt = new Date();
