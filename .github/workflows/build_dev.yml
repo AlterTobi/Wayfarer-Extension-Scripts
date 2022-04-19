@@ -25,3 +25,4 @@ jobs:
           folder: build # The folder the action should deploy.
           branch: gh-pages # The branch the action should deploy to.
           target-folder: dev
+          single-commit: true # need no history
