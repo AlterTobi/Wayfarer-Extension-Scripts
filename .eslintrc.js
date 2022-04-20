@@ -50,7 +50,7 @@ module.exports = {
       "no-tabs": ["warn", { "allowIndentationTabs": true }],
       "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
       "no-whitespace-before-property": "error",
-      "quotes": ["warn", "double", { "avoidEscape": true }],
+      "quotes": ["error", "double", { "avoidEscape": true }],
       "semi": ["warn", "always"],
       "semi-spacing": ["warn", {"before": false, "after": true}],
       "semi-style": ["warn", "last"],
