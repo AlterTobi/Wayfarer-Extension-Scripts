@@ -22,14 +22,14 @@
 
   const myCssId = "wayfarerStatsCSS";
   const myStyle = `
-                th { text-align: center; }
-                td, th { padding: 5px; }
-                td { text-align: right; }
-                table { margin-top: 10px; font-family: monospace
-                        background-color: #2d2d2d; width: 100%; }
-                #reversebox { margin: 0 10px; }
-                #buttonsdiv button { margin: 0 10px; }
-                #buttonsdiv, #statsdiv, #gamesdiv { margin-bottom: 2em; }
+    th { text-align: center; }
+    td, th { padding: 5px; }
+    td { text-align: right; }
+    table { margin-top: 10px; font-family: monospace
+            background-color: #2d2d2d; width: 100%; }
+    #reversebox { margin: 0 10px; }
+    #buttonsdiv button { margin: 0 10px; }
+    #buttonsdiv, #statsdiv, #gamesdiv { margin-bottom: 2em; }
     `;
 
   /**
@@ -220,8 +220,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
     const type = newPortalData.type;
     let subtype = 0;
     let usertext = statement + " " +
-                newPortalData.title + " " +
-                newPortalData.description;
+      newPortalData.title + " " +
+      newPortalData.description;
 
     if ( ("NEW" === type) && ("" !== statement) ) {
       subtype = 1;
@@ -274,13 +274,13 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const cText = isChecked ? "checked" : "";
       section.insertAdjacentHTML("beforeEnd",
         '<div id="statsdiv"></div>' +
-                   '<div id="gamesdiv"></div>' +
-                   '<div id="buttonsdiv" class="pull-right">reverse: <input type="checkbox" id="reversebox" ' + cText + "/>" +
-                   '<button class="button-primary" id="WFRStatsBtn">show my stats</button>'+
-                   '<button class="button-primary" id="WFRSUpgrBtn">show my upgrades</button>' +
-                   '<button class="button-primary" id="WFRMarkBtn">WFR Marker Map</button>' +
-                   '<button class="button-primary" id="WFRHeatBtn">WFR HeatMap</button>' +
-                   "</div>"
+         '<div id="gamesdiv"></div>' +
+         '<div id="buttonsdiv" class="pull-right">reverse: <input type="checkbox" id="reversebox" ' + cText + "/>" +
+         '<button class="button-primary" id="WFRStatsBtn">show my stats</button>'+
+         '<button class="button-primary" id="WFRSUpgrBtn">show my upgrades</button>' +
+         '<button class="button-primary" id="WFRMarkBtn">WFR Marker Map</button>' +
+         '<button class="button-primary" id="WFRHeatBtn">WFR HeatMap</button>' +
+         "</div>"
       );
     }
 
@@ -292,8 +292,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
       // Tabelle für die Statistik
       document.getElementById("statsdiv").insertAdjacentHTML("beforeEnd", '<table border="2"><thead><tr><th></th><th colspan="5">total</th><th colspan="5">yesterday</th><th colspan="5">last ' + week + " days (sliding window)</th></tr>"+
-                            '<tr style="border-bottom: 1px solid;"><th>date</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th></tr></thead>'+
-                            '<tbody id="statstablebody"></tbody></table>');
+        '<tr style="border-bottom: 1px solid;"><th>date</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th></tr></thead>'+
+        '<tbody id="statstablebody"></tbody></table>');
       const innertable = document.getElementById("statstablebody");
 
       // Statistik einfügen
@@ -327,9 +327,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
           wproz = wrev = wacc = wrej = wdup = " -- ";
         }
         innertable.insertAdjacentHTML("beforeEnd", "<tr><td>" + ymd +"</td><td>" + wfrStats[i].reviewed + "</td><td>"+
-                       wfrStats[i].accepted + "</td><td>" + wfrStats[i].rejected + "</td><td>" + wfrStats[i].duplicated + "</td><td>" + prozent.toFixed(2) + "%</td>"+
-                       "<td>" + grev + "</td><td>" + gacc + "</td><td>" + grej + "</td><td>" + gdup + "</td><td>(" + gproz + "%)</td>" +
-                       "<td>" + wrev + "</td><td>" + wacc + "</td><td>" + wrej + "</td><td>" + wdup + "</td><td>(" + wproz + "%)</td></tr>");
+         wfrStats[i].accepted + "</td><td>" + wfrStats[i].rejected + "</td><td>" + wfrStats[i].duplicated + "</td><td>" + prozent.toFixed(2) + "%</td>"+
+         "<td>" + grev + "</td><td>" + gacc + "</td><td>" + grej + "</td><td>" + gdup + "</td><td>(" + gproz + "%)</td>" +
+         "<td>" + wrev + "</td><td>" + wacc + "</td><td>" + wrej + "</td><td>" + wdup + "</td><td>(" + wproz + "%)</td></tr>");
       }
       tproz = trev > 0 ? (100*(tacc+trej+tdup)/trev).toFixed(2) : " -- ";
       agr = tacc+trej+tdup;
@@ -338,9 +338,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
       dproz = agr > 0 ? (100*tdup/agr).toFixed(2) : " -- ";
 
       innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><td colspan="6" rowspan="2"></td>'+
-                       "<td>" + trev + "</td><td>" + tacc + "</td><td>" + trej + "</td><td>" + tdup + "</td><td>(" + tproz + "%)</td>" +
-                       '<td colspan="5" rowspan="2"></td></tr>' +
-                       "<td></td><td>" + aproz + "%</td><td>" + rproz + "%</td><td>" + dproz + "%</td><td></td>");
+       "<td>" + trev + "</td><td>" + tacc + "</td><td>" + trej + "</td><td>" + tdup + "</td><td>(" + tproz + "%)</td>" +
+       '<td colspan="5" rowspan="2"></td></tr>' +
+       "<td></td><td>" + aproz + "%</td><td>" + rproz + "%</td><td>" + dproz + "%</td><td></td>");
     }
 
 
@@ -385,8 +385,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
         if ("WFRHeatBtn" === this.id ) {
           histText = "/#wfrheatmap";
           innerScript += `
-                        function getPoints() {
-                        return [`;
+            function getPoints() {
+            return [`;
           for (let i = PoGoStats.length - 1; i > PoGoStats.length -501; i--) {
             // nur die neuesten 500
             const lat = PoGoStats[i].latE6/1E6;
@@ -395,11 +395,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
             if ( 0 === i) { break; }// weniger geht nicht
           }
           innerScript += `]}
-                        heatmap = new google.maps.visualization.HeatmapLayer({
-                          data: getPoints(),
-                          opacity: 0.6,
-                          map: map
-                        })`;
+            heatmap = new google.maps.visualization.HeatmapLayer({
+              data: getPoints(),
+              opacity: 0.6,
+              map: map
+            })`;
         } else if ("WFRMarkBtn" === this.id ) {
           histText = "/#wfrmarker";
           const iconBase = "https://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/";
@@ -443,11 +443,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
             const title = ti1 + " " + ti2;
             const icon = iconBase + ico;
             innerScript += "marker = new google.maps.Marker({" +
-                                "position: {lat:"+lat+",lng:"+lng+"}," +
-                                "map: map," +
-                                "title: '" + title + "'," +
-                                "icon: '"+ icon + "'"+
-                                "});\n";
+              "position: {lat:"+lat+",lng:"+lng+"}," +
+              "map: map," +
+              "title: '" + title + "'," +
+              "icon: '"+ icon + "'"+
+              "});\n";
             if ( 0 === i) { break; }// weniger geht nicht
           }
         }
@@ -465,13 +465,13 @@ fnV1HwAAAABJRU5ErkJggg==`;
         let script = document.createElement("script");
         script.type = "text/javascript";
         script.innerHTML=`
-                    function initMap() {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: 7,
-                      center: {lat: 51.38, lng: 10.12},
-                      mapTypeId: 'hybrid'
-                    })
-                    `;
+          function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {lat: 51.38, lng: 10.12},
+            mapTypeId: 'hybrid'
+          })
+          `;
         script.innerHTML += innerScript + "}";
 
         body.appendChild(script);
@@ -493,12 +493,12 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const gamesdiv = document.getElementById("gamesdiv");
       gamesdiv.insertAdjacentHTML("afterBegin",
         '<table border="2"><colgroup><col width="4%"><col width="19%"><col width="8%"><col width="8%"><col width="8%">' +
-                    '<col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="14%"></colgroup>' +
-                    '<thead><tr><th rowspan="2" colspan="2"></th><th colspan="4">Portaleinreichungen</th>' +
-                    '<th rowspan="2" colspan="2">Portal Edits</th><th rowspan="2" colspan="2">Photo</th>' +
-                    '<th rowspan="2">gesamt</th></tr><tr><th colspan="2">classic/redacted</th>' +
-                    '<th colspan="2">Prime/Pokémon Go</th></tr></thead>' +
-                    '<tbody id="gamesTBbody"></tbody></table>');
+        '<col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="14%"></colgroup>' +
+        '<thead><tr><th rowspan="2" colspan="2"></th><th colspan="4">Portaleinreichungen</th>' +
+        '<th rowspan="2" colspan="2">Portal Edits</th><th rowspan="2" colspan="2">Photo</th>' +
+        '<th rowspan="2">gesamt</th></tr><tr><th colspan="2">classic/redacted</th>' +
+        '<th colspan="2">Prime/Pokémon Go</th></tr></thead>' +
+        '<tbody id="gamesTBbody"></tbody></table>');
 
       const innertable = document.getElementById("gamesTBbody");
       let redg, redp, prig, prip, edig, edip, edih, redh, prih, phog, phop, phoh;
