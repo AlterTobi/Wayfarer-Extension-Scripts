@@ -1,7 +1,7 @@
-// @name Nomination Notify
-// @version 1.0.6beta1
-// @description show nomination status updates
-// @author AlterTobi
+// @name         Nomination Notify
+// @version      1.0.6beta2
+// @description  show nomination status updates
+// @author       AlterTobi
 
 (function() {
   "use strict";
@@ -13,35 +13,35 @@
 
   const myCssId = "nominationNotifyCSS";
   const myStyle = `
-                #wfesNotify{
-                position: absolute;
-                bottom: 1em;
-                right: 1em;
-                width: 30em;
-                z-index: 100;
-                }
-                .wfesNotification{
-                border-radius: 0.5em;
-                padding: 1em;
-                margin-top: 1.5em;
-                color: white;
-                }
-                .wfesBgGreen{
-                background-color: #3e8e41CC;
-                }
-                .wfesBgRed{
-                background-color: #CC0000B0;
-                }
-                .wfesBgOrange{
-                background-color: #FC9000D0;
-                }
-                .wfesBgBlue{
-                background-color: #0010DFD0;
-                }
-                .wfesNotifyCloseButton{
-                float: right;
-                }
-                `;
+    #wfesNotify{
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    width: 30em;
+    z-index: 100;
+    }
+    .wfesNotification{
+    border-radius: 0.5em;
+    padding: 1em;
+    margin-top: 1.5em;
+    color: white;
+    }
+    .wfesBgGreen{
+    background-color: #3e8e41CC;
+    }
+    .wfesBgRed{
+    background-color: #CC0000B0;
+    }
+    .wfesBgOrange{
+    background-color: #FC9000D0;
+    }
+    .wfesBgBlue{
+    background-color: #0010DFD0;
+    }
+    .wfesNotifyCloseButton{
+    float: right;
+    }
+    `;
 
   function createNotificationArea() {
     const myID = "wfesNotify";
@@ -163,11 +163,9 @@
           continue; // Skip to next as this is a brand new
           // entry so we don't know it's previous
           // status
-        } else {
+        } else if (undefined !== historicalData.wfesDates) {
           // get saved dates - if they exist
-          if (undefined !== historicalData.wfesDates) {
-            myDates = historicalData.wfesDates;
-          }
+          myDates = historicalData.wfesDates;
         }
 
         // upgrade?
