@@ -32,7 +32,7 @@ module.exports = {
       "no-var": "error",
       "prefer-const": "warn",
       "prefer-spread": "warn",
-      "prefer-rest-params": "warn",
+      // "prefer-rest-params": "warn",
       "space-before-function-paren": ["error", "never"],
       "spaced-comment": ["warn", "always"],
       "strict": ["error", "function"],
