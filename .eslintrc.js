@@ -31,6 +31,7 @@ module.exports = {
       "no-useless-return": "warn",
       "no-var": "error",
       "prefer-const": "warn",
+      "prefer-spread": "warn",
       "prefer-rest-params": "warn",
       "space-before-function-paren": ["error", "never"],
       "spaced-comment": ["warn", "always"],
