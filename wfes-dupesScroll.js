@@ -9,7 +9,7 @@
   function filmStripScroll() {
     // Make film strip (duplicates) scrollable
     const filmStripElem = document
-        .querySelector("#check-duplicates-card div.w-full.flex.overflow-x-auto.overflow-y-hidden.ng-star-inserted");
+      .querySelector("#check-duplicates-card div.w-full.flex.overflow-x-auto.overflow-y-hidden.ng-star-inserted");
 
     function horizontalScroll(e) {
       filmStripElem.scrollLeft += e.deltaY;

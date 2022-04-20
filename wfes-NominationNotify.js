@@ -129,20 +129,20 @@
   function detectMissing() {
     // check if saved nomination is not in current list
     // might be in review by Niantic staff
-    let nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
-    let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
-    let today = getCurrentDateStr();
-    let missingDict = {};
+    const nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
+    const historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+    const today = getCurrentDateStr();
+    const missingDict = {};
     let miss = {};
 
-    for (let histID in historyDict){
-      if (undefined === nomDict[histID]){
+    for (const histID in historyDict) {
+      if (undefined === nomDict[histID]) {
         // missing
         miss = historyDict[histID];
-        if ((miss.status !== "MISSING")){
-          miss.wfesDates.push([today,'MISSING']);
-          miss.status = 'MISSING';
-          createNotification(`${miss.title} is missing`,'red');
+        if ((miss.status !== "MISSING")) {
+          miss.wfesDates.push([today, "MISSING"]);
+          miss.status = "MISSING";
+          createNotification(`${miss.title} is missing`, "red");
         }
         missingDict[histID] = miss;
       }
@@ -234,8 +234,8 @@
       // Store the new state
 
       const nomDict = window.wfes.f.makeIDbasedDictionary(nomList);
-      let fullDict = Object.assign(nomDict,missingDict);
-      window.wfes.f.localSave(lStoreList,fullDict);
+      const fullDict = Object.assign(nomDict, missingDict);
+      window.wfes.f.localSave(lStoreList, fullDict);
     }
   }
 
