@@ -237,7 +237,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
       }
     }
 
-    if (usertext !== "") {
+    if ("" === usertext) {
+      console.warn(selfname + " kein Text - das ist ein Bug");
+    } else {
       const hasPoketext = pruefeText(usertext, pokeArr);
 
       // Statistik speichern
@@ -257,8 +259,6 @@ fnV1HwAAAABJRU5ErkJggg==`;
       if (hasPoketext) {
         set_warning(WARN_POGO);
       }
-    } else {
-      console.warn(selfname + " kein Text - das ist ein Bug");
     }
   }
 
@@ -298,7 +298,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const innertable = document.getElementById("statstablebody");
 
       // Statistik einfügen
-      let gproz, grev, gacc, grej, gdup, wproz, wrev, wacc, wrej, wdup, tproz, agr, aproz, rproz, dproz, trev, tacc, trej, tdup;
+      let gproz, grev, gacc, grej, gdup, wproz, wrev, wacc, wrej, wdup, trev, tacc, trej, tdup;
       trev = tacc = trej = tdup = 0;
 
       for (let i = wfrStats.length - 1; i >= end; i--) {
@@ -332,11 +332,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
          "<td>" + grev + "</td><td>" + gacc + "</td><td>" + grej + "</td><td>" + gdup + "</td><td>(" + gproz + "%)</td>" +
          "<td>" + wrev + "</td><td>" + wacc + "</td><td>" + wrej + "</td><td>" + wdup + "</td><td>(" + wproz + "%)</td></tr>");
       }
-      tproz = trev > 0 ? (100*(tacc+trej+tdup)/trev).toFixed(2) : " -- ";
-      agr = tacc+trej+tdup;
-      aproz = agr > 0 ? (100*tacc/agr).toFixed(2) : " -- ";
-      rproz = agr > 0 ? (100*trej/agr).toFixed(2) : " -- ";
-      dproz = agr > 0 ? (100*tdup/agr).toFixed(2) : " -- ";
+      const tproz = trev > 0 ? (100*(tacc+trej+tdup)/trev).toFixed(2) : " -- ";
+      const agr = tacc+trej+tdup;
+      const aproz = agr > 0 ? (100*tacc/agr).toFixed(2) : " -- ";
+      const rproz = agr > 0 ? (100*trej/agr).toFixed(2) : " -- ";
+      const dproz = agr > 0 ? (100*tdup/agr).toFixed(2) : " -- ";
 
       innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><td colspan="6" rowspan="2"></td>'+
        "<td>" + trev + "</td><td>" + tacc + "</td><td>" + trej + "</td><td>" + tdup + "</td><td>(" + tproz + "%)</td>" +
