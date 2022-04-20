@@ -120,6 +120,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const accepted = profile.accepted;
       const rejected = profile.rejected;
       const duplicated = profile.duplicated;
+      let curstats;
 
       if ( last > 0 ) {
         // nur wenn schon gespeicherte Werte vorhanden.
@@ -132,7 +133,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
         while ( (heuteTS - letzterTS) > einTag ) {
           letzterTS += einTag;
-          var curstats = {"datum":letzterTS, "reviewed":reviewed, "accepted":accepted, "rejected":rejected, "duplicated":duplicated};
+          curstats = {"datum":letzterTS, "reviewed":reviewed, "accepted":accepted, "rejected":rejected, "duplicated":duplicated};
           wfrStats.push(curstats);
         }
       }
