@@ -1,13 +1,13 @@
 // @name         Showcase
-// @version      1.1.0
+// @version      1.1.1beta1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
 (function() {
-    'use strict';
+  "use strict";
 
-    const myCssId = 'showcaseCSS';
-    const myStyle = `.gamelogo{
+  const myCssId = "showcaseCSS";
+  const myStyle = `.gamelogo{
             float: left;
             padding: 5px;
             width: 30px;
@@ -51,48 +51,48 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
         }
     `;
 
-    function showDetails(details) {
-        let myGameID = "wfesGame";
+  function showDetails(details) {
+    const myGameID = "wfesGame";
 
-        let userBox = window.document.getElementsByClassName('showcase-item__image-caption nightwind-prevent')[0];
-        let klasse = null;
+    const userBox = window.document.getElementsByClassName("showcase-item__image-caption nightwind-prevent")[0];
+    let klasse = null;
 
-        if (null === document.getElementById(myGameID)) {
-            let gameLogo = document.createElement("div");
-            gameLogo.setAttribute('id',myGameID);
-            userBox.appendChild(gameLogo);
-        }
-
-        switch (details.discovererGame) {
-            case '': // no logo
-                klasse = 'bgNone';
-                break;
-            case 'Pokémon GO':
-                klasse = 'gamelogo bgPGO';
-                break;
-            case 'Ingress':
-                klasse = 'gamelogo bgING';
-                break;
-        }
-        document.getElementById(myGameID).setAttribute("class", klasse);
+    if (null === document.getElementById(myGameID)) {
+      const gameLogo = document.createElement("div");
+      gameLogo.setAttribute("id", myGameID);
+      userBox.appendChild(gameLogo);
     }
 
-    function showCaseClick() {
-        let showcase = window.wfes.g.showcase();
-        showDetails(showcase.current);
+    switch (details.discovererGame) {
+    case "": // no logo
+      klasse = "bgNone";
+      break;
+    case "Pokémon GO":
+      klasse = "gamelogo bgPGO";
+      break;
+    case "Ingress":
+      klasse = "gamelogo bgING";
+      break;
     }
+    document.getElementById(myGameID).setAttribute("class", klasse);
+  }
 
-    function homePageLoaded() {
-        window.wfes.f.addCSS(myCssId,myStyle);
-        let showcase = window.wfes.g.showcase();
-        showDetails(showcase.list[0]);
-    }
+  function showCaseClick() {
+    const showcase = window.wfes.g.showcase();
+    showDetails(showcase.current);
+  }
 
-    let loadHomeTimerId = null;
-    window.addEventListener("WFESHomePageLoaded",
-            () => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,200)});
+  function homePageLoaded() {
+    window.wfes.f.addCSS(myCssId, myStyle);
+    const showcase = window.wfes.g.showcase();
+    showDetails(showcase.list[0]);
+  }
 
-    window.addEventListener("WFESShowCaseClick",showCaseClick);
+  let loadHomeTimerId = null;
+  window.addEventListener("WFESHomePageLoaded",
+    () => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded, 200);});
+
+  window.addEventListener("WFESShowCaseClick", showCaseClick);
     
-    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
