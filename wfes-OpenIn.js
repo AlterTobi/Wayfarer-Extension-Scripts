@@ -152,7 +152,6 @@
   }
 
   function addDropdownNomination() {
-    let elem;
     // remove existing first
     const button = document.getElementById(buttonID);
     if (button !== null) {
@@ -161,7 +160,7 @@
     const nomDetail = window.wfes.g.nominationDetail();
 
     const mainButton = getMapDropdown(nomDetail.lat, nomDetail.lng);
-    elem = document.getElementsByClassName("details-pane__map")[0];
+    const elem = document.getElementsByClassName("details-pane__map")[0];
     elem.parentNode.appendChild(mainButton);
   }
 

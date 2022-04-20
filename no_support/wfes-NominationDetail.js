@@ -37,8 +37,8 @@
       }
 
       if (["REJECTED", "APPEALED"].includes(nomDetail.status)) {
-
-        let rejectReasons = [], rlc, rName, rNameShort, fullText;
+        let rlc, rName, rNameShort, fullText;
+        const rejectReasons = [];
 
         for (let i=0; i < nomDetail.rejectReasons.length; i++) {
           rlc = nomDetail.rejectReasons[i].reason.toLowerCase();
