@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.0.6beta2
+// @version      1.1.0beta1
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -126,10 +126,34 @@
     }
   }
 
+  function detectMissing() {
+    // check if saved nomination is not in current list
+    // might be in review by Niantic staff
+    let nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
+    let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+    let today = getCurrentDateStr();
+    let missingDict = {};
+    let miss = {};
+
+    for (let histID in historyDict){
+      if (undefined === nomDict[histID]){
+        // missing
+        miss = historyDict[histID];
+        if ((miss.status !== "MISSING")){
+          miss.wfesDates.push([today,'MISSING']);
+          miss.status = 'MISSING';
+          createNotification(`${miss.title} is missing`,'red');
+        }
+        missingDict[histID] = miss;
+      }
+    }
+    return missingDict;
+  }
+
   function detectChange() {
     const nomList = window.wfes.g.nominationsList();
     const historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
-    // const missingDict = detectMissing();
+    const missingDict = detectMissing();
 
     if ( 0 === historyDict.length) {
       // first run, import from Wayfarer+, if exists
@@ -210,37 +234,10 @@
       // Store the new state
 
       const nomDict = window.wfes.f.makeIDbasedDictionary(nomList);
-      window.wfes.f.localSave(lStoreList, nomDict);
-      // let fullDict = Object.assign(nomDict,missingDict);
-      // window.wfes.f.localSave(lStoreList,fullDict);
+      let fullDict = Object.assign(nomDict,missingDict);
+      window.wfes.f.localSave(lStoreList,fullDict);
     }
   }
-
-  /**
-    function detectMissing(){
-      // check if saved nomination is not in current list
-      // might be in review by Niantic staff
-      let nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
-      let historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
-      let today = getCurrentDateStr();
-      let missingDict = {};
-      let miss = {};
-
-      for (let histID in historyDict){
-          if (undefined === nomDict[histID]){
-              // missing
-              miss = historyDict[histID];
-              if ((miss.status !== "MISSING")){
-                  miss.wfesDates.push([today,'MISSING']);
-                  miss.status = 'MISSING';
-                  createNotification(`${miss.title} is missing`,'red');
-              }
-              missingDict[histID] = miss;
-          }
-      }
-      return missingDict;
-  }
- */
 
   function NominationPageLoaded() {
     window.wfes.f.addCSS(myCssId, myStyle);
