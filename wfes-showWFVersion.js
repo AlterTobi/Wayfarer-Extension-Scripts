@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.0.1beta1
+// @version      1.0.1
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -9,14 +9,14 @@
   const versionDivID = "wfVersionDiv";
   const myCssId = "wfVersionCSS";
   const myStyle = `.wfVersionCSS {
-                position: absolute;
-                z-index: 9999;
-                left: 15px;
-                top: 10px;
-                background-color: white;
-                border: 2px solid red;
-                padding: 5px; box-shadow: 7px 7px 5px grey;}
-                `;
+    position: absolute;
+    z-index: 9999;
+    left: 15px;
+    top: 10px;
+    background-color: white;
+    border: 2px solid red;
+    padding: 5px; box-shadow: 7px 7px 5px grey;}
+    `;
 
   function showVersion() {
     const wfVersion = window.wfes.g.wfVersion();

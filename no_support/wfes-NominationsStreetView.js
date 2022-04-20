@@ -1,5 +1,5 @@
 // @name         Nomination page StreetView
-// @version      1.1.3beta1
+// @version      1.1.3
 // @description  Adds the streetview view a reviewer will see on your own nominations!
 // @author       MrJPGames / AlterTobi
 

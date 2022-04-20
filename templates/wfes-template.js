@@ -8,7 +8,7 @@
 
   const myCssId = "templateCSS";
   const myStyle = `body {
-        display: none;
+    display: none;
     `;
 
   function myTemplate() {
