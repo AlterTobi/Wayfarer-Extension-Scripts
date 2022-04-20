@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.1.2beta1
+// @version      1.1.2beta2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -88,11 +88,11 @@
         console.warn("WFES: got no OK from server", response);
         return;
       }
-      if (!json.result) {
+      if (json.result) {
+        checkWfVersion(json.version);
+      } else {
         console.warn("WFES: got no result from server");
         return;
-      } else {
-        checkWfVersion(json.version);
       }
 
       let nominationDict, lang;
@@ -276,7 +276,8 @@
   // that key. This way on checking we can simply find the ID when looking at
   // a current item
   window.wfes.f.makeIDbasedDictionary = function(itemList) {
-    let dict = {}, item;
+    const dict = {};
+    let item;
     for (let i = 0; i < itemList.length; i++) {
       item = itemList[i];
       dict[item.id] = item;
