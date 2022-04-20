@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.1.2beta2
+// @version      1.1.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 

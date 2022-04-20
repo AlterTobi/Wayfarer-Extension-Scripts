@@ -1,5 +1,5 @@
 // @name URLify
-// @version 1.0.2beta1
+// @version 1.0.2
 // @description detect links in supporting information
 // @author AlterTobi
 
@@ -19,7 +19,7 @@
 
   function detectURL() {
     const elem = document
-      .querySelector("app-review-new app-supporting-info > wf-review-card.wf-review-card.card.ng-star-inserted > div > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted");
+        .querySelector("app-review-new app-supporting-info > wf-review-card.wf-review-card.card.ng-star-inserted > div > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted");
     if (null !== elem && null !== elem.children) {
       if (elem.children.length) {
         elem.children[0].innerHTML = URLify(elem.innerHTML);

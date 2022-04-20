@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.1.1beta1
+// @version      1.1.1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -8,17 +8,17 @@
 
   const myCssId = "showcaseCSS";
   const myStyle = `.gamelogo{
-            float: left;
-            padding: 5px;
-            width: 30px;
-            height: 30px;
-            background-repeat: no-repeat;
-        }
-        .bgNone {
-            display: none;
-        }
-        .bgPGO {
-            background-image:  url('data:image/png;base64,
+    float: left;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+  }
+  .bgNone {
+      display: none;
+  }
+  .bgPGO {
+      background-image:  url('data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz\
 zDMAmczMmZnMmZmZmTMzmTMAZpnMZpmZZmZmZjMzM2ZmMzMzMwAAADMzAAAAQu3hzgAAAR1JREFU\

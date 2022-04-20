@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.0.1beta1
+// @version      1.0.1
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
@@ -8,16 +8,16 @@
 
   const myCssId = "imageModsCSS";
   const myStyle = `.material-icons-fontsize {
-                  font-size: 48px;
-                }
-                .lupe {
-                  position: absolute;
-                  left: 0px;
-                }
-                .bottom {
-                  bottom: 0px;
-                }
-        `;
+      font-size: 48px;
+    }
+    .lupe {
+      position: absolute;
+      left: 0px;
+    }
+    .bottom {
+      bottom: 0px;
+    }
+  `;
 
   function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe") {
     const a = document.createElement("a");

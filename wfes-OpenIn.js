@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.1.3beta1
+// @version 1.1.3
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -18,43 +18,43 @@
 
   const myCssId = "openInCSS";
   const myStyle = `.mapsDropdown {
-                  background-color: white;
-                  border-radius: 5px;
-                  box-shadow: grey 2px 2px 10px;
-                  margin-bottom: .5em;
-                  font-size: 1.1em;
-                  color: black;
-                  padding: .25em;
-                  width: 7em;
-                  text-align: center;
-                }
-                .dropdown-content {
-                  display: none;
-                  position: absolute;
-                  /* left: -.25em; */
-                  transform: translateY(-100%);
-                  border-radius: 5px;
-                  background-color: #f9f9f9;
-                  min-width: 160px;
-                  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                  z-index: 9001;
-                }
-                .dropdown-content a {
-                  color: black;
-                  padding: 12px 16px;
-                  text-decoration: none;
-                  display: block;
-                }
-                .dropdown-content a:hover {
-                  background-color: #f1f1f1
-                  border-radius: 5px;
-                }
-                .mapsDropdown:hover .dropdown-content {
-                  display: block;
-                }
-                .mapsDropdown:hover .dropbtn {
-                  background-color: #3e8e41;
-                }
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: grey 2px 2px 10px;
+      margin-bottom: .5em;
+      font-size: 1.1em;
+      color: black;
+      padding: .25em;
+      width: 7em;
+      text-align: center;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      /* left: -.25em; */
+      transform: translateY(-100%);
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 9001;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {
+      background-color: #f1f1f1
+      border-radius: 5px;
+    }
+    .mapsDropdown:hover .dropdown-content {
+      display: block;
+    }
+    .mapsDropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
     `;
 
   // NON-SECURE (But good enough for uniqueID on URLs)
