@@ -50,6 +50,6 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 
 ## Bugs and known problems
 
-Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues)
+Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues).
 
 You may also use the Wayfarer Discord for questions around Wayfarer and the tools. It's linked at [wayfarer.tools](https://wayfarer.tools/).
