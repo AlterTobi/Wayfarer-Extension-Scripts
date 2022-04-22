@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      1.0.3
+// @version      1.0.4beta1
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 
@@ -47,19 +47,17 @@
 
   function addEditTranslationButtons() {
     window.wfes.f.addCSS(myCssId, myStyle);
-    const elems = document.getElementsByClassName("poi-edit-text");
-
-    const style = "margin-botton: 0 !important; margin-left: 5pt; display: inline-block;";
-
-    for (let i = 0; i < elems.length; i++) {
-      const translateButton = document.createElement("a");
-      translateButton.setAttribute("target", "wfesTranslate");
-      translateButton.setAttribute("class", "translateButton");
-      translateButton.setAttribute("style", style);
-      translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
-
-      elems[i].appendChild(translateButton);
+    const candidate = window.wfes.g.reviewPageData();
+    
+    let alltext = '';
+    for (let i = 0; i < candidate.titleEdits.length; i++) {
+      alltext += candidate.titleEdits[i].value;
+      alltext += "\n";
     }
+
+    const translateButton = getTranslateAllButton(allText);
+    const editCard = document.querySelector("app-select-title-edit > wf-review-card");
+    editCard.appendChild(translateButton);
   }
 
   function addPhotoTranslationButtons() {
