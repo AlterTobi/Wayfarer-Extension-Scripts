@@ -8,13 +8,54 @@ module.exports = {
     "eslint:recommended",
   ],
   rules: {
-    // General
-    "no-use-before-define": "error",
-    "space-before-function-paren": ["error", "never"],
-    // ab hier wieder noch fixen
-    "no-mixed-spaces-and-tabs": ["warn","smart-tabs"]
-    
-    // remove, when no longer used
-    // "no-useless-escape": "warn"
+      // errors & suggestions
+      "block-scoped-var": "error",
+      "curly": "error",
+      "dot-notation": "warn",
+      "eqeqeq": "error",
+      "no-empty-function": "error",
+      "no-eq-null": "error",
+      "no-lone-blocks": "error",
+      "no-lonely-if": "warn",
+      // "no-magic-numbers": ["warn", { "ignore": [1] }],
+      "no-mixed-operators": "error",
+      "no-multi-str": "warn",
+      "no-negated-condition": "warn",
+      "no-param-reassign": "error",
+      "no-self-compare": "error",
+      "no-unmodified-loop-condition": "warn",
+      "no-unreachable-loop": "warn",
+      "no-use-before-define": "error",
+      "no-use-before-define": "error",
+      "no-useless-concat": "warn",
+      "no-useless-return": "warn",
+      "no-var": "error",
+      "prefer-const": "warn",
+      "prefer-spread": "warn",
+      // "prefer-rest-params": "warn",
+      "space-before-function-paren": ["error", "never"],
+      "spaced-comment": ["warn", "always"],
+      "strict": ["error", "function"],
+      "yoda": ["error", "always", { "onlyEquality": true }],
+      
+      // Layout
+      "array-bracket-newline": ["warn", "consistent"],
+      "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
+      "comma-dangle": ["warn", "only-multiline"],
+      "comma-spacing": ["warn", { "before": false, "after": true }],
+      "func-call-spacing": ["warn", "never"],
+      "indent": ["warn", 2],
+      "newline-per-chained-call": "warn",
+      "no-multi-spaces": "warn",
+      "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],
+      "no-tabs": ["warn", { "allowIndentationTabs": true }],
+      "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
+      "no-whitespace-before-property": "error",
+      "quotes": ["error", "double", { "avoidEscape": true }],
+      "semi": ["warn", "always"],
+      "semi-spacing": ["warn", {"before": false, "after": true}],
+      "semi-style": ["warn", "last"],
+      "space-before-blocks": "warn",
+      "switch-colon-spacing": ["error", {"after": true, "before": false}]
   },
 };

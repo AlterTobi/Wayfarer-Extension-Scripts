@@ -32,3 +32,4 @@ jobs:
         with:
           folder: build # The folder the action should deploy.
           branch: main # The branch the action should deploy to.
+          single-commit: true # need no history

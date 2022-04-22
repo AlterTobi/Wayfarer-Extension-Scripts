@@ -1,24 +1,24 @@
 // @name         Showcase
-// @version      1.1.0
+// @version      1.1.1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
 (function() {
-    'use strict';
+  "use strict";
 
-    const myCssId = 'showcaseCSS';
-    const myStyle = `.gamelogo{
-                  float: left;
-                  padding: 5px;
-                  width: 30px;
-                  height: 30px;
-                  background-repeat: no-repeat;
-                }
-                .bgNone {
-                    display: none;
-                }
-                .bgPGO {
-                background-image:  url('data:image/png;base64,
+  const myCssId = "showcaseCSS";
+  const myStyle = `.gamelogo{
+    float: left;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+  }
+  .bgNone {
+      display: none;
+  }
+  .bgPGO {
+      background-image:  url('data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz\
 zDMAmczMmZnMmZmZmTMzmTMAZpnMZpmZZmZmZjMzM2ZmMzMzMwAAADMzAAAAQu3hzgAAAR1JREFU\
@@ -28,9 +28,9 @@ lgfwyth1DZ1zdlQXPunVoTTLcs+p7Fzth1yd0e17sHZ6PB55vrFU9zbEdUvJCYuXengNh00D6Fg8\
 OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq\
 3jRG+DXKSqfzvkOdbOovl0n81ZsVr3cNhRsO7xfZDDNvvXjvCT/+BmgGosHgV3/JF/wjwACvbhgT\
 fnV1HwAAAABJRU5ErkJggg==');
-                }
-                .bgING {
-                background-image:  url('data:image/png;base64,
+        }
+            .bgING {
+            background-image:  url('data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAMBQTFRF7Oby5dvscj2aNQF2hFmp/Pv9WCaOSROFXCySdkCcwavUk2qy\
 ZDSWbTuZ8e31e1GlqozDvabRd0uinYC+bDSWnHu7Zi2SWx6LrJPH3dLny7rbiGaw9vP5lHC12c3l\
@@ -48,52 +48,51 @@ W/4cQluN7vLbZHJRMJ7JYdVx9tHDJtEn3HY0IYRuwYcgalkULQBUbPNvnhLMTitNifiYI8CSMoKp\
 msqzhMX9D7VJotwvKKA1oVMgNaNJDNsjZTvo2WdEpXjaryj2PFGizxWvVQjbPzdTzPg88biHDRZF\
 ao7gTYkYY4ufrWjxhNVUQhcNLyHFFPN89trIG7UviJSZLPv8Hdh37+8x2JqqqjJMj4GiMKaq9unf\
 IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
-                }
-
+        }
     `;
 
-    function showDetails(details) {
-        let myGameID = "wfesGame";
+  function showDetails(details) {
+    const myGameID = "wfesGame";
 
-        let userBox = window.document.getElementsByClassName('showcase-item__image-caption nightwind-prevent')[0];
-        let klasse = null;
+    const userBox = window.document.getElementsByClassName("showcase-item__image-caption nightwind-prevent")[0];
+    let klasse = null;
 
-        if (null === document.getElementById(myGameID)) {
-            let gameLogo = document.createElement("div");
-            gameLogo.setAttribute('id',myGameID);
-            userBox.appendChild(gameLogo);
-        }
-
-        switch (details.discovererGame) {
-            case '': // no logo
-                klasse = 'bgNone';
-                break;
-            case 'Pokémon GO':
-                klasse = 'gamelogo bgPGO';
-                break;
-            case 'Ingress':
-                klasse = 'gamelogo bgING';
-                break;
-        }
-        document.getElementById(myGameID).setAttribute("class", klasse);
+    if (null === document.getElementById(myGameID)) {
+      const gameLogo = document.createElement("div");
+      gameLogo.setAttribute("id", myGameID);
+      userBox.appendChild(gameLogo);
     }
 
-    function showCaseClick() {
-        let showcase = window.wfes.g.showcase();
-        showDetails(showcase.current);
+    switch (details.discovererGame) {
+    case "": // no logo
+      klasse = "bgNone";
+      break;
+    case "Pokémon GO":
+      klasse = "gamelogo bgPGO";
+      break;
+    case "Ingress":
+      klasse = "gamelogo bgING";
+      break;
     }
+    document.getElementById(myGameID).setAttribute("class", klasse);
+  }
 
-    function homePageLoaded() {
-        window.wfes.f.addCSS(myCssId,myStyle);
-            let showcase = window.wfes.g.showcase();
-            showDetails(showcase.list[0]);
-    }
+  function showCaseClick() {
+    const showcase = window.wfes.g.showcase();
+    showDetails(showcase.current);
+  }
 
-    let loadHomeTimerId = null;
-    window.addEventListener("WFESHomePageLoaded",
-            () => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded,200)});
+  function homePageLoaded() {
+    window.wfes.f.addCSS(myCssId, myStyle);
+    const showcase = window.wfes.g.showcase();
+    showDetails(showcase.list[0]);
+  }
 
-    window.addEventListener("WFESShowCaseClick",showCaseClick);
+  let loadHomeTimerId = null;
+  window.addEventListener("WFESHomePageLoaded",
+    () => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded, 200);});
+
+  window.addEventListener("WFESShowCaseClick", showCaseClick);
     
-    console.log("Script loaded:", GM_info.script.name, 'v' + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();

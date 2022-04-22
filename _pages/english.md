@@ -1,11 +1,14 @@
 ## What is it?
-Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+Userscripts/Tools for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > Userscript manager such as [Tampermonkey](https://tampermonkey.net/) required!
-> Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues)
+
+---
 
 ## How to install / use?
 Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js) first!
 > **It's required for all other scripts to work.**
+
+---
 
 ## List of scripts
 * [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationNotify.user.js)
@@ -42,3 +45,11 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - shows reject reasons for appealed nominations
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - show current Wayfarer version
+
+---
+
+## Bugs and known problems
+
+Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues).
+
+You may also use the Wayfarer Discord for questions around Wayfarer and the tools. It's linked at [wayfarer.tools](https://wayfarer.tools/).

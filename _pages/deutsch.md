@@ -1,15 +1,18 @@
 ## Was ist das hier?
-Userscripts für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+Userscripts/Tools für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 > ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) ist erforderlich!
-> Bugs und/oder feature requests bitte im [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues) melden.
+
+---
 
 ## Installation
 Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js) installieren!
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
+---
+
 ## Liste der Skripte
 * [Nomination Notify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationNotify.user.js)
-    - show nomination status updates
+    - erkennt und zeigt Änderungen des Status eigener Einreichungen
 * [ImageMod](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ImageMod.user.js)
     - öffne Originalfotos in "benannten" Tabs
 * [Add Translation Buttons](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AddTranslationButtons.user.js)
@@ -42,3 +45,12 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
     - Zeigt die Ablehngründe auch bei Einsprüchen an
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
+
+---
+
+## Fehler und bekannte Probleme
+
+Eine Liste bekannter Probleme findet sich im [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues).
+Dort könnt ihr auch neue Probleme oder Erweiterungswünsche melden.
+
+Eine weitere Kontaktmöglichkeit für Fragen rund um Wayfarer und die Tools ist der Wayfarer Discord. Den Link findet ihr auf [wayfarer.tools](https://wayfarer.tools/).
