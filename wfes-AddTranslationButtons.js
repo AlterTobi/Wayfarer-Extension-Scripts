@@ -49,7 +49,7 @@
     window.wfes.f.addCSS(myCssId, myStyle);
     const candidate = window.wfes.g.reviewPageData();
 
-    let allText = '';
+    let allText = "";
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value;
       allText += "\n";
