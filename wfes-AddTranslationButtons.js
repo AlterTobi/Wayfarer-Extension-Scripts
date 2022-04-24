@@ -31,10 +31,12 @@
   const translationURL = "https://translate.google.com/?sl=auto&q=";
 
   function getTranslateAllButton(allText, btnText="Translate all") {
+    const translateDiv  = document.createElement("div");
+    translateDiv.setAttribute("style", "background-image: none; width: fit-content;");
+    translateDiv.setAttribute("class", "translateButton");
+
     const translateButton = document.createElement("a");
     translateButton.setAttribute("target", "wfesTranslate");
-    translateButton.setAttribute("class", "translateButton");
-    translateButton.setAttribute("style", "display: inline; background-image: none; width: fit-content;");
     translateButton.href = translationURL + encodeURIComponent(allText);
 
     const translateText = document.createElement("span");
@@ -46,7 +48,8 @@
     translateButton.appendChild(translateImage);
     translateButton.appendChild(translateText);
 
-    return translateButton;
+    translateDiv.appendChild(translateButton);
+    return translateDiv;
   }
 
   function _titleEdit(candidate) {
