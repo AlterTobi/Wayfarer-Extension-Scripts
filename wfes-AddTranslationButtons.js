@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      1.0.4
+// @version      1.1.0
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 
@@ -13,6 +13,7 @@
       border-radius: 2pt;
       width: 17pt;
       background-color: white;
+      color: black;
       display: block;
       height: 17pt;
       background-size: contain;
@@ -24,17 +25,19 @@
       }
       .translateButton > *{
       display:inline;
-  }`;
+      }
+  `;
+  const translationURL = "https://translate.google.com/?sl=auto&q=";
 
-  function getTranslateAllButton(allText) {
+  function getTranslateAllButton(allText, btnText="Translate all") {
     const translateButton = document.createElement("a");
     translateButton.setAttribute("target", "wfesTranslate");
     translateButton.setAttribute("class", "translateButton");
-    translateButton.setAttribute("style", "display: inline; color: black; background-image: none; width: fit-content;");
-    translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(allText);
+    translateButton.setAttribute("style", "display: inline; background-image: none; width: fit-content;");
+    translateButton.href = translationURL + encodeURIComponent(allText);
 
     const translateText = document.createElement("span");
-    translateText.innerText = "Translate all";
+    translateText.innerText = btnText;
 
     const translateImage = document.createElement("img");
     translateImage.setAttribute("style", "height: 1.3em;");
@@ -45,15 +48,24 @@
     return translateButton;
   }
 
-  function _descriptionEdit(candidate) {
+  function _titleEdit(candidate) {
     let allText = "";
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value;
       allText += "\n";
     }
-    const translateButton = getTranslateAllButton(allText);
+    const translateButton = getTranslateAllButton(allText, "Translate T");
     const editCard = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
     editCard.appendChild(translateButton);
+  }
+
+  function _locationEdit(candidate) {
+    let allText = "";
+    allText += candidate.title;
+    allText += "\n" + candidate.description;
+    const translateButton = getTranslateAllButton(allText, "Translate L");
+    const editBar = document.querySelector("app-review-edit > div > app-review-edit-info");
+    editBar.appendChild(translateButton);
   }
 
   function addEditTranslationButtons() {
@@ -61,10 +73,14 @@
     const candidate = window.wfes.g.reviewPageData();
     const edit = window.wfes.g.edit();
     if (edit.what.title) {
-      _descriptionEdit(candidate);
+      _titleEdit(candidate);
+    }
+    if (edit.what.location) {
+      _locationEdit(candidate);
     }
   }
 
+  // EDIT PHOTO
   function addPhotoTranslationButtons() {
     window.wfes.f.addCSS(myCssId, myStyle);
     const elems = [];
@@ -76,7 +92,7 @@
       const translateButton = document.createElement("a");
       translateButton.setAttribute("target", "wfesTranslate");
       translateButton.setAttribute("class", "translateButton");
-      translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
+      translateButton.href = translationURL + encodeURIComponent(elems[i].innerText);
 
       allText += elems[i].innerText + "\n\n";
 
@@ -90,6 +106,7 @@
     titleDiv.insertAdjacentElement("afterbegin", translateButton);
   }
 
+  // review NEW
   function addTranslationButtons() {
     window.wfes.f.addCSS(myCssId, myStyle);
     const elems = document.getElementById("title-description-card").children[1].children[0].children;
@@ -100,7 +117,7 @@
       const translateButton = document.createElement("a");
       translateButton.setAttribute("target", "wfesTranslate");
       translateButton.setAttribute("class", "translateButton");
-      translateButton.href = "https://translate.google.com/?sl=auto&q=" + encodeURIComponent(elems[i].innerText);
+      translateButton.href = translationURL + encodeURIComponent(elems[i].innerText);
 
       allText += elems[i].innerText + "\n\n";
 
@@ -115,7 +132,7 @@
       const translateButton = document.createElement("a");
       translateButton.setAttribute("target", "wfesTranslate");
       translateButton.setAttribute("class", "translateButton");
-      translateButton.href = "https://translate.google.com/?sl=auto&q=" + (encodeURIComponent(elem.getElementsByClassName("wf-review-card__body")[0].innerText));
+      translateButton.href = translationURL + (encodeURIComponent(elem.getElementsByClassName("wf-review-card__body")[0].innerText));
       const translateDiv = document.createElement("div");
       translateDiv.setAttribute("class", "bg-gray-200 px-4");
       translateDiv.appendChild(translateButton);
