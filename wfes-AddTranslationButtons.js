@@ -12,6 +12,7 @@
       border: 2pt solid white;
       border-radius: 2pt;
       width: 17pt;
+      font-size: 14px;
       background-color: white;
       color: black;
       display: block;
@@ -52,7 +53,7 @@
     let allText = "";
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value;
-      allText += "\n";
+      allText += "\n\n";
     }
     const translateButton = getTranslateAllButton(allText, "Translate T");
     const editCard = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
@@ -62,9 +63,9 @@
   function _locationEdit(candidate) {
     let allText = "";
     allText += candidate.title;
-    allText += "\n" + candidate.description;
+    allText += "\n\n" + candidate.description;
     const translateButton = getTranslateAllButton(allText, "Translate L");
-    const editBar = document.querySelector("app-review-edit > div > app-review-edit-info");
+    const editBar = document.querySelector("app-review-edit > div > app-review-edit-info> div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div");
     editBar.appendChild(translateButton);
   }
 
