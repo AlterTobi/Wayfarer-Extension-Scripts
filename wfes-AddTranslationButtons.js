@@ -45,7 +45,7 @@
     return translateButton;
   }
 
-  function _descriptionEdit(candidate){
+  function _descriptionEdit(candidate) {
     let allText = "";
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value;
