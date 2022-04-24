@@ -68,6 +68,13 @@
     editBar.appendChild(translateButton);
   }
 
+  function _descriptionEdit(candidate) {
+    let allText = "";
+    const translateButton = getTranslateAllButton(allText, "Translate D");
+    // const editBar = document.querySelector("app-review-edit > div > app-review-edit-info");
+    // editBar.appendChild(translateButton);
+  }
+
   function addEditTranslationButtons() {
     window.wfes.f.addCSS(myCssId, myStyle);
     const candidate = window.wfes.g.reviewPageData();
@@ -77,6 +84,9 @@
     }
     if (edit.what.location) {
       _locationEdit(candidate);
+    }
+    if (edit.what.description) {
+      _descriptionEdit(candidate);
     }
   }
 
