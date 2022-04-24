@@ -13,6 +13,7 @@ on:
   push:
     branches: [ dev, main, release/v1.0 ]
   pull_request:
+    if: ${{ github.actor != 'AlterTobi' }}
     # The branches below must be a subset of the branches above
     branches: [ dev, main, release/v1.0 ]
 #  schedule:

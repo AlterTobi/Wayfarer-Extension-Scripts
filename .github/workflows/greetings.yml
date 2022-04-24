@@ -1,6 +1,7 @@
 name: Greetings
 
 on: [pull_request_target, issues]
+if: ${{ github.actor != 'AlterTobi' }}
 
 jobs:
   greeting:
