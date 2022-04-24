@@ -45,19 +45,24 @@
     return translateButton;
   }
 
-  function addEditTranslationButtons() {
-    window.wfes.f.addCSS(myCssId, myStyle);
-    const candidate = window.wfes.g.reviewPageData();
-
+  function _descriptionEdit(candidate){
     let allText = "";
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value;
       allText += "\n";
     }
-
     const translateButton = getTranslateAllButton(allText);
     const editCard = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
     editCard.appendChild(translateButton);
+  }
+
+  function addEditTranslationButtons() {
+    window.wfes.f.addCSS(myCssId, myStyle);
+    const candidate = window.wfes.g.reviewPageData();
+    const edit = window.wfes.g.edit();
+    if (edit.what.title) {
+      _descriptionEdit(candidate);
+    }
   }
 
   function addPhotoTranslationButtons() {
