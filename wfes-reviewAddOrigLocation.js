@@ -23,7 +23,7 @@
 
   function addOrigMarker() {
     const edit = window.wfes.g.edit();
-        
+
     // only on location edits
     if (edit.what.location) {
       if (undefined === typeof(google)) {

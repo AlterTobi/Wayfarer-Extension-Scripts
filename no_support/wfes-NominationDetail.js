@@ -60,7 +60,7 @@
     } else {
       console.log("WFES Nomination Detail: properties not loaded, retry");
       setTimeout(modifyNomDetail, 500);
-            
+
     }
   }
 

@@ -49,7 +49,7 @@
     translateButton.setAttribute("target", "wfesTranslate");
     translateButton.href = translationURL + encodeURIComponent(allText);
     translateButton.setAttribute("class", "translBtnAll");
-    
+
     const translateText = document.createElement("span");
     translateText.innerText = btnText;
 
@@ -87,7 +87,7 @@
     let allText = "";
     for (let i = 0; i < candidate.descriptionEdits.length; i++) {
       if ("" !== candidate.descriptionEdits[i].value) {
-        allText += candidate.descriptionEdits[i].value + "\n\n";  
+        allText += candidate.descriptionEdits[i].value + "\n\n";
       }
     }
     const translateButton = getTranslateAllButton(allText, "Translate");
@@ -145,7 +145,7 @@
 
     let allText = pageData.title + "\n\n";
     allText += pageData.description + "\n\n";
-    
+
     for (let i = 0; i < elems.length; i++) {
       const translateButton = document.createElement("a");
       translateButton.setAttribute("target", "wfesTranslate");
