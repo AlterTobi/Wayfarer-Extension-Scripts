@@ -25,21 +25,17 @@
         box-shadow: 0 0 2px grey;
       }
       .translBtnAll {
+        background-color: white;
+        background-image: none;
         border: 2pt solid white;
         border-radius: 2pt;
-        width: 17pt;
-        background-color: white;
-        display: block;
-        height: 17pt;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        margin-bottom: 5pt;
         box-shadow: 0 0 2px grey;
-        background-image: none;
-        width: fit-content;
-        display: inline;
         color: black;
+        display: inline;
+        font-size: 14px;
+        height: 17pt;
+        margin-bottom: 5pt;
+        width: fit-content;
       }
       .translBtnAll > *{
         display:inline;
@@ -73,7 +69,7 @@
       allText += candidate.titleEdits[i].value;
       allText += "\n\n";
     }
-    const translateButton = getTranslateAllButton(allText, "Translate T");
+    const translateButton = getTranslateAllButton(allText, "Translate");
     const editCard = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
     editCard.appendChild(translateButton);
   }
@@ -82,7 +78,7 @@
     let allText = "";
     allText += candidate.title;
     allText += "\n\n" + candidate.description;
-    const translateButton = getTranslateAllButton(allText, "Translate L");
+    const translateButton = getTranslateAllButton(allText, "Translate");
     const editBar = document.querySelector("app-review-edit > div > app-review-edit-info> div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div");
     editBar.appendChild(translateButton);
   }
@@ -90,12 +86,13 @@
   function _descriptionEdit(candidate) {
     let allText = "";
     for (let i = 0; i < candidate.descriptionEdits.length; i++) {
-      allText += candidate.descriptionEdits[i].value;
-      allText += "\n\n";
+      if ("" !== candidate.descriptionEdits[i].value) {
+        allText += candidate.descriptionEdits[i].value + "\n\n";  
+      }
     }
-    const translateButton = getTranslateAllButton(allText, "Translate D");
-    const editBar = document.querySelector("body");
-    editBar.appendChild(translateButton);
+    const translateButton = getTranslateAllButton(allText, "Translate");
+    const editCard = document.querySelector("app-select-description-edit > wf-review-card > div.wf-review-card__header > div");
+    editCard.appendChild(translateButton);
   }
 
   function addEditTranslationButtons() {
