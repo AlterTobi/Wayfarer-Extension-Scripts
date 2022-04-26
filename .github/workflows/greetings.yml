@@ -1,10 +1,10 @@
 name: Greetings
 
 on: [pull_request_target, issues]
-if: ${{ github.actor != 'AlterTobi' }}
 
 jobs:
   greeting:
+    if: ${{ github.actor != 'AlterTobi' }}
     runs-on: ubuntu-latest
     permissions:
       issues: write
