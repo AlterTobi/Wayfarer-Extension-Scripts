@@ -28,6 +28,7 @@ jobs:
           echo "Hello World"
           echo "event: " $GITHUB_EVENT
           echo "actor: " $GITHUB_ACTOR
+          env | grep "GITHUB"
     
   eslint:
     if: ${{ (github.event == 'push') || ( (github.event == 'pull_request') && (github.actor != 'AlterTobi')) }}
