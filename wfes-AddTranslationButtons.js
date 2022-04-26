@@ -142,22 +142,21 @@
   // review NEW
   function addTranslationButtons() {
     window.wfes.f.addCSS(myCssId, myStyle);
+
+    const pageData = window.wfes.g.reviewPageData();
     const elems = document.getElementById("title-description-card").children[1].children[0].children;
 
-    let allText = "";
-
+    let allText = pageData.title + "\n\n";
+    allText += pageData.description + "\n\n";
+    
     for (let i = 0; i < elems.length; i++) {
       const translateButton = document.createElement("a");
       translateButton.setAttribute("target", "wfesTranslate");
       translateButton.setAttribute("class", "translateButton");
       translateButton.href = translationURL + encodeURIComponent(elems[i].innerText);
 
-      allText += elems[i].innerText + "\n\n";
-
       elems[i].appendChild(translateButton);
     }
-
-    const pageData = window.wfes.g.reviewPageData();
 
     if ("" !== pageData.supportingImageUrl) {
       const elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
@@ -170,7 +169,7 @@
       translateDiv.setAttribute("class", "bg-gray-200 px-4");
       translateDiv.appendChild(translateButton);
 
-      allText += elem.getElementsByClassName("wf-review-card__body")[0].innerText + "\n\n";
+      allText += pageData.statement;
 
       document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0].getElementsByClassName("wf-review-card__body")[0].children[0].children[1].insertAdjacentElement("afterend", translateDiv);
 
