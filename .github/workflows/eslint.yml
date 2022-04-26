@@ -19,16 +19,6 @@ on:
 #    - cron: '38 20 * * 2'
 
 jobs:
-  echo:
-    name: echo vars
-    runs-on: ubuntu-latest
-    steps:
-      - name: say hello
-        run: |
-          echo "Hello World"
-          echo "event: " $GITHUB_EVENT_NAME
-          echo "actor: " $GITHUB_ACTOR
-    
   eslint:
     if: ${{ (github.event_name == 'push') || ( (github.event_name == 'pull_request') && (github.actor != 'AlterTobi')) }}
     name: Run eslint scanning
