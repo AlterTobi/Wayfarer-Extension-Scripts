@@ -49,7 +49,7 @@ module.exports = {
       "no-multi-spaces": "warn",
       "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],
       "no-tabs": ["warn", { "allowIndentationTabs": true }],
-      "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
+      "no-trailing-spaces": ["warn", { "skipBlankLines": false }],
       "no-whitespace-before-property": "error",
       "quotes": ["error", "double", { "avoidEscape": true }],
       "semi": ["warn", "always"],
