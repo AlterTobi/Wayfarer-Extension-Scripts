@@ -89,9 +89,13 @@
 
   function _descriptionEdit(candidate) {
     let allText = "";
+    for (let i = 0; i < candidate.descriptionEdits.length; i++) {
+      allText += candidate.descriptionEdits[i].value;
+      allText += "\n\n";
+    }
     const translateButton = getTranslateAllButton(allText, "Translate D");
-    // const editBar = document.querySelector("app-review-edit > div > app-review-edit-info");
-    // editBar.appendChild(translateButton);
+    const editBar = document.querySelector("body");
+    editBar.appendChild(translateButton);
   }
 
   function addEditTranslationButtons() {
