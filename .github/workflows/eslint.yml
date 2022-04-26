@@ -25,9 +25,9 @@ jobs:
     steps:
       - name: say hello
         run: |
-        echo "Hello World"
-        echo "event: " $GITHUB_EVENT
-        echo "actor: " $GITHUB_ACTOR
+          echo "Hello World"
+          echo "event: " $GITHUB_EVENT
+          echo "actor: " $GITHUB_ACTOR
     
   eslint:
     if: ${{ (github.event == 'push') || ( (github.event == 'pull_request') && (github.actor != 'AlterTobi')) }}
