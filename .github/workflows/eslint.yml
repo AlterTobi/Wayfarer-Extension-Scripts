@@ -21,6 +21,7 @@ on:
 
 jobs:
   eslint:
+    if: ${{ (github.event == 'push') || ( (github.event == 'pull_request') && (github.actor != 'AlterTobi')) }}
     name: Run eslint scanning
     runs-on: ubuntu-latest
     permissions:
