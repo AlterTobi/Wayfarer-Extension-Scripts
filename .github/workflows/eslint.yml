@@ -26,12 +26,11 @@ jobs:
       - name: say hello
         run: |
           echo "Hello World"
-          echo "event: " $GITHUB_EVENT
+          echo "event: " $GITHUB_EVENT_NAME
           echo "actor: " $GITHUB_ACTOR
-          env | grep "GITHUB"
     
   eslint:
-    if: ${{ (github.event == 'push') || ( (github.event == 'pull_request') && (github.actor != 'AlterTobi')) }}
+    if: ${{ (github.event_name == 'push') || ( (github.event_name == 'pull_request') && (github.actor != 'AlterTobi')) }}
     name: Run eslint scanning
     runs-on: ubuntu-latest
     permissions:
