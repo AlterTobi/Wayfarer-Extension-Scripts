@@ -1,7 +1,8 @@
 // @name review Add Orig Location
-// @version 1.0.3
+// @version 1.0.4
 // @description location edits - add marker for original location
 // @author AlterTobi
+// @TODO maxTries
 
 /* global google */
 
@@ -27,11 +28,15 @@
     // only on location edits
     if (edit.what.location) {
       if (undefined === typeof(google)) {
-        setTimeout(addOrigMarker, 200);
+        setTimeout(addOrigMarker, 250);
         return;
       }
       // get the map - thx tehstone ;-)
       const gmap = document.querySelector("app-select-location-edit nia-map");
+      if (null === gmap) {
+        setTimeout(addOrigMarker, 250);
+        return;
+      }
       const mapCtx = gmap.__ngContext__.at(-1);
       const map = mapCtx.componentRef.map;
       const pageData = window.wfes.g.reviewPageData();
@@ -39,7 +44,7 @@
     }
   }
 
-  window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addOrigMarker, 200);} );
+  window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addOrigMarker, 250);} );
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
