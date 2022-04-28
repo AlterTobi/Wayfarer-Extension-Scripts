@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      1.1.0
+// @version      1.2.0
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       MrJPGames / AlterTobi
 
@@ -177,8 +177,30 @@
     titleDiv.appendChild(translateButton);
   }
 
+  // EDIT - NEU - Trans ALL
+  function addAllButons(){
+    window.wfes.f.addCSS(myCssId, myStyle);
+    const candidate = window.wfes.g.reviewPageData();
+    let allText = "";
+    if ("" !== candidate.title) allText += candidate.title + "\n\n";
+    if ("" !== candidate.description) allText += candidate.description + "\n\n";
+    for (let i = 0; i < candidate.titleEdits.length; i++) {
+      allText += candidate.titleEdits[i].value;
+      allText += "\n\n";
+    }
+    for (let i = 0; i < candidate.descriptionEdits.length; i++) {
+      if ("" !== candidate.descriptionEdits[i].value) {
+        allText += candidate.descriptionEdits[i].value + "\n\n";
+      }
+    }
+    const translateButton = getTranslateAllButton(allText, "Translate All");
+    const editHeader = document.querySelector("app-review > wf-page-header > div > div > p");
+    editHeader.appendChild(translateButton);
+  }
+
   window.addEventListener("WFESReviewPageNewLoaded", () => { setTimeout(addTranslationButtons, 10);});
   window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addEditTranslationButtons, 10);});
+  window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addAllButons, 1000);});
   window.addEventListener("WFESReviewPagePhotoLoaded", () => { setTimeout(addPhotoTranslationButtons, 10);});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
