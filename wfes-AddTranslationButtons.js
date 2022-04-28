@@ -178,12 +178,12 @@
   }
 
   // EDIT - NEU - Trans ALL
-  function addAllButons(){
+  function addAllButons() {
     window.wfes.f.addCSS(myCssId, myStyle);
     const candidate = window.wfes.g.reviewPageData();
     let allText = "";
-    if ("" !== candidate.title) allText += candidate.title + "\n\n";
-    if ("" !== candidate.description) allText += candidate.description + "\n\n";
+    if ("" !== candidate.title) {allText += candidate.title + "\n\n";}
+    if ("" !== candidate.description) {allText += candidate.description + "\n\n";}
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value;
       allText += "\n\n";
