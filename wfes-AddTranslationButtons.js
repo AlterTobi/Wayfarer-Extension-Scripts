@@ -228,8 +228,8 @@
 
     // set Translate all button to header
     translateButtonAll = getTranslateAllButton(allText, "Translate All");
-    const editHeader = document.querySelector("app-review > wf-page-header > div > div > p");
-    editHeader.appendChild(translateAllButton);
+    elem = document.querySelector("app-review > wf-page-header > div > div > p");
+    elem.appendChild(translateButtonAll);
   }
 
   window.addEventListener("WFESReviewPageNewLoaded", () => { setTimeout(addTranslationButtons, 10);});
