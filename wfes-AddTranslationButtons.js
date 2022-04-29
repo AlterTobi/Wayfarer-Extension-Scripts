@@ -181,9 +181,10 @@
   function addAllButons() {
     const candidate = window.wfes.g.reviewPageData();
     const translateButton = document.createElement("a");
-    let allText = editText = "";
+    let allText = "";
+    let editText = ""; 
     let elem, translateButtonAll;
-
+    
     window.wfes.f.addCSS(myCssId, myStyle);
     translateButton.setAttribute("target", "wfesTranslate");
     translateButton.setAttribute("class", "translateButton");
