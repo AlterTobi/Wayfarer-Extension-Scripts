@@ -79,13 +79,17 @@
 
     window.wfes.f.addCSS(myCssId, myStyle);
     
-    elem = document.querySelector("app-review-photo > div div.text-lg");
-    setSmallButton(candidate.title,elem);
-    allText += candidate.description + "\n\n";
+    if("" !== candidate.title) {
+      elem = document.querySelector("app-review-photo > div div.text-lg");
+      setSmallButton(candidate.title,elem);
+      allText += candidate.title + "\n\n";
+    }
     
-    elem = document.querySelector("app-review-photo > div div.flex.flex-col > div.mt-2");
-    setSmallButton(candidate.description,elem);
-    allText += candidate.description + "\n\n";
+    if("" !== candidate.description) {
+      elem = document.querySelector("app-review-photo > div div.flex.flex-col > div.mt-2");
+      setSmallButton(candidate.description,elem);
+      allText += candidate.description + "\n\n";
+    }
 
     // translate all
     const translateButton = getTranslateAllButton(allText);
@@ -132,34 +136,30 @@
     titleDiv.appendChild(translateButton);
   }
 
+
   // review EDIT
   function addAllButons() {
     const candidate = window.wfes.g.reviewPageData();
     const edit = window.wfes.g.edit();
-    const translateButton = document.createElement("a");
     let allText = "";
     let editText = "";
     let elem, translateButtonAll;
 
     window.wfes.f.addCSS(myCssId, myStyle);
-    translateButton.setAttribute("target", "wfesTranslate");
-    translateButton.setAttribute("class", "translateButton");
 
     // has title
     if ("" !== candidate.title) {
       allText += candidate.title + "\n\n";
       elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div.review-edit-info__info.text-xl.break-words");
-      translateButton.href = translationURL + encodeURIComponent(candidate.title);
-      elem.appendChild(translateButton);
+      setSmallButton(candidate.title,elem);
     }
 
     // has description
     if ("" !== candidate.description) {
       allText += candidate.description + "\n\n";
-      // @TODO
+      // @TODO richtigen Selector finden
       elem = document.querySelector("app-review-edit > div > app-review-edit-info > div");
-      translateButton.href = translationURL + encodeURIComponent(candidate.description);
-      elem.appendChild(translateButton);
+      setSmallButton(candidate.description,elem);
     }
 
     // is title-edit
