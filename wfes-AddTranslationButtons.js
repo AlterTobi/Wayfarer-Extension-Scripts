@@ -207,25 +207,29 @@
     }
 
     // is title-edit
-    for (let i = 0; i < candidate.titleEdits.length; i++) {
-      allText += candidate.titleEdits[i].value + "\n\n";
-      editText += candidate.titleEdits[i].value + "\n\n";
+    if (edit.what.title) {
+      for (let i = 0; i < candidate.titleEdits.length; i++) {
+        allText += candidate.titleEdits[i].value + "\n\n";
+        editText += candidate.titleEdits[i].value + "\n\n";
+      }
+      translateButtonAll = getTranslateAllButton(editText, "Translate");
+      elem = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
+      elem.appendChild(translateButton);
     }
-    translateButtonAll = getTranslateAllButton(editText, "Translate");
-    elem = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
-    elem.appendChild(translateButton);
 
     // is description-edit
-    editText = "";
-    for (let i = 0; i < candidate.descriptionEdits.length; i++) {
-      if ("" !== candidate.descriptionEdits[i].value) {
-        allText += candidate.descriptionEdits[i].value + "\n\n";
-        editText += candidate.descriptionEdits[i].value + "\n\n";
+    if (edit.what.description) {
+      editText = "";
+      for (let i = 0; i < candidate.descriptionEdits.length; i++) {
+        if ("" !== candidate.descriptionEdits[i].value) {
+          allText += candidate.descriptionEdits[i].value + "\n\n";
+          editText += candidate.descriptionEdits[i].value + "\n\n";
+        }
       }
+      translateButtonAll = getTranslateAllButton(editText, "Translate");
+      elem = document.querySelector("app-select-description-edit > wf-review-card > div.wf-review-card__header > div");
+      elem.appendChild(translateButton);
     }
-    translateButtonAll = getTranslateAllButton(editText, "Translate");
-    elem = document.querySelector("app-select-description-edit > wf-review-card > div.wf-review-card__header > div");
-    elem.appendChild(translateButton);
 
     // set Translate all button to header
     translateButtonAll = getTranslateAllButton(allText, "Translate All");
