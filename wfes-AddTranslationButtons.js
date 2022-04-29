@@ -1,9 +1,8 @@
 // @name         Add Translation Buttons
 // @version      1.2.0
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
-// @author       MrJPGames / AlterTobi
+// @author       AlterTobi
 
-// Dirt port from WF+
 (function() {
   "use strict";
 
@@ -63,53 +62,6 @@
     return translateDiv;
   }
 
-  function _titleEdit(candidate) {
-    let allText = "";
-    for (let i = 0; i < candidate.titleEdits.length; i++) {
-      allText += candidate.titleEdits[i].value;
-      allText += "\n\n";
-    }
-    const translateButton = getTranslateAllButton(allText, "Translate");
-    const editCard = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
-    editCard.appendChild(translateButton);
-  }
-
-  function _locationEdit(candidate) {
-    let allText = "";
-    allText += candidate.title;
-    allText += "\n\n" + candidate.description;
-    const translateButton = getTranslateAllButton(allText, "Translate");
-    const editBar = document.querySelector("app-review-edit > div > app-review-edit-info> div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div");
-    editBar.appendChild(translateButton);
-  }
-
-  function _descriptionEdit(candidate) {
-    let allText = "";
-    for (let i = 0; i < candidate.descriptionEdits.length; i++) {
-      if ("" !== candidate.descriptionEdits[i].value) {
-        allText += candidate.descriptionEdits[i].value + "\n\n";
-      }
-    }
-    const translateButton = getTranslateAllButton(allText, "Translate");
-    const editCard = document.querySelector("app-select-description-edit > wf-review-card > div.wf-review-card__header > div");
-    editCard.appendChild(translateButton);
-  }
-
-  function addEditTranslationButtons() {
-    window.wfes.f.addCSS(myCssId, myStyle);
-    const candidate = window.wfes.g.reviewPageData();
-    const edit = window.wfes.g.edit();
-    if (edit.what.title) {
-      _titleEdit(candidate);
-    }
-    if (edit.what.location) {
-      _locationEdit(candidate);
-    }
-    if (edit.what.description) {
-      _descriptionEdit(candidate);
-    }
-  }
-
   // EDIT PHOTO
   function addPhotoTranslationButtons() {
     window.wfes.f.addCSS(myCssId, myStyle);
@@ -151,13 +103,11 @@
       translateButton.setAttribute("target", "wfesTranslate");
       translateButton.setAttribute("class", "translateButton");
       translateButton.href = translationURL + encodeURIComponent(elems[i].innerText);
-
       elems[i].appendChild(translateButton);
     }
 
     if ("" !== pageData.supportingImageUrl) {
       const elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
-
       const translateButton = document.createElement("a");
       translateButton.setAttribute("target", "wfesTranslate");
       translateButton.setAttribute("class", "translateButton");
@@ -169,7 +119,6 @@
       allText += pageData.statement;
 
       document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0].getElementsByClassName("wf-review-card__body")[0].children[0].children[1].insertAdjacentElement("afterend", translateDiv);
-
     }
 
     const translateButton = getTranslateAllButton(allText);
@@ -177,7 +126,7 @@
     titleDiv.appendChild(translateButton);
   }
 
-  // EDIT - NEU - Trans ALL
+  // review EDIT
   function addAllButons() {
     const candidate = window.wfes.g.reviewPageData();
     const edit = window.wfes.g.edit();
@@ -215,7 +164,7 @@
       }
       translateButtonAll = getTranslateAllButton(editText, "Translate");
       elem = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
-      elem.appendChild(translateButton);
+      elem.appendChild(translateButtonAll);
     }
 
     // is description-edit
@@ -229,7 +178,7 @@
       }
       translateButtonAll = getTranslateAllButton(editText, "Translate");
       elem = document.querySelector("app-select-description-edit > wf-review-card > div.wf-review-card__header > div");
-      elem.appendChild(translateButton);
+      elem.appendChild(translateButtonAll);
     }
 
     // set Translate all button to header
@@ -238,10 +187,9 @@
     elem.appendChild(translateButtonAll);
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", () => { setTimeout(addTranslationButtons, 10);});
-  // window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addEditTranslationButtons, 10);});
-  window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addAllButons, 1000);});
-  window.addEventListener("WFESReviewPagePhotoLoaded", () => { setTimeout(addPhotoTranslationButtons, 10);});
+  window.addEventListener("WFESReviewPageNewLoaded", () => { setTimeout(addTranslationButtons, 100);});
+  window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addAllButons, 100);});
+  window.addEventListener("WFESReviewPagePhotoLoaded", () => { setTimeout(addPhotoTranslationButtons, 100);});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
