@@ -208,7 +208,7 @@
     // is title-edit
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value + "\n\n";
-      editText += candidate.titleEdits[i].value + "\n\n"; 
+      editText += candidate.titleEdits[i].value + "\n\n";
     }
     translateButtonAll = getTranslateAllButton(editText, "Translate");
     elem = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
