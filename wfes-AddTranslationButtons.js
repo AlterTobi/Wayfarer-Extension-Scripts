@@ -157,8 +157,7 @@
     // has description
     if ("" !== candidate.description) {
       allText += candidate.description + "\n\n";
-      // @TODO richtigen Selector finden
-      elem = document.querySelector("app-review-edit > div > app-review-edit-info > div");
+      elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted div:nth-child(3)");
       setSmallButton(candidate.description, elem);
     }
 
