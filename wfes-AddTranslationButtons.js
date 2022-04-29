@@ -78,16 +78,16 @@
     let elem;
 
     window.wfes.f.addCSS(myCssId, myStyle);
-    
+
     if("" !== candidate.title) {
       elem = document.querySelector("app-review-photo > div div.text-lg");
-      setSmallButton(candidate.title,elem);
+      setSmallButton(candidate.title, elem);
       allText += candidate.title + "\n\n";
     }
-    
+
     if("" !== candidate.description) {
       elem = document.querySelector("app-review-photo > div div.flex.flex-col > div.mt-2");
-      setSmallButton(candidate.description,elem);
+      setSmallButton(candidate.description, elem);
       allText += candidate.description + "\n\n";
     }
 
@@ -151,7 +151,7 @@
     if ("" !== candidate.title) {
       allText += candidate.title + "\n\n";
       elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div.review-edit-info__info.text-xl.break-words");
-      setSmallButton(candidate.title,elem);
+      setSmallButton(candidate.title, elem);
     }
 
     // has description
@@ -159,7 +159,7 @@
       allText += candidate.description + "\n\n";
       // @TODO richtigen Selector finden
       elem = document.querySelector("app-review-edit > div > app-review-edit-info > div");
-      setSmallButton(candidate.description,elem);
+      setSmallButton(candidate.description, elem);
     }
 
     // is title-edit
