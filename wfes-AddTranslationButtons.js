@@ -62,33 +62,39 @@
     return translateDiv;
   }
 
+  // kleinen Button setzen
+  function setSmallButton(text, elem) {
+    const translateButton = document.createElement("a");
+    translateButton.setAttribute("target", "wfesTranslate");
+    translateButton.setAttribute("class", "translateButton");
+    translateButton.href = translationURL + encodeURIComponent(text);
+    elem.appendChild(translateButton);
+  }
+
   // EDIT PHOTO
   function addPhotoTranslationButtons() {
-    window.wfes.f.addCSS(myCssId, myStyle);
-    const elems = [];
+    const candidate = window.wfes.g.reviewPageData();
     let allText = "";
+    let elem;
 
-    elems.push(document.getElementsByClassName("text-lg")[0]);
-    elems.push(document.getElementsByClassName("mt-2")[0]);
-    for (let i = 0; i < elems.length; i++) {
-      const translateButton = document.createElement("a");
-      translateButton.setAttribute("target", "wfesTranslate");
-      translateButton.setAttribute("class", "translateButton");
-      translateButton.href = translationURL + encodeURIComponent(elems[i].innerText);
-
-      allText += elems[i].innerText + "\n\n";
-
-      elems[i].appendChild(translateButton);
-    }
+    window.wfes.f.addCSS(myCssId, myStyle);
+    
+    elem = document.querySelector("app-review-photo > div div.text-lg");
+    setSmallButton(candidate.title,elem);
+    allText += candidate.description + "\n\n";
+    
+    elem = document.querySelector("app-review-photo > div div.flex.flex-col > div.mt-2");
+    setSmallButton(candidate.description,elem);
+    allText += candidate.description + "\n\n";
 
     // translate all
     const translateButton = getTranslateAllButton(allText);
-
     const titleDiv = document.querySelector("app-review-photo > div > div.review-photo__info > div.flex.flex-col");
     titleDiv.insertAdjacentElement("afterbegin", translateButton);
   }
 
   // review NEW
+  // @TODO use content from WFES
   function addTranslationButtons() {
     window.wfes.f.addCSS(myCssId, myStyle);
 
