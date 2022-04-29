@@ -179,27 +179,61 @@
 
   // EDIT - NEU - Trans ALL
   function addAllButons() {
-    window.wfes.f.addCSS(myCssId, myStyle);
     const candidate = window.wfes.g.reviewPageData();
-    let allText = "";
-    if ("" !== candidate.title) {allText += candidate.title + "\n\n";}
-    if ("" !== candidate.description) {allText += candidate.description + "\n\n";}
-    for (let i = 0; i < candidate.titleEdits.length; i++) {
-      allText += candidate.titleEdits[i].value;
-      allText += "\n\n";
+    const translateButton = document.createElement("a");
+    let allText = editText = "";
+    let elem;
+
+    window.wfes.f.addCSS(myCssId, myStyle);
+    translateButton.setAttribute("target", "wfesTranslate");
+    translateButton.setAttribute("class", "translateButton");
+
+    // has title
+    if ("" !== candidate.title) {
+      allText += candidate.title + "\n\n";
+      elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div.review-edit-info__info.text-xl.break-words");
+      translateButton.href = translationURL + encodeURIComponent(candidate.title);
+      elem.appendChild(translateButton);
     }
+
+    // has description
+    if ("" !== candidate.description) {
+      allText += candidate.description + "\n\n";
+      // @TODO
+      elem = document.querySelector("app-review-edit > div > app-review-edit-info > div");
+      translateButton.href = translationURL + encodeURIComponent(candidate.description);
+      elem.appendChild(translateButton);
+      }
+
+    // is title-edit
+    for (let i = 0; i < candidate.titleEdits.length; i++) {
+      allText += candidate.titleEdits[i].value + "\n\n";
+      editText += candidate.titleEdits[i].value + "\n\n"; 
+    }
+    translateButton = getTranslateAllButton(editText, "Translate");
+    elem = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
+    elem.appendChild(translateButton);
+
+    // is description-edit
+    editText = "";
     for (let i = 0; i < candidate.descriptionEdits.length; i++) {
       if ("" !== candidate.descriptionEdits[i].value) {
         allText += candidate.descriptionEdits[i].value + "\n\n";
+        editText += candidate.descriptionEdits[i].value + "\n\n";
       }
     }
-    const translateButton = getTranslateAllButton(allText, "Translate All");
+    translateButton = getTranslateAllButton(editText, "Translate");
+    elem = document.querySelector("app-select-description-edit > wf-review-card > div.wf-review-card__header > div");
+    elem.appendChild(translateButton);
+ 
+    // set Translate all button to header
+    const translateAllButton = getTranslateAllButton(allText, "Translate All");
     const editHeader = document.querySelector("app-review > wf-page-header > div > div > p");
-    editHeader.appendChild(translateButton);
+    editHeader.appendChild(translateAllButton);
   }
 
   window.addEventListener("WFESReviewPageNewLoaded", () => { setTimeout(addTranslationButtons, 10);});
-  window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addEditTranslationButtons, 10);});
+  // window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addEditTranslationButtons, 10);});
   window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addAllButons, 1000);});
   window.addEventListener("WFESReviewPagePhotoLoaded", () => { setTimeout(addPhotoTranslationButtons, 10);});
 
