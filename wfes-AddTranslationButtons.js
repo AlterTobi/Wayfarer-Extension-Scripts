@@ -203,12 +203,12 @@
       elem = document.querySelector("app-review-edit > div > app-review-edit-info > div");
       translateButton.href = translationURL + encodeURIComponent(candidate.description);
       elem.appendChild(translateButton);
-      }
+    }
 
     // is title-edit
     for (let i = 0; i < candidate.titleEdits.length; i++) {
       allText += candidate.titleEdits[i].value + "\n\n";
-      editText += candidate.titleEdits[i].value + "\n\n"; 
+      editText += candidate.titleEdits[i].value + "\n\n";
     }
     translateButton = getTranslateAllButton(editText, "Translate");
     elem = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
@@ -225,7 +225,7 @@
     translateButton = getTranslateAllButton(editText, "Translate");
     elem = document.querySelector("app-select-description-edit > wf-review-card > div.wf-review-card__header > div");
     elem.appendChild(translateButton);
- 
+
     // set Translate all button to header
     const translateAllButton = getTranslateAllButton(allText, "Translate All");
     const editHeader = document.querySelector("app-review > wf-page-header > div > div > p");
