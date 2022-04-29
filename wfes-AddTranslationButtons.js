@@ -180,6 +180,7 @@
   // EDIT - NEU - Trans ALL
   function addAllButons() {
     const candidate = window.wfes.g.reviewPageData();
+    const edit = window.wfes.g.edit();
     const translateButton = document.createElement("a");
     let allText = "";
     let editText = "";
