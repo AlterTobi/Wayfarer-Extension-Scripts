@@ -5,6 +5,8 @@ on:
       - dev
       - 'issue/*'
       - 'feature/*'
+      - 'hotfix/*'
+
 jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
@@ -17,7 +19,6 @@ jobs:
 
       - name: Install and Build
         run: |
-          echo "GITHUB_REF: " $GITHUB_REF
           git checkout origin/build-tools .
           cd scripts
           /usr/bin/python3 ./build.py -c build_dev.ini

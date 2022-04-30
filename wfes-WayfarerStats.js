@@ -482,7 +482,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
         script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyB8G-1vuHW3Sx8ONsM71G9TzWJHHWXfAf8&libraries=visualization,geometry&callback=initMap");
         body.appendChild(script);
       }
-            
+
       // Marker Map
       document.getElementById("WFRHeatBtn").addEventListener("click", showMap);
 
@@ -593,7 +593,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
     showStatsTable();
     showGamesTable();
     buttonFuncs();
-    
+
   }
 
   function garbageCollection() {

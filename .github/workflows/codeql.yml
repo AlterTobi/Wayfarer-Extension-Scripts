@@ -13,7 +13,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ main, release/v1.0 ]
+    branches: [ main, release/v1.0, dev ]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main, release/v1.0, dev ]
@@ -22,6 +22,7 @@ on:
 
 jobs:
   analyze:
+    if: ${{ github.actor != 'AlterTobi' }}
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
