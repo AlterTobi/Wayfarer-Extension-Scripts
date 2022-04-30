@@ -40,6 +40,7 @@
         display:inline;
       }
   `;
+
   const translationURL = "https://translate.google.com/?sl=auto&q=";
 
   function getTranslateAllButton(allText, btnText="Translate all") {
@@ -71,32 +72,6 @@
     elem.appendChild(translateButton);
   }
 
-  // EDIT PHOTO
-  function addPhotoTranslationButtons() {
-    const candidate = window.wfes.g.reviewPageData();
-    let allText = "";
-    let elem;
-
-    window.wfes.f.addCSS(myCssId, myStyle);
-
-    if("" !== candidate.title) {
-      elem = document.querySelector("app-review-photo > div div.text-lg");
-      setSmallButton(candidate.title, elem);
-      allText += candidate.title + "\n\n";
-    }
-
-    if("" !== candidate.description) {
-      elem = document.querySelector("app-review-photo > div div.flex.flex-col > div.mt-2");
-      setSmallButton(candidate.description, elem);
-      allText += candidate.description + "\n\n";
-    }
-
-    // translate all
-    const translateButton = getTranslateAllButton(allText);
-    const titleDiv = document.querySelector("app-review-photo > div > div.review-photo__info > div.flex.flex-col");
-    titleDiv.insertAdjacentElement("afterbegin", translateButton);
-  }
-
   // review NEW
   function addTranslationButtons() {
     const candidate = window.wfes.g.reviewPageData();
@@ -125,8 +100,7 @@
     titleDiv.appendChild(translateButton);
   }
 
-
-  // review EDIT
+  // EDIT
   function addAllButons() {
     const candidate = window.wfes.g.reviewPageData();
     const edit = window.wfes.g.edit();
@@ -179,6 +153,32 @@
     translateButtonAll = getTranslateAllButton(allText, "Translate All");
     elem = document.querySelector("app-review > wf-page-header > div > div > p");
     elem.appendChild(translateButtonAll);
+  }
+
+  // PHOTO
+  function addPhotoTranslationButtons() {
+    const candidate = window.wfes.g.reviewPageData();
+    let allText = "";
+    let elem;
+
+    window.wfes.f.addCSS(myCssId, myStyle);
+
+    if("" !== candidate.title) {
+      elem = document.querySelector("app-review-photo > div div.text-lg");
+      setSmallButton(candidate.title, elem);
+      allText += candidate.title + "\n\n";
+    }
+
+    if("" !== candidate.description) {
+      elem = document.querySelector("app-review-photo > div div.flex.flex-col > div.mt-2");
+      setSmallButton(candidate.description, elem);
+      allText += candidate.description + "\n\n";
+    }
+
+    // translate all
+    const translateButton = getTranslateAllButton(allText);
+    const titleDiv = document.querySelector("app-review-photo > div > div.review-photo__info > div.flex.flex-col");
+    titleDiv.insertAdjacentElement("afterbegin", translateButton);
   }
 
   window.addEventListener("WFESReviewPageNewLoaded", () => { setTimeout(addTranslationButtons, 100);});
