@@ -98,41 +98,31 @@
   }
 
   // review NEW
-  // @TODO use content from WFES
   function addTranslationButtons() {
+    const candidate = window.wfes.g.reviewPageData();
+    const elems = document.getElementById("title-description-card").children[1].children[0].children;
+    let elem;
+    
     window.wfes.f.addCSS(myCssId, myStyle);
 
-    const pageData = window.wfes.g.reviewPageData();
-    const elems = document.getElementById("title-description-card").children[1].children[0].children;
+    let allText = candidate.title + "\n\n";
+    allText += candidate.description + "\n\n";
 
-    let allText = pageData.title + "\n\n";
-    allText += pageData.description + "\n\n";
+    elem = document.querySelector("#title-description-card > div.wf-review-card__body > div > a");
+    setSmallButton(candidate.title, elem);
 
-    for (let i = 0; i < elems.length; i++) {
-      const translateButton = document.createElement("a");
-      translateButton.setAttribute("target", "wfesTranslate");
-      translateButton.setAttribute("class", "translateButton");
-      translateButton.href = translationURL + encodeURIComponent(elems[i].innerText);
-      elems[i].appendChild(translateButton);
-    }
+    elem = document.querySelector("#title-description-card > div.wf-review-card__body > div > div");
+    setSmallButton(candidate.description, elem);
 
-    if ("" !== pageData.supportingImageUrl) {
-      const elem = document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0];
-      const translateButton = document.createElement("a");
-      translateButton.setAttribute("target", "wfesTranslate");
-      translateButton.setAttribute("class", "translateButton");
-      translateButton.href = translationURL + (encodeURIComponent(elem.getElementsByClassName("wf-review-card__body")[0].innerText));
-      const translateDiv = document.createElement("div");
-      translateDiv.setAttribute("class", "bg-gray-200 px-4");
-      translateDiv.appendChild(translateButton);
-
-      allText += pageData.statement;
-
-      document.getElementsByClassName("supporting-info-review-card flex-full xl:flex-1 ng-star-inserted")[0].getElementsByClassName("wf-review-card__body")[0].children[0].children[1].insertAdjacentElement("afterend", translateDiv);
+    if ("" !== candidate.supportingImageUrl) {
+      elem = document.querySelector("app-supporting-info > wf-review-card > div.wf-review-card__body > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted");
+      setSmallButton(candidate.statement,elem);
+      allText += candidate.statement;
     }
 
     const translateButton = getTranslateAllButton(allText);
-    const titleDiv = document.getElementById("title-description-card").children[0].children[0];
+    // const titleDiv = document.getElementById("title-description-card").children[0].children[0];
+    const titleDiv = document.querySelector("#title-description-card > div.wf-review-card__header > div:nth-child(1)");
     titleDiv.appendChild(translateButton);
   }
 
