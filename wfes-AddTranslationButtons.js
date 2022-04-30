@@ -100,9 +100,8 @@
   // review NEW
   function addTranslationButtons() {
     const candidate = window.wfes.g.reviewPageData();
-    const elems = document.getElementById("title-description-card").children[1].children[0].children;
     let elem;
-    
+
     window.wfes.f.addCSS(myCssId, myStyle);
 
     let allText = candidate.title + "\n\n";
@@ -116,7 +115,7 @@
 
     if ("" !== candidate.supportingImageUrl) {
       elem = document.querySelector("app-supporting-info > wf-review-card > div.wf-review-card__body > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted");
-      setSmallButton(candidate.statement,elem);
+      setSmallButton(candidate.statement, elem);
       allText += candidate.statement;
     }
 
