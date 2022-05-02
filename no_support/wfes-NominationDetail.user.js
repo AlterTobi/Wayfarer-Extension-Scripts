@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         WFES - Nomination Detail
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @version      0.9.1
 // @description  WFES improvements for nomination detail page
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-NominationDetail.user.js
+// @downloadURL  https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationDetail.user.js
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==

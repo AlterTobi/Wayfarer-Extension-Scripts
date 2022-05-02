@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         WFES - show Wayfarer version
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.2
+// @version      0.9.3
 // @description  WFES - show current Wayfarer version
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-showWFVersion.user.js
-// @updateURL    https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-showWFVersion.user.js
+// @downloadURL  https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js
+// @updateURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==

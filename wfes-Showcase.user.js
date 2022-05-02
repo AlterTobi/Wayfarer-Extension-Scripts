@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         WFES - Showcase
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @version      0.9.1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/wfes-Showcase.user.js
+// @downloadURL  https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Showcase.user.js
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
@@ -74,11 +74,9 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
 		let myGameID = "wfesGame";
 
 /*
- * if ( null === document.getElementById(myDescID)) { let descriptionText =
- * document.createElement("div"); descriptionText.setAttribute('id',myDescID);
- * descriptionText.innerText = details.description;
- * window.document.getElementsByClassName('showcase-item__title')[0].appendChild(descriptionText); }
- * else { document.getElementById(myDescID).innerText = details.description; }
+ * if ( null === document.getElementById(myDescID)) { let descriptionText = document.createElement("div"); descriptionText.setAttribute('id',myDescID);
+ * descriptionText.innerText = details.description; window.document.getElementsByClassName('showcase-item__title')[0].appendChild(descriptionText); } else {
+ * document.getElementById(myDescID).innerText = details.description; }
  */
 		let userBox = window.document.getElementsByClassName('showcase-item__image-caption nightwind-prevent')[0];
 		let klasse = null;

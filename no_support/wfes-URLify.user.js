@@ -1,43 +1,43 @@
 // ==UserScript==
 // @name         WFES - URLify
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.1
+// @version      0.9.2
 // @description  WFES - detect links in supporting information
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/wfes-URLify.user.js
+// @downloadURL  https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
 
 (function() {
-    'use strict';
+  'use strict';
 
-    function URLify(s) {
-        const urls = s.match(/((https?:\/\/)[\-\w@:%_\+.~#?,&\/=]+)/g);
-        if (urls) {
-            urls.forEach(function(url) {
-                s = s.replace(url, '<a target="_blank" href="' + url + '">' + url + "</a>");
-            });
-        }
-        return s;
+  function URLify(s) {
+    const urls = s.match(/((https?:\/\/)[\-\w@:%_\+.~#?,&\/=]+)/g);
+    if (urls) {
+      urls.forEach(function(url) {
+        s = s.replace(url, '<a target="_blank" href="' + url + '">' + url + "</a>");
+      });
     }
+    return s;
+  }
 
-    function detectURL() {
-        let elem = document
-                .querySelector('app-review-new app-supporting-info > wf-review-card.wf-review-card.card.ng-star-inserted > div > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted');
-        if (null !== elem && null !== elem.children) {
-            if (elem.children.length) {
-                elem.children[0].innerHTML = URLify(elem.innerHTML);
-            }
-        } else {
-            // @TODO set maxTries
-            setTimeout(detectURL, 100);
-        }
+  function detectURL() {
+    let elem = document
+      .querySelector('app-review-new app-supporting-info > wf-review-card.wf-review-card.card.ng-star-inserted > div > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted');
+    if (null !== elem && null !== elem.children) {
+      if (elem.children.length) {
+        elem.children[0].innerHTML = URLify(elem.innerHTML);
+      }
+    } else {
+      // @TODO set maxTries
+      setTimeout(detectURL, 100);
     }
+  }
 
-    window.addEventListener("WFESReviewPageNewLoaded", detectURL);
+  window.addEventListener("WFESReviewPageNewLoaded", detectURL);
 
-    console.log("WFES Script loaded: URLify");
+  console.log("WFES Script loaded: URLify");
 })();

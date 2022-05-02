@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         WFES - Expire Timer
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      0.9.0
+// @version      0.9.1
 // @description  Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @icon         https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
-// @downloadURL  https://github.com/AlterTobi/WFES/raw/release/v0.9/no_support/ExpireTimer.user.js
+// @downloadURL  https://altertobi.github.io/Wayfarer-Extension-Scripts/ExpireTimer.user.js
 // @supportURL   https://github.com/AlterTobi/WFES/issues
 // @grant        none
 // ==/UserScript==
