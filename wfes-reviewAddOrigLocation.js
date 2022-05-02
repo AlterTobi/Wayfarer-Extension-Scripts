@@ -46,7 +46,7 @@
         addMarker(map, pageData.lat, pageData.lng);
       }
     } else {
-      console.warn(GM_info.script.name,': could not initialize map');
+      console.warn(GM_info.script.name, ": could not initialize map");
     }
   }
 
