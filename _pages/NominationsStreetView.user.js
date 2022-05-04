@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name           WFES - Nomination page StreetView
-// @version        1.1.3
+// @version        1.1.2
 // @description    Adds the streetview view a reviewer will see on your own nominations!
 // @author         MrJPGames / AlterTobi
 // @namespace      https://github.com/AlterTobi/WFES/
