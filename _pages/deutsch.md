@@ -4,7 +4,7 @@ Userscripts/Tools für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 
 ---
 
-## Installation
+# Installation
 Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js) installieren!
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
@@ -31,6 +31,8 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - eigene Appealtexte im Browser speichern
 * [Expire Timer](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ExpireTimer.user.js)
     - Countdown der verbleibenden Zeit für die aktuelle Bewertung 
+* [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
+    - erkennt URLs im Zusatztext und macht Links daraus
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
 Manche dieser Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
@@ -38,8 +40,6 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
  
 * [Nomination page StreetView](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationsStreetView.user.js)
     - Fügt bei den eigenen Nominierungen eine Streetview-Ansicht hinzu, wie es die Bewerter sehen würden
-* [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
-    - erkennt URLs im Zusatztext und macht Links daraus
 * [Nomination Details](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-NominationDetail.user.js)
     - ergänzt die Ablehngründe um den Langtext
     - Zeigt die Ablehngründe auch bei Einsprüchen an
