@@ -14,7 +14,7 @@
         font-size: 14px;
         background-color: white;
         color: black;
-        display: block;
+        display: inline-block;
         float: left;
         margin-right: 3pt;
         height: 17pt;
