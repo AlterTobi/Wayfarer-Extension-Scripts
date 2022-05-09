@@ -16,6 +16,7 @@
         color: black;
         display: inline-block;
         height: 17pt;
+        margin-left: 3pt;
         box-shadow: 0 0 2px grey;
       }
       .translBtnAll {
