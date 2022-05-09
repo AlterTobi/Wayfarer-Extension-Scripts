@@ -4,7 +4,7 @@ Userscripts/Tools für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 
 ---
 
-## Installation {% octicon rocket height:24 %}
+# Installation
 Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js) installieren!
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
