@@ -117,8 +117,7 @@
     // has description
     if ("" !== candidate.description) {
       allText += candidate.description + "\n\n";
-      // elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted div:nth-child(3)");
-      elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted div:nth-child(3)");
+      elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div > div:nth-child(3)");      elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted div:nth-child(3)");
       setSmallButton(candidate.description, elem);
     }
 
