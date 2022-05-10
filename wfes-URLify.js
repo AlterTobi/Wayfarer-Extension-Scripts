@@ -42,11 +42,11 @@
       const urls = candidate.statement.match(myReg);
       if (null !== urls) {
          const elem = document.querySelector("app-supporting-info > wf-review-card > div.wf-review-card__body > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted");
-         if (null !== elem){
+         if (null !== elem) {
            urls.forEach(function(url) {
              setSmallButton(url, elem);
            });
-         } else {
+         } else if (maxtries-- > 0) {
            setTimeout(detectURL, 100);
          }
       }
