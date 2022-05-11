@@ -18,11 +18,11 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ main, release/v1.0, dev ]
   schedule:
-    - cron: '20 * * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   analyze:
-    if: ${{ (github.event_name == 'push') || (github.event_name == 'schedule') || ( (github.event_name == 'pull_request') && (github.actor != 'AlterTobi')) }}
+    # if: ${{ (github.event_name == 'push') || (github.event_name == 'schedule') || ( (github.event_name == 'pull_request') && (github.actor != 'AlterTobi')) }}
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
