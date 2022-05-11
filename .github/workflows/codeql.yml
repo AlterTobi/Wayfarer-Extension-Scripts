@@ -38,6 +38,10 @@ jobs:
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
 
     steps:
+    - name: show env
+      run: |
+        env
+
     - name: Checkout repository
       uses: actions/checkout@v3
 
