@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    es2016: true,
     greasemonkey: true
   },
   extends: [

@@ -1,7 +1,14 @@
 // @name         Nomination Notify
-// @version      1.1.0
+// @version      1.2.0
 // @description  show nomination status updates
 // @author       AlterTobi
+
+/*
+ *  @TODO:
+ *   - (22-06-30) remove garbage collection
+ *   - (22-06-30) remove wfp, wftu
+ */
+
 
 (function() {
   "use strict";
@@ -94,7 +101,7 @@
 
   function checkAppeal() {
     const canAppeal = window.wfes.g.canAppeal();
-    const savedState = JSON.parse(localStorage.getItem(lCanAppeal)) || false;
+    const savedState = window.wfes.f.localGet(lCanAppeal, false);
     if (!savedState) {
       if(canAppeal) {
         createNotification("new Appeal available", "red");
@@ -106,11 +113,12 @@
   }
 
   function checkNomListVersion() {
-    const version = JSON.parse(localStorage.getItem(lStoreVersion)) || 0;
+    const version = window.wfes.f.localGet(lStoreVersion, 0);
+
     if (version < 1) {
       console.warn("NomListVersion less then 1, converting");
       // convert Dates
-      const historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+      const historyDict = window.wfes.f.localGet(lStoreList, []);
       let myDates;
       // only if we have any saved data
       for (const histID in historyDict) {
@@ -130,7 +138,7 @@
     // check if saved nomination is not in current list
     // might be in review by Niantic staff
     const nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
-    const historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+    const historyDict = window.wfes.f.localGet(lStoreList, []);
     const today = getCurrentDateStr();
     const missingDict = {};
     let miss = {};
@@ -152,12 +160,12 @@
 
   function detectChange() {
     const nomList = window.wfes.g.nominationsList();
-    const historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+    const historyDict = window.wfes.f.localGet(lStoreList, []);
     const missingDict = detectMissing();
 
     if ( 0 === historyDict.length) {
       // first run, import from Wayfarer+, if exists
-      const wfpList = JSON.parse(localStorage.getItem("wfpNomList"));
+      const wfpList = window.wfes.f.localGet("wfpNomList", null);
       if (null === wfpList) {
         window.wfes.f.localSave(lStoreList, window.wfes.f.makeIDbasedDictionary(nomList));
       } else {
@@ -251,7 +259,7 @@
     window.wfes.f.addCSS(myCssId, myStyle);
     const nomDetail = window.wfes.g.nominationDetail();
     const myID = nomDetail.id;
-    const historyDict = JSON.parse(localStorage.getItem(lStoreList)) || [];
+    const historyDict = window.wfes.f.localGet(lStoreList, []);
     const myDates = historyDict[myID].wfesDates || [];
     const elem = window.document.querySelector("div.card.details-pane > div.flex.flex-row > span");
     // Inhalt entfernen
