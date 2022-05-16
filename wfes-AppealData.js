@@ -1,5 +1,5 @@
 // @name         Appeal Data
-// @version      1.0.1
+// @version      1.1.0
 // @description  save and show appeal your statements
 // @author       AlterTobi
 
@@ -13,14 +13,15 @@
 
   function storeAppealData() {
     const appeal = window.wfes.g.reviewAppeal();
-    const appealHistory = JSON.parse(localStorage.getItem(lStoreList)) || {};
+    const appealHistory = window.wfes.f.localGet(lStoreList, {});
     appealHistory[appeal.id] = appeal.statement;
     window.wfes.f.localSave(lStoreList, appealHistory);
   }
 
   function NominationSelected() {
     const nomID = window.wfes.g.nominationDetail().id;
-    const appealHistory = JSON.parse(localStorage.getItem(lStoreList)) || {};
+    const appealHistory = window.wfes.f.localGet(lStoreList, {});
+
     if (nomID in appealHistory) {
       nomImage = document.querySelector("app-details-pane > div > div > div > img.wf-image-modal.details-pane__image");
       if (haveDiv) {

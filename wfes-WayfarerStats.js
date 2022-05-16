@@ -1,7 +1,13 @@
 // @name        Wayfarer Stats
-// @version     1.0.6
+// @version     1.1.0
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
+
+/*
+ * @TODO:
+ *   - (22-06-30) remove garbage collection
+ *   - (22-06-30) remove WFRSTats
+ */
 
 (function() {
   "use strict";
@@ -32,10 +38,6 @@
     #buttonsdiv, #statsdiv, #gamesdiv { margin-bottom: 2em; }
     `;
 
-  /**
- * *** Section Const
- * **************************************************************
- */
   const WARN_POGO = `data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
 bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz
@@ -47,13 +49,24 @@ OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq
 3jRG+DXKSqfzvkOdbOovl0n81ZsVr3cNhRsO7xfZDDNvvXjvCT/+BmgGosHgV3/JF/wjwACvbhgT
 fnV1HwAAAABJRU5ErkJggg==`;
 
-  // get Values from localStorage
-  const PoGoStats = JSON.parse(localStorage.getItem(lStorePogo)) || JSON.parse(localStorage.getItem(lStorePogoO)) || [];
-  const wfrStats = JSON.parse(localStorage.getItem(lStoreStats)) || JSON.parse(localStorage.getItem(lStoreStatsO)) || [];
-  let isChecked = JSON.parse(localStorage.getItem(lStoreCheck)) || JSON.parse(localStorage.getItem(lStoreCheckO)) || false;
+  let PoGoStats, wfrStats, isChecked;
+  let isInitialized = false;
 
   const body = document.getElementsByTagName("body")[0];
   const head = document.getElementsByTagName("head")[0];
+
+  // init
+  function init() {
+    if ( window.wfes.f.hasUserId()) {
+      // get Values from localStorage
+      PoGoStats = window.wfes.f.localGet(lStorePogo, []);
+      wfrStats = window.wfes.f.localGet(lStoreStats, []);
+      isChecked = window.wfes.f.localGet(lStoreCheck, false);
+      isInitialized = true;
+    } else {
+      window.setTimeout(init, 200);
+    }
+  }
 
   function YMDfromTime(time) {
     const curdate = new Date();
@@ -71,7 +84,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
     /* die Upgrades zählen */
     console.log(selfname + " zähle Upgrades");
     const profile = window.wfes.g.profile();
-    const myWFRupgrades = JSON.parse(localStorage.getItem(lStoreUpgrades)) || JSON.parse(localStorage.getItem(lStoreUpgradesO)) || [];
+    const myWFRupgrades = window.wfes.f.localGet(lStoreUpgrades, []);
     const progress = profile.progress;
     const total = profile.total;
     let lastProgress = 0;
@@ -185,6 +198,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
   /* PoGO zählen */
   function handleReview() {
+    if (!isInitialized) {
+      return;
+    }
 
     // hier die zu suchenden Begriffe rein
     const pokeArr= [
@@ -263,11 +279,18 @@ fnV1HwAAAABJRU5ErkJggg==`;
   }
 
   function handleProfile() {
+    if (!isInitialized) {
+      return;
+    }
     wfrstats();
     upgrades();
   }
 
   function handleShowcase() {
+    if (!isInitialized) {
+      return;
+    }
+
     const section = document.getElementsByClassName("showcase")[0];
 
     // --- helper functions ---
@@ -368,7 +391,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
       // Upgrades
       document.getElementById("WFRSUpgrBtn").addEventListener("click", function() {
         emptyPage("/#myupgrades");
-        const myup = JSON.parse(localStorage.getItem(lStoreUpgrades)) || [];
+        const myup = window.wfes.f.localGet(lStoreUpgrades, []);
         if (isChecked) {
           for (let i = myup.length -1; i >= 0; i--) {
             body.insertAdjacentHTML("beforeEnd", myup[i].datum + ";" + myup[i].progress + ";" + myup[i].total + "<br/>");
@@ -620,10 +643,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
     }
   }
 
-  /** *****************************************************************************
- * MAIN
- ******************************************************************************/
+  /* =========== MAIN ================================ */
 
+  window.setTimeout(init, 200);
   // install Event Handlers
   window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(handleReview, 2000);});
   window.addEventListener("WFESProfileLoaded", handleProfile);

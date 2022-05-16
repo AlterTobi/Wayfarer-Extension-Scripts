@@ -1,9 +1,14 @@
 // @name         Base
-// @version      1.1.2
+// @version      1.2.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
-/* eslint no-unused-vars: ["error", { "args": "none" }]*/
+/* eslint no-unused-vars: ["error", { "args": "none" }] */
+
+/*
+ * @TODO:
+ *   - (22-07-30) disable/remove garbage collection
+ */
 
 (function() {
   "use strict";
@@ -24,10 +29,10 @@
   wfes.properties = {};
   wfes.messages = {};
   wfes.version = "0.0.0";
+  wfes.userId = false;
 
   window.wfes = {};
-  window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter,
-  // setter
+  window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
 
   /* =========== helper ============================= */
   function checkWfVersion(v) {
@@ -35,6 +40,48 @@
       console.log("WF version changed from", wfes.version, "to", v);
       wfes.version = v;
       window.dispatchEvent(new Event("WFESVersionChanged"));
+    }
+  }
+
+  // make a copy of data
+  function jCopy(data) {
+    return (JSON.parse(JSON.stringify(data)));
+  }
+
+  // Hash funktion
+  const TSH = s => {let h=9; for(let i=0; i<s.length;) {h=Math.imul(h^s.charCodeAt(i++), 9**9);}return h^(h>>>9);};
+
+  // set UserID when properties available
+  function setUserId() {
+    try {
+      wfes.userId = TSH(wfes.properties.socialProfile.email).toString(16);
+    } catch(e) {
+      console.error(GM_info.script.name, ": userprofile does not contain email");
+    }
+  }
+  window.addEventListener("WFESPropertiesLoaded", setUserId);
+
+  // wait for UserId
+  function getUserId(run) {
+    if (run > 20) {
+      return "tmpUID";
+    }
+    if (false === wfes.userId) {
+      return new Promise(function(resolve, reject) {
+        setTimeout(() => {resolve(getUserId(run+1));}, 200);
+      });
+    } else {
+      return wfes.userId;
+    }
+  }
+
+  // aufräumen
+  function garbageCollection(propNew, propOld) {
+    // remove old entries, if new ones exist
+    if (Object.prototype.hasOwnProperty.call(localStorage, propNew)) {
+      if(Object.prototype.hasOwnProperty.call(localStorage, propOld)) {
+        localStorage.removeItem(propOld);
+      }
     }
   }
 
@@ -242,21 +289,28 @@
   /* ================ /nomination page ============== */
 
   /* ================ basic functions =============== */
-
-  // make a copy of data
-  function jCopy(data) {
-    return (JSON.parse(JSON.stringify(data)));
-  }
-
   // save data in localstorage
   window.wfes.f.localSave = function(name, content) {
+    const userId = getUserId();
     const json = JSON.stringify(content);
-    localStorage.setItem(name, json);
+    localStorage.setItem(name+"_"+userId, json);
+    garbageCollection(name+"_"+userId, name);
   };
   // save data in sessionstorage
   window.wfes.f.sessionSave = function(name, content) {
+    const userId = getUserId();
     const json = JSON.stringify(content);
-    sessionStorage.setItem(name, json);
+    sessionStorage.setItem(name+"_"+userId, json);
+  };
+  // get data from localstorage
+  window.wfes.f.localGet = function(name, content = "") {
+    const userId = getUserId();
+    return JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
+  };
+  // gete data from sessionstorage
+  window.wfes.f.sessionGet = function(name, content = "") {
+    const userId = getUserId();
+    return JSON.parse(sessionStorage.getItem(name+"_"+userId)) || JSON.parse(sessionStorage.getItem(name)) || content;
   };
 
   // add CSS to the head, if not there
@@ -283,6 +337,10 @@
       dict[item.id] = item;
     }
     return dict;
+  };
+
+  window.wfes.f.hasUserId = function() {
+    return wfes.userId;
   };
 
   /* ================ /basic functions=============== */
@@ -323,7 +381,9 @@
   window.wfes.g.messages = function() {
     return jCopy(wfes.messages);
   };
-
+  window.wfes.g.userId = function() {
+    return jCopy(getUserId());
+  };
   /* ================ /getter ======================= */
   /* ================ setter ======================== */
   window.wfes.s.callback = function(what, func) {
