@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WFES - WF+ Dark Mode
 // @namespace    https://github.com/AlterTobi/WFES/
-// @version      1.0.4
+// @version      1.0.3
 // @description  Apply WayFarer+ like dark mode on the "new" (sept 21) Wayfarer
 // @author       MrJPGames / AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
