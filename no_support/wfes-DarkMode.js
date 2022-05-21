@@ -6,5 +6,5 @@
 (function() {
   "use strict";
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-  console.err("This script is no longer supported, please remove.");
+  console.error("This script is no longer supported, please remove.");
 })();
