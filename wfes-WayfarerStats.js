@@ -1,13 +1,8 @@
 // @name        Wayfarer Stats
-// @version     1.1.0
+// @version     1.2.0
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
-
-/*
- * @TODO:
- *   - (22-06-30) remove garbage collection
- *   - (22-06-30) remove WFRSTats
- */
+// @TODO .then(()=>{})
 
 (function() {
   "use strict";
@@ -19,12 +14,6 @@
   const lStorePogo = selfname+"_PoGoCount";
   const lStoreCheck = selfname+"_IsChecked";
   const lStoreUpgrades = selfname+"_myUpgrades";
-
-  const selfnameO = "WFRStats";
-  const lStoreStatsO = selfnameO+"_Stats";
-  const lStorePogoO = selfnameO+"_PoGoCount";
-  const lStoreCheckO = selfnameO+"_IsChecked";
-  const lStoreUpgradesO = selfnameO+"_myUpgrades";
 
   const myCssId = "wayfarerStatsCSS";
   const myStyle = `
@@ -57,15 +46,17 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
   // init
   function init() {
-    if ( window.wfes.f.hasUserId()) {
-      // get Values from localStorage
-      PoGoStats = window.wfes.f.localGet(lStorePogo, []);
-      wfrStats = window.wfes.f.localGet(lStoreStats, []);
-      isChecked = window.wfes.f.localGet(lStoreCheck, false);
-      isInitialized = true;
-    } else {
-      window.setTimeout(init, 200);
-    }
+    // get Values from localStorage
+    window.wfes.f.localGet(lStorePogo, []).then((PS)=>{
+      PoGoStats = PS;
+      window.wfes.f.localGet(lStoreStats, []).then((wf)=>{
+        wfrStats = wf;
+        window.wfes.f.localGet(lStoreCheck, false).then((ic)=>{
+          isChecked = ic;
+          isInitialized = true;
+        });
+      });
+    });
   }
 
   function YMDfromTime(time) {
@@ -84,23 +75,24 @@ fnV1HwAAAABJRU5ErkJggg==`;
     /* die Upgrades zählen */
     console.log(selfname + " zähle Upgrades");
     const profile = window.wfes.g.profile();
-    const myWFRupgrades = window.wfes.f.localGet(lStoreUpgrades, []);
     const progress = profile.progress;
     const total = profile.total;
     let lastProgress = 0;
     let lastTotal = 0;
 
-    if (myWFRupgrades.length > 0) {
-      lastProgress = myWFRupgrades[myWFRupgrades.length-1].progress;
-      lastTotal = myWFRupgrades[myWFRupgrades.length-1].total;
-    }
+    window.wfes.f.localGet(lStoreUpgrades, []).then((myWFRupgrades)=>{
+      if (myWFRupgrades.length > 0) {
+        lastProgress = myWFRupgrades[myWFRupgrades.length-1].progress;
+        lastTotal = myWFRupgrades[myWFRupgrades.length-1].total;
+      }
 
-    if ((total !== lastTotal ) || (progress !== lastProgress)) {
-      const ut = new Date().getTime();
-      const curstats = {"datum":ut, "progress":progress, "total":total};
-      myWFRupgrades.push(curstats);
-      window.wfes.f.localSave(lStoreUpgrades, myWFRupgrades);
-    }
+      if ((total !== lastTotal ) || (progress !== lastProgress)) {
+        const ut = new Date().getTime();
+        const curstats = {"datum":ut, "progress":progress, "total":total};
+        myWFRupgrades.push(curstats);
+        window.wfes.f.localSave(lStoreUpgrades, myWFRupgrades);
+      }
+    });
   }
 
   function wfrstats() {
@@ -391,17 +383,18 @@ fnV1HwAAAABJRU5ErkJggg==`;
       // Upgrades
       document.getElementById("WFRSUpgrBtn").addEventListener("click", function() {
         emptyPage("/#myupgrades");
-        const myup = window.wfes.f.localGet(lStoreUpgrades, []);
-        if (isChecked) {
-          for (let i = myup.length -1; i >= 0; i--) {
-            body.insertAdjacentHTML("beforeEnd", myup[i].datum + ";" + myup[i].progress + ";" + myup[i].total + "<br/>");
+        window.wfes.f.localGet(lStoreUpgrades, []).then((myup)=>{
+          if (isChecked) {
+            for (let i = myup.length -1; i >= 0; i--) {
+              body.insertAdjacentHTML("beforeEnd", myup[i].datum + ";" + myup[i].progress + ";" + myup[i].total + "<br/>");
+            }
+          } else {
+            for (let i = 0; i < myup.length; i++) {
+              body.insertAdjacentHTML("beforeEnd", myup[i].datum + ";" + myup[i].progress + ";" + myup[i].total + "<br/>");
+            }
           }
-        } else {
-          for (let i = 0; i < myup.length; i++) {
-            body.insertAdjacentHTML("beforeEnd", myup[i].datum + ";" + myup[i].progress + ";" + myup[i].total + "<br/>");
-          }
-        }
-        window.wfes.f.localSave(lStoreCheck, isChecked);
+          window.wfes.f.localSave(lStoreCheck, isChecked);
+        });
       });
 
       function showMap() {
@@ -619,38 +612,14 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
   }
 
-  function garbageCollection() {
-    // remove old entries, if new ones exist
-    if (Object.prototype.hasOwnProperty.call(localStorage, lStoreStats)) {
-      if(Object.prototype.hasOwnProperty.call(localStorage, lStoreStatsO)) {
-        localStorage.removeItem(lStoreStatsO);
-      }
-    }
-    if (Object.prototype.hasOwnProperty.call(localStorage, lStorePogo)) {
-      if(Object.prototype.hasOwnProperty.call(localStorage, lStorePogoO)) {
-        localStorage.removeItem(lStorePogoO);
-      }
-    }
-    if (Object.prototype.hasOwnProperty.call(localStorage, lStoreCheck)) {
-      if(Object.prototype.hasOwnProperty.call(localStorage, lStoreCheckO)) {
-        localStorage.removeItem(lStoreCheckO);
-      }
-    }
-    if (Object.prototype.hasOwnProperty.call(localStorage, lStoreUpgrades)) {
-      if(Object.prototype.hasOwnProperty.call(localStorage, lStoreUpgradesO)) {
-        localStorage.removeItem(lStoreUpgradesO);
-      }
-    }
-  }
-
   /* =========== MAIN ================================ */
 
-  window.setTimeout(init, 200);
+  // window.setTimeout(init, 200);
+  init(); // die promises sollten es richten :-)
   // install Event Handlers
   window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(handleReview, 2000);});
   window.addEventListener("WFESProfileLoaded", handleProfile);
   window.addEventListener("WFESHomePageLoaded", handleShowcase);
-  garbageCollection();
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
