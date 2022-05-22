@@ -25,6 +25,7 @@
   wfes.messages = {};
   wfes.version = "0.0.0";
   wfes.userId = false;
+  const tmpUserId = "temporaryUserId";
 
   window.wfes = {};
   window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
@@ -56,11 +57,27 @@
   }
   window.addEventListener("WFESPropertiesLoaded", setUserId);
 
+  function _getProps() {
+    console.log("#################### GET PROPS #########################");
+    const theUrl = "https://wayfarer.nianticlabs.com/api/v1/vault/properties";
+    const request = new XMLHttpRequest();
+    request.open("GET", theUrl, true);
+    request.addEventListener("load", function(event) {
+      if (request.status >= 200 && request.status < 300) {
+        // console.log(request.responseText);
+      } else {
+        console.warn(request.statusText, request.responseText);
+      }
+    });
+    request.send();
+  }
+
   // wait for UserId
   const getUserId = () => new Promise((resolve, reject) => {
     const checkUID = tries => {
-      if (tries > 20) {
-        resolve("tmpUserId");
+      if (tries > 10) {
+        resolve(tmpUserId);
+        _getProps();
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
@@ -292,7 +309,9 @@
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       localStorage.setItem(name+"_"+userId, json);
-      garbageCollection(name+"_"+userId, name);
+      if(tmpUserId !== userId) {
+        garbageCollection(name+"_"+userId, name);
+      }
       resolve();
     });
   });
