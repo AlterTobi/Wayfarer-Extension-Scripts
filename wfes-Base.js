@@ -72,7 +72,13 @@
 
   // aufräumen
   function garbageCollection(propNew, propOld) {
-    //
+    // remove old entries, if new ones exist
+    if (Object.prototype.hasOwnProperty.call(localStorage, propNew)) {
+      if(Object.prototype.hasOwnProperty.call(localStorage, propOld)) {
+        localStorage.removeItem(propOld);
+      }
+    }
+
   }
 
   /* ================ overwrite XHR ================ */
