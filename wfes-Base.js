@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.3.0
+// @version      1.3.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -58,14 +58,11 @@
   window.addEventListener("WFESPropertiesLoaded", setUserId);
 
   function _getProps() {
-    console.log("#################### GET PROPS #########################");
     const theUrl = "https://wayfarer.nianticlabs.com/api/v1/vault/properties";
     const request = new XMLHttpRequest();
     request.open("GET", theUrl, true);
     request.addEventListener("load", function(event) {
-      if (request.status >= 200 && request.status < 300) {
-        // console.log(request.responseText);
-      } else {
+      if (!(request.status >= 200 && request.status < 300)) {
         console.warn(request.statusText, request.responseText);
       }
     });
