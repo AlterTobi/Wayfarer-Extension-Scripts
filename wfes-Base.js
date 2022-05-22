@@ -310,7 +310,7 @@
   // gete data from sessionstorage
   window.wfes.f.sessionGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
-      const data = JSON.parse(sessionStorage.getItem(name+"_"+userId)) || JSON.parse(sessionStorage.getItem(name)) || content;
+      const data = JSON.parse(sessionStorage.getItem(name+"_"+userId)) || content;
       resolve(data);
     });
   });
