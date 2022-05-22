@@ -1,5 +1,5 @@
 // @name         WF+ Dark Mode
-// @version      1.1.0
+// @version      1.1.1
 // @description  WF+ Dark Mode - disabled
 // @author       AlterTobi
 

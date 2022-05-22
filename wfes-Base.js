@@ -1,14 +1,9 @@
 // @name         Base
-// @version      1.2.0
+// @version      1.3.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
-
-/*
- * @TODO:
- *   - (22-07-30) disable/remove garbage collection
- */
 
 (function() {
   "use strict";
@@ -62,27 +57,22 @@
   window.addEventListener("WFESPropertiesLoaded", setUserId);
 
   // wait for UserId
-  function getUserId(run) {
-    if (run > 20) {
-      return "tmpUID";
-    }
-    if (false === wfes.userId) {
-      return new Promise(function(resolve, reject) {
-        setTimeout(() => {resolve(getUserId(run+1));}, 200);
-      });
-    } else {
-      return wfes.userId;
-    }
-  }
+  const getUserId = () => new Promise((resolve, reject) => {
+    const checkUID = tries => {
+      if (tries > 20) {
+        resolve("tmpUserId");
+      } else if (wfes.userId) {
+        resolve(wfes.userId);
+      } else {
+        setTimeout(() => checkUID(tries + 1), 200);
+      }
+    };
+    checkUID(1);
+  });
 
   // aufräumen
   function garbageCollection(propNew, propOld) {
-    // remove old entries, if new ones exist
-    if (Object.prototype.hasOwnProperty.call(localStorage, propNew)) {
-      if(Object.prototype.hasOwnProperty.call(localStorage, propOld)) {
-        localStorage.removeItem(propOld);
-      }
-    }
+    //
   }
 
   /* ================ overwrite XHR ================ */
@@ -91,15 +81,14 @@
   /* handle data */
   function handleReviewData(result) {
     // save review data in ...pagedata and sessionstore
-    const reviewSessionHist = JSON.parse(sessionStorage.getItem(sStoreReview)) || [];
-    wfes.review.sessionHist = window.wfes.f.makeIDbasedDictionary(reviewSessionHist);
-
-    if (undefined === wfes.review.sessionHist[result.id]) {
-      reviewSessionHist.push(result);
-      window.wfes.f.sessionSave(sStoreReview, reviewSessionHist);
-      wfes.review.sessionHist[result.id] = result;
-    }
-
+    window.wfes.f.sessionGet(sStoreReview, [] ).then((reviewSessionHist)=>{
+      wfes.review.sessionHist = window.wfes.f.makeIDbasedDictionary(reviewSessionHist);
+      if (undefined === wfes.review.sessionHist[result.id]) {
+        reviewSessionHist.push(result);
+        window.wfes.f.sessionSave(sStoreReview, reviewSessionHist);
+        wfes.review.sessionHist[result.id] = result;
+      }
+    });
     wfes.edit.isEdit = false;
 
     wfes.review.pageData = result;
@@ -142,7 +131,7 @@
         return;
       }
 
-      let nominationDict, lang;
+      let lang;
       switch (this._url) {
       case PREFIX + "home":
         wfes.showcase.list = json.result.showcase;
@@ -168,10 +157,12 @@
         // nomination detail
         wfes.nominations.detail = json.result;
         // save nomination Details in Sessionstorage
-        nominationDict = JSON.parse(sessionStorage.getItem(sStoreNominationsDetails)) || {};
-        nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-        window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict);
-        window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+        window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+          nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
+          window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+            window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+          });
+        });
         break;
       case PREFIX + "properties":
         wfes.properties = json.result;
@@ -267,15 +258,16 @@
       // already loaded, do nothing
       return;
     }
-    const nominationDict = JSON.parse(sessionStorage.getItem(sStoreNominationsDetails)) || [];
-    const nomDetail = nominationDict[myID];
-    if (undefined === nomDetail) {
-      // nothing there, ignore
-      return;
-    }
-    // set cached values
-    wfes.nominations.detail = nomDetail;
-    window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+    window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+      const nomDetail = nominationDict[myID];
+      if (undefined === nomDetail) {
+        // nothing there, ignore
+        return;
+      }
+      // set cached values
+      wfes.nominations.detail = nomDetail;
+      window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+    });
   }
   function nominationsClickHander(elem) {
     const nomItem = elem.target.closest("app-nominations-list-item");
@@ -290,28 +282,38 @@
 
   /* ================ basic functions =============== */
   // save data in localstorage
-  window.wfes.f.localSave = function(name, content) {
-    const userId = getUserId();
-    const json = JSON.stringify(content);
-    localStorage.setItem(name+"_"+userId, json);
-    garbageCollection(name+"_"+userId, name);
-  };
+  window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      const json = JSON.stringify(content);
+      localStorage.setItem(name+"_"+userId, json);
+      garbageCollection(name+"_"+userId, name);
+      resolve();
+    });
+  });
+
   // save data in sessionstorage
-  window.wfes.f.sessionSave = function(name, content) {
-    const userId = getUserId();
-    const json = JSON.stringify(content);
-    sessionStorage.setItem(name+"_"+userId, json);
-  };
+  window.wfes.f.sessionSave = (name, content) => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      const json = JSON.stringify(content);
+      sessionStorage.setItem(name+"_"+userId, json);
+      resolve();
+    });
+  });
+
   // get data from localstorage
-  window.wfes.f.localGet = function(name, content = "") {
-    const userId = getUserId();
-    return JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
-  };
+  window.wfes.f.localGet = (name, content = "") => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      const data = JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
+      resolve(data);
+    });
+  });
   // gete data from sessionstorage
-  window.wfes.f.sessionGet = function(name, content = "") {
-    const userId = getUserId();
-    return JSON.parse(sessionStorage.getItem(name+"_"+userId)) || JSON.parse(sessionStorage.getItem(name)) || content;
-  };
+  window.wfes.f.sessionGet = (name, content = "") => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      const data = JSON.parse(sessionStorage.getItem(name+"_"+userId)) || JSON.parse(sessionStorage.getItem(name)) || content;
+      resolve(data);
+    });
+  });
 
   // add CSS to the head, if not there
   window.wfes.f.addCSS = function(myID, styles) {
@@ -381,9 +383,11 @@
   window.wfes.g.messages = function() {
     return jCopy(wfes.messages);
   };
-  window.wfes.g.userId = function() {
-    return jCopy(getUserId());
-  };
+  window.wfes.g.userId = new Promise((resolve, reject) => {
+    getUserId().then((userID) => {
+      resolve(userID);
+    });
+  });
   /* ================ /getter ======================= */
   /* ================ setter ======================== */
   window.wfes.s.callback = function(what, func) {

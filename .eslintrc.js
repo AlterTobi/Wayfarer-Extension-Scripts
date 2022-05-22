@@ -1,8 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es6: true,
-    es2016: true,
+    es2020: true,
     greasemonkey: true
   },
   extends: [
