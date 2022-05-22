@@ -26,6 +26,7 @@
   wfes.version = "0.0.0";
   wfes.userId = false;
   const tmpUserId = "temporaryUserId";
+  let propsLoaded = false;
 
   window.wfes = {};
   window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
@@ -57,24 +58,28 @@
   }
   window.addEventListener("WFESPropertiesLoaded", setUserId);
 
-  function _getProps() {
-    const theUrl = "https://wayfarer.nianticlabs.com/api/v1/vault/properties";
-    const request = new XMLHttpRequest();
-    request.open("GET", theUrl, true);
-    request.addEventListener("load", function(event) {
-      if (!(request.status >= 200 && request.status < 300)) {
-        console.warn(request.statusText, request.responseText);
-      }
-    });
-    request.send();
+  // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
+  function _getPropsOnce() {
+    if (false === propsLoaded) {
+      const theUrl = "https://wayfarer.nianticlabs.com/api/v1/vault/properties";
+      const request = new XMLHttpRequest();
+      request.open("GET", theUrl, true);
+      request.addEventListener("load", function(event) {
+        if (!(request.status >= 200 && request.status < 300)) {
+          console.warn(request.statusText, request.responseText);
+        }
+      });
+      request.send();
+      propsLoaded = true;
+    }
   }
 
   // wait for UserId
   const getUserId = () => new Promise((resolve, reject) => {
     const checkUID = tries => {
-      if (tries > 10) {
+      if (tries > 20) {
         resolve(tmpUserId);
-        _getProps();
+        _getPropsOnce();
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
