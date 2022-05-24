@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.3.1
+// @version      1.3.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 
@@ -61,7 +61,7 @@
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
     if (false === propsLoaded) {
-      const theUrl = "https://wayfarer.nianticlabs.com/api/v1/vault/properties";
+      const theUrl = "/api/v1/vault/properties";
       const request = new XMLHttpRequest();
       request.open("GET", theUrl, true);
       request.addEventListener("load", function(event) {
