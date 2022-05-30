@@ -62,7 +62,7 @@
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
     if (false === propsLoaded) {
-      if ( null !== window.document.querySelector('body > app-root > app-wayfarer')) {
+      if ( null !== window.document.querySelector("body > app-root > app-wayfarer")) {
         // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
         const theUrl = "/api/v1/vault/properties";
         const request = new XMLHttpRequest();
