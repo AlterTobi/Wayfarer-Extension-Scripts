@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.3.3
+// @version      1.3.4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -62,16 +62,19 @@
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
     if (false === propsLoaded) {
-      const theUrl = "/api/v1/vault/properties";
-      const request = new XMLHttpRequest();
-      request.open("GET", theUrl, true);
-      request.addEventListener("load", function(event) {
-        if (!(request.status >= 200 && request.status < 300)) {
-          console.warn(request.statusText, request.responseText);
-        }
-      });
-      request.send();
-      propsLoaded = true;
+      if ( null !== window.document.querySelector('body > app-root > app-wayfarer')) {
+        // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
+        const theUrl = "/api/v1/vault/properties";
+        const request = new XMLHttpRequest();
+        request.open("GET", theUrl, true);
+        request.addEventListener("load", function(event) {
+          if (!(request.status >= 200 && request.status < 300)) {
+            console.warn(request.statusText, request.responseText);
+          }
+        });
+        request.send();
+        propsLoaded = true;
+      }
     }
   }
 
