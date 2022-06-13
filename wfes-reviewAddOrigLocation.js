@@ -28,7 +28,7 @@
     if ((maxtries-- > 0)) {
       // only on location edits
       if (edit.what.location) {
-        if (undefined === typeof(google)) {
+        if ("undefined" === typeof(google)) {
           clearTimeout(timerId);
           timerId = setTimeout(addOrigMarker, 250);
           return;
