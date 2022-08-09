@@ -1,5 +1,5 @@
 // @name review Add Orig Location
-// @version 1.1.0
+// @version 1.1.1
 // @description location edits - add marker for original location
 // @author AlterTobi
 
@@ -28,7 +28,7 @@
     if ((maxtries-- > 0)) {
       // only on location edits
       if (edit.what.location) {
-        if (undefined === typeof(google)) {
+        if ("undefined" === typeof(google)) {
           clearTimeout(timerId);
           timerId = setTimeout(addOrigMarker, 250);
           return;
