@@ -375,8 +375,8 @@
   window.wfes.f.hasUserId = function() {
     return wfes.userId;
   };
-
   /* ================ /basic functions=============== */
+
   /* ================ getter ======================== */
   window.wfes.g.wfVersion = function() {
     return jCopy(wfes.version);
@@ -420,6 +420,7 @@
     });
   });
   /* ================ /getter ======================= */
+
   /* ================ setter ======================== */
   window.wfes.s.callback = function(what, func) {
     switch (what) {
