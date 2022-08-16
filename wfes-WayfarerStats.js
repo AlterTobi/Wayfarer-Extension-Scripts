@@ -513,7 +513,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
         '<col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="14%"></colgroup>' +
         '<thead><tr><th rowspan="2" colspan="2"></th><th colspan="4">Portaleinreichungen</th>' +
         '<th rowspan="2" colspan="2">Portal Edits</th><th rowspan="2" colspan="2">Photo</th>' +
-        '<th rowspan="2">gesamt</th></tr><tr><th colspan="2">classic/redacted</th>' +
+        '<th rowspan="2">total</th></tr><tr><th colspan="2">classic/redacted</th>' +
         '<th colspan="2">Prime/Pokémon Go</th></tr></thead>' +
         '<tbody id="gamesTBbody"></tbody></table>');
 
@@ -566,7 +566,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const edigp = revg > 0 ? (100*edig/revg).toFixed(2) : " -- ";
       const phogp = revg > 0 ? (100*phog/revg).toFixed(2) : " -- ";
 
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><th colspan="2">reviews gesamt </th><td>' + redg + "</td><td>"+redgp+"%</td><td>"+
+      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><th colspan="2">reviews total </th><td>' + redg + "</td><td>"+redgp+"%</td><td>"+
                          prig + "</td><td>"+prigp+"%</td><td>" + edig + "</td><td>"+edigp+"%</td><td>" + phog + "</td><td>"+phogp+"%</td><td>" + revg + "</td></tr>");
 
       // PoGo Prozente
@@ -575,9 +575,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const edigpp = revp > 0 ? (100*edip/revp).toFixed(2) : " -- ";
       const phogpp = revp > 0 ? (100*phop/revp).toFixed(2) : " -- ";
 
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 1px solid;"><th></th><th>davon Pokémon </th><td>' + redp + "</td><td>"+redgpp+"%</td><td>"+ prip +
+      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 1px solid;"><th></th><th>thereof  Pokémon </th><td>' + redp + "</td><td>"+redgpp+"%</td><td>"+ prip +
                         "</td><td>"+prigpp+"%</td><td>" + edip + "</td><td>"+edigpp+"%</td><td>" + phop + "</td><td>"+phogpp+"%</td><td>" + revp + "</td></tr>");
-      innertable.insertAdjacentHTML("beforeEnd", '<tr><th></th><th>in Prozent </th><th colspan="2">' + redpp + '%</th><th colspan="2">'+ pripp +
+      innertable.insertAdjacentHTML("beforeEnd", '<tr><th></th><th>in percent </th><th colspan="2">' + redpp + '%</th><th colspan="2">'+ pripp +
                         '%</th><th colspan="2">' + edipp + '%</th><th colspan="2">' + phopp + "%</th><th>" + revpp + "%</th></tr>");
     }
 
