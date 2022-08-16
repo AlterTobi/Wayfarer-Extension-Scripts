@@ -518,8 +518,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
         '<tbody id="gamesTBbody"></tbody></table>');
 
       const innertable = document.getElementById("gamesTBbody");
-      let redg, redp, prig, prip, edig, edip, edih, redh, prih, phog, phop, phoh;
-      redg = redp = prig = prip = edig = edip = edih = redh = prih = phog = phop = phoh = 0;
+      let redg, redp, prig, prip, edig, edip, phog, phop;
+      redg = redp = prig = prip = edig = edip = phog = phop = 0;
 
       // Zählen
       for (let i = 0; i < PoGoStats.length; i++) {
@@ -527,19 +527,16 @@ fnV1HwAAAABJRU5ErkJggg==`;
         case "EDIT":
           edig++;
           if (PoGoStats[i].pogo) { edip++; }
-          if (PoGoStats[i].hpwu) { edih++; }
           break;
         case "NEW":
           switch (PoGoStats[i].subtyp) {
           case 0:
             redg++;
             if (PoGoStats[i].pogo) { redp++; }
-            if (PoGoStats[i].hpwu) { redh++; }
-            break;
+           break;
           case 1:
             prig++;
             if (PoGoStats[i].pogo) { prip++; }
-            if (PoGoStats[i].hpwu) { prih++; }
             break;
           default:
             console.warn("PoGoTable: falscher subtyp: " + PoGoStats[i].subtyp);
@@ -548,7 +545,6 @@ fnV1HwAAAABJRU5ErkJggg==`;
         case "PHOTO":
           phog++;
           if (PoGoStats[i].pogo) { phop++; }
-          if (PoGoStats[i].hpwu) { phoh++; }
           break;
         default:
           console.warn(selfname + " falscher typ: " + PoGoStats[i].typ);
@@ -557,7 +553,6 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
       const revg = redg + prig + edig + phog;
       const revp = redp + prip + edip + phop;
-      const revh = redh + prih + edih + phoh;
 
       const redpp = redg > 0 ? (100*redp/redg).toFixed(2) : " -- ";
       const pripp = prig > 0 ? (100*prip/prig).toFixed(2) : " -- ";
@@ -584,23 +579,6 @@ fnV1HwAAAABJRU5ErkJggg==`;
                         "</td><td>"+prigpp+"%</td><td>" + edip + "</td><td>"+edigpp+"%</td><td>" + phop + "</td><td>"+phogpp+"%</td><td>" + revp + "</td></tr>");
       innertable.insertAdjacentHTML("beforeEnd", '<tr><th></th><th>in Prozent </th><th colspan="2">' + redpp + '%</th><th colspan="2">'+ pripp +
                         '%</th><th colspan="2">' + edipp + '%</th><th colspan="2">' + phopp + "%</th><th>" + revpp + "%</th></tr>");
-
-      // HPWU Prozente
-      const redhp = redg > 0 ? (100*redh/redg).toFixed(2) : " -- ";
-      const prihp = prig > 0 ? (100*prih/prig).toFixed(2) : " -- ";
-      const edihp = edig > 0 ? (100*edih/edig).toFixed(2) : " -- ";
-      const revhp = revg > 0 ? (100*revh/revg).toFixed(2) : " -- ";
-      const phohp = phog > 0 ? (100*phoh/revg).toFixed(2) : " -- ";
-
-      const redghp = revh > 0 ? (100*redh/revh).toFixed(2) : " -- ";
-      const prighp = revh > 0 ? (100*prih/revh).toFixed(2) : " -- ";
-      const edighp = revh > 0 ? (100*edih/revh).toFixed(2) : " -- ";
-      const phoghp = revh > 0 ? (100*phoh/revh).toFixed(2) : " -- ";
-
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 1px solid;"><th></th><th>davon Harry Potter </th><td>' + redh + "</td><td>"+redghp+"%</td><td>"+ prih +
-                        "</td><td>"+prighp+"%</td><td>" + edih + "</td><td>"+edighp+"%</td><td>" + phoh + "</td><td>"+phoghp+"%</td><td>" + revh + "</td></tr>");
-      innertable.insertAdjacentHTML("beforeEnd", '<tr><th></th><th>in Prozent </th><th colspan="2">' + redhp + '%</th><th colspan="2">'+ prihp +
-                        '%</th><th colspan="2">' + edihp + '%</th><th colspan="2">' + phohp + "%</th><th>" + revhp + "%</th></tr>");
     }
 
     // ---
