@@ -1,4 +1,4 @@
-// @name         Scrollfix
+// @name         ScrollFix
 // @version      0.1.0
 // @description  Fix Scroll Down Bug
 // @author       AlterTobi
