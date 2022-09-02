@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.1.4
+// @version 1.2.0
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -9,7 +9,7 @@
   // map URLs, %lat%, %lng% will be replaced by nominations coordinates
   const customMaps = [
     { title: "Google", url: "https://maps.google.com/maps?q=%lat%,%lng%"},
-    { title: "Intel", url: "https://intel.ingress.com/intel?ll=%lat%,%lng%&z=18"},
+    { title: "Intel", url: "https://intel.ingress.com/intel?ll=%lat%,%lng%&pll=%lat%,%lng%&z=18"},
     { title: "OSM", url: "https://www.openstreetmap.org/?mlat=%lat%&mlon=%lng%#map=18/%lat%/%lng%"}
   ];
 
