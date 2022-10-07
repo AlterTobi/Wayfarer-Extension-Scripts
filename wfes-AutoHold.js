@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      0.2.0
+// @version      0.3.0
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -65,6 +65,8 @@
       console.log(GM_info.script.name, "process ID:", o.id, "name", o.title);
       window.wfes.f.createNotification(`set hold: ${o.title}`, "orange");
       _setHold(o.id);
+    } else {
+      window.wfes.f.createNotification(`set hold: all nominations processed<br/>please reload page`, "green");
     }
   }
 
