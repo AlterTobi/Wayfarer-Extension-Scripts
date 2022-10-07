@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.3.0
+// @version      1.4.0
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -11,82 +11,6 @@
   const lCanAppeal = "wfes_CurrentAppealState";
   const states = ["ACCEPTED", "REJECTED", "VOTING", "DUPLICATE", "WITHDRAWN", "NOMINATED", "APPEALED", "NIANTIC_REVIEW", "HELD"];
 
-  const myCssId = "nominationNotifyCSS";
-  const myStyle = `
-    #wfesNotify{
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    width: 30em;
-    z-index: 100;
-    }
-    .wfesNotification{
-    border-radius: 0.5em;
-    padding: 1em;
-    margin-top: 1.5em;
-    color: white;
-    }
-    .wfesBgGreen{
-    background-color: #3e8e41CC;
-    }
-    .wfesBgRed{
-    background-color: #CC0000B0;
-    }
-    .wfesBgOrange{
-    background-color: #FC9000D0;
-    }
-    .wfesBgBlue{
-    background-color: #0010DFD0;
-    }
-    .wfesNotifyCloseButton{
-    float: right;
-    }
-    `;
-
-  function createNotificationArea() {
-    const myID = "wfesNotify";
-    if ( null === document.getElementById(myID)) {
-      const container = document.createElement("div");
-      container.id = myID;
-      document.getElementsByTagName("body")[0].appendChild(container);
-    }
-  }
-
-  function createNotification(message, color = "green") {
-    const notification = document.createElement("div");
-    switch (color) {
-    case "red":
-      notification.setAttribute("class", "wfesNotification wfesBgRed");
-      break;
-    case "orange":
-      notification.setAttribute("class", "wfesNotification wfesBgOrange");
-      break;
-    case "blue":
-      notification.setAttribute("class", "wfesNotification wfesBgBlue");
-      break;
-    default:
-      notification.setAttribute("class", "wfesNotification wfesBgGreen");
-      break;
-    }
-    notification.onclick = function() {
-      notification.remove();
-    };
-
-    const content = document.createElement("p");
-    content.innerText = message;
-
-    // Purely aesthetic (The whole div closes the notification)
-    const closeButton = document.createElement("div");
-    closeButton.innerText = "X";
-    closeButton.setAttribute("class", "wfesNotifyCloseButton");
-    closeButton.setAttribute("style", "cursor: pointer;");
-
-    notification.appendChild(closeButton);
-    notification.appendChild(content);
-
-    document.getElementById("wfesNotify").appendChild(notification);
-  }
-
   function getCurrentDateStr() {
     return new Date().toISOString()
       .substr(0, 10);
@@ -97,7 +21,7 @@
     window.wfes.f.localGet(lCanAppeal, false).then((savedState)=>{
       if (!savedState) {
         if(canAppeal) {
-          createNotification("new Appeal available", "red");
+          window.wfes.f.createNotification("new Appeal available", "red");
           window.wfes.f.localSave(lCanAppeal, true);
         }
       } else if(!canAppeal) {
@@ -145,7 +69,7 @@
           if ((miss.status !== "MISSING")) {
             miss.wfesDates.push([today, "MISSING"]);
             miss.status = "MISSING";
-            createNotification(`${miss.title} is missing`, "red");
+            window.wfes.f.createNotification(`${miss.title} is missing`, "red");
           }
           missingDict[histID] = miss;
         }
@@ -174,7 +98,7 @@
 
           // detect unknown states
           if (!states.includes(nom.status)) {
-            createNotification(`${nom.title} has unknown state: ${nom.status}`, "blue");
+            window.wfes.f.createNotification(`${nom.title} has unknown state: ${nom.status}`, "blue");
           }
 
           if (undefined === historicalData) {
@@ -192,31 +116,31 @@
           // upgrade?
           if (false === historicalData.upgraded && true === nom.upgraded) {
             myDates.push([today, "UPGRADE"]);
-            createNotification(`${nom.title} was upgraded!`);
+            window.wfes.f.createNotification(`${nom.title} was upgraded!`);
           }
 
           // Niantic Review?
           if (false === historicalData.isNianticControlled && true === nom.isNianticControlled) {
-            createNotification(`${nom.title} went into Niantic review!`, "red");
+            window.wfes.f.createNotification(`${nom.title} went into Niantic review!`, "red");
           }
 
           // was missing?
           if (("MISSING" === historicalData.status)) {
-            createNotification(`${nom.title} returned`, "orange");
+            window.wfes.f.createNotification(`${nom.title} returned`, "orange");
           }
           // In queue -> In voting
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
-            createNotification(`${nom.title} went into voting!`);
+            window.wfes.f.createNotification(`${nom.title} went into voting!`);
           }else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
             if ("ACCEPTED" === nom.status) {
-              createNotification(`${nom.title} was accepted!`);
+              window.wfes.f.createNotification(`${nom.title} was accepted!`);
             }else if("REJECTED" === nom.status) {
-              createNotification(`${nom.title} was rejected!`);
+              window.wfes.f.createNotification(`${nom.title} was rejected!`);
             }else if("DUPLICATE" === nom.status) {
-              createNotification(`${nom.title} was marked as a duplicate!`);
+              window.wfes.f.createNotification(`${nom.title} was marked as a duplicate!`);
             }
           } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
-            createNotification(`${nom.title} was appealed!`);
+            window.wfes.f.createNotification(`${nom.title} was appealed!`);
           }
 
           // save Date if state changes
@@ -239,15 +163,12 @@
   }
 
   function NominationPageLoaded() {
-    window.wfes.f.addCSS(myCssId, myStyle);
-    createNotificationArea();
     checkNomListVersion();
     detectChange();
     checkAppeal();
   }
 
   function NominationSelected() {
-    window.wfes.f.addCSS(myCssId, myStyle);
     const nomDetail = window.wfes.g.nominationDetail();
     const myID = nomDetail.id;
     window.wfes.f.localGet(lStoreList, []).then((historyDict)=>{

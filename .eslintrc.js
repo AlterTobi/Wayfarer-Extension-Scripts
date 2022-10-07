@@ -26,7 +26,6 @@ module.exports = {
       "no-unmodified-loop-condition": "warn",
       "no-unreachable-loop": "warn",
       "no-use-before-define": "error",
-      "no-use-before-define": "error",
       "no-useless-concat": "warn",
       "no-useless-return": "warn",
       "no-var": "error",

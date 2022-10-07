@@ -533,7 +533,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
           case 0:
             redg++;
             if (PoGoStats[i].pogo) { redp++; }
-           break;
+            break;
           case 1:
             prig++;
             if (PoGoStats[i].pogo) { prip++; }

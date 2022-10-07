@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.3.4
+// @version      1.4.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -13,6 +13,38 @@
   const PREFIX = "/api/v1/vault/";
   const sStoreReview = "wfes_Reviews";
   const sStoreNominationsDetails = "wfes_nominationDetails";
+
+  const myCssId = "notifyAreaCSS";
+  const myStyle = `
+    #wfesNotify{
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    width: 30em;
+    z-index: 100;
+    }
+    .wfesNotification{
+    border-radius: 0.5em;
+    padding: 1em;
+    margin-top: 1.5em;
+    color: white;
+    }
+    .wfesBgGreen{
+    background-color: #3e8e41CC;
+    }
+    .wfesBgRed{
+    background-color: #CC0000B0;
+    }
+    .wfesBgOrange{
+    background-color: #FC9000D0;
+    }
+    .wfesBgBlue{
+    background-color: #0010DFD0;
+    }
+    .wfesNotifyCloseButton{
+    float: right;
+    }
+    `;
 
   const wfes = {};
   wfes.showcase = {};
@@ -375,6 +407,52 @@
   window.wfes.f.hasUserId = function() {
     return wfes.userId;
   };
+
+  window.wfes.f.createNotificationArea = function() {
+    const myID = "wfesNotify";
+    if ( null === document.getElementById(myID)) {
+      const container = document.createElement("div");
+      container.id = myID;
+      document.getElementsByTagName("body")[0].appendChild(container);
+    }
+  };
+
+  window.wfes.f.createNotification = function(message, color = "green") {
+    const notification = document.createElement("div");
+    switch (color) {
+    case "red":
+      notification.setAttribute("class", "wfesNotification wfesBgRed");
+      break;
+    case "orange":
+      notification.setAttribute("class", "wfesNotification wfesBgOrange");
+      break;
+    case "blue":
+      notification.setAttribute("class", "wfesNotification wfesBgBlue");
+      break;
+    default:
+      notification.setAttribute("class", "wfesNotification wfesBgGreen");
+      break;
+    }
+    notification.onclick = function() {
+      notification.remove();
+    };
+
+    const content = document.createElement("p");
+    content.innerText = message;
+
+    // Purely aesthetic (The whole div closes the notification)
+    const closeButton = document.createElement("div");
+    closeButton.innerText = "X";
+    closeButton.setAttribute("class", "wfesNotifyCloseButton");
+    closeButton.setAttribute("style", "cursor: pointer;");
+
+    notification.appendChild(closeButton);
+    notification.appendChild(content);
+
+    document.getElementById("wfesNotify").appendChild(notification);
+  };
+
+
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */
@@ -436,6 +514,9 @@
   Object.freeze(window.wfes.g);
   Object.freeze(window.wfes.s);
   Object.freeze(window.wfes);
+
+  window.wfes.f.addCSS(myCssId, myStyle);
+  window.wfes.f.createNotificationArea();
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);

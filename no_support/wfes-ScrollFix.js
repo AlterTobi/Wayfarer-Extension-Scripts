@@ -7,14 +7,14 @@
   "use strict";
 
   function scrollUp() {
-	const _dom = document.querySelector('mat-sidenav-content');
+    const _dom = document.querySelector("mat-sidenav-content");
     const _evfunc= () => {
-        console.log('event gescrollt');
-        document.querySelector('.wf-page-header__title > div:nth-child(1)').scrollIntoView();
-        _dom.removeEventListener('scroll',_evfunc);
-        };
-	_dom.addEventListener('scroll', _evfunc);
-  };
+      console.log("event gescrollt");
+      document.querySelector(".wf-page-header__title > div:nth-child(1)").scrollIntoView();
+      _dom.removeEventListener("scroll", _evfunc);
+    };
+    _dom.addEventListener("scroll", _evfunc);
+  }
 
   window.addEventListener("WFESReviewPageNewLoaded", scrollUp);
 

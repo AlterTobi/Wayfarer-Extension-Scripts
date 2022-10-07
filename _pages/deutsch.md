@@ -45,6 +45,8 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
     - Zeigt die Ablehngründe auch bei Einsprüchen an
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
+* [AutoHold](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js)
+    - erkennt '#hold' im Zusatztext und stellt Nominierung zurück - Script in der Testphase
 
 ---
 

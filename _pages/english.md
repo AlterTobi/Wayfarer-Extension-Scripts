@@ -45,6 +45,8 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - shows reject reasons for appealed nominations
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - show current Wayfarer version
+* [AutoHold](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js)
+    - searches for '#hold' in supporting statement and puts nomination on hold - still testing
 
 ---
 
