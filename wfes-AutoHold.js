@@ -1,9 +1,9 @@
 // @name         AutoHold
-// @version      0.3.0
+// @version      0.3.1
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
-/* eslint no-use-before-define: ["error", { "functions": false }] */
+/*eslint no-use-before-define: ["error", { "functions": false }]*/
 
 (function() {
   "use strict";
@@ -12,7 +12,7 @@
   const idlist = [];
   const timeout = 2000;
 
-  // used example from https://www.w3schools.com/js/js_cookies.asp
+  // based on example from https://www.w3schools.com/js/js_cookies.asp
   function _getCookie(cname) {
     const name = cname + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
@@ -47,11 +47,10 @@
 
     request.addEventListener("load", function() {
       if (request.status >= 200 && request.status < 300) {
-        // console.log(request.responseText);
         // prozess next
         window.setTimeout(_prozessNext, timeout);
       } else {
-        window.wfes.f.createNotification("set hold failed, see console for details", "red");
+        window.wfes.f.createNotification("autoHold failed, see console for details", "red");
         console.warn(request.statusText, request.responseText);
       }
     });
@@ -62,16 +61,14 @@
     if (idlist.length > 0) {
       // have more?
       const o = idlist.pop();
-      console.log(GM_info.script.name, "process ID:", o.id, "name", o.title);
-      window.wfes.f.createNotification(`set hold: ${o.title}`, "orange");
+      window.wfes.f.createNotification(`autoHold: ${o.title}`, "orange");
       _setHold(o.id);
     } else {
       window.wfes.f.createNotification(`set hold: all nominations processed<br/>please reload page`, "green");
     }
   }
 
-  function AutoHold() {
-    console.log(GM_info.script.name, "starte AutoHold");
+  function autoHold() {
     const nomList = window.wfes.g.nominationsList();
     let nom;
 
@@ -79,8 +76,8 @@
       nom = nomList[i];
       // process all new / in queue
       if ("NOMINATED" === nom.status) {
-        // serach for '#hold'
-        if (nom.statement.toLocaleLowerCase().search(searchRegex) > -1) {
+        // search for '#hold'
+        if (nom.statement.toLowerCase().search(searchRegex) > -1) {
           const o = {};
           o.id = nom.id;
           o.title = nom.title;
@@ -94,7 +91,7 @@
     }
   }
 
-  window.addEventListener("WFESNominationListLoaded", AutoHold);
+  window.addEventListener("WFESNominationListLoaded", autoHold);
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
