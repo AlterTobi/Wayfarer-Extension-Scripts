@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      0.3.1
+// @version      0.3.2
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -50,7 +50,7 @@
         // prozess next
         window.setTimeout(_prozessNext, timeout);
       } else {
-        window.wfes.f.createNotification("autoHold failed, see console for details", "red");
+        window.wfes.f.createNotification("AutoHold failed, see console for details", "red");
         console.warn(request.statusText, request.responseText);
       }
     });
@@ -61,10 +61,10 @@
     if (idlist.length > 0) {
       // have more?
       const o = idlist.pop();
-      window.wfes.f.createNotification(`autoHold: ${o.title}`, "orange");
+      window.wfes.f.createNotification(`AutoHold: ${o.title}`, "orange");
       _setHold(o.id);
     } else {
-      window.wfes.f.createNotification(`set hold: all nominations processed<br/>please reload page`, "green");
+      window.wfes.f.createNotification(`AutoHold: all nominations processed, please reload page`, "green");
     }
   }
 
