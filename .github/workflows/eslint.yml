@@ -15,8 +15,8 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ dev, main ]
-#  schedule:
-#    - cron: '38 5 * * 2'
+  schedule:
+    - cron: '38 5 * * 2'
 
 jobs:
   eslint:
