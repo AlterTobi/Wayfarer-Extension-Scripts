@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      0.3.3
+// @version      0.4.0
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 // @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js
@@ -93,7 +93,11 @@
     }
   }
 
-  window.addEventListener("WFESNominationListLoaded", autoHold);
+  if (window.wfes.f.hasMinVersion("1.4.0")) {
+    window.addEventListener("WFESNominationListLoaded", autoHold);  
+  } else {
+    console.warn(GM_info.script.name, "Need at least wfes-Base version 1.4.0. Please upgrade.");
+  }
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
