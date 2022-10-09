@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.4.2
+// @version      1.5.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -407,6 +407,10 @@
     return wfes.userId;
   };
 
+  window.wfes.f.hasMinVersion = function (version = "1.0.0") {
+    return version >= GM_info.script.version;
+  }
+  
   window.wfes.f.createNotificationArea = function() {
     const myID = "wfesNotify";
     if ( null === document.getElementById(myID)) {
@@ -447,6 +451,9 @@
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */
+  window.wfes.g.baseVersion = function() {
+    return GM_info.script.version;
+  };
   window.wfes.g.wfVersion = function() {
     return jCopy(wfes.version);
   };
