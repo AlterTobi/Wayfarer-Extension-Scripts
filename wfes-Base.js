@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.4.1
+// @version      1.5.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -42,9 +42,6 @@
     }
     .wfesBgBlue{
     background-color: #0010DFD0;
-    }
-    .wfesNotifyCloseButton{
-    float: right;
     }
     `;
 
@@ -410,6 +407,10 @@
     return wfes.userId;
   };
 
+  window.wfes.f.hasMinVersion = function (version = "1.0.0") {
+    return version >= GM_info.script.version;
+  }
+  
   window.wfes.f.createNotificationArea = function() {
     const myID = "wfesNotify";
     if ( null === document.getElementById(myID)) {
@@ -419,7 +420,7 @@
     }
   };
 
-  window.wfes.f.createNotification = function(message, color = "green") {
+  window.wfes.f.createNotification = function(message = "no message", color = "green") {
     const notification = document.createElement("div");
     switch (color) {
     case "red":
@@ -442,22 +443,17 @@
     const content = document.createElement("p");
     content.innerText = message;
 
-    // Purely aesthetic (The whole div closes the notification)
-    const closeButton = document.createElement("div");
-    closeButton.innerText = "X";
-    closeButton.setAttribute("class", "wfesNotifyCloseButton");
-    closeButton.setAttribute("style", "cursor: pointer;");
-
     notification.appendChild(closeButton);
     notification.appendChild(content);
 
     document.getElementById("wfesNotify").appendChild(notification);
   };
-
-
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */
+  window.wfes.g.baseVersion = function() {
+    return GM_info.script.version;
+  };
   window.wfes.g.wfVersion = function() {
     return jCopy(wfes.version);
   };
