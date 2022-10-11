@@ -443,7 +443,6 @@
     const content = document.createElement("p");
     content.innerText = message;
 
-    notification.appendChild(closeButton);
     notification.appendChild(content);
 
     document.getElementById("wfesNotify").appendChild(notification);
