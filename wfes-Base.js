@@ -407,10 +407,10 @@
     return wfes.userId;
   };
 
-  window.wfes.f.hasMinVersion = function (version = "1.0.0") {
+  window.wfes.f.hasMinVersion = function(version = "1.0.0") {
     return version >= GM_info.script.version;
-  }
-  
+  };
+
   window.wfes.f.createNotificationArea = function() {
     const myID = "wfesNotify";
     if ( null === document.getElementById(myID)) {
