@@ -33,6 +33,8 @@ Install [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-
     - Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 * [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
     - detect URLs in supporting text and create links
+* [AutoHold](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js)
+    - searches for '#hold' in supporting statement and puts nomination on hold
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
@@ -45,8 +47,6 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - shows reject reasons for appealed nominations
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - show current Wayfarer version
-* [AutoHold](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js)
-    - searches for '#hold' in supporting statement and puts nomination on hold - still testing
 
 ---
 

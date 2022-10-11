@@ -33,6 +33,8 @@ Zuerst [WFES Base](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-B
     - Countdown der verbleibenden Zeit für die aktuelle Bewertung 
 * [URLify](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-URLify.user.js)
     - erkennt URLs im Zusatztext und macht Links daraus
+* [AutoHold](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js)
+    - erkennt '#hold' im Zusatztext und stellt Nominierung zurück ([Dokumentation](de/autohold.html))
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
 Manche dieser Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
@@ -45,8 +47,6 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
     - Zeigt die Ablehngründe auch bei Einsprüchen an
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
-* [AutoHold](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js)
-    - erkennt '#hold' im Zusatztext und stellt Nominierung zurück - Script in der Testphase
 
 ---
 
