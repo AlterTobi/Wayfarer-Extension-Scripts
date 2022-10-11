@@ -5,7 +5,7 @@
 // @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js
 // @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.meta.js
 
-/*eslint no-use-before-define: ["error", { "functions": false }]*/
+/* eslint no-use-before-define: ["error", { "functions": false }]*/
 
 (function() {
   "use strict";
@@ -66,7 +66,7 @@
       window.wfes.f.createNotification(`AutoHold: ${o.title}`, "orange");
       _setHold(o.id);
     } else {
-      window.wfes.f.createNotification(`AutoHold: all nominations processed, please reload page`, "green");
+      window.wfes.f.createNotification("AutoHold: all nominations processed, please reload page", "green");
     }
   }
 
@@ -94,7 +94,7 @@
   }
 
   if (window.wfes.f.hasMinVersion("1.4.0")) {
-    window.addEventListener("WFESNominationListLoaded", autoHold);  
+    window.addEventListener("WFESNominationListLoaded", autoHold);
   } else {
     console.warn(GM_info.script.name, "Need at least wfes-Base version 1.4.0. Please upgrade.");
   }
