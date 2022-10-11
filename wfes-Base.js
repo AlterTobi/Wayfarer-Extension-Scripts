@@ -3,8 +3,6 @@
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.meta.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
