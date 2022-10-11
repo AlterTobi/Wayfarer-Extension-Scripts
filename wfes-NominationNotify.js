@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.4.0
+// @version      1.4.1
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -194,8 +194,13 @@
   }
 
   let loadNomTimerId = null;
-  window.addEventListener("WFESNominationListLoaded",
-    () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded, 250);});
+  if (window.wfes.f.hasMinVersion("1.5.1")) {
+    window.addEventListener("WFESNominationListLoaded",
+      () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded, 250);});
+  } else {
+    alert(GM_info.script.name + ": Need at least wfes-Base version 1.5.1. Please upgrade.");
+  }
+
   window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(NominationSelected, 10);});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
