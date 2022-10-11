@@ -1,5 +1,5 @@
 // @name         ScrollFix
-// @version      0.1.0
+// @version      0.2.0
 // @description  Fix Scroll Down Bug
 // @author       AlterTobi
 
@@ -17,6 +17,7 @@
   }
 
   window.addEventListener("WFESReviewPageNewLoaded", scrollUp);
+  window.addEventListener("WFESNominationDetailLoaded", scrollUp);
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
