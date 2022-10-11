@@ -9,7 +9,7 @@ eine Pause eingebaut ist, um nicht zu viele Anfragen zu schnell an den Wayfarer 
 Wenn der Vorgang abgeschlossen ist und die grüne Meldung erscheint, musst du die Seite einmal neu laden (F5) oder auf eine andere Seite und dann zurück wechseln,
 damit der geänderte Status angezeigt wird.
 
-##Warnung:
+## Warnung:
 Das Tool kann nur arbeiten, wenn du aktiv die Seite deiner Einreichungen aufrufst. Und es funktioniert nur,
 solange die Einreichung sich noch in der Warteschlange befindet. Warte also nach dem Hochladen nicht zu lange,
 ehe du in Wayfarer gehst. Besonders wenn du in einer schnellen Zelle unterwegs bist kann der nächste Tag schon zu spät sein.
@@ -18,4 +18,4 @@ ehe du in Wayfarer gehst. Besonders wenn du in einer schnellen Zelle unterwegs b
 
 ---
 
-[zurück zur Übersicht](deutsch.html)
+[zurück zur Übersicht](../deutsch.html)
