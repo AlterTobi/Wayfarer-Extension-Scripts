@@ -47,6 +47,8 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - shows reject reasons for appealed nominations
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - show current Wayfarer version
+* [Scroll Fix](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ScrollFix.user.js)
+    - fixes the Wayfarer srooll down bug
 
 ---
 
