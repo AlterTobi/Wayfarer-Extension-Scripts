@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.5.1
+// @version      1.5.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -406,7 +406,7 @@
   };
 
   window.wfes.f.hasMinVersion = function(version = "1.0.0") {
-    return version >= GM_info.script.version;
+    return version <= GM_info.script.version;
   };
 
   window.wfes.f.createNotificationArea = function() {
