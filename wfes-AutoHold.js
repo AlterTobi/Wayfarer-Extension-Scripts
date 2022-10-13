@@ -2,8 +2,6 @@
 // @version      0.4.0
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-AutoHold.meta.js
 
 /* eslint no-use-before-define: ["error", { "functions": false }]*/
 

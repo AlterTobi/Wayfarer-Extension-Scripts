@@ -1,10 +1,8 @@
 // @name         Base
-// @version      1.5.1
+// @version      1.5.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-Base.meta.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
@@ -408,7 +406,7 @@
   };
 
   window.wfes.f.hasMinVersion = function(version = "1.0.0") {
-    return version >= GM_info.script.version;
+    return version <= GM_info.script.version;
   };
 
   window.wfes.f.createNotificationArea = function() {

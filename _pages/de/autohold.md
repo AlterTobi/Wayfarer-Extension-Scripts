@@ -12,7 +12,7 @@ damit der geänderte Status angezeigt wird.
 ## Warnung:
 Das Tool kann nur arbeiten, wenn du aktiv die Seite deiner Einreichungen aufrufst. Und es funktioniert nur,
 solange die Einreichung sich noch in der Warteschlange befindet. Warte also nach dem Hochladen nicht zu lange,
-ehe du in Wayfarer gehst. Besonders wenn du in einer schnellen Zelle unterwegs bist kann der nächste Tag schon zu spät sein.
+ehe du in Wayfarer gehst. Besonders wenn du in einer schnellen Zelle unterwegs bist, kann der nächste Tag schon zu spät sein.
 
 Öffne Wayfarer auch nicht vor dem Hochladen. Da die Einreichungsliste gecached (zwischengespeichert) wird, ist diese sonst möglicherweise nicht aktuell und es dauert eine Stunde, ehe sie sich aktualisiert.
 
