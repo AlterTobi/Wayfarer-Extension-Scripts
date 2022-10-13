@@ -47,7 +47,7 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
     - Zeigt die Ablehngründe auch bei Einsprüchen an
 * [Show version](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
-* [Scroll Fix](https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-ScrollFix.user.js)
+* [Scroll Fix](wfes-ScrollFix.user.js)
     - fixt den Bug, dass Wayfarer immer zum Streetview scrollt
 
 ---
