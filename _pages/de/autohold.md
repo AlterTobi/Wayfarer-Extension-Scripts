@@ -2,7 +2,7 @@
 
 Bist du auch zu faul, unterwegs beim Einreichen lange Texte zu tippen und bearbeitest lieber zu Hause am PC?
 
-Schreibe einfach **#hold** irgendwo in den Zusatztext. Nach dem Hochladen (*wenn die Mail da ist*) öffnest du Wayfarer und gehst auf die Seite Beiträge.
+Schreibe einfach **#hold** irgendwo in den Zusatztext (**,yxcv** geht auch ^^). Nach dem Hochladen (*wenn die Mail da ist*) öffnest du Wayfarer und gehst auf die Seite Beiträge.
 Nun erkennt das Tool den Text und setzt die entsprechenden Einreichungen automatisch auf "zurückgestellt". Bei vielen Einreichungen dauert es eine Weile, da
 eine Pause eingebaut ist, um nicht zu viele Anfragen zu schnell an den Wayfarer Server zu senden.
 
