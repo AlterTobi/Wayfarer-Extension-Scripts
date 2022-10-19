@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.4.0.alpha2
+// @version     1.4.0.alpha3
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 // @TODO .then(()=>{})
@@ -302,7 +302,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
          '<button class="button-primary" id="WFRSUpgrBtn">show my upgrades</button>' +
          '<button class="button-primary" id="WFRMarkBtn">WFR Marker Map</button>' +
          '<button class="button-primary" id="WFRHeatBtn">WFR HeatMap</button>' +
-         '<div id="buttonsdiv" >show S2 grid: <input type="checkbox" id="s2box" ' + s2Text + "/>" +
+         'show S2 grid: <input type="checkbox" id="s2box" ' + s2Text + "/>" +
          "</div>"
       );
     }
@@ -406,6 +406,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
       function showMap() {
         let histText, innerScript = "";
+        // Body leeren
+        emptyPage(histText);
+
         if ("WFRHeatBtn" === this.id ) {
           histText = "/#wfrheatmap";
           window.wfes.f.localSave(lStoreCheckS2, isCheckedS2);
@@ -489,9 +492,6 @@ fnV1HwAAAABJRU5ErkJggg==`;
             if ( 0 === i) { break; }// weniger geht nicht
           }
         }
-
-        // Body leeren
-        emptyPage(histText);
 
         const style = document.createElement("style");
         style.innerHTML= `#map { height: 100%; }
