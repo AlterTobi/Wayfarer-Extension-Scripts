@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.4.0.alpha1
+// @version     1.4.0.alpha2
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 // @TODO .then(()=>{})
