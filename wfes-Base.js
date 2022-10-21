@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.5.2
+// @version      1.6.0.beta1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -121,17 +121,6 @@
     };
     checkUID(1);
   });
-
-  // aufräumen
-  function garbageCollection(propNew, propOld) {
-    // remove old entries, if new ones exist
-    if (Object.prototype.hasOwnProperty.call(localStorage, propNew)) {
-      if(Object.prototype.hasOwnProperty.call(localStorage, propOld)) {
-        localStorage.removeItem(propOld);
-      }
-    }
-
-  }
 
   /* ================ overwrite XHR ================ */
   const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
@@ -344,9 +333,6 @@
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       localStorage.setItem(name+"_"+userId, json);
-      if(tmpUserId !== userId) {
-        garbageCollection(name+"_"+userId, name);
-      }
       resolve();
     });
   });
