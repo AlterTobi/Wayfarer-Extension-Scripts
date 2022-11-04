@@ -16,7 +16,6 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          git checkout origin/build-tools .
           cd scripts
           /usr/bin/python3 ./build.py
 
