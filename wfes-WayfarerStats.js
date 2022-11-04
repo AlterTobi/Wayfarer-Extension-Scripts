@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.5.0
+// @version     1.5.1
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -18,7 +18,7 @@
   const myCssId = "wayfarerStatsCSS";
   const myStyle = `
     th { text-align: center; }
-    td, th { padding: 5px; }
+    td, th { padding: 5px; border: 1px solid; }
     td { text-align: right; }
     table { margin-top: 10px; font-family: monospace
             background-color: #2d2d2d; width: 100%; }
