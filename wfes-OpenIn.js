@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.2.0
+// @version 1.3.0
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -191,7 +191,9 @@
   window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addDropdownReview, 100);});
   window.addEventListener("WFESNominationDetailLoaded", () => { clearTimeout(selNomTimerId); selNomTimerId = setTimeout(addDropdownNomination, 250);});
   window.addEventListener("WFESNominationListLoaded", () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded, 250);});
+
   window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showCaseLoaded, 250);});
+
   window.addEventListener("WFESShowCaseClick", showCaseClick);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);

@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.1.1
+// @version      1.2.0
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -93,6 +93,6 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     () => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded, 200);});
 
   window.addEventListener("WFESShowCaseClick", showCaseClick);
-
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+
 })();

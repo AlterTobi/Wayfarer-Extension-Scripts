@@ -16,7 +16,7 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          cd scripts
+          cd _buildscripts
           /usr/bin/python3 ./build.py
 
       - name: Deploy 🚀

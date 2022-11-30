@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.6.0
+// @version      1.7.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -55,13 +55,41 @@
   wfes.messages = {};
   wfes.version = "0.0.0";
   wfes.userId = false;
+
   const tmpUserId = "temporaryUserId";
   let propsLoaded = false;
+  let _isMobile = false;
 
   window.wfes = {};
   window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
 
+  // test for mobile platform, for browser compatibility see
+  // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
+  if ((undefined !== window.navigator.userAgentData ) && window.navigator.userAgentData.mobile ) {
+    _isMobile = true;
+  }
+
   /* =========== helper ============================= */
+  function _waitForElem(selector) {
+    return new Promise(resolve => {
+      if (document.querySelector(selector)) {
+        return resolve(document.querySelector(selector));
+      }
+
+      const observer = new MutationObserver(mutations => {
+        if (document.querySelector(selector)) {
+          resolve(document.querySelector(selector));
+          observer.disconnect();
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    });
+  }
+
   function checkWfVersion(v) {
     if (wfes.version !== v) {
       console.log("WF version changed from", wfes.version, "to", v);
@@ -280,7 +308,24 @@
   /* ================ /overwrite XHR ================ */
 
   /* ================ showcase ====================== */
+  function showCaseSwipe() {
+    const myDetail = window.document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
+    wfes.showcase.current = myDetail;
+    window.dispatchEvent(new Event("WFESShowCaseClick"));
+  }
+
   function showCaseLoaded() {
+    let touchstartX = 0;
+    //      let touchstartY = 0;
+    let touchendX = 0;
+    //      let touchendY = 0;
+    function handleGesture() {
+      if (touchendX !== touchstartX) {
+        // swipe horizontally
+        setTimeout(showCaseSwipe(), 100);
+      }
+    }
+
     wfes.showcase.current = wfes.showcase.list[0];
     const buttons = window.document.getElementsByClassName("wf-button showcase-gallery__button wf-button--icon ng-star-inserted");
     for (let i=0; i < buttons.length; i++) {
@@ -289,6 +334,19 @@
         wfes.showcase.current = myDetail;
         window.dispatchEvent(new Event("WFESShowCaseClick"));
       }, 100));
+    }
+    if (_isMobile) {
+      _waitForElem("app-showcase-gallery").then((elem) => {
+        elem.addEventListener("touchstart", function(event) {
+          touchstartX = event.changedTouches[0].screenX;
+          //          touchstartY = event.changedTouches[0].screenY;
+        }, false);
+        elem.addEventListener("touchend", function(event) {
+          touchendX = event.changedTouches[0].screenX;
+          //          touchendY = event.changedTouches[0].screenY;
+          handleGesture();
+        }, false);
+      });
     }
   }
 
@@ -431,6 +489,8 @@
 
     document.getElementById("wfesNotify").appendChild(notification);
   };
+
+  window.wfes.f.waitForElem = _waitForElem;
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */
@@ -478,6 +538,10 @@
       resolve(userID);
     });
   });
+  window.wfes.g.isMobile = function() {
+    return _isMobile;
+  };
+
   /* ================ /getter ======================= */
 
   /* ================ setter ======================== */
