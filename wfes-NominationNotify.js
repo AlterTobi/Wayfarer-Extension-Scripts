@@ -142,7 +142,7 @@
           } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
             window.wfes.f.createNotification(`${nom.title} was appealed!`);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} put on HOLD!`,red);
+            window.wfes.f.createNotification(`${nom.title} put on HOLD!`,"red");
           }
 
           // save Date if state changes
