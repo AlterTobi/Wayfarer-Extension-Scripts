@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.5.1
+// @version     1.5.2
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -541,8 +541,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
       gamesdiv.insertAdjacentHTML("afterBegin",
         '<table border="2"><colgroup><col width="4%"><col width="19%"><col width="8%"><col width="8%"><col width="8%">' +
         '<col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="14%"></colgroup>' +
-        '<thead><tr><th rowspan="2" colspan="2"></th><th colspan="4">Portaleinreichungen</th>' +
-        '<th rowspan="2" colspan="2">Portal Edits</th><th rowspan="2" colspan="2">Photo</th>' +
+        '<thead><tr><th rowspan="2" colspan="2"></th><th colspan="4">Wayspot Nominations</th>' +
+        '<th rowspan="2" colspan="2">Wayspot Edits</th><th rowspan="2" colspan="2">Photo</th>' +
         '<th rowspan="2">total</th></tr><tr><th colspan="2">classic/redacted</th>' +
         '<th colspan="2">Prime/Pokémon Go</th></tr></thead>' +
         '<tbody id="gamesTBbody"></tbody></table>');

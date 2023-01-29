@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.4.1
+// @version      1.5.0
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -141,6 +141,8 @@
             }
           } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
             window.wfes.f.createNotification(`${nom.title} was appealed!`);
+          } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
+            window.wfes.f.createNotification(`${nom.title} put on HOLD!`,"red");
           }
 
           // save Date if state changes
