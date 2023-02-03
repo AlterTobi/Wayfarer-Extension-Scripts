@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.5.0
+// @version      1.5.1
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -131,7 +131,11 @@
           // In queue -> In voting
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
             window.wfes.f.createNotification(`${nom.title} went into voting!`);
-          }else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
+          } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
+            window.wfes.f.createNotification(`${nom.title} put on HOLD!`,"red");
+          }  else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
+            window.wfes.f.createNotification(`${nom.title} was appealed!`);
+          } else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
             if ("ACCEPTED" === nom.status) {
               window.wfes.f.createNotification(`${nom.title} was accepted!`);
             }else if("REJECTED" === nom.status) {
@@ -139,10 +143,6 @@
             }else if("DUPLICATE" === nom.status) {
               window.wfes.f.createNotification(`${nom.title} was marked as a duplicate!`);
             }
-          } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} was appealed!`);
-          } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} put on HOLD!`,"red");
           }
 
           // save Date if state changes
