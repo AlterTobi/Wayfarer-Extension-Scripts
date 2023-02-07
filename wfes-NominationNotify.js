@@ -132,8 +132,8 @@
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
             window.wfes.f.createNotification(`${nom.title} went into voting!`);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} put on HOLD!`,"red");
-          }  else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
+            window.wfes.f.createNotification(`${nom.title} put on HOLD!`, "red");
+          } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
             window.wfes.f.createNotification(`${nom.title} was appealed!`);
           } else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
             if ("ACCEPTED" === nom.status) {
