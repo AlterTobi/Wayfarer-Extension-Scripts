@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.0.1
+// @version      1.1.0
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -11,7 +11,7 @@
   const myStyle = `.wfVersionCSS {
     position: absolute;
     z-index: 9999;
-    left: 15px;
+    right: 70px;
     top: 10px;
     background-color: white;
     border: 2px solid red;
