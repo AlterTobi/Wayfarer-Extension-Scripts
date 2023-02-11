@@ -10,6 +10,7 @@
   const lStoreVersion = "wfesNomListVersion";
   const lCanAppeal = "wfes_CurrentAppealState";
   const states = ["ACCEPTED", "REJECTED", "VOTING", "DUPLICATE", "WITHDRAWN", "NOMINATED", "APPEALED", "NIANTIC_REVIEW", "HELD"];
+  const noHeldMsgDays = 42;
 
   function getCurrentDateStr() {
     return new Date().toISOString()
@@ -140,7 +141,10 @@
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
             window.wfes.f.createNotification(`${nom.title} went into voting!`);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} put on HOLD!`, "red");
+            // only if nomination is "old"
+            if (getDateDiff(nom.day) > noHeldMsgDays) {
+              window.wfes.f.createNotification(`${nom.title} put on HOLD!`, "red");
+            }
           } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
             window.wfes.f.createNotification(`${nom.title} was appealed!`);
           } else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
