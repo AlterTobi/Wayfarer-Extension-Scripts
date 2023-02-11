@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.5.1
+// @version      1.5.2
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -14,6 +14,14 @@
   function getCurrentDateStr() {
     return new Date().toISOString()
       .substr(0, 10);
+  }
+
+  function getDateDiff(date) {
+    const today = new Date();
+    const targetDate = new Date(date);
+    const timeDiff = Math.abs(today.getTime() - targetDate.getTime());
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return diffDays;
   }
 
   function checkAppeal() {
