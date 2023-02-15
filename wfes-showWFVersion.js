@@ -37,19 +37,19 @@
 
   function handleVersion() {
     const now = new Date().toLocaleString();
-    versionHistory.push([now,wfVersion]);
+    versionHistory.push([now, wfVersion]);
     window.wfes.f.localSave(lStoreHist, versionHistory);
   }
-  
+
   function init() {
     wfVersion = window.wfes.g.wfVersion();
     showVersion(wfVersion);
     window.wfes.f.localGet(lStoreHist, []).then((hist)=>{
-        versionHistory = hist;
-        handleVersion();
-    }
+      versionHistory = hist;
+      handleVersion();
+    });
   }
-  
+
   window.addEventListener("WFESVersionChanged", init);
 
   /* we are done :-) */
