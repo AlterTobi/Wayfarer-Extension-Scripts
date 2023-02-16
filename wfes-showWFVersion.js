@@ -36,9 +36,15 @@
   }
 
   function handleVersion() {
-    const now = new Date().toLocaleString();
-    versionHistory.push([now, wfVersion]);
-    window.wfes.f.localSave(lStoreHist, versionHistory);
+    // get latest version
+    const len = versionHistory.length;
+    const last = versionHistory[len-1][1];
+
+    if (last !== wfVersion) {
+      const now = new Date().toLocaleString();
+      versionHistory.push([now, wfVersion]);
+      window.wfes.f.localSave(lStoreHist, versionHistory);
+    }
   }
 
   function init() {
