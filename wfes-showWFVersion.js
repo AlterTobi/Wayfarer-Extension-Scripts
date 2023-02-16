@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.1.0
+// @version      1.2.0
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -18,8 +18,10 @@
     padding: 5px; box-shadow: 7px 7px 5px grey;}
     `;
 
-  function showVersion() {
-    const wfVersion = window.wfes.g.wfVersion();
+  const lStoreHist = "wfes_WFVersionHistory";
+  let versionHistory, wfVersion;
+
+  function showVersion(wfVersion) {
     window.wfes.f.addCSS(myCssId, myStyle);
     if (null === document.getElementById(versionDivID)) {
       const bodyElem = document.getElementsByTagName("body")[0];
@@ -33,7 +35,37 @@
     }
   }
 
-  window.addEventListener("WFESVersionChanged", showVersion);
+  function handleVersion() {
+    // get latest version
+    const len = versionHistory.length;
+    const now = new Date().toLocaleString();
+    const v = {};
+    v.date = now;
+    v.verion = wfVersion;
+
+    if ( len > 0 ) {
+      const last = versionHistory[len-1].version;
+      if (last !== wfVersion) {
+        versionHistory.push(v);
+        window.wfes.f.localSave(lStoreHist, versionHistory);
+      }
+    } else {
+      // first entry
+      versionHistory.push(v);
+      window.wfes.f.localSave(lStoreHist, versionHistory);
+    }
+  }
+
+  function init() {
+    wfVersion = window.wfes.g.wfVersion();
+    showVersion(wfVersion);
+    window.wfes.f.localGet(lStoreHist, []).then((hist)=>{
+      versionHistory = hist;
+      handleVersion();
+    });
+  }
+
+  window.addEventListener("WFESVersionChanged", init);
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
