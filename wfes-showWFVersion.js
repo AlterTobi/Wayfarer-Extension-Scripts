@@ -19,7 +19,7 @@
     `;
 
   const lStoreHist = "wfes_WFVersionHistory";
-  let versionHistory, wfVersion;
+  let wfVersion;
 
   function showVersion(wfVersion) {
     window.wfes.f.addCSS(myCssId, myStyle);
@@ -35,7 +35,7 @@
     }
   }
 
-  function handleVersion() {
+  function handleVersion(versionHistory) {
     // get latest version
     const len = versionHistory.length;
     const now = new Date().toLocaleString();
@@ -60,8 +60,7 @@
     wfVersion = window.wfes.g.wfVersion();
     showVersion(wfVersion);
     window.wfes.f.localGet(lStoreHist, []).then((hist)=>{
-      versionHistory = hist;
-      handleVersion();
+      handleVersion(hist);
     });
   }
 
