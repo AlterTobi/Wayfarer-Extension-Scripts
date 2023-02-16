@@ -38,11 +38,20 @@
   function handleVersion() {
     // get latest version
     const len = versionHistory.length;
-    const last = versionHistory[len-1][1];
+    const now = new Date().toLocaleString();
+    const v = {};
+    v.date = now;
+    v.verion = wfVersion;
 
-    if (last !== wfVersion) {
-      const now = new Date().toLocaleString();
-      versionHistory.push([now, wfVersion]);
+    if ( len > 0 ) {
+      const last = versionHistory[len-1].version;
+      if (last !== wfVersion) {
+        versionHistory.push(v);
+        window.wfes.f.localSave(lStoreHist, versionHistory);
+      }
+    } else {
+      // first entry
+      versionHistory.push(v);
       window.wfes.f.localSave(lStoreHist, versionHistory);
     }
   }
