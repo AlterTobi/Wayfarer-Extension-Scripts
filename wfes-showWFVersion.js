@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.2.0
+// @version      1.2.1
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -41,7 +41,7 @@
     const now = new Date().toLocaleString();
     const v = {};
     v.date = now;
-    v.verion = wfVersion;
+    v.version = wfVersion;
 
     if ( len > 0 ) {
       const last = versionHistory[len-1].version;
