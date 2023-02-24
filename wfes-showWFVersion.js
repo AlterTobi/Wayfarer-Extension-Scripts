@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.2.1
+// @version      1.2.2
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -15,7 +15,15 @@
     top: 10px;
     background-color: white;
     border: 2px solid red;
-    padding: 5px; box-shadow: 7px 7px 5px grey;}
+    padding: 5px;
+    box-shadow: 7px 7px 5px grey;}
+    /* Styles for dark mode */
+    @media (prefers-color-scheme: dark) {
+    .wfVersionCSS {
+        background-color: #303030;
+        box-shadow: 6px 6px 4px darkgrey;
+      }
+    }
     `;
 
   const lStoreHist = "wfes_WFVersionHistory";
