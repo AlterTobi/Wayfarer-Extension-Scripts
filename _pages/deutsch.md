@@ -17,8 +17,6 @@ Zuerst [WFES Base](wfes-Base.user.js) installieren!
     - öffne Originalfotos in "benannten" Tabs
 * [Add Translation Buttons](wfes-AddTranslationButtons.user.js)
     - fügt Buttons zum Übersetzen der Texte hinzu
-* [Open In](wfes-OpenIn.user.js)
-    - fügt "Open In" für Karten hinzu
 * [Wayfarer Stats](wfes-WayfarerStats.user.js)
     - speichert persönliche Statistiken im Browser Local Storage
 * [Dupes Scroll](wfes-dupesScroll.user.js)
@@ -49,6 +47,8 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
     - zeigt die aktuelle Wayfarer-Version an
 * [Scroll Fix](wfes-ScrollFix.user.js)
     - fixt den Bug, dass Wayfarer immer zum Streetview scrollt
+* [Open In](wfes-OpenIn.user.js)
+    - fügt "Open In" für Karten hinzu - wird nicht weiterentwickelt - nutze stattdessen tehstones "Open In"
 
 ---
 
@@ -57,4 +57,5 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
 Eine Liste bekannter Probleme findet sich im [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues).
 Dort könnt ihr auch neue Probleme oder Erweiterungswünsche melden.
 
-Eine weitere Kontaktmöglichkeit für Fragen rund um Wayfarer und die Tools ist der Wayfarer Discord. Den Link findet ihr auf [wayfarer.tools](https://wayfarer.tools/).
+Eine weitere Kontaktmöglichkeit für Fragen rund um Wayfarer und die Tools ist der Wayfarer Discord.
+Den Link findet ihr auf [wayfarer.tools](https://wayfarer.tools/), wo es auch weitere Skripte zu Wayfarer gibt.
