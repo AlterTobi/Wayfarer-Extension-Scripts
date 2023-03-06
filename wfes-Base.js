@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.7.0
+// @version      1.7.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -189,8 +189,7 @@
   function handleLoadEvent(e) {
     try {
       const response = this.response;
-      const json = JSON.parse(response) || console
-        .warn("WFES: failed to parse response from server");
+      const json = JSON.parse(response);
       // ignore captcha
       if (json.captcha) {
         return;
@@ -255,7 +254,8 @@
         break;
       }
     } catch (e) {
-      console.warn(e);
+      console.warn("WFES: failed to parse response from server");
+      console.log(e);
     }
   }
 
