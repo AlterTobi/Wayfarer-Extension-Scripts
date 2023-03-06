@@ -57,5 +57,9 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
 Eine Liste bekannter Probleme findet sich im [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues).
 Dort könnt ihr auch neue Probleme oder Erweiterungswünsche melden.
 
-Eine weitere Kontaktmöglichkeit für Fragen rund um Wayfarer und die Tools ist der Wayfarer Discord.
+## weitere Tools und Kontaktmöglichkeiten
+
+Eine Kontaktmöglichkeit für Fragen rund um Wayfarer und die Tools ist der Wayfarer Discord (englisch).
 Den Link findet ihr auf [wayfarer.tools](https://wayfarer.tools/), wo es auch weitere Skripte zu Wayfarer gibt.
+
+Des weiteren gibt es auch einen [deutschsprachigen Discord](https://discord.gg/9m2WvAC8N9) und eine [Telegram-Gruppe](https://t.me/wayfarerdach).
