@@ -16,7 +16,7 @@
       });
   }
 
-  window.addEventListener("WFESReviewPageEditLoaded", addStreetAddress);
+  window.addEventListener("WFESReviewPageLoaded", addStreetAddress);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
