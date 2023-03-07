@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.3.0
+// @version 1.3.1
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -10,7 +10,8 @@
   const customMaps = [
     { title: "Google", url: "https://maps.google.com/maps?q=%lat%,%lng%"},
     { title: "Intel", url: "https://intel.ingress.com/intel?ll=%lat%,%lng%&pll=%lat%,%lng%&z=18"},
-    { title: "OSM", url: "https://www.openstreetmap.org/?mlat=%lat%&mlon=%lng%#map=18/%lat%/%lng%"}
+    { title: "OSM", url: "https://www.openstreetmap.org/?mlat=%lat%&mlon=%lng%#map=18/%lat%/%lng%"},
+    { title: "Bing", url: 'https://www.bing.com/maps?cp=%lat%~%lng%&lvl=17&style=h'}
   ];
 
   let tryCounter = 0;
