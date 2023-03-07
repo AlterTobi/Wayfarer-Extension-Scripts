@@ -122,7 +122,7 @@
 
     switch (pageData.type) {
     case "NEW":
-      elem = document.getElementById("location-accuracy-card");
+      elem = document.getElementById("check-duplicates-card");
       if (null === elem) {
         if (tryCounter++ > 10) {
           console.warn("WFES - Open In - no DOM - abort");
