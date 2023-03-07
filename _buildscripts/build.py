@@ -45,10 +45,10 @@ def fill_meta(source, script_name):
         continue
 
       if key == 'version':
-        value += extra_version
-        sversion = value
         if not re.match(r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$', value):
           print(f'{script_name}: wrong version format: {value}')  # expected: major.minor.patch
+        value += extra_version
+        sversion = value
       elif key == 'name':
           sname = value 
           value = 'WFES - ' + value
