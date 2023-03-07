@@ -49,7 +49,7 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - fixes the Wayfarer srooll down bug
 * [Open In](wfes-OpenIn.user.js)
     - add "Open In" for maps - discontinued - use tehstone's "Open In" instead
-* [Add Street Address](wfes-reviewAddStreetAddress.js)
+* [Add Street Address](wfes-reviewAddStreetAddress.user.js)
      - fixes missing street address from WF5.2
     
 
