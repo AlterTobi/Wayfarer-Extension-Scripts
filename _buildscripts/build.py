@@ -4,6 +4,7 @@
 import argparse
 import configparser
 import re
+import sys
 from pathlib import Path
 from os import environ
 from shutil import copytree
@@ -118,7 +119,11 @@ def run():
   lic = source / 'LICENSE'
   # tf = target / lic.name
   tf = target / 'LICENSE.txt'
-  lic.link_to(tf)
+
+  if sys.version_info >= (3, 10):
+    tf.hardlink_to(lic) # create a hard link
+  else:
+    lic.link_to(tf) # create a hard link
 
   # check if beta (issue, hotfix, feature)
   ref = re.match('refs/heads/(\w+)(/[\w#\-]+)?',environ['GITHUB_REF'])
