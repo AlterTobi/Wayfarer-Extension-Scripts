@@ -23,11 +23,14 @@
       border-radius: 5px;
       box-shadow: grey 2px 2px 10px;
       margin-bottom: .5em;
+      margin-right: 1em;
       font-size: 1.1em;
       color: black;
       padding: .25em;
       width: 7em;
       text-align: center;
+      float: left;
+      cursor: pointer;
     }
     .dropdown-content {
       display: none;
@@ -122,17 +125,10 @@
 
     switch (pageData.type) {
     case "NEW":
-      elem = document.getElementById("check-duplicates-card");
-      if (null === elem) {
-        if (tryCounter++ > 10) {
-          console.warn("WFES - Open In - no DOM - abort");
-        } else {
-          setTimeout(addDropdownReview, 100);
-        }
-        return;
-      }
-      tryCounter = 0;
-      elem.children[2].insertAdjacentElement("afterbegin", mainButton);
+      window.wfes.f.waitForElem("#check-duplicates-card > div.wf-review-card__body > div > div.mt-2.flex.justify-between.pb-1.space-x-4 > div:nth-child(1) > button")
+            .then((elem) => {
+                elem.insertAdjacentElement("BeforeBegin", mainButton);
+      });
       break;
     case "EDIT":
       elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
