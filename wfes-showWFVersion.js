@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.2.2
+// @version      1.2.3
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -35,11 +35,11 @@
       const bodyElem = document.getElementsByTagName("body")[0];
       const versionDiv = document.createElement("div");
       versionDiv.setAttribute("class", "wfVersionCSS");
-      versionDiv.innerText = "version: " + wfVersion;
+      versionDiv.appendChild(document.createTextNode("version: " + wfVersion));
       bodyElem.appendChild(versionDiv);
     } else {
       const versionDiv = document.getElementById(versionDivID);
-      versionDiv.innerText = "version: " + wfVersion;
+      versionDiv.appendChild(document.createTextNode("version: " + wfVersion));
     }
   }
 

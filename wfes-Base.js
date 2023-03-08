@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.7.1
+// @version      1.7.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -426,7 +426,7 @@
       const headElem = document.getElementsByTagName("HEAD")[0];
       const customStyleElem = document.createElement("style");
       customStyleElem.setAttribute("id", myID);
-      customStyleElem.innerText = styles;
+      customStyleElem.appendChild(document.createTextNode(styles));
       headElem.appendChild(customStyleElem);
     }
   };
@@ -483,7 +483,7 @@
     };
 
     const content = document.createElement("p");
-    content.innerText = message;
+    content.appendChild(document.createTextNode(message));
 
     notification.appendChild(content);
 

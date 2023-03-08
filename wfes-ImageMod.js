@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.1.0
+// @version      1.1.1
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
@@ -11,7 +11,7 @@
     const span = document.createElement("span");
 
     span.className = "material-icons material-icons-fontsize " + spanclass;
-    span.innerText = "search";
+    span.appendChild(document.createTextNode("search"));
     a.appendChild(span);
     a.target = target;
     a.href = url;

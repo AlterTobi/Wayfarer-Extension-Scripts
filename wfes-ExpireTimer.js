@@ -1,5 +1,5 @@
 // @name        Expire Timer
-// @version     1.0.4
+// @version     1.0.5
 // @description Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author      MrJPGames / AlterTobi
 
@@ -35,12 +35,12 @@
     const header = document.getElementsByTagName("wf-header")[0].children[0].children[0];
     const headerTimerWrapper = document.createElement("div");
     headerTimer = document.createElement("span");
-    headerTimer.innerText = message;
+    headerTimer.appendChild(document.createTextNode(message));
     headerTimerWrapper.appendChild(headerTimer);
     headerTimerWrapper.setAttribute("style", "display: inline-block; margin-left: 5em;");
     headerTimerWrapper.setAttribute("class", "revExprTimer");
     timeElem = document.createElement("div");
-    timeElem.innerText = "??:??";
+    timeElem.appendChild(document.createTextNode("??:??"));
     timeElem.style.display = "inline-block";
     headerTimerWrapper.appendChild(timeElem);
     header.insertAdjacentElement("afterend", headerTimerWrapper);

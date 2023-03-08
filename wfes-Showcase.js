@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.2.0
+// @version      1.2.1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -18,7 +18,7 @@
       display: none;
   }
   .bgPGO {
-      background-image:  url('data:image/png;base64,
+      background-image:  url('data:image/png;base64,\
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz\
 zDMAmczMmZnMmZmZmTMzmTMAZpnMZpmZZmZmZjMzM2ZmMzMzMwAAADMzAAAAQu3hzgAAAR1JREFU\
@@ -30,7 +30,7 @@ OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq\
 fnV1HwAAAABJRU5ErkJggg==');
         }
             .bgING {
-            background-image:  url('data:image/png;base64,
+            background-image:  url('data:image/png;base64,\
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAMBQTFRF7Oby5dvscj2aNQF2hFmp/Pv9WCaOSROFXCySdkCcwavUk2qy\
 ZDSWbTuZ8e31e1GlqozDvabRd0uinYC+bDSWnHu7Zi2SWx6LrJPH3dLny7rbiGaw9vP5lHC12c3l\
