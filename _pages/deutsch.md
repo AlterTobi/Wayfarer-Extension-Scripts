@@ -49,6 +49,11 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
     - fixt den Bug, dass Wayfarer immer zum Streetview scrollt
 * [Open In](wfes-OpenIn.user.js)
     - fügt "Open In" für Karten hinzu - wird nicht weiterentwickelt - nutze stattdessen tehstones "Open In"
+* [Add Street Address](wfes-reviewAddStreetAddress.user.js)
+     - fügt die seit Version 5.2 fehlende Adresse wieder hinzu
+* [enlarge review cards](wfes-reviewEnlargeCards.user.js)
+    - Vergrößert die angezeigte Höhe der Bilder und Titel/Beschreibungs-Kacheln
+     
 
 ---
 
