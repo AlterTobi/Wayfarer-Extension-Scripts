@@ -17,8 +17,6 @@ Install [WFES Base](wfes-Base.user.js) first!
     - open fullsize images in "named" tabs
 * [Add Translation Buttons](wfes-AddTranslationButtons.user.js)
     - adds buttons to translate text associated with a wayspot
-* [Open In](wfes-OpenIn.user.js)
-    - add "Open In" for maps
 * [Wayfarer Stats](wfes-WayfarerStats.user.js)
     - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 * [Dupes Scroll](wfes-dupesScroll.user.js)
@@ -49,6 +47,12 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - show current Wayfarer version
 * [Scroll Fix](wfes-ScrollFix.user.js)
     - fixes the Wayfarer srooll down bug
+* [Open In](wfes-OpenIn.user.js)
+    - add "Open In" for maps - discontinued - use tehstone's "Open In" instead
+* [Add Street Address](wfes-reviewAddStreetAddress.user.js)
+     - fixes missing street address from WF5.2
+* [enlarge review cards](wfes-reviewEnlargeCards.user.js)
+    - increases height for images and titel/description cards
 
 ---
 
@@ -56,4 +60,5 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
 
 Report bugs and/or feature requests in the [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues).
 
-You may also use the Wayfarer Discord for questions around Wayfarer and the tools. It's linked at [wayfarer.tools](https://wayfarer.tools/).
+You may also use the Wayfarer Discord for questions around Wayfarer and the tools.
+It's linked at [wayfarer.tools](https://wayfarer.tools/), where you can find more UserScripts for Wayfarer.
