@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.7.2
+// @version      1.7.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -70,8 +70,9 @@
   }
 
   /* =========== helper ============================= */
-  function _waitForElem(selector) {
-    return new Promise(resolve => {
+  function _waitForElem(selector, maxWaitTime = 5000) {
+    const startTime = Date.now();
+    return new Promise((resolve, reject) => {
       if (document.querySelector(selector)) {
         return resolve(document.querySelector(selector));
       }
@@ -80,15 +81,18 @@
         if (document.querySelector(selector)) {
           resolve(document.querySelector(selector));
           observer.disconnect();
+        } else if (Date.now() - startTime >= maxWaitTime) {
+          reject(new Error(`Timeout waiting for element with selector ${selector}`));
+          observer.disconnect();
         }
       });
-
       observer.observe(document.body, {
         childList: true,
         subtree: true
       });
     });
   }
+
 
   function checkWfVersion(v) {
     if (wfes.version !== v) {
