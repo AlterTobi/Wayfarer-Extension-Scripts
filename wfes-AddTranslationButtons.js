@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      1.3.0
+// @version      1.3.1
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       AlterTobi
 
@@ -47,7 +47,7 @@
     translateButton.setAttribute("class", "translBtnAll");
 
     const translateText = document.createElement("span");
-    translateText.innerText = btnText;
+    translateText.appendChild(document.createTextNode(btnText));
 
     const translateImage = document.createElement("img");
     translateImage.setAttribute("style", "height: 1.3em;");
