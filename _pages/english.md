@@ -51,6 +51,9 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - add "Open In" for maps - discontinued - use tehstone's "Open In" instead
 * [Add Street Address](wfes-reviewAddStreetAddress.user.js)
      - fixes missing street address from WF5.2
+* [Review Improve CSS](wfes-reviewImproveCSS.user.js)
+    - increases height for images and titel/description cards
+    - removes padding and description text
 
 ---
 
