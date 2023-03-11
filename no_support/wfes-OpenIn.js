@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.3.1
+// @version 1.3.2
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -81,18 +81,18 @@
     mainButton.id = buttonID;
 
     const buttonText = document.createElement("span");
-    buttonText.innerText = "Open in ...";
+    buttonText.appendChild(document.createTextNode("Open in ..."));
 
     const dropdownContainer = document.createElement("div");
     dropdownContainer.setAttribute("class", "dropdown-content");
-    dropdownContainer.innerHTML = null;
+    // dropdownContainer.innerHTML = null;
 
     mainButton.appendChild(dropdownContainer);
     mainButton.appendChild(buttonText);
 
     if (0 === customMaps.length) {
       const emptySpan = document.createElement("span");
-      emptySpan.innerText = "No custom maps set!";
+      emptySpan.appendChild(document.createTextNode("No custom maps set!"));
       dropdownContainer.appendChild(emptySpan);
     } else {
       for (let i=0; i < customMaps.length; i++) {
@@ -107,7 +107,7 @@
         button.setAttribute("target", getStringHash(customMaps[i].url));
         // On URL with placeholders as those are the same between
         // different wayspots but not between different maps!
-        button.innerText = title;
+        button.appendChild(document.createTextNode(title));
         dropdownContainer.appendChild(button);
       }
     }

@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.5.2
+// @version      1.5.3
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -192,16 +192,16 @@
       while (elem.childNodes.length > 0) {
         elem.removeChild(elem.firstChild);
       }
-      elem.innerText = "";
+      elem.appendChild(document.createTextNode(""));
       let p = document.createElement("p");
-      p.innerText = nomDetail.day + " - NOMINATED";
+      p.appendChild(document.createTextNode(nomDetail.day + " - NOMINATED"));
       elem.appendChild(p);
       for ( let i = 0; i < myDates.length; i++) {
         if ((0 === i ) && ("NOMINATED" === myDates[i][1])) {
           continue;
         }
         p = document.createElement("p");
-        p.innerText = myDates[i][0] + " - " + myDates[i][1];
+        p.appendChild(document.createTextNode(myDates[i][0] + " - " + myDates[i][1]));
         elem.appendChild(p);
       }
     });

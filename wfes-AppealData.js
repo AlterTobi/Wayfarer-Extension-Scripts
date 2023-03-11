@@ -1,5 +1,5 @@
 // @name         Appeal Data
-// @version      1.2.0
+// @version      1.2.1
 // @description  save and show appeal your statements
 // @author       AlterTobi
 
@@ -25,13 +25,13 @@
       if (nomID in appealHistory) {
         nomImage = document.querySelector("app-details-pane > div > div > div > img.wf-image-modal.details-pane__image");
         if (haveDiv) {
-          appealDiv.innerText = appealHistory[nomID];
+          appealDiv.appendChild(document.createTextNode(appealHistory[nomID]));
         } else {
           appealDiv = document.createElement("div");
           appealDiv.setAttribute("class", "ng-star-inserted");
           appealDiv.setAttribute("id", myID);
           appealDiv.innerHTML="<h5>Appeal Statement</h5><div></div>";
-          appealDiv.children[1].innerText = appealHistory[nomID];
+          appealDiv.children[1].appendChild(document.createTextNode(appealHistory[nomID]));
           nomImage.insertAdjacentElement("beforeBegin", appealDiv);
           haveDiv = true;
         }
