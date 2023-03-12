@@ -12,8 +12,7 @@
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
     `;
-  
-  
+
   const cardSelectors = ["app-should-be-wayspot > wf-review-card", "app-title-and-description > wf-review-card", "app-supporting-info > wf-review-card"];
   const dupeSelector = "#check-duplicates-card";
 
