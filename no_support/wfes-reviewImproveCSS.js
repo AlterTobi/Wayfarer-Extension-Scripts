@@ -25,7 +25,7 @@
     cardSelectors.forEach(selector => {
       window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-h490");});
       // remove description texts
-      const seltext = selector + " div:nth-child(1) > div";
+      const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
       window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");});
     });
     window.wfes.f.waitForElem(dupeSelector).then((elem)=>{elem.classList.add("wfes-h790");});
