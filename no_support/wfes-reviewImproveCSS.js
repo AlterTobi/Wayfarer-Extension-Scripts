@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.0.3
+// @version 1.0.4
 // @description fix for small heightin Wayfarer 5.2
 // @author AlterTobi
 
