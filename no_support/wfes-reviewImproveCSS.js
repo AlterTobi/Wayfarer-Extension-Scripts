@@ -20,12 +20,14 @@
     .wfes-text-lg { line-height: 1.5rem; font-size: 1.1rem; }
     .wfes-h4 { font-size:1.5rem; line-height:1.2rem; padding-bottom:0.5rem; }
     .wfes-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
+    .wfes-stars-cards { height: min-content !important; margin-top: 1rem }
     `;
 
   const cardSelectors = ["app-should-be-wayspot > wf-review-card", "app-title-and-description > wf-review-card", "app-supporting-info > wf-review-card"];
   const dupeSelector = "#check-duplicates-card";
   const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
   const descriptionSelector = "#title-description-card > div.wf-review-card__body > div > div";
+  const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
   const commentH4Selector = "app-review-comments > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
 
   function improveCSS() {
@@ -41,6 +43,11 @@
     // smaller font site for title and description
     window.wfes.f.waitForElem(titleSelector).then((elem)=>{elem.classList.add("wfes-text-4xl");});
     window.wfes.f.waitForElem(descriptionSelector).then((elem)=>{elem.classList.add("wfes-text-lg");});
+
+    // remove empty space in "stars-only" cards
+    starsCardsSelectors.forEach(selector => {
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
+    });
 
     // make all H4 smaller, margins in card headers too
     window.wfes.f.waitForElem(commentH4Selector).then((elem)=>{
