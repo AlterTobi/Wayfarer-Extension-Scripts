@@ -28,6 +28,7 @@
   const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
   const descriptionSelector = "#title-description-card > div.wf-review-card__body > div > div";
   const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
+  const historicalCard = "#historical-cultural-card";
   const commentH4Selector = "app-review-comments > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
 
   function improveCSS() {
@@ -48,6 +49,9 @@
     starsCardsSelectors.forEach(selector => {
       window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
     });
+
+    // remove spaces between cards - grid class
+    window.wfes.f.waitForElem(historicalCard).then((elem)=>{elem.parentElement.parentElement.classList.remove("grid");});
 
     // make all H4 smaller, margins in card headers too
     window.wfes.f.waitForElem(commentH4Selector).then((elem)=>{
