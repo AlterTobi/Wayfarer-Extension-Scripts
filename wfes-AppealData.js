@@ -1,5 +1,5 @@
 // @name         Appeal Data
-// @version      1.2.1
+// @version      1.2.2
 // @description  save and show appeal your statements
 // @author       AlterTobi
 
@@ -25,6 +25,10 @@
       if (nomID in appealHistory) {
         nomImage = document.querySelector("app-details-pane > div > div > div > img.wf-image-modal.details-pane__image");
         if (haveDiv) {
+          // remove all child nodes
+          while (haveDiv.children[1].lastChild) {
+            haveDiv.children[1].removeChild(haveDiv.children[1].lastChild);
+          }
           appealDiv.appendChild(document.createTextNode(appealHistory[nomID]));
         } else {
           appealDiv = document.createElement("div");
