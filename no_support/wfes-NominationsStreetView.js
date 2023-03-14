@@ -1,5 +1,5 @@
 // @name         Nomination page StreetView
-// @version      1.1.3
+// @version      1.1.4
 // @description  Adds the streetview view a reviewer will see on your own nominations!
 // @author       MrJPGames / AlterTobi
 
@@ -10,8 +10,15 @@
   "use strict";
 
   let SVMap;
+  let panorama = null;
 
   function setStreetView() {
+    // remove existing street view, free memory
+    if (null !== panorama) {
+      panorama.setVisible(false);
+      panorama = null;
+    }
+
     if (null === document.getElementById("pano")) {
       const lastPane = document.getElementsByClassName("details-pane__map")[0];
       if (lastPane === undefined) {
@@ -49,7 +56,7 @@
       },
       title : nomDetail.title
     });
-    const panorama = SVMap.getStreetView();
+    panorama = SVMap.getStreetView();
     const client = new google.maps.StreetViewService;
     client.getPanoramaByLocation({
       lat : lat,
