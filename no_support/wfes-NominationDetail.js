@@ -1,5 +1,5 @@
 // @name          Nomination Detail
-// @version      1.0.2
+// @version      1.0.3
 // @description  improvements for nomination detail page
 // @author       AlterTobi
 
@@ -15,6 +15,8 @@
     const messages = window.wfes.g.messages();
     const allStr = messages[myLang];
     const myID = "nominationDetailRejectDiv";
+    const startTime = Date.now();
+    const maxWaitTime = 5000;
 
     if (propsLoaded) {
       const nomDetail = window.wfes.g.nominationDetail();
@@ -57,10 +59,11 @@
           rejSection.children[i].innerHTML = rejectReasons[i-1];
         }
       }
-    } else {
-      console.log("WFES Nomination Detail: properties not loaded, retry");
+    } else if (Date.now() - startTime >= maxWaitTime) {
+      console.log(GM_info.script.name, ": properties not loaded, retry");
       setTimeout(modifyNomDetail, 500);
-
+    } else {
+      console.warn(GM_info.script.name, ": properties not loaded, abort");
     }
   }
 
