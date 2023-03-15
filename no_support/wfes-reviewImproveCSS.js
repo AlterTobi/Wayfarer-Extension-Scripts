@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.0.4
+// @version 1.0.5
 // @description fix for small heightin Wayfarer 5.2
 // @author AlterTobi
 
@@ -16,8 +16,8 @@
     .wfes-h490 { min-height: 490px; }
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
-    .wfes-text-4xl { font-size: 1.9rem; line-height: 1.8rem; }
-    .wfes-text-lg { line-height: 1.5rem; font-size: 1.1rem; }
+    .wfes-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
+    .wfes-text-lg { line-height: 1.5rem !important; font-size: 1.1rem !important; }
     .wfes-h4 { font-size:1.5rem; line-height:1.2rem; padding-bottom:0.5rem; }
     .wfes-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
     .wfes-stars-cards { height: min-content !important; margin-top: 1rem }
@@ -61,9 +61,15 @@
     });
   }
 
-  window.addEventListener("WFESReviewPageLoaded", improveCSS);
+  window.addEventListener("WFESReviewPageNewLoaded", improveCSS);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
 
 // window.wfes.f.waitForElem().then((elem)=>{elem.classList.add("");});
+/*
+WFESReviewPageLoaded
+WFESReviewPagePhotoLoaded
+WFESReviewPageEditLoaded
+WFESReviewPageNewLoaded
+*/
