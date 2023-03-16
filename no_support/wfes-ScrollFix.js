@@ -1,5 +1,5 @@
 // @name         ScrollFix
-// @version      0.2.0
+// @version      0.2.1
 // @description  Fix Scroll Down Bug
 // @author       AlterTobi
 
@@ -16,7 +16,7 @@
     _dom.addEventListener("scroll", _evfunc);
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", scrollUp);
+  // window.addEventListener("WFESReviewPageNewLoaded", scrollUp);
   window.addEventListener("WFESNominationDetailLoaded", scrollUp);
 
   /* we are done :-) */
