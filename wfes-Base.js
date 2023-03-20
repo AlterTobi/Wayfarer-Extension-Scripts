@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.7.3
+// @version      1.7.4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -13,6 +13,7 @@
   const PREFIX = "/api/v1/vault/";
   const sStoreReview = "wfes_Reviews";
   const sStoreNominationsDetails = "wfes_nominationDetails";
+  const loginPath = "/login";
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
@@ -564,8 +565,10 @@
   Object.freeze(window.wfes.s);
   Object.freeze(window.wfes);
 
-  window.wfes.f.addCSS(myCssId, myStyle);
-  window.wfes.f.createNotificationArea();
+  if (document.location.pathname !== loginPath ) {
+    window.wfes.f.addCSS(myCssId, myStyle);
+    window.wfes.f.createNotificationArea();
+  }
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
