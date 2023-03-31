@@ -1,5 +1,5 @@
 // @name         Appeal Data
-// @version      1.2.2
+// @version      1.2.3
 // @description  save and show appeal your statements
 // @author       AlterTobi
 

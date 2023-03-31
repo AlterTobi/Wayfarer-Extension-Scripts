@@ -8,9 +8,38 @@ import sys
 from pathlib import Path
 from os import environ
 from shutil import copytree
+from datetime import date
 
 extra_version = ''
 
+def get_info(base_url):
+  infotext = '/* Copyright {} AlterTobi'.format(date.today().year)
+  infotext += '''
+
+   This file is part of the Wayfarer Extension Scripts collection.
+
+   Wayfarer Extension Scripts are free software: you can redistribute and/or modify
+   them under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Wayfarer Extension Scripts are distributed in the hope that they will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
+
+   You can find a copy of the GNU General Public License at the
+   web space where you got this script from
+'''
+  infotext += '   {}LICENSE.txt'.format(base_url)
+
+  infotext += '''
+   If not, see <http://www.gnu.org/licenses/>.
+*/
+
+'''
+  return infotext
+    
 def readtext(filename):
   return filename.read_text(encoding='utf-8-sig')
 
@@ -91,11 +120,14 @@ def process_file(source, out_dir):
     raise Exception(f'{source}: wrong input: empty line expected after metablock')
 
   script_name = source.stem
-  
+
   meta, shortl = fill_meta(meta, script_name)
-  
+
+  info = get_info(cfg.get('url_dist_base',fallback = False))
+
   data = [
     meta,
+    info,
     script
     ]
 

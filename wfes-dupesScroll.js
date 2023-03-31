@@ -1,5 +1,5 @@
 // @name         dupes Scroll
-// @version      1.1.0
+// @version      1.1.1
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 
@@ -17,10 +17,24 @@
     }
 
     window.wfes.f.waitForElem(filmStripSelector).then((elem)=>{
-      elem.classList.add("wfes-h490");
       // Hook function to scroll event in filmstrip
       elem.addEventListener("wheel", horizontalScroll, false);
-    });
+
+      // Schleife über alle Bilder
+      const bilder = document.querySelectorAll(filmStripSelector + " img");
+      for (let i = 0; i < bilder.length; i++) {
+        const img = bilder[i];
+        const alt = img.getAttribute("alt");
+
+        // Wenn das Bild einen Alt-Text hat, füge einen title-Text hinzu
+        if (alt) {
+          img.setAttribute("title", alt);
+        }
+      }
+    })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   if (window.wfes.f.hasMinVersion(baseMinVersion)) {
