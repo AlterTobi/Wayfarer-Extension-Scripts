@@ -1,31 +1,33 @@
 // @name         dupes Scroll
-// @version      1.0.1
+// @version      1.1.0
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 
 (function() {
   "use strict";
+  const baseMinVersion = "1.7.0";
 
   function filmStripScroll() {
     // Make film strip (duplicates) scrollable
-    const filmStripElem = document
-      .querySelector("#check-duplicates-card div.w-full.flex.overflow-x-auto.overflow-y-hidden.ng-star-inserted");
+    const filmStripSelector ="#check-duplicates-card div.w-full.flex.overflow-x-auto.overflow-y-hidden.ng-star-inserted";
 
     function horizontalScroll(e) {
-      filmStripElem.scrollLeft += e.deltaY;
+      this.scrollLeft += e.deltaY;
       e.preventDefault(); // Stop regular scroll
     }
 
-    if (null === filmStripElem) {
-      setTimeout(filmStripScroll, 100);
-      return;
-    }
-
-    // Hook function to scroll event in filmstrip
-    filmStripElem.addEventListener("wheel", horizontalScroll, false);
+    window.wfes.f.waitForElem(filmStripSelector).then((elem)=>{
+      elem.classList.add("wfes-h490");
+      // Hook function to scroll event in filmstrip
+      elem.addEventListener("wheel", horizontalScroll, false);
+    });
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", filmStripScroll);
+  if (window.wfes.f.hasMinVersion(baseMinVersion)) {
+    window.addEventListener("WFESReviewPageNewLoaded", filmStripScroll);
+  } else {
+    console.warn(GM_info.script.name, "Need at least wfes-Base version ", baseMinVersion, " Please upgrade.");
+  }
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
