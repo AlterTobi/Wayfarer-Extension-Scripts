@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.0.5
+// @version 1.0.6
 // @description fix for small heightin Wayfarer 5.2
 // @author AlterTobi
 
@@ -21,6 +21,7 @@
     .wfes-h4 { font-size:1.5rem; line-height:1.2rem; padding-bottom:0.5rem; }
     .wfes-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
     .wfes-stars-cards { height: min-content !important; margin-top: 1rem }
+    .wfes-fit-content { max-width: fit-content; }
     `;
 
   const cardSelectors = ["app-should-be-wayspot > wf-review-card", "app-title-and-description > wf-review-card", "app-supporting-info > wf-review-card"];
@@ -31,7 +32,7 @@
   const historicalCard = "#historical-cultural-card";
   const commentH4Selector = "app-review-comments > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
 
-  function improveCSS() {
+  function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
     cardSelectors.forEach(selector => {
       window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-h490");});
@@ -61,7 +62,18 @@
     });
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", improveCSS);
+  function editImproveCSS() {
+    const abuseSelector = "div.report-abuse";
+    window.wfes.f.addCSS(myCssId, myStyle);
+
+    window.wfes.f.waitForElem(abuseSelector).then((elem)=>{
+      elem.classList.add("wfes-fit-content");
+      elem.classList.add("wf-button");
+    });
+  }
+
+  window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
+  window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();

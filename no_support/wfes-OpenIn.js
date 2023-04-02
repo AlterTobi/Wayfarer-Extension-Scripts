@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.3.2
+// @version 1.3.3
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -30,6 +30,12 @@
       text-align: center;
       float: left;
       cursor: pointer;
+    }
+    .wfes-marginTop {
+      margin-top: 2rem;
+    }
+    .wfes-none {
+      display: none;
     }
     .dropdown-content {
       display: none;
@@ -115,7 +121,8 @@
   }
 
   function addDropdownReview() {
-    let elem, elemlist;
+    let elem, selector;
+    // let elemlist
 
     window.wfes.f.addCSS(myCssId, myStyle);
 
@@ -129,13 +136,39 @@
           elem.insertAdjacentElement("BeforeBegin", mainButton);
         });
       break;
-    case "EDIT":
-      elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
-      elem = elemlist[elemlist.length-1];
-      elem.insertAdjacentElement("afterEnd", mainButton);
+    case "EDIT": {
+      /* old: before WF 5.2
+        elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
+        elem = elemlist[elemlist.length-1];
+        elem.insertAdjacentElement("afterEnd", mainButton);
+      */
+      const edit = window.wfes.g.edit();
+      if (edit.isEdit) {
+        if (edit.what.title) {
+          selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
+        } else if (edit.what.description) {
+          // need edit review first
+          selector = false;
+          selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
+          mainButton.classList.add("wfes-none");
+        } else if (edit.what.location) {
+          selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
+        }
+        mainButton.classList.add("wfes-marginTop");
+        elem = document.querySelector(selector);
+        const text = elem.textContent;
+        elem.textContent = "";
+        const div = document.createElement("div");
+        div.textContent = text;
+        elem.insertAdjacentElement("afterBegin", div);
+        elem.insertAdjacentElement("beforeend", mainButton);
+      }
       break;
+    }
     case "PHOTO":
-      elem = document.querySelector(".review-photo__info > div.flex.flex-col");
+      selector = ".review-photo__info > div.flex.flex-col";
+      elem = document.querySelector(selector);
+      mainButton.classList.add("wfes-marginTop");
       elem.insertAdjacentElement("beforeend", mainButton);
       break;
     }

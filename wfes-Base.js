@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.7.3
+// @version      1.7.5
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -13,6 +13,7 @@
   const PREFIX = "/api/v1/vault/";
   const sStoreReview = "wfes_Reviews";
   const sStoreNominationsDetails = "wfes_nominationDetails";
+  const loginPath = "/login";
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
@@ -73,23 +74,17 @@
   function _waitForElem(selector, maxWaitTime = 5000) {
     const startTime = Date.now();
     return new Promise((resolve, reject) => {
-      if (document.querySelector(selector)) {
-        return resolve(document.querySelector(selector));
-      }
-
-      const observer = new MutationObserver(mutations => {
-        if (document.querySelector(selector)) {
-          resolve(document.querySelector(selector));
-          observer.disconnect();
+      const checkForElement = () => {
+        const elem = document.querySelector(selector);
+        if (elem) {
+          resolve(elem);
         } else if (Date.now() - startTime >= maxWaitTime) {
-          reject(new Error(`Timeout waiting for element with selector ${selector}`));
-          observer.disconnect();
+          reject(new Error(`Timeout waiting for element with selector ${selector} after ${maxWaitTime/1000} seconds`));
+        } else {
+          setTimeout(checkForElement, 100);
         }
-      });
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
+      };
+      checkForElement();
     });
   }
 
@@ -564,8 +559,10 @@
   Object.freeze(window.wfes.s);
   Object.freeze(window.wfes);
 
-  window.wfes.f.addCSS(myCssId, myStyle);
-  window.wfes.f.createNotificationArea();
+  if (document.location.pathname !== loginPath ) {
+    window.wfes.f.addCSS(myCssId, myStyle);
+    window.wfes.f.createNotificationArea();
+  }
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);

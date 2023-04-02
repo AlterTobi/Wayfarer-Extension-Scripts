@@ -63,3 +63,17 @@ Report bugs and/or feature requests in the [Issue Tracker](https://github.com/Al
 
 You may also use the Wayfarer Discord for questions around Wayfarer and the tools.
 It's linked at [wayfarer.tools](https://wayfarer.tools/), where you can find more UserScripts for Wayfarer.
+
+## License and copyright
+
+Copyright 2023 AlterTobi
+
+Wayfarer Extension Scripts are free software: you can redistribute and/or modify
+them under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Wayfarer Extension Scripts are distributed in the hope that they will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+[GNU General Public License](LICENSE.txt) for more details.

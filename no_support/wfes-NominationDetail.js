@@ -1,5 +1,5 @@
 // @name          Nomination Detail
-// @version      1.0.3
+// @version      1.0.4
 // @description  improvements for nomination detail page
 // @author       AlterTobi
 

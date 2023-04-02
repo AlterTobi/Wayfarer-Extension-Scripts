@@ -61,9 +61,23 @@ Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
 Eine Liste bekannter Probleme findet sich im [Issue Tracker](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues).
 Dort könnt ihr auch neue Probleme oder Erweiterungswünsche melden.
 
-## weitere Tools und Kontaktmöglichkeiten
+## Weitere Tools und Kontaktmöglichkeiten
 
 Eine Kontaktmöglichkeit für Fragen rund um Wayfarer und die Tools ist der Wayfarer Discord (englisch).
 Den Link findet ihr auf [wayfarer.tools](https://wayfarer.tools/), wo es auch weitere Skripte zu Wayfarer gibt.
 
 Des weiteren gibt es auch einen [deutschsprachigen Discord](https://discord.gg/9m2WvAC8N9) und eine [Telegram-Gruppe](https://t.me/wayfarerdach).
+
+## Lizenz und Copyright
+
+Copyright 2023 AlterTobi
+
+Wayfarer Extension Scripts sind Freie Software: Sie können sie unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation,
+Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+veröffentlichten Version, weiter verteilen und/oder modifizieren.
+
+Wayfarer Extension Scripts werden in der Hoffnung, dass sie nützlich sein werden, aber
+OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+Siehe die [GNU General Public License](LICENSE.txt) für weitere Details.
