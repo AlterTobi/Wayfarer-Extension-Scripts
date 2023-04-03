@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.3.3
+// @version 1.3.4
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -137,23 +137,9 @@
         });
       break;
     case "EDIT": {
-      /* old: before WF 5.2
-        elemlist = document.getElementsByClassName("review-edit-info card p-4 ng-star-inserted");
-        elem = elemlist[elemlist.length-1];
-        elem.insertAdjacentElement("afterEnd", mainButton);
-      */
       const edit = window.wfes.g.edit();
       if (edit.isEdit) {
-        if (edit.what.title) {
-          selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
-        } else if (edit.what.description) {
-          // need edit review first
-          selector = false;
-          selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
-          mainButton.classList.add("wfes-none");
-        } else if (edit.what.location) {
-          selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
-        }
+        selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
         mainButton.classList.add("wfes-marginTop");
         elem = document.querySelector(selector);
         const text = elem.textContent;
