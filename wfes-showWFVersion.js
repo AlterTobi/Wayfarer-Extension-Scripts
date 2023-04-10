@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.2.4
+// @version      1.2.5
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -16,6 +16,7 @@
     background-color: white;
     border: 2px solid red;
     padding: 5px;
+    max-width: 50%;
     box-shadow: 7px 7px 5px grey;}
     /* Styles for dark mode */
     @media (prefers-color-scheme: dark) {
