@@ -1,5 +1,5 @@
 // @name         review Debug
-// @version      1.0.0
+// @version      1.0.1
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -27,12 +27,12 @@
   .wfes-red { color: red; }
     `;
 
-  const skipNamesAll = ["description", "imageUrl", "title"];
+  const skipNamesCommon = ["description", "title"];
 
   let overlay = null;
 
   function reviewInfobox(lskips) {
-    const skipNames = [...new Set(skipNamesAll.concat(lskips))];
+    const skipNames = [...new Set(skipNamesCommon.concat(lskips))];
     skipNames.sort();
 
     const skipped = [];
@@ -96,25 +96,17 @@
   }
 
   function reviewNew() {
-    const lskips = ["categoryIds", "nearbyPortals", "statement", "streetAddress", "supportingImageUrl"];
+    const lskips = ["categoryIds", "nearbyPortals", "statement", "streetAddress", "supportingImageUrl", "imageUrl"];
     reviewInfobox(lskips);
   }
+
   function newPhoto() {
     const lskips = ["newPhotos"];
     reviewInfobox(lskips);
   }
+
   function reviewEdit() {
-    const lskips = [];
-    const edits = window.wfes.g.edit();
-    if (edits.what.location) {
-      lskips.push("locationEdits");
-    }
-    if (edits.what.description) {
-      lskips.push("descriptionEdits");
-    }
-    if (edits.what.title) {
-      lskips.push("titleEdits");
-    }
+    const lskips = ["locationEdits","descriptionEdits","titleEdits", "imageUrl"];
     reviewInfobox(lskips);
   }
 
