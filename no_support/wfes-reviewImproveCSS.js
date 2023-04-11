@@ -1,9 +1,7 @@
 // @name Review Improve CSS
-// @version 1.0.7
+// @version 1.0.8
 // @description fix for small heightin Wayfarer 5.2
 // @author AlterTobi
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.meta.js
 
 (function() {
   "use strict";
@@ -79,11 +77,3 @@
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
-
-// window.wfes.f.waitForElem().then((elem)=>{elem.classList.add("");});
-/*
-WFESReviewPageLoaded
-WFESReviewPagePhotoLoaded
-WFESReviewPageEditLoaded
-WFESReviewPageNewLoaded
-*/
