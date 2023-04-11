@@ -1,7 +1,9 @@
 // @name Review Improve CSS
-// @version 1.0.6
+// @version 1.0.7
 // @description fix for small heightin Wayfarer 5.2
 // @author AlterTobi
+// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.user.js
+// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.meta.js
 
 (function() {
   "use strict";
