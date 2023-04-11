@@ -1,9 +1,9 @@
 // @name Review Enlarge Cards
-// @version 1.0.3
+// @version 1.0.4
 // @description fix for small heightin Wayfarer 5.2
 // @author AlterTobi
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-reviewImproveCSS.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-reviewImproveCSS.meta.js
+// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.user.js
+// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.meta.js
 
 (function() {
   "use strict";
