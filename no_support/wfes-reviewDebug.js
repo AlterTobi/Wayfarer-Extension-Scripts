@@ -106,7 +106,7 @@
   }
 
   function reviewEdit() {
-    const lskips = ["locationEdits","descriptionEdits","titleEdits", "imageUrl"];
+    const lskips = ["locationEdits", "descriptionEdits", "titleEdits", "imageUrl"];
     reviewInfobox(lskips);
   }
 
