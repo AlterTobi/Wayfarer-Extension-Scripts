@@ -65,6 +65,7 @@
       const bodyElem = document.getElementsByTagName("body")[0];
       const versionDiv = document.createElement("div");
       versionDiv.setAttribute("class", "wfVersionCSS");
+      versionDiv.setAttribute("id", versionDivID);
       versionDiv.appendChild(versionDropdown);
       bodyElem.appendChild(versionDiv);
     } else {
