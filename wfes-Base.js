@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.7.5
+// @version      1.7.6
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -91,7 +91,7 @@
 
   function checkWfVersion(v) {
     if (wfes.version !== v) {
-      console.log("WF version changed from", wfes.version, "to", v);
+      // console.log("WF version changed from", wfes.version, "to", v);
       wfes.version = v;
       window.dispatchEvent(new Event("WFESVersionChanged"));
     }
