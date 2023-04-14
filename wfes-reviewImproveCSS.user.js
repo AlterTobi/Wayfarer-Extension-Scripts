@@ -1,0 +1,109 @@
+// ==UserScript==
+// @name           WFES - Review Improve CSS
+// @version        1.0.8
+// @description    fix for small heightin Wayfarer 5.2
+// @author         AlterTobi
+// @namespace      https://github.com/AlterTobi/WFES/
+// @homepage       https://altertobi.github.io/Wayfarer-Extension-Scripts/
+// @supportURL     https://github.com/AlterTobi/Wayfarer-Extension-Scripts/issues
+// @icon           https://wayfarer.nianticlabs.com/imgpub/favicon-256.png
+// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.user.js
+// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-reviewImproveCSS.meta.js
+// @match          https://wayfarer.nianticlabs.com/*
+// @grant          none
+// ==/UserScript==
+
+/* Copyright 2023 AlterTobi
+
+   This file is part of the Wayfarer Extension Scripts collection.
+
+   Wayfarer Extension Scripts are free software: you can redistribute and/or modify
+   them under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   Wayfarer Extension Scripts are distributed in the hope that they will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
+
+   You can find a copy of the GNU General Public License at the
+   web space where you got this script from
+   https://altertobi.github.io/Wayfarer-Extension-Scripts/LICENSE.txt
+   If not, see <http://www.gnu.org/licenses/>.
+*/
+
+(function() {
+  "use strict";
+
+  const myCssId = "rICSS";
+  const myStyle = `
+    .wf-review-card__header { padding: 0.5rem; }
+    .wf-review-card__body { margin-bottom: 0.2rem; }
+    .wf-review-card__footer { padding-bottom: 0.2rem; }
+    .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
+    .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    .wfes-h490 { min-height: 490px; }
+    .wfes-h790 { min-height: 790px; }
+    .wfes-none { display: none; }
+    .wfes-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
+    .wfes-text-lg { line-height: 1.5rem !important; font-size: 1.1rem !important; }
+    .wfes-h4 { font-size:1.5rem; line-height:1.2rem; padding-bottom:0.5rem; }
+    .wfes-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
+    .wfes-stars-cards { height: min-content !important; margin-top: 1rem }
+    .wfes-fit-content { max-width: fit-content; }
+    `;
+
+  const cardSelectors = ["app-should-be-wayspot > wf-review-card", "app-title-and-description > wf-review-card", "app-supporting-info > wf-review-card"];
+  const dupeSelector = "#check-duplicates-card";
+  const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
+  const descriptionSelector = "#title-description-card > div.wf-review-card__body > div > div";
+  const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
+  const historicalCard = "#historical-cultural-card";
+  const commentH4Selector = "app-review-comments > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
+
+  function reviewImproveCSS() {
+    window.wfes.f.addCSS(myCssId, myStyle);
+    cardSelectors.forEach(selector => {
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-h490");});
+      // remove description texts
+      const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
+      window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");});
+    });
+    window.wfes.f.waitForElem(dupeSelector).then((elem)=>{elem.classList.add("wfes-h790");});
+
+    // smaller font site for title and description
+    window.wfes.f.waitForElem(titleSelector).then((elem)=>{elem.classList.add("wfes-text-4xl");});
+    window.wfes.f.waitForElem(descriptionSelector).then((elem)=>{elem.classList.add("wfes-text-lg");});
+
+    // remove empty space in "stars-only" cards
+    starsCardsSelectors.forEach(selector => {
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
+    });
+
+    // remove spaces between cards - grid class
+    window.wfes.f.waitForElem(historicalCard).then((elem)=>{elem.parentElement.parentElement.classList.remove("grid");});
+
+    // make all H4 smaller, margins in card headers too
+    window.wfes.f.waitForElem(commentH4Selector).then((elem)=>{
+      elem.classList.add(".wfes-h4");
+      const headerlist =document.querySelectorAll(".wf-review-card__header");
+      headerlist.forEach(elem =>{elem.classList.add("wfes-card__header");});
+    });
+  }
+
+  function editImproveCSS() {
+    const abuseSelector = "div.report-abuse";
+    window.wfes.f.addCSS(myCssId, myStyle);
+
+    window.wfes.f.waitForElem(abuseSelector).then((elem)=>{
+      elem.classList.add("wfes-fit-content");
+      elem.classList.add("wf-button");
+    });
+  }
+
+  window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
+  window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
+
+  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+})();
