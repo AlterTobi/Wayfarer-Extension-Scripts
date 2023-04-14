@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.2.6
+// @version      1.2.7
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -26,6 +26,11 @@
       }
     }
     .wfes-hidden { display: none; }
+    .wfes-versionChanged {
+      background-color: red !important;
+      border-color: yellow !important;
+      color: white !important;
+    }
     `;
 
   const lStoreHist = "wfes_WFVersionHistory";
@@ -70,9 +75,19 @@
       bodyElem.appendChild(versionDiv);
     } else {
       const versionDiv = document.getElementById(versionDivID);
+      // remove existing child first - skip null check, because it must be there
+      versionDiv.removeChild(document.getElementById("version-dropdown"));
       versionDiv.appendChild(versionDropdown);
     }
     versionButton.addEventListener("click", toggleVersions);
+  }
+
+  function versionChanged() {
+    console.warn(GM_info.script.name, "version changed");
+    const elem = document.getElementById(versionDivID);
+    if (null !== elem) {
+      elem.classList.add("wfes-versionChanged");
+    }
   }
 
   function handleVersion(versionHistory) {
@@ -94,6 +109,7 @@
     if ( len > 0 ) {
       const last = versionHistory[len-1].version;
       if (last !== wfVersion) {
+        versionChanged();
         versionHistory.push(v);
         window.wfes.f.localSave(lStoreHist, versionHistory);
       }
@@ -107,8 +123,8 @@
   function init() {
     wfVersion = window.wfes.g.wfVersion();
     window.wfes.f.localGet(lStoreHist, []).then((hist)=>{
-      handleVersion(hist);
       showVersion(hist);
+      handleVersion(hist);
     });
   }
 
