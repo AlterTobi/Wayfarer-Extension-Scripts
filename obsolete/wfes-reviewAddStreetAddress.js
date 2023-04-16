@@ -1,5 +1,5 @@
 // @name review Add Street Address
-// @version 1.0.4
+// @version 1.0.5
 // @description fix for missing Street Address in Wayfarer 5.2
 // @author AlterTobi
 
@@ -12,7 +12,12 @@
         const data = window.wfes.g.reviewPageData();
         const atext = document.createElement("span");
         atext.appendChild(document.createTextNode(data.streetAddress));
-        atext.style.backgroundColor = "yellow";
+        const _props = window.wfes.g.properties();
+        if ("DISABLED" === _props.darkMode) {
+          atext.style.backgroundColor = "yellow";
+        } else {
+          atext.style.color = "yellow";
+        }
         elem.insertAdjacentElement("afterBegin", atext);
       });
   }
