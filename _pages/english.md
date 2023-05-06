@@ -32,7 +32,7 @@ Install [WFES Base](wfes-Base.user.js) first!
 * [URLify](wfes-URLify.user.js)
     - detect URLs in supporting text and create links
 * [AutoHold](wfes-AutoHold.user.js)
-    - searches for '#hold' in supporting statement and puts nomination on hold
+    - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
 
 ### Unsupported scripts / scripts in beta state
 These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
@@ -51,7 +51,7 @@ may work or not. If you are a developer, have a look at it and fix bugs. :-)
     - add "Open In" for maps - discontinued - use tehstone's "Open In" instead
 * [Add Street Address](wfes-reviewAddStreetAddress.user.js)
      - fixes missing street address from WF5.2
-* [Review Improve CSS](wfes-reviewImproveCSS.user.js)
+* [Review Improve CSS](en/reviewImproveCSS.html)
     - increases height for images and titel/description cards
     - removes padding and description text
 

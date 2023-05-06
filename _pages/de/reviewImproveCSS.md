@@ -21,7 +21,7 @@ Nach den Modifikationen ergibt sich folgendes Aussehen:
 
 ## Download
 
-Wenn du alle Hinweise gelesen und verstanden hast, kannst du das Skript [installieren](../wfes-reviewImproveCSS.user.js).
+Wenn du alle Hinweise gelesen und verstanden sowie das [Basis-Skript](../wfes-Base.user.js) installiert hast, kannst du dieses Skript [installieren](../wfes-reviewImproveCSS.user.js).
 
 
 ---
