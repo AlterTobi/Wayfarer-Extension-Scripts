@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.3.4
+// @version 1.4.0
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -11,7 +11,8 @@
     { title: "Google", url: "https://maps.google.com/maps?q=%lat%,%lng%"},
     { title: "Intel", url: "https://intel.ingress.com/intel?ll=%lat%,%lng%&pll=%lat%,%lng%&z=18"},
     { title: "OSM", url: "https://www.openstreetmap.org/?mlat=%lat%&mlon=%lng%#map=18/%lat%/%lng%"},
-    { title: "Bing", url: "https://www.bing.com/maps?cp=%lat%~%lng%&lvl=17&style=h"}
+    { title: "Bing", url: "https://www.bing.com/maps?cp=%lat%~%lng%&lvl=17&style=h"},
+    { title: "Lightship", url: "https://lightship.dev/account/geospatial-browser/%lat%,%lng%,17.0,,"}
   ];
 
   const buttonID = "openInButton";
