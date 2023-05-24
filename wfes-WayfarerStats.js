@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.5.3
+// @version     1.6.0
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -213,7 +213,10 @@ fnV1HwAAAABJRU5ErkJggg==`;
       "Pogo",
       "Lockmodul",
       "Nester",
-      "Pokespot"
+      "Pokespot",
+      // spanisch
+      "parada",
+      "gimnasio"
     ];
     function pruefeText(text, arr) {
       let hasText = false;
