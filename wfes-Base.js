@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.7.6
+// @version      1.8.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -53,6 +53,7 @@
   wfes.nominations = {};
   wfes.edit = {};
   wfes.properties = {};
+  wfes.settings = {};
   wfes.messages = {};
   wfes.version = "0.0.0";
   wfes.userId = false;
@@ -183,6 +184,7 @@
       break;
     }
     window.dispatchEvent(new Event("WFESReviewPageLoaded"));
+    window.dispatchEvent(new Event("WFESPageLoaded"));
   }
 
   function handleLoadEvent(e) {
@@ -209,6 +211,7 @@
       case PREFIX + "home":
         wfes.showcase.list = json.result.showcase;
         window.dispatchEvent(new Event("WFESHomePageLoaded"));
+        window.dispatchEvent(new Event("WFESPageLoaded"));
         break;
       case PREFIX + "review":
         if ("GET" === this._method) {
@@ -218,6 +221,7 @@
       case PREFIX + "profile":
         wfes.profile = json.result;
         window.dispatchEvent(new Event("WFESProfileLoaded"));
+        window.dispatchEvent(new Event("WFESPageLoaded"));
         break;
       case PREFIX + "manage":
         // nomination list
@@ -225,6 +229,7 @@
         wfes.nominations.canAppeal = json.result.canAppeal;
         wfes.nominations.wayspots = json.result.wayspots;
         window.dispatchEvent(new Event("WFESNominationListLoaded"));
+        window.dispatchEvent(new Event("WFESPageLoaded"));
         break;
       case PREFIX + "manage/detail":
         // nomination detail
@@ -240,6 +245,15 @@
       case PREFIX + "properties":
         wfes.properties = json.result;
         window.dispatchEvent(new Event("WFESPropertiesLoaded"));
+        break;
+      case PREFIX + "settings":
+        wfes.settings = json.result;
+        window.dispatchEvent(new Event("WFESSettingsLoaded"));
+        window.dispatchEvent(new Event("WFESPageLoaded"));
+        break;
+      case PREFIX + "help":
+        window.dispatchEvent(new Event("WFESHelpPageLoaded"));
+        window.dispatchEvent(new Event("WFESPageLoaded"));
         break;
       default:
         // messages?language=de
@@ -528,6 +542,9 @@
   };
   window.wfes.g.properties = function() {
     return jCopy(wfes.properties);
+  };
+  window.wfes.g.settings = function() {
+    return jCopy(wfes.settings);
   };
   window.wfes.g.messages = function() {
     return jCopy(wfes.messages);
