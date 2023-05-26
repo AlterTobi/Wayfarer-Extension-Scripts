@@ -370,6 +370,7 @@
   function loadCachedNomination(nomItem) {
     if (undefined === wfes.nominations.detail) {
       window.setTimeout(loadCachedNomination, 250, nomItem);
+      return;
     }
     const myID = nomItem.__ngContext__[22].id;
     if (myID === wfes.nominations.detail.id) {
