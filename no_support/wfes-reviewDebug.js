@@ -1,5 +1,5 @@
 // @name         review Debug
-// @version      1.0.1
+// @version      1.1.0
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -31,14 +31,13 @@
 
   let overlay = null;
 
-  function reviewInfobox(lskips) {
+  function showDebugBox(candidate, lskips) {
     const skipNames = [...new Set(skipNamesCommon.concat(lskips))];
     skipNames.sort();
 
     const skipped = [];
 
     window.wfes.f.addCSS(myCssId, myStyle);
-    const candidate = window.wfes.g.reviewPageData();
 
     overlay = document.createElement("div");
     overlay.setAttribute("class", "wfes-debug");
@@ -95,6 +94,11 @@
     }
   }
 
+  function reviewInfobox(lskips) {
+    const candidate = window.wfes.g.reviewPageData();
+    showDebugBox(candidate, lskips);
+  }
+
   function reviewNew() {
     const lskips = ["categoryIds", "nearbyPortals", "statement", "streetAddress", "supportingImageUrl", "imageUrl"];
     reviewInfobox(lskips);
@@ -110,10 +114,17 @@
     reviewInfobox(lskips);
   }
 
+  function nominationDetail() {
+    const lskips = [];
+    const candidate = window.wfes.g.nominationDetail();
+    showDebugBox(candidate, lskips);
+  }
+
   // display debug ooverlay
   window.addEventListener("WFESReviewPageNewLoaded", reviewNew);
   window.addEventListener("WFESReviewPageEditLoaded", reviewEdit);
   window.addEventListener("WFESReviewPagePhotoLoaded", newPhoto);
+  window.addEventListener("WFESNominationDetailLoaded", nominationDetail);
 
   // remove debug ooverlay
   window.addEventListener("WFESReviewDecisionSent", removeInfobox);
