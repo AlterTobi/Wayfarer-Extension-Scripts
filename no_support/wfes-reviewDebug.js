@@ -115,7 +115,8 @@
   }
 
   function nominationDetail() {
-    const lskips = [];
+    const lskips = ["supportingImageUrl", "imageUrl", "statement",'rejectReasons','upgraded','city','state',
+    'type'];
     const candidate = window.wfes.g.nominationDetail();
     showDebugBox(candidate, lskips);
   }
