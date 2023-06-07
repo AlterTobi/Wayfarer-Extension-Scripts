@@ -8,7 +8,7 @@ Adds a translate button to the page header. Select which engine you want to use.
 
 
 ## Google Translate
-the "old" version of thid tool with buttons near all texts
+the "old" version of this tool with buttons near all texts
 
 ![Google Translate](../images/google-translate.png "Google translation buttons")
 * [Download](../wfes-AddTranslationButtonsGoogle.user.js)
