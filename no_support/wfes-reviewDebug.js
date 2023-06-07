@@ -39,9 +39,11 @@
 
     window.wfes.f.addCSS(myCssId, myStyle);
 
-    overlay = document.createElement("div");
-    overlay.setAttribute("class", "wfes-debug");
-    overlay.setAttribute("id", myID);
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.setAttribute("class", "wfes-debug");
+      overlay.setAttribute("id", myID);
+    }
 
     let content = "";
     for (const key in candidate) {
@@ -115,8 +117,8 @@
   }
 
   function nominationDetail() {
-    const lskips = ["supportingImageUrl", "imageUrl", "statement",'rejectReasons','upgraded','city','state',
-    'type'];
+    const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons", "upgraded", "city", "state",
+      "type"];
     const candidate = window.wfes.g.nominationDetail();
     showDebugBox(candidate, lskips);
   }

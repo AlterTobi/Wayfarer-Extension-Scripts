@@ -15,8 +15,8 @@ Zuerst [WFES Base](wfes-Base.user.js) installieren!
     - erkennt und zeigt Änderungen des Status eigener Einreichungen
 * [ImageMod](wfes-ImageMod.user.js)
     - öffne Originalfotos in "benannten" Tabs
-* [Add Translation Buttons](wfes-AddTranslationButtons.user.js)
-    - fügt Buttons zum Übersetzen der Texte hinzu
+* [Übersetzungstools](de/translations.html)
+    - fügt Möglichkeiten zum Übersetzen der Texte hinzu
 * [Wayfarer Stats](wfes-WayfarerStats.user.js)
     - speichert persönliche Statistiken im Browser Local Storage
 * [Dupes Scroll](wfes-dupesScroll.user.js)

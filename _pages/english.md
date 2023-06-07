@@ -15,8 +15,8 @@ Install [WFES Base](wfes-Base.user.js) first!
     - show nomination status updates
 * [ImageMod](wfes-ImageMod.user.js)
     - open fullsize images in "named" tabs
-* [Add Translation Buttons](wfes-AddTranslationButtons.user.js)
-    - adds buttons to translate text associated with a wayspot
+* [Translation tools](en/translations.html)
+    - adds tools to translate text associated with a wayspot
 * [Wayfarer Stats](wfes-WayfarerStats.user.js)
     - saves some personal statistics in local browser storage, migrated from [OPR Stats](https://gitlab.com/fotofreund0815/opr-stats/)
 * [Dupes Scroll](wfes-dupesScroll.user.js)
