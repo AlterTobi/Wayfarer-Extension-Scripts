@@ -1,22 +1,23 @@
 // @name         review Debug
-// @version      1.1.0
+// @version      1.1.1
 // @description  show some debugging info
 // @author       AlterTobi
 
 (function() {
   "use strict";
-  const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
+  // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
   const myID = "wfes-debugOverlay";
   const myCssId = "wfes-debugCSS";
   const myStyle = `.wfes-debug {
     position : absolute;
-    top : 10px;
-    right : 10px;
+    top : 75px;
+    right : 15px;
     background-Color : #d9d9d9;
     padding : 5px;
     border : 1px solid black;
     max-width : 20%;
     box-shadow: 7px 7px 5px grey;
+    z-index: 999;
   }
   .wfes-debug > hr {
     background-Color : #828282;
@@ -25,7 +26,7 @@
     height: 2px;
   }
   .wfes-red { color: red; }
-    `;
+  `;
 
   const skipNamesCommon = ["description", "title"];
 
@@ -84,8 +85,10 @@
 
     overlay.innerHTML = content;
 
-    const mainContent = document.querySelector(mainContentSelector);
-    mainContent.appendChild(overlay);
+    // const mainContent = document.querySelector(mainContentSelector);
+    // mainContent.appendChild(overlay);
+    const body = document.querySelector('body');
+    body.appendChild(overlay);
   }
 
   function removeInfobox() {
@@ -117,8 +120,9 @@
   }
 
   function nominationDetail() {
-    const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons", "upgraded", "city", "state",
-      "type"];
+    const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons",
+      "upgraded", "city", "state", "type", "appealNotes", "canHold", "canReleaseHold",
+      'nextUpgrade'];
     const candidate = window.wfes.g.nominationDetail();
     showDebugBox(candidate, lskips);
   }
