@@ -87,7 +87,7 @@
 
     // const mainContent = document.querySelector(mainContentSelector);
     // mainContent.appendChild(overlay);
-    const body = document.querySelector('body');
+    const body = document.querySelector("body");
     body.appendChild(overlay);
   }
 
@@ -122,7 +122,7 @@
   function nominationDetail() {
     const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons",
       "upgraded", "city", "state", "type", "appealNotes", "canHold", "canReleaseHold",
-      'nextUpgrade'];
+      "nextUpgrade"];
     const candidate = window.wfes.g.nominationDetail();
     showDebugBox(candidate, lskips);
   }
