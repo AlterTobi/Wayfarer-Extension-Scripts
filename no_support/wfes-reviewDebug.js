@@ -1,5 +1,5 @@
 // @name         review Debug
-// @version      1.1.1
+// @version      1.1.2
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -122,7 +122,7 @@
   function nominationDetail() {
     const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons",
       "upgraded", "city", "state", "type", "appealNotes", "canHold", "canReleaseHold",
-      "nextUpgrade"];
+      "nextUpgrade", "order", "day"];
     const candidate = window.wfes.g.nominationDetail();
     showDebugBox(candidate, lskips);
   }
