@@ -43,7 +43,7 @@ module.exports = {
       "comma-dangle": ["warn", "only-multiline"],
       "comma-spacing": ["warn", { "before": false, "after": true }],
       "func-call-spacing": ["warn", "never"],
-      "indent": ["warn", 2],
+      "indent": ["warn", 2, { "SwitchCase": 1 }],
       "newline-per-chained-call": "warn",
       "no-multi-spaces": "warn",
       "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],

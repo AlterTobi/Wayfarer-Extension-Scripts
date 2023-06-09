@@ -462,30 +462,30 @@ fnV1HwAAAABJRU5ErkJggg==`;
             if (PoGoStats[i].hpwu) { ti2 = "HPWU"; color = "Chartreuse";}
 
             switch (PoGoStats[i].typ) {
-            case "EDIT":
-              ti1 = "Edit";
-              ico = "Map-Marker-Ball-Right-" + color + "-icon.png";
-              break;
-            case "NEW":
-              switch (PoGoStats[i].subtyp) {
-              case 0:
-                ti1 = "NEW R";
-                ico = "Map-Marker-Push-Pin-1-"+color+"-icon.png";
+              case "EDIT":
+                ti1 = "Edit";
+                ico = "Map-Marker-Ball-Right-" + color + "-icon.png";
                 break;
-              case 1:
-                ti1 = "NEW P";
-                ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
+              case "NEW":
+                switch (PoGoStats[i].subtyp) {
+                  case 0:
+                    ti1 = "NEW R";
+                    ico = "Map-Marker-Push-Pin-1-"+color+"-icon.png";
+                    break;
+                  case 1:
+                    ti1 = "NEW P";
+                    ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
+                    break;
+                }
                 break;
-              }
-              break;
-            case "PHOTO":
-              ti1 = "Photo";
-              ico = "Map-Marker-Flag-1-Right-" + color + "-icon.png";
-              break;
-            default:
-              ti1 = "unknowm";
-              ico = "Map-Marker-Chequered-Flag-Right-" + color + "-icon.png";
-              break;
+              case "PHOTO":
+                ti1 = "Photo";
+                ico = "Map-Marker-Flag-1-Right-" + color + "-icon.png";
+                break;
+              default:
+                ti1 = "unknowm";
+                ico = "Map-Marker-Chequered-Flag-Right-" + color + "-icon.png";
+                break;
             }
             const title = ti1 + " " + ti2;
             const icon = iconBase + ico;
@@ -557,30 +557,30 @@ fnV1HwAAAABJRU5ErkJggg==`;
       // Zählen
       for (let i = 0; i < PoGoStats.length; i++) {
         switch (PoGoStats[i].typ) {
-        case "EDIT":
-          edig++;
-          if (PoGoStats[i].pogo) { edip++; }
-          break;
-        case "NEW":
-          switch (PoGoStats[i].subtyp) {
-          case 0:
-            redg++;
-            if (PoGoStats[i].pogo) { redp++; }
+          case "EDIT":
+            edig++;
+            if (PoGoStats[i].pogo) { edip++; }
             break;
-          case 1:
-            prig++;
-            if (PoGoStats[i].pogo) { prip++; }
+          case "NEW":
+            switch (PoGoStats[i].subtyp) {
+              case 0:
+                redg++;
+                if (PoGoStats[i].pogo) { redp++; }
+                break;
+              case 1:
+                prig++;
+                if (PoGoStats[i].pogo) { prip++; }
+                break;
+              default:
+                console.warn("PoGoTable: falscher subtyp: " + PoGoStats[i].subtyp);
+            }
+            break;
+          case "PHOTO":
+            phog++;
+            if (PoGoStats[i].pogo) { phop++; }
             break;
           default:
-            console.warn("PoGoTable: falscher subtyp: " + PoGoStats[i].subtyp);
-          }
-          break;
-        case "PHOTO":
-          phog++;
-          if (PoGoStats[i].pogo) { phop++; }
-          break;
-        default:
-          console.warn(selfname + " falscher typ: " + PoGoStats[i].typ);
+            console.warn(selfname + " falscher typ: " + PoGoStats[i].typ);
         }
       }
 

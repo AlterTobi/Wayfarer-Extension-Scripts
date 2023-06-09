@@ -131,33 +131,33 @@
     const mainButton = getMapDropdown(pageData.lat, pageData.lng);
 
     switch (pageData.type) {
-    case "NEW":
-      window.wfes.f.waitForElem("#check-duplicates-card > div.wf-review-card__body > div > div.mt-2.flex.justify-between.pb-1.space-x-4 > div:nth-child(1) > button")
-        .then((elem) => {
-          elem.insertAdjacentElement("BeforeBegin", mainButton);
-        });
-      break;
-    case "EDIT": {
-      const edit = window.wfes.g.edit();
-      if (edit.isEdit) {
-        selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
-        mainButton.classList.add("wfes-marginTop");
-        elem = document.querySelector(selector);
-        const text = elem.textContent;
-        elem.textContent = "";
-        const div = document.createElement("div");
-        div.textContent = text;
-        elem.insertAdjacentElement("afterBegin", div);
-        elem.insertAdjacentElement("beforeend", mainButton);
+      case "NEW":
+        window.wfes.f.waitForElem("#check-duplicates-card > div.wf-review-card__body > div > div.mt-2.flex.justify-between.pb-1.space-x-4 > div:nth-child(1) > button")
+          .then((elem) => {
+            elem.insertAdjacentElement("BeforeBegin", mainButton);
+          });
+        break;
+      case "EDIT": {
+        const edit = window.wfes.g.edit();
+        if (edit.isEdit) {
+          selector = "app-review-edit-info > div > div.mt-4.ng-star-inserted > div > div:nth-child(3)";
+          mainButton.classList.add("wfes-marginTop");
+          elem = document.querySelector(selector);
+          const text = elem.textContent;
+          elem.textContent = "";
+          const div = document.createElement("div");
+          div.textContent = text;
+          elem.insertAdjacentElement("afterBegin", div);
+          elem.insertAdjacentElement("beforeend", mainButton);
+        }
+        break;
       }
-      break;
-    }
-    case "PHOTO":
-      selector = ".review-photo__info > div.flex.flex-col";
-      elem = document.querySelector(selector);
-      mainButton.classList.add("wfes-marginTop");
-      elem.insertAdjacentElement("beforeend", mainButton);
-      break;
+      case "PHOTO":
+        selector = ".review-photo__info > div.flex.flex-col";
+        elem = document.querySelector(selector);
+        mainButton.classList.add("wfes-marginTop");
+        elem.insertAdjacentElement("beforeend", mainButton);
+        break;
     }
   }
 

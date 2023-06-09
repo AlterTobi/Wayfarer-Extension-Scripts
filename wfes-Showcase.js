@@ -64,15 +64,15 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     }
 
     switch (details.discovererGame) {
-    case "": // no logo
-      klasse = "bgNone";
-      break;
-    case "Pokémon GO":
-      klasse = "gamelogo bgPGO";
-      break;
-    case "Ingress":
-      klasse = "gamelogo bgING";
-      break;
+      case "": // no logo
+        klasse = "bgNone";
+        break;
+      case "Pokémon GO":
+        klasse = "gamelogo bgPGO";
+        break;
+      case "Ingress":
+        klasse = "gamelogo bgING";
+        break;
     }
     document.getElementById(myGameID).setAttribute("class", klasse);
   }

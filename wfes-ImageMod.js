@@ -20,14 +20,14 @@
     }
     a.className = styleclass;
     switch (position) {
-    case "afterEnd":
-    case "beforeBegin":
-      elem.parentNode.style.position = "relative";
-      break;
-    case "beforeEnd":
-    case "afterBegin":
-      elem.style.position = "relative";
-      break;
+      case "afterEnd":
+      case "beforeBegin":
+        elem.parentNode.style.position = "relative";
+        break;
+      case "beforeEnd":
+      case "afterBegin":
+        elem.style.position = "relative";
+        break;
     }
     elem.insertAdjacentElement(position, a);
   }
@@ -57,29 +57,29 @@
 
     window.wfes.f.addCSS(myCssId, myStyle);
     switch (myData.type) {
-    case "NEW":
-      elem = document.getElementsByClassName("wf-image-modal flex-grow bg-contain bg-center bg-no-repeat");
-      imageUrl = myData.imageUrl + "=s0";
-      addFullImageButton(elem[0], imageUrl, "mainImage");
+      case "NEW":
+        elem = document.getElementsByClassName("wf-image-modal flex-grow bg-contain bg-center bg-no-repeat");
+        imageUrl = myData.imageUrl + "=s0";
+        addFullImageButton(elem[0], imageUrl, "mainImage");
 
-      // Supporting Image
-      if (myData.supportingImageUrl) {
-        imageUrl = myData.supportingImageUrl + "=s0";
-        addFullImageButton(elem[1], imageUrl, "supportingImage");
-      }
-      break;
-    case "EDIT":
-      elem = document.getElementsByClassName("wf-image-modal");
-      imageUrl = myData.imageUrl + "=s0";
-      addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin");
-      break;
-    case "PHOTO":
-      elem = document.getElementsByClassName("photo-card__photo");
-      for (let i=0; i < elem.length; i++) {
-        imageUrl = myData.newPhotos[i].value + "=s0";
-        addFullImageButton(elem[i].parentNode.parentNode.parentNode, imageUrl, "additionalImage", "beforeEnd", "lupe bottom");
-      }
-      break;
+        // Supporting Image
+        if (myData.supportingImageUrl) {
+          imageUrl = myData.supportingImageUrl + "=s0";
+          addFullImageButton(elem[1], imageUrl, "supportingImage");
+        }
+        break;
+      case "EDIT":
+        elem = document.getElementsByClassName("wf-image-modal");
+        imageUrl = myData.imageUrl + "=s0";
+        addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin");
+        break;
+      case "PHOTO":
+        elem = document.getElementsByClassName("photo-card__photo");
+        for (let i=0; i < elem.length; i++) {
+          imageUrl = myData.newPhotos[i].value + "=s0";
+          addFullImageButton(elem[i].parentNode.parentNode.parentNode, imageUrl, "additionalImage", "beforeEnd", "lupe bottom");
+        }
+        break;
     }
   }
 

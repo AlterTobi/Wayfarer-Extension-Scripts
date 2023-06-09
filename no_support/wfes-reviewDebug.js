@@ -53,22 +53,22 @@
         continue;
       }
       switch(key) {
-      case "expires": {
-        const date = new Date(candidate[key]);
-        const dateStr = date.toLocaleString();
-        content += `<p><strong>${key}:</strong> ${dateStr}</p>`;
-        break;
-      }
-      case "t1": {
-        if (0.5 === candidate[key]) {
-          content += `<p><strong>${key}:</strong> ${candidate[key]}</p>`;
-        } else {
-          content += `<p class="wfes-red"><strong>${key}:</strong> ${candidate[key]}</p>`;
+        case "expires": {
+          const date = new Date(candidate[key]);
+          const dateStr = date.toLocaleString();
+          content += `<p><strong>${key}:</strong> ${dateStr}</p>`;
+          break;
         }
-        break;
-      }
-      default:
-        content += `<p><strong>${key}:</strong> ${candidate[key]}</p>`;
+        case "t1": {
+          if (0.5 === candidate[key]) {
+            content += `<p><strong>${key}:</strong> ${candidate[key]}</p>`;
+          } else {
+            content += `<p class="wfes-red"><strong>${key}:</strong> ${candidate[key]}</p>`;
+          }
+          break;
+        }
+        default:
+          content += `<p><strong>${key}:</strong> ${candidate[key]}</p>`;
       }
     }
 
