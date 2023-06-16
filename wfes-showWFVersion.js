@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.2.7
+// @version      1.3.0
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -17,7 +17,8 @@
     border: 2px solid red;
     padding: 5px;
     max-width: 50%;
-    box-shadow: 7px 7px 5px grey;}
+    box-shadow: 7px 7px 5px grey;
+    cursor: pointer;}
     /* Styles for dark mode */
     @media (prefers-color-scheme: dark) {
     .wfVersionCSS {
@@ -79,7 +80,7 @@
       versionDiv.removeChild(document.getElementById("version-dropdown"));
       versionDiv.appendChild(versionDropdown);
     }
-    versionButton.addEventListener("click", toggleVersions);
+    versionDropdown.addEventListener("click", toggleVersions);
   }
 
   function versionChanged() {
