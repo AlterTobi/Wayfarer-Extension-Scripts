@@ -1,6 +1,6 @@
 ## What is it?
 Userscripts/Tools for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
-> Userscript manager such as [Tampermonkey](https://tampermonkey.net/) required!
+> Userscript manager such as [Tampermonkey](https://tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/) required!
 
 ---
 

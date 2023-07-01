@@ -1,6 +1,6 @@
 ## Was ist das hier?
 Userscripts/Tools für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
-> ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) ist erforderlich!
+> ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) oder [Violentmonkey](https://violentmonkey.github.io/) ist erforderlich!
 
 ---
 
@@ -66,7 +66,7 @@ Dort könnt ihr auch neue Probleme oder Erweiterungswünsche melden.
 Eine Kontaktmöglichkeit für Fragen rund um Wayfarer und die Tools ist der Wayfarer Discord (englisch).
 Den Link findet ihr auf [wayfarer.tools](https://wayfarer.tools/), wo es auch weitere Skripte zu Wayfarer gibt.
 
-Des weiteren gibt es auch einen [deutschsprachigen Discord](https://discord.gg/9m2WvAC8N9) und eine [Telegram-Gruppe](https://t.me/wayfarerdach).
+Des weiteren gibt es auch einen [deutschsprachigen Discord](https://discord.gg/9m2WvAC8N9) und eine [Telegram-Gruppe](https://t.me/wayfarerdach), wo sich mit anderen Usern ausgetauscht werden kann.
 
 ## Lizenz und Copyright
 
