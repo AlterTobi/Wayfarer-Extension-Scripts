@@ -104,7 +104,7 @@
   }
 
   // Hash funktion
-  const TSH = s => {let h=9; for(let i=0; i<s.length;) {h=Math.imul(h^s.charCodeAt(i++), 9**9);}return h^(h>>>9);};
+  const TSH = s => {let h=9; for(let i=0; i < s.length;) {h=Math.imul(h^s.charCodeAt(i++), 9**9);}return h^(h>>>9);};
 
   // set UserID when properties available
   function setUserId() {
@@ -149,6 +149,85 @@
     };
     checkUID(1);
   });
+
+  /* =========== IndexedDB ============================= */
+  const dbName = "wfes-data";
+  const dbVersion = 1;
+  const dbStorageV1 = "localStorage";
+
+  const getIDBInstance = version => new Promise((resolve, reject) => {
+
+    if (!window.indexedDB) {
+      reject("This browser doesn't support IndexedDB!");
+      return;
+    }
+
+    const openRequest = window.indexedDB.open(dbName, version);
+    openRequest.onsuccess = event => {
+      const db = event.target.result;
+      resolve(db);
+    };
+
+    openRequest.onerror = (event) => {
+      console.error("Error using IndexedDB", event.target.errorCode);
+      reject(event.target.errorCode);
+    };
+
+    openRequest.onupgradeneeded = event => {
+      console.log(GM_info.script.name, "Upgrading database...");
+      console.dir(event);
+      const db = event.target.result;
+      const ver = db.version;
+
+      if (ver < 1) {
+        db.createObjectStore(dbStorageV1, { keyPath: "index" });
+      } else {
+        console.log(GM_info.script.name, "Database Upgrade: current version ", ver, "target version: ", version);
+      }
+    };
+
+  }); // getIDBInstance
+
+  // save data in "localstorage"
+  window.wfes.f.localSaveIDB = (name, content) => new Promise((resolve, reject) => {
+
+    getUserId().then((userId) => {
+      const json = JSON.stringify(content);
+      const index = name+"_"+userId;
+      const data = {index: index, data:json};
+      getIDBInstance(dbVersion).then(db => {
+        const tx = db.transaction([dbStorageV1], "readwrite");
+        tx.oncomplete = event => { db.close(); resolve(); };
+        tx.onerror = reject;
+        const objectStore = tx.objectStore(dbStorageV1);
+        objectStore.put(data);
+        tx.commit();
+      })
+        .catch(reject);
+    });
+
+  }); // window.wfes.f.localSaveIDB
+
+  // get data from "localstorage"
+  window.wfes.f.localGetIDB = (name, content = "") => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      getIDBInstance(dbVersion).then(db => {
+        const tx = db.transaction([dbStorageV1], "readonly");
+        tx.oncomplete = event => {db.close();};
+        const objectStore = tx.objectStore(dbStorageV1);
+        const result = objectStore.get(name);
+        result.onsuccess = () => {
+          resolve(result);
+        };
+        result.onerror = (event) => {
+          console.log("error retrieving data", event);
+          resolve(content);
+        };
+      });
+    });
+  });
+
+  /* =========== /IndexedDB ============================ */
 
   /* ================ overwrite XHR ================ */
   const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
