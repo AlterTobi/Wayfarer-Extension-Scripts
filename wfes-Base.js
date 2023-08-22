@@ -89,7 +89,6 @@
     });
   }
 
-
   function checkWfVersion(v) {
     if (wfes.version !== v) {
       // console.log("WF version changed from", wfes.version, "to", v);
@@ -232,7 +231,6 @@
   });
 
   /* =========== /IndexedDB ============================ */
-
 
   /* ================ overwrite XHR ================ */
   const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
@@ -401,7 +399,6 @@
 
   window.XMLHttpRequest.prototype.open = openReplacement;
   window.XMLHttpRequest.prototype.send = sendReplacement;
-
   /* ================ /overwrite XHR ================ */
 
   /* ================ showcase ====================== */
@@ -642,7 +639,6 @@
   window.wfes.g.isMobile = function() {
     return _isMobile;
   };
-
   /* ================ /getter ======================= */
 
   /* ================ setter ======================== */
