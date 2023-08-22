@@ -104,7 +104,7 @@
   }
 
   // Hash funktion
-  const TSH = s => {let h=9; for(let i=0; i < s.length;) {h=Math.imul(h^s.charCodeAt(i++), 9**9);}return h^(h>>>9);};
+  const TSH = s => {let h=9; for(let i=0; i<s.length;) {h=Math.imul(h^s.charCodeAt(i++), 9**9);}return h^(h>>>9);};
 
   // set UserID when properties available
   function setUserId() {
@@ -150,6 +150,7 @@
     checkUID(1);
   });
 
+
   /* =========== IndexedDB ============================= */
   const dbName = "wfes-data";
   const dbVersion = 1;
@@ -167,30 +168,29 @@
       const db = event.target.result;
       resolve(db);
     };
-
     openRequest.onerror = (event) => {
       console.error("Error using IndexedDB", event.target.errorCode);
       reject(event.target.errorCode);
     };
-
     openRequest.onupgradeneeded = event => {
       console.log(GM_info.script.name, "Upgrading database...");
-      console.dir(event);
       const db = event.target.result;
       const ver = db.version;
-
-      if (ver < 1) {
+      console.log(GM_info.script.name, "... old version", ver);
+      if (!db.objectStoreNames.contains(dbStorageV1)) {
         db.createObjectStore(dbStorageV1, { keyPath: "index" });
+      }
+      if (ver < 2) {
+        console.log(GM_info.script.name, "... old version", ver);
+        //         db.createObjectStore(dbStorageV1, { keyPath: "index" });
       } else {
         console.log(GM_info.script.name, "Database Upgrade: current version ", ver, "target version: ", version);
       }
     };
-
-  }); // getIDBInstance
+  });
 
   // save data in "localstorage"
   window.wfes.f.localSaveIDB = (name, content) => new Promise((resolve, reject) => {
-
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       const index = name+"_"+userId;
@@ -205,29 +205,34 @@
       })
         .catch(reject);
     });
-
-  }); // window.wfes.f.localSaveIDB
+  });
 
   // get data from "localstorage"
   window.wfes.f.localGetIDB = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       getIDBInstance(dbVersion).then(db => {
         const tx = db.transaction([dbStorageV1], "readonly");
-        tx.oncomplete = event => {db.close();};
+        tx.oncomplete = ( event ) => {db.close();};
+        tx.onerror = ( event ) => {console.log("transaction error:", event);};
         const objectStore = tx.objectStore(dbStorageV1);
-        const result = objectStore.get(name);
-        result.onsuccess = () => {
-          resolve(result);
+        const request = objectStore.get(name);
+        request.onsuccess = () => {
+          if (request.result) {
+            resolve(request.result.data);
+          } else {
+            resolve(content);
+          }
         };
-        result.onerror = (event) => {
-          console.log("error retrieving data", event);
-          resolve(content);
+        request.onerror = (event) => {
+          console.log("error retrieving data:", event);
+          resolve(undefined);
         };
       });
     });
   });
 
   /* =========== /IndexedDB ============================ */
+
 
   /* ================ overwrite XHR ================ */
   const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
