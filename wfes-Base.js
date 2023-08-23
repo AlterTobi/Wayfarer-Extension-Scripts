@@ -189,7 +189,7 @@
   });
 
   // save data in "localstorage"
-  window.wfes.f.localSaveIDB = (name, content) => new Promise((resolve, reject) => {
+  window.wfes.f.localSaveIDBcompat = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       const index = name+"_"+userId;
@@ -207,7 +207,7 @@
   });
 
   // get data from "localstorage"
-  window.wfes.f.localGetIDB = (name, content = "") => new Promise((resolve, reject) => {
+  window.wfes.f.localGetIDBcompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const index = name+"_"+userId;
       getIDBInstance(dbVersion).then(db => {
