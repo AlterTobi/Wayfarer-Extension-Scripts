@@ -209,12 +209,13 @@
   // get data from "localstorage"
   window.wfes.f.localGetIDB = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
+      const index = name+"_"+userId;
       getIDBInstance(dbVersion).then(db => {
         const tx = db.transaction([dbStorageV1], "readonly");
         tx.oncomplete = ( event ) => {db.close();};
         tx.onerror = ( event ) => {console.log("transaction error:", event);};
         const objectStore = tx.objectStore(dbStorageV1);
-        const request = objectStore.get(name);
+        const request = objectStore.get(index);
         request.onsuccess = () => {
           if (request.result) {
             resolve(request.result.data);
