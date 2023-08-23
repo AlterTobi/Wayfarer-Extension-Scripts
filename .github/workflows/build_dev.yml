@@ -35,6 +35,9 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           target-folder: dev
           single-commit: true # need no history
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: 'mini'
           branch: gh-pages # The branch the action should deploy to.
