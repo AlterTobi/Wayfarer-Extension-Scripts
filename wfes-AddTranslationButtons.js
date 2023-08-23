@@ -157,16 +157,11 @@
     translateButton.remove();
   }
 
-
-  if (window.wfes.f.hasMinVersion("1.9.0")) {
-    init();
-    window.addEventListener("WFESReviewPageNewLoaded", addTranslationButtonsNew);
-    window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
-    window.addEventListener("WFESReviewPagePhotoLoaded", addTranslationButtonsPhoto);
-    window.addEventListener("WFESReviewDecisionSent", removeButton);
-  } else {
-    console.warn(GM_info.script.name, "Need at least wfes-Base version 1.9.0. Please upgrade.");
-  }
+  init();
+  window.addEventListener("WFESReviewPageNewLoaded", addTranslationButtonsNew);
+  window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
+  window.addEventListener("WFESReviewPagePhotoLoaded", addTranslationButtonsPhoto);
+  window.addEventListener("WFESReviewDecisionSent", removeButton);
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
