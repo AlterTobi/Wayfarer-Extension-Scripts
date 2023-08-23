@@ -22,6 +22,12 @@ jobs:
           cd _buildscripts
           /usr/bin/python3 ./build.py -c build_dev.ini
 
+      - name: Auto Minify
+        uses: nizarmah/auto-minify@v2.1
+        with:
+          directory: 'build'
+          output: 'mini'
+      
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -29,3 +35,8 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           target-folder: dev
           single-commit: true # need no history
+        with:
+          folder: 'mini'
+          branch: gh-pages # The branch the action should deploy to.
+          target-folder: mini
+          clean-exclude: dev # preserve the dev folder
