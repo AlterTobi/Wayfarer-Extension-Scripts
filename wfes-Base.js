@@ -173,7 +173,7 @@
     openRequest.onupgradeneeded = event => {
       console.log(GM_info.script.name, "Upgrading database...");
       const db = event.target.result;
-      const ver = db.version;
+      // const ver = db.version;
       if (!db.objectStoreNames.contains(idbLocalStorageCompat)) {
         db.createObjectStore(idbLocalStorageCompat, { keyPath: "index" });
       }
