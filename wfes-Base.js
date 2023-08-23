@@ -11,9 +11,13 @@
 
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
+  const loginPath = "/login";
+  // session storage
   const sStoreReview = "wfes_Reviews";
   const sStoreNominationsDetails = "wfes_nominationDetails";
-  const loginPath = "/login";
+  // indexedDB
+  const idbName = "wfes-data";
+  const idbLocalStorageCompat = "localStorage";
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
@@ -149,12 +153,7 @@
     checkUID(1);
   });
 
-
   /* =========== IndexedDB ============================= */
-  const dbName = "wfes-data";
-  const dbVersion = 1;
-  const dbStorageV1 = "localStorage";
-
   const getIDBInstance = version => new Promise((resolve, reject) => {
 
     if (!window.indexedDB) {
@@ -162,7 +161,7 @@
       return;
     }
 
-    const openRequest = window.indexedDB.open(dbName, version);
+    const openRequest = window.indexedDB.open(idbName, version);
     openRequest.onsuccess = event => {
       const db = event.target.result;
       resolve(db);
@@ -175,15 +174,8 @@
       console.log(GM_info.script.name, "Upgrading database...");
       const db = event.target.result;
       const ver = db.version;
-      console.log(GM_info.script.name, "... old version", ver);
-      if (!db.objectStoreNames.contains(dbStorageV1)) {
-        db.createObjectStore(dbStorageV1, { keyPath: "index" });
-      }
-      if (ver < 2) {
-        console.log(GM_info.script.name, "... old version", ver);
-        //         db.createObjectStore(dbStorageV1, { keyPath: "index" });
-      } else {
-        console.log(GM_info.script.name, "Database Upgrade: current version ", ver, "target version: ", version);
+      if (!db.objectStoreNames.contains(idbLocalStorageCompat)) {
+        db.createObjectStore(idbLocalStorageCompat, { keyPath: "index" });
       }
     };
   });
@@ -194,11 +186,11 @@
       const json = JSON.stringify(content);
       const index = name+"_"+userId;
       const data = {index: index, data:json};
-      getIDBInstance(dbVersion).then(db => {
-        const tx = db.transaction([dbStorageV1], "readwrite");
+      getIDBInstance().then(db => {
+        const tx = db.transaction([idbLocalStorageCompat], "readwrite");
         tx.oncomplete = event => { db.close(); resolve(); };
         tx.onerror = reject;
-        const objectStore = tx.objectStore(dbStorageV1);
+        const objectStore = tx.objectStore(idbLocalStorageCompat);
         objectStore.put(data);
         tx.commit();
       })
@@ -210,11 +202,11 @@
   window.wfes.f.localGetIDBcompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const index = name+"_"+userId;
-      getIDBInstance(dbVersion).then(db => {
-        const tx = db.transaction([dbStorageV1], "readonly");
+      getIDBInstance().then(db => {
+        const tx = db.transaction([idbLocalStorageCompat], "readonly");
         tx.oncomplete = ( event ) => {db.close();};
         tx.onerror = ( event ) => {console.log("transaction error:", event);};
-        const objectStore = tx.objectStore(dbStorageV1);
+        const objectStore = tx.objectStore(idbLocalStorageCompat);
         const request = objectStore.get(index);
         request.onsuccess = () => {
           if (request.result) {
@@ -230,7 +222,6 @@
       });
     });
   });
-
   /* =========== /IndexedDB ============================ */
 
   /* ================ overwrite XHR ================ */
