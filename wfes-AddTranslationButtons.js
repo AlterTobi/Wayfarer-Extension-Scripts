@@ -40,7 +40,7 @@
 
   function init() {
     window.wfes.f.addCSS(myCSSId, myStyle);
-    window.wfes.f.localGetIDBcompat(storageName, "Deepl").then(e => {
+    window.wfes.f.localGet(storageName, "Deepl").then(e => {
       currentEngine = e;
     });
   }
@@ -74,7 +74,7 @@
 
         select.addEventListener("change", function() {
           currentEngine = select.value;
-          window.wfes.f.localSaveIDBcompat(storageName, currentEngine);
+          window.wfes.f.localSave(storageName, currentEngine);
           link.href = engines[currentEngine].url + encodeURIComponent(text);
           link.target = engines[currentEngine].target;
         });
