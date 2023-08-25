@@ -1,5 +1,5 @@
 // @name         Base
-// @version      1.9.0
+// @version      1.9.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -178,49 +178,6 @@
         db.createObjectStore(idbLocalStorageCompat, { keyPath: "index" });
       }
     };
-  });
-
-  // save data in "localstorage"
-  window.wfes.f.localSaveIDBcompat = (name, content) => new Promise((resolve, reject) => {
-    getUserId().then((userId) => {
-      const json = JSON.stringify(content);
-      const index = name+"_"+userId;
-      const data = {index: index, data:json};
-      getIDBInstance().then(db => {
-        const tx = db.transaction([idbLocalStorageCompat], "readwrite");
-        tx.oncomplete = event => { db.close(); resolve(); };
-        tx.onerror = reject;
-        const objectStore = tx.objectStore(idbLocalStorageCompat);
-        objectStore.put(data);
-        tx.commit();
-      })
-        .catch(reject);
-    });
-  });
-
-  // get data from "localstorage"
-  window.wfes.f.localGetIDBcompat = (name, content = "") => new Promise((resolve, reject) => {
-    getUserId().then((userId) => {
-      const index = name+"_"+userId;
-      getIDBInstance().then(db => {
-        const tx = db.transaction([idbLocalStorageCompat], "readonly");
-        tx.oncomplete = ( event ) => {db.close();};
-        tx.onerror = ( event ) => {console.log("transaction error:", event);};
-        const objectStore = tx.objectStore(idbLocalStorageCompat);
-        const request = objectStore.get(index);
-        request.onsuccess = () => {
-          if (request.result) {
-            resolve(request.result.data);
-          } else {
-            resolve(content);
-          }
-        };
-        request.onerror = (event) => {
-          console.log("error retrieving data:", event);
-          resolve(undefined);
-        };
-      });
-    });
   });
   /* =========== /IndexedDB ============================ */
 
@@ -473,13 +430,99 @@
   /* ================ /nomination page ============== */
 
   /* ================ basic functions =============== */
+  // save data in "localstorage"
+  window.wfes.f.localSaveIDBcompat = (name, content) => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      const json = JSON.stringify(content);
+      const index = name+"_"+userId;
+      const data = {index: index, data:json};
+      getIDBInstance().then(db => {
+        const tx = db.transaction([idbLocalStorageCompat], "readwrite");
+        tx.oncomplete = event => { db.close(); resolve(); };
+        tx.onerror = reject;
+        const objectStore = tx.objectStore(idbLocalStorageCompat);
+        objectStore.put(data);
+        tx.commit();
+      })
+        .catch(reject);
+    });
+  });
+
+  // get data from "localstorage"
+  window.wfes.f.localGetIDBcompat = (name, content = "") => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      const index = name+"_"+userId;
+      getIDBInstance().then(db => {
+        const tx = db.transaction([idbLocalStorageCompat], "readonly");
+        tx.oncomplete = ( event ) => {db.close();};
+        tx.onerror = ( event ) => {console.log("transaction error:", event);};
+        const objectStore = tx.objectStore(idbLocalStorageCompat);
+        const request = objectStore.get(index);
+        request.onsuccess = () => {
+          if (request.result) {
+            resolve(request.result.data);
+          } else {
+            resolve(content);
+          }
+        };
+        request.onerror = (event) => {
+          console.log("error retrieving data:", event);
+          resolve(undefined);
+        };
+      });
+    });
+  });
+
   // save data in localstorage
-  window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
+  window.wfes.f.localSaveLS = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       localStorage.setItem(name+"_"+userId, json);
       resolve();
     });
+  });
+
+  // get data from localstorage
+  window.wfes.f.localGetLS = (name, content = "") => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      const data = JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
+      resolve(data);
+    });
+  });
+
+  // remove data from localstorage
+  window.wfes.f.localRemoveLS = (name) => new Promise((resolve, reject) => {
+    getUserId().then((userId) => {
+      localStorage.removeItem(name+"_"+userId);
+      resolve();
+    });
+  });
+
+  // get data from IDB or localstorage
+  window.wfes.f.localGetLS = (name, content = "") => new Promise((resolve, reject) => {
+    window.wfes.f.localGetIDBcompat(name, content)
+      .then(data => {
+        if ((data !== content)&&(undefined !== data)) { // got something
+          resolve(data);
+        } else {
+          window.wfes.f.localGetLS(name, content)
+            .then((data) => {
+              // jetzt in IDB speichern
+              window.wfes.f.localSaveIDBcompat(name, data)
+                .then(()=>{
+                  // window.wfes.f.localRemoveLS(name); // löschen
+                });
+              resolve(data);
+            });
+        }
+      });
+  });
+
+  // save data in localstorage/IDB
+  window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
+    window.wfes.f.localSaveIDBcompat(name, content)
+      .then(() => {window.wfes.f.localSaveLS(name, content);})
+      .then(() => {resolve();});
   });
 
   // save data in sessionstorage
@@ -491,13 +534,6 @@
     });
   });
 
-  // get data from localstorage
-  window.wfes.f.localGet = (name, content = "") => new Promise((resolve, reject) => {
-    getUserId().then((userId) => {
-      const data = JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
-      resolve(data);
-    });
-  });
   // gete data from sessionstorage
   window.wfes.f.sessionGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
