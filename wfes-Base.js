@@ -433,9 +433,8 @@
   // save data in "localstorage"
   window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
-      const json = JSON.stringify(content);
       const index = name+"_"+userId;
-      const data = {index: index, data:json};
+      const data = {index: index, data:content};
       getIDBInstance().then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readwrite");
         tx.oncomplete = event => { db.close(); resolve(); };
@@ -460,8 +459,7 @@
         const request = objectStore.get(index);
         request.onsuccess = () => {
           if (request.result) {
-            const decoded = JSON.parse(request.result.data);
-            resolve(decoded);
+            resolve(request.result.data);
           } else {
             resolve(content);
           }
