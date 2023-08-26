@@ -460,7 +460,8 @@
         const request = objectStore.get(index);
         request.onsuccess = () => {
           if (request.result) {
-            resolve(request.result.data);
+            const decoded = JSON.parse(request.result.data);
+            resolve(decoded);
           } else {
             resolve(content);
           }
