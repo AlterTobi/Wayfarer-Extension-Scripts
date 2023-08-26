@@ -485,7 +485,6 @@
   window.wfes.f.localStorageGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const data = JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
-      debugger;
       resolve(data);
     });
   });
@@ -510,7 +509,7 @@
               // jetzt in IDB speichern
               window.wfes.f.localSave(name, data)
                 .then(()=>{
-                  // window.wfes.f.localStorageRemove(name); // löschen
+                  window.wfes.f.localStorageRemove(name); // löschen
                 });
               resolve(data);
             });

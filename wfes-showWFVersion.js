@@ -93,7 +93,6 @@
 
   function handleVersion(versionHistory) {
     // get latest version
-    debugger;
     const len = versionHistory.length;
     const options = {
       year: "numeric",
