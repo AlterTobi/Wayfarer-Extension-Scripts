@@ -431,7 +431,7 @@
 
   /* ================ basic functions =============== */
   // save data in "localstorage"
-  window.wfes.f.iDBSaveLScompat = (name, content) => new Promise((resolve, reject) => {
+  window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       const index = name+"_"+userId;
@@ -486,6 +486,7 @@
   window.wfes.f.localStorageGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const data = JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
+      debugger;
       resolve(data);
     });
   });
@@ -508,21 +509,14 @@
           window.wfes.f.localStorageGet(name, content)
             .then((data) => {
               // jetzt in IDB speichern
-              window.wfes.f.iDBSaveLScompat(name, data)
+              window.wfes.f.localSave(name, data)
                 .then(()=>{
-                  window.wfes.f.localStorageRemove(name); // löschen
+                  // window.wfes.f.localStorageRemove(name); // löschen
                 });
               resolve(data);
             });
         }
       });
-  });
-
-  // save data in localstorage/IDB
-  window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
-    window.wfes.f.iDBSaveLScompat(name, content)
-      .then(() => {window.wfes.f.localStorageSave(name, content);})
-      .then(() => {resolve();});
   });
 
   // save data in sessionstorage
