@@ -499,7 +499,7 @@
   });
 
   // get data from IDB or localstorage
-  window.wfes.f.localGetLS = (name, content = "") => new Promise((resolve, reject) => {
+  window.wfes.f.localGet = (name, content = "") => new Promise((resolve, reject) => {
     window.wfes.f.localGetIDBcompat(name, content)
       .then(data => {
         if ((data !== content)&&(undefined !== data)) { // got something
