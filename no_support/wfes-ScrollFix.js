@@ -1,5 +1,5 @@
 // @name         ScrollFix
-// @version      0.2.2
+// @version      0.2.3
 // @description  Fix Scroll Down Bug
 // @author       AlterTobi
 
@@ -10,7 +10,10 @@
     const _dom = document.querySelector("mat-sidenav-content");
     const _evfunc= () => {
       console.log("event gescrollt");
-      document.querySelector(".wf-page-header__title > div:nth-child(1)").scrollIntoView();
+      const elem = document.querySelector(".wf-page-header__title > div:nth-child(1)");
+      if (null !== elem) {
+        elem.scrollIntoView();
+      }
       _dom.removeEventListener("scroll", _evfunc);
     };
     _dom.addEventListener("scroll", _evfunc);
