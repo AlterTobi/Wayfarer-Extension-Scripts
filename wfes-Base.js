@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.0.0
+// @version      2.0.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -509,7 +509,12 @@
               // jetzt in IDB speichern
               window.wfes.f.localSave(name, data)
                 .then(()=>{
-                  window.wfes.f.localStorageRemove(name); // löschen
+                  getUserId().then((userId) => {
+                    if (tmpUserId !== userId) {
+                      // wenn in IDB gespeichert und eine gültige userID da ist: löschen
+                      window.wfes.f.localStorageRemove(name);
+                    }
+                  });
                 });
               resolve(data);
             });
