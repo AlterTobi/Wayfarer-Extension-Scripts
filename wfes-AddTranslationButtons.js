@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.0.0
+// @version      2.1.0
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 
@@ -162,6 +162,7 @@
   window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
   window.addEventListener("WFESReviewPagePhotoLoaded", addTranslationButtonsPhoto);
   window.addEventListener("WFESReviewDecisionSent", removeButton);
+
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
