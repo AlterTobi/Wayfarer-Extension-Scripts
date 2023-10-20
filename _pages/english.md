@@ -35,8 +35,9 @@ Install [WFES Base](wfes-Base.user.js) first!
     - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
 
 ### Unsupported scripts / scripts in beta state
-These scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
+Some of these scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
 may work or not. If you are a developer, have a look at it and fix bugs. :-)
+Other scripts are new, untested, still in development, obsolete or outdated.
 
 * [Nomination page StreetView](wfes-NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!

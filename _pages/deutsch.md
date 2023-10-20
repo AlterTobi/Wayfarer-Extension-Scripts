@@ -36,7 +36,7 @@ Zuerst [WFES Base](wfes-Base.user.js) installieren!
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
 Manche dieser Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
-Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
+Andere Skripte sind neu, ungetestet, noch in Entwicklung oder veraltet.
  
 * [Nomination page StreetView](wfes-NominationsStreetView.user.js)
     - Fügt bei den eigenen Nominierungen eine Streetview-Ansicht hinzu, wie es die Bewerter sehen würden
