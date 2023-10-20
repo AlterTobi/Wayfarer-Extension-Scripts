@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.1.0
+// @version      1.1.1
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -10,7 +10,7 @@
 
   const searchRegex = /#hold|,yxcv/;
   const idlist = [];
-  const timeout = 2000;
+  const timeout = 2500;
   const nomlistURL = "https://wayfarer.nianticlabs.com/new/nominations";
 
   // based on example from https://www.w3schools.com/js/js_cookies.asp
@@ -66,7 +66,7 @@
       _setHold(o.id);
     } else {
       window.wfes.f.createNotification("AutoHold: all nominations processed, reloading page", "green");
-      setTimeout(()=>{window.location.href=nomlistURL;}, timeout);
+      setTimeout(()=>{window.location.href=nomlistURL;}, 2*timeout);
     }
   }
 
