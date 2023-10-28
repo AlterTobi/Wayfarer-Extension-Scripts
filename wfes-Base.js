@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.0.1
+// @version      2.0.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -142,8 +142,9 @@
   const getUserId = () => new Promise((resolve, reject) => {
     const checkUID = tries => {
       if (tries > 20) {
-        resolve(tmpUserId);
+        // resolve(tmpUserId);
         _getPropsOnce();
+        reject();
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
@@ -433,6 +434,7 @@
   // save data in "localstorage"
   window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
+      console.log(GM_info.script.name, "localSave:", userId, name, content);
       const index = name+"_"+userId;
       const data = {index: index, data:content};
       getIDBInstance().then(db => {
@@ -444,12 +446,18 @@
         tx.commit();
       })
         .catch(reject);
-    });
+    })
+      .catch(()=>{
+        console.warn(GM_info.script.name, "no userID - save rejected");
+        reject();
+      }
+      );
   });
 
   // get data from "localstorage"
   window.wfes.f.iDBGetLScompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
+      console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
       const index = name+"_"+userId;
       getIDBInstance().then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readonly");

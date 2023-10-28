@@ -1,11 +1,12 @@
 // @name         Showcase
-// @version      1.2.2
+// @version      1.3.0
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
 (function() {
   "use strict";
 
+  const itemSelector = ".showcase-gallery__item"; // for removing the user-select
   const myCssId = "showcaseCSS";
   const myStyle = `.gamelogo{
     float: left;
@@ -86,6 +87,10 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     window.wfes.f.addCSS(myCssId, myStyle);
     const showcase = window.wfes.g.showcase();
     showDetails(showcase.list[0]);
+    window.wfes.f.waitForElem(itemSelector).then(elem=> {
+      elem.style.userSelect = "text"; // allow text selection
+    });
+
   }
 
   let loadHomeTimerId = null;
