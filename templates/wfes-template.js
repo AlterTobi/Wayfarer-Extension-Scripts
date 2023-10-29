@@ -1,5 +1,5 @@
 // @name         Template
-// @version      1.0.0
+// @version      1.0.1
 // @description  Template
 // @author       AlterTobi
 
@@ -8,7 +8,8 @@
 
   const myCssId = "templateCSS";
   const myStyle = `body {
-    display: none;
+        display: none;
+    }
     `;
 
   function myTemplate() {
