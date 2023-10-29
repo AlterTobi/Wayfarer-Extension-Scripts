@@ -1,4 +1,7 @@
 module.exports = {
+  plugins: [
+    '@stylistic/js'
+  ],
   env: {
     browser: true,
     es2020: true,
@@ -40,12 +43,12 @@ module.exports = {
       "yoda": ["error", "always", { "onlyEquality": true }],
       
       // Layout
-      "array-bracket-newline": ["warn", "consistent"],
+      "@stylistic/js/array-bracket-newline": ["warn", "consistent"],
       "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
       "comma-dangle": ["warn", "only-multiline"],
       "comma-spacing": ["warn", { "before": false, "after": true }],
       "func-call-spacing": ["warn", "never"],
-      "indent": ["warn", 2, { "SwitchCase": 1 }],
+      "@stylistic/js/indent": ["warn", 2, { "SwitchCase": 1 }],
       "newline-per-chained-call": "warn",
       "no-multi-spaces": "warn",
       "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],
