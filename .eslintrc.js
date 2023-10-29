@@ -35,6 +35,8 @@ module.exports = {
       "space-before-function-paren": ["error", "never"],
       "spaced-comment": ["warn", "always"],
       "strict": ["error", "function"],
+//      "strict": ["error", "global"],
+//      "strict": ["error", "never"],
       "yoda": ["error", "always", { "onlyEquality": true }],
       
       // Layout
