@@ -434,7 +434,7 @@
   // save data in "localstorage"
   window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
-      console.log(GM_info.script.name, "localSave:", userId, name, content);
+      // console.log(GM_info.script.name, "localSave:", userId, name, content);
       const index = name+"_"+userId;
       const data = {index: index, data:content};
       getIDBInstance().then(db => {
@@ -457,7 +457,7 @@
   // get data from "localstorage"
   window.wfes.f.iDBGetLScompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
-      console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
+      // console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
       const index = name+"_"+userId;
       getIDBInstance().then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readonly");
