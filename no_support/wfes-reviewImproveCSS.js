@@ -73,11 +73,12 @@
   }
 
   function init() {
-    //   window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
+    window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
     window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
   }
 
-  init();
+  // init();
+  window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
