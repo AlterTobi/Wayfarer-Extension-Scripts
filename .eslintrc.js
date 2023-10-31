@@ -41,7 +41,10 @@ module.exports = {
 //      "strict": ["error", "global"],
 //      "strict": ["error", "never"],
       "yoda": ["error", "always", { "onlyEquality": true }],
-      
+
+      // keine Warnung für die init() Funktion
+      "no-unused-vars": ["error", { "varsIgnorePattern": "init" }],
+
       // Layout
       "@stylistic/js/array-bracket-newline": ["warn", "consistent"],
       "@stylistic/js/brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
