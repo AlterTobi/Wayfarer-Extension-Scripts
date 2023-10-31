@@ -7,13 +7,19 @@ Fügt eine Schaltfläche im Kopf der Seite zum Übersetzen aller Texte hinzu. W�
 * [Download](../wfes-AddTranslationButtons.user.js)
 
 
-## Google Translate
+---
+
+## veraltete Scripte
+
+Diese Scripte werden nicht mehr unterstützt und machen Probleme mit dem neuesten Wayfarer-Update.
+
+### Google Translate
 Die "alte" Version des Tools, mit Schaltflächen an allen Texten
 
 ![Google Translate](../images/google-translate.png "Google translation buttons")
 * [Download](../wfes-AddTranslationButtonsGoogle.user.js)
 
-## Deepl Translate
+### Deepl Translate
 wie Google, aber mit Deepl als Übersetzer
 
 ![Deepl Translate](../images/deepl-translate.png "Deepl translation buttons")
