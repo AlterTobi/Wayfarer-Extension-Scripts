@@ -1,6 +1,6 @@
 // @name Review Improve CSS
 // @version 1.0.8
-// @description fix for small heightin Wayfarer 5.2
+// @description fix for small height in Wayfarer 5.2
 // @author AlterTobi
 
 (function() {
