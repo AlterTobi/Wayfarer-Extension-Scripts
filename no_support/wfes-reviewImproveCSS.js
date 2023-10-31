@@ -1,6 +1,6 @@
 // @name Review Improve CSS
-// @version 1.0.8
-// @description fix for small heightin Wayfarer 5.2
+// @version 1.0.9
+// @description fix for small height in Wayfarer 5.2
 // @author AlterTobi
 
 (function() {
@@ -72,7 +72,12 @@
     });
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
+  function init() {
+    window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
+    window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
+  }
+
+  // init();
   window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);

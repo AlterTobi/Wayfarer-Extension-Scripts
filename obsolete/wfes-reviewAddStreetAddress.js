@@ -1,5 +1,5 @@
 // @name review Add Street Address
-// @version 1.0.5
+// @version 1.0.7
 // @description fix for missing Street Address in Wayfarer 5.2
 // @author AlterTobi
 
@@ -22,7 +22,11 @@
       });
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", addStreetAddress);
+  const init = function() {
+    window.addEventListener("WFESReviewPageNewLoaded", addStreetAddress);
+  };
+
+  // init();
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();

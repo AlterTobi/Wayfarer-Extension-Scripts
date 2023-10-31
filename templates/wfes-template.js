@@ -4,7 +4,7 @@
 // @author       AlterTobi
 
 (function() {
-   "use strict";
+  "use strict";
 
   const myCssId = "templateCSS";
   const myStyle = `body {
