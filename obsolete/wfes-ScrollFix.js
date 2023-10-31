@@ -1,5 +1,5 @@
 // @name         ScrollFix
-// @version      0.2.3
+// @version      0.3.0
 // @description  Fix Scroll Down Bug
 // @author       AlterTobi
 
@@ -19,9 +19,12 @@
     _dom.addEventListener("scroll", _evfunc);
   }
 
+  const init = function() {
   // window.addEventListener("WFESReviewPageNewLoaded", scrollUp);
-  window.addEventListener("WFESNominationDetailLoaded", scrollUp);
+    window.addEventListener("WFESNominationDetailLoaded", scrollUp);
+  };
 
+  // init
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
