@@ -1,4 +1,7 @@
 module.exports = {
+  plugins: [
+    '@stylistic/js'
+  ],
   env: {
     browser: true,
     es2020: true,
@@ -35,26 +38,28 @@ module.exports = {
       "space-before-function-paren": ["error", "never"],
       "spaced-comment": ["warn", "always"],
       "strict": ["error", "function"],
+//      "strict": ["error", "global"],
+//      "strict": ["error", "never"],
       "yoda": ["error", "always", { "onlyEquality": true }],
       
       // Layout
-      "array-bracket-newline": ["warn", "consistent"],
-      "brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
-      "comma-dangle": ["warn", "only-multiline"],
-      "comma-spacing": ["warn", { "before": false, "after": true }],
-      "func-call-spacing": ["warn", "never"],
-      "indent": ["warn", 2, { "SwitchCase": 1 }],
-      "newline-per-chained-call": "warn",
-      "no-multi-spaces": "warn",
-      "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],
-      "no-tabs": ["warn", { "allowIndentationTabs": true }],
-      "no-trailing-spaces": ["warn", { "skipBlankLines": false }],
-      "no-whitespace-before-property": "error",
-      "quotes": ["error", "double", { "avoidEscape": true }],
-      "semi": ["warn", "always"],
-      "semi-spacing": ["warn", {"before": false, "after": true}],
-      "semi-style": ["warn", "last"],
-      "space-before-blocks": "warn",
-      "switch-colon-spacing": ["error", {"after": true, "before": false}]
+      "@stylistic/js/array-bracket-newline": ["warn", "consistent"],
+      "@stylistic/js/brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
+      "@stylistic/js/comma-dangle": ["warn", "only-multiline"],
+      "@stylistic/js/comma-spacing": ["warn", { "before": false, "after": true }],
+      "@stylistic/js/func-call-spacing": ["warn", "never"],
+      "@stylistic/js/indent": ["warn", 2, { "SwitchCase": 1 }],
+      "@stylistic/js/newline-per-chained-call": "warn",
+      "@stylistic/js/no-multi-spaces": "warn",
+      "@stylistic/js/no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],
+      "@stylistic/js/no-tabs": ["warn", { "allowIndentationTabs": true }],
+      "@stylistic/js/no-trailing-spaces": ["warn", { "skipBlankLines": false }],
+      "@stylistic/js/no-whitespace-before-property": "error",
+      "@stylistic/js/quotes": ["error", "double", { "avoidEscape": true }],
+      "@stylistic/js/semi": ["warn", "always"],
+      "@stylistic/js/semi-spacing": ["warn", {"before": false, "after": true}],
+      "@stylistic/js/semi-style": ["warn", "last"],
+      "@stylistic/js/space-before-blocks": "warn",
+      "@stylistic/js/switch-colon-spacing": ["error", {"after": true, "before": false}]
   },
 };
