@@ -73,7 +73,7 @@
   }
 
   function init() {
- //   window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
+    //   window.addEventListener("WFESReviewPageNewLoaded", reviewImproveCSS);
     window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
   }
 
