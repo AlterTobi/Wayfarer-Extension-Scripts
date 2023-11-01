@@ -1,5 +1,5 @@
 // @name URLify
-// @version 1.3.1
+// @version 1.3.3
 // @description detect links in supporting information
 // @author AlterTobi
 
@@ -22,7 +22,7 @@
   `;
 
   const myReg = /((https?:\/\/)[-\w@:%_+.~#?,&/=!]+)/g;
-  let maxtries = 10;
+  const supStmtSel = "app-supporting-info-b > wf-review-card-b > div.wf-review-card__body > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted";
 
   // Button setzen
   function setSmallButton(url, elem) {
@@ -42,19 +42,22 @@
     if (undefined !== candidate.statement) {
       const urls = candidate.statement.match(myReg);
       if (null !== urls) {
-        const elem = document.querySelector("app-supporting-info > wf-review-card > div.wf-review-card__body > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted");
-        if (null !== elem) {
-          urls.forEach(function(url) {
-            setSmallButton(url, elem);
-          });
-        } else if (maxtries-- > 0) {
-          setTimeout(detectURL, 100);
-        }
+        window.wfes.f.waitForElem(supStmtSel)
+          .then(elem => {
+            urls.forEach(function(url) {
+              setSmallButton(url, elem);
+            });
+          })
+          .catch((e)=>{console.warn(e);});
       }
     }
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", detectURL);
+  function init() {
+    window.addEventListener("WFESReviewPageNewLoaded", detectURL);
+  }
+
+  init();
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
