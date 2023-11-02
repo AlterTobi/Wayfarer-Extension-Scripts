@@ -20,7 +20,6 @@ jobs:
       - name: Install and Build
         run: |
           cd _buildscripts
-          env
           /usr/bin/python3 ./build.py -c build_dev.ini
 
       - name: Deploy
