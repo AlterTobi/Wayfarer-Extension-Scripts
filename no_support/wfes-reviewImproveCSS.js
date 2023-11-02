@@ -31,6 +31,10 @@
   // const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
   // const historicalCard = "#historical-cultural-card";
   const ccategorySelector = "app-review-categorization-b > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
+  const displayNoneSelectors = ["app-review-new-b > div > div:nth-child(1) > h4",
+    "app-review-new-b > div > div:nth-child(1) > p",
+    "app-review-new-b > div > div:nth-child(2) > h4",
+    "app-review-new-b > div > div:nth-child(2) > p"];
 
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
@@ -45,6 +49,11 @@
     // smaller font site for title and description
     window.wfes.f.waitForElem(titleSelector).then((elem)=>{elem.classList.add("wfes-text-4xl");});
     window.wfes.f.waitForElem(descriptionSelector).then((elem)=>{elem.classList.add("wfes-text-lg");});
+
+    // remove card headers and descriptions
+    displayNoneSelectors.forEach(selector => {
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-none");});
+    });
 
     // remove empty space in "stars-only" cards
     // starsCardsSelectors.forEach(selector => {
