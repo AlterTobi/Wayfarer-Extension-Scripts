@@ -13,7 +13,7 @@
     .wf-review-card__footer { padding-bottom: 0.2rem; }
     .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
     .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
-    .wfes-h490 { min-height: 490px; }
+    .wfes-h490 { min-height: 300px; }
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
     .wfes-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
