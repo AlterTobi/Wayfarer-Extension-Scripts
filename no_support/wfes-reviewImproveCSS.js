@@ -24,7 +24,7 @@
     .wfes-fit-content { max-width: fit-content; }
     `;
 
-  const cardSelectors = ["app-photo-b > wf-review-card", "app-title-and-description-b > wf-review-card", "app-supporting-info-b > wf-review-card"];
+  const cardSelectors = ["app-photo-b > wf-review-card-b", "app-title-and-description-b > wf-review-card", "app-supporting-info-b > wf-review-card-b"];
   const dupeSelector = "#check-duplicates-card";
   const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
   const descriptionSelector = "#title-description-card > div.wf-review-card__body > div > div";
