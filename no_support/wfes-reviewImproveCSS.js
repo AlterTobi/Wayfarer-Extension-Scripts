@@ -1,6 +1,6 @@
 // @name Review Improve CSS
-// @version 1.0.9
-// @description fix for small height in Wayfarer 5.2
+// @version 1.0.10
+// @description CSS modifcations for Wayfarer 5.7
 // @author AlterTobi
 
 (function() {
@@ -24,13 +24,13 @@
     .wfes-fit-content { max-width: fit-content; }
     `;
 
-  const cardSelectors = ["app-should-be-wayspot > wf-review-card", "app-title-and-description > wf-review-card", "app-supporting-info > wf-review-card"];
+  const cardSelectors = ["app-photo-b > wf-review-card", "app-title-and-description-b > wf-review-card", "app-supporting-info-b > wf-review-card"];
   const dupeSelector = "#check-duplicates-card";
   const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
   const descriptionSelector = "#title-description-card > div.wf-review-card__body > div > div";
-  const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
-  const historicalCard = "#historical-cultural-card";
-  const commentH4Selector = "app-review-comments > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
+  // const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
+  // const historicalCard = "#historical-cultural-card";
+  const ccategorySelector = "app-review-categorization-b > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
 
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
@@ -47,17 +47,16 @@
     window.wfes.f.waitForElem(descriptionSelector).then((elem)=>{elem.classList.add("wfes-text-lg");});
 
     // remove empty space in "stars-only" cards
-    starsCardsSelectors.forEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
-    });
+    // starsCardsSelectors.forEach(selector => {
+    // window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
+    // });
 
     // remove spaces between cards - grid class
-    window.wfes.f.waitForElem(historicalCard).then((elem)=>{elem.parentElement.parentElement.classList.remove("grid");});
+    // window.wfes.f.waitForElem(historicalCard).then((elem)=>{elem.parentElement.parentElement.classList.remove("grid");});
 
-    // make all H4 smaller, margins in card headers too
-    window.wfes.f.waitForElem(commentH4Selector).then((elem)=>{
-      elem.classList.add(".wfes-h4");
-      const headerlist =document.querySelectorAll(".wf-review-card__header");
+    // make all H4 smaller, wait for last box first
+    window.wfes.f.waitForElem(ccategorySelector).then(()=>{
+      const headerlist = document.querySelectorAll(".wf-review-card__header");
       headerlist.forEach(elem =>{elem.classList.add("wfes-card__header");});
     });
   }
@@ -77,8 +76,7 @@
     window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
   }
 
-  // init();
-  window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
+  init();
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
