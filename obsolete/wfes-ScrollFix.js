@@ -1,6 +1,6 @@
 // @name         ScrollFix
-// @version      0.2.3
-// @description  Fix Scroll Down Bug
+// @version      0.3.0
+// @description  Fix Scroll Down Bug - obsolete / disabled
 // @author       AlterTobi
 
 (function() {
@@ -19,9 +19,15 @@
     _dom.addEventListener("scroll", _evfunc);
   }
 
+  const init = function() {
   // window.addEventListener("WFESReviewPageNewLoaded", scrollUp);
-  window.addEventListener("WFESNominationDetailLoaded", scrollUp);
+    window.addEventListener("WFESNominationDetailLoaded", scrollUp);
+  };
 
+  // init
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.error(GM_info.script.name, ": This script is no longer supported, please remove.");
+  window.alert(GM_info.script.name + "\nThis script is no longer supported, please remove.");
+
 })();
