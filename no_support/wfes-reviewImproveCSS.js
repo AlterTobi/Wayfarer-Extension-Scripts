@@ -35,6 +35,25 @@
     "app-review-new-b > div > div:nth-child(1) > p",
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
+  const sopportTextSel = ".supporting-info-statement[_ngcontent-vpi-c245]";
+
+  const findStyle = selector => new Promise((resolve, reject) => {
+    // Holen Sie alle Stylesheets im Dokument
+    const stylesheets = document.styleSheets;
+    // Durchsuchen Sie alle Stylesheets nach der Regel mit dem gegebenen Selektor
+    for (let i = 0; i < stylesheets.length; i++) {
+      const cssRules = stylesheets[i].cssRules || stylesheets[i].rules;
+      for (let j = 0; j < cssRules.length; j++) {
+        if (cssRules[j].selectorText === selector) {
+          // Wenn die Regel gefunden wurde, geben Sie sie über das Promise zurück
+          resolve(cssRules[j].style);
+          return;
+        }
+      }
+    }
+    // Wenn die Regel nicht gefunden wurde, geben Sie ein Reject-Promise zurück
+    reject(new Error("CSS rule not found for selector: " + selector));
+  });
 
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
@@ -54,6 +73,11 @@
     displayNoneSelectors.forEach(selector => {
       window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-none");});
     });
+
+    // "komische" Zelenumbrüche im Supporttext entfernen
+    findStyle(sopportTextSel)
+      .then((style) => { style.removeProperty("line-break"); })
+      .catch((error) => { console.error(error); });
 
     // remove empty space in "stars-only" cards
     // starsCardsSelectors.forEach(selector => {
