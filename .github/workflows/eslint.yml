@@ -11,7 +11,7 @@ name: ESLint
 
 on:
   push:
-    branches: [ dev, main, test, release/v1.0 ]
+    branches: [ dev, main, release/v1.0 ]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ dev, main ]
