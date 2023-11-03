@@ -1,6 +1,6 @@
 // @name Review Improve CSS
-// @version 1.0.9
-// @description fix for small height in Wayfarer 5.2
+// @version 1.0.10
+// @description CSS modifcations for Wayfarer 5.7
 // @author AlterTobi
 
 (function() {
@@ -13,7 +13,7 @@
     .wf-review-card__footer { padding-bottom: 0.2rem; }
     .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
     .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
-    .wfes-h490 { min-height: 490px; }
+    .wfes-h490 { min-height: 300px; }
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
     .wfes-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
@@ -24,13 +24,17 @@
     .wfes-fit-content { max-width: fit-content; }
     `;
 
-  const cardSelectors = ["app-should-be-wayspot > wf-review-card", "app-title-and-description > wf-review-card", "app-supporting-info > wf-review-card"];
+  const cardSelectors = ["app-photo-b > wf-review-card-b", "app-title-and-description-b > wf-review-card", "app-supporting-info-b > wf-review-card-b"];
   const dupeSelector = "#check-duplicates-card";
   const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
   const descriptionSelector = "#title-description-card > div.wf-review-card__body > div > div";
-  const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
-  const historicalCard = "#historical-cultural-card";
-  const commentH4Selector = "app-review-comments > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
+  // const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
+  // const historicalCard = "#historical-cultural-card";
+  const ccategorySelector = "app-review-categorization-b > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
+  const displayNoneSelectors = ["app-review-new-b > div > div:nth-child(1) > h4",
+    "app-review-new-b > div > div:nth-child(1) > p",
+    "app-review-new-b > div > div:nth-child(2) > h4",
+    "app-review-new-b > div > div:nth-child(2) > p"];
 
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
@@ -46,18 +50,22 @@
     window.wfes.f.waitForElem(titleSelector).then((elem)=>{elem.classList.add("wfes-text-4xl");});
     window.wfes.f.waitForElem(descriptionSelector).then((elem)=>{elem.classList.add("wfes-text-lg");});
 
-    // remove empty space in "stars-only" cards
-    starsCardsSelectors.forEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
+    // remove card headers and descriptions
+    displayNoneSelectors.forEach(selector => {
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-none");});
     });
 
-    // remove spaces between cards - grid class
-    window.wfes.f.waitForElem(historicalCard).then((elem)=>{elem.parentElement.parentElement.classList.remove("grid");});
+    // remove empty space in "stars-only" cards
+    // starsCardsSelectors.forEach(selector => {
+    // window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
+    // });
 
-    // make all H4 smaller, margins in card headers too
-    window.wfes.f.waitForElem(commentH4Selector).then((elem)=>{
-      elem.classList.add(".wfes-h4");
-      const headerlist =document.querySelectorAll(".wf-review-card__header");
+    // remove spaces between cards - grid class
+    // window.wfes.f.waitForElem(historicalCard).then((elem)=>{elem.parentElement.parentElement.classList.remove("grid");});
+
+    // make all H4 smaller, wait for last box first
+    window.wfes.f.waitForElem(ccategorySelector).then(()=>{
+      const headerlist = document.querySelectorAll(".wf-review-card__header");
       headerlist.forEach(elem =>{elem.classList.add("wfes-card__header");});
     });
   }
@@ -77,8 +85,7 @@
     window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
   }
 
-  // init();
-  window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
+  init();
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();

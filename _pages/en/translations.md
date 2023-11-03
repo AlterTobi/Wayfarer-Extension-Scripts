@@ -7,14 +7,20 @@ Adds a translate button to the page header. Select which engine you want to use.
 * [Download](../wfes-AddTranslationButtons.user.js)
 
 
-## Google Translate
+
+---
+
+##outdated scripts
+These scripts are no longer supported and cause problems with latest Wayfarer update.
+
+### Google Translate
 the "old" version of this tool with buttons near all texts
 
 ![Google Translate](../images/google-translate.png "Google translation buttons")
 * [Download](../wfes-AddTranslationButtonsGoogle.user.js)
 
 
-## Deepl Translate
+### Deepl Translate
 like "Google", but with Deepl translation engine
 
 ![Deepl Translate](../images/deepl-translate.png "Deepl translation buttons")

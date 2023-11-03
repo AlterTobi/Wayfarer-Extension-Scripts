@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons Google
-// @version      1.4.0
+// @version      1.4.1
 // @description  Adds buttons to translate parts or all of the text associated with a wayspot
 // @author       AlterTobi
 
@@ -189,4 +189,5 @@
   window.addEventListener("WFESReviewPagePhotoLoaded", () => { setTimeout(addPhotoTranslationButtons, 100);});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.warn(GM_info.script.name, ": This script is no longer supported, please remove.");
 })();
