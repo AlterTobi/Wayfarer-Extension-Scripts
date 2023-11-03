@@ -31,5 +31,5 @@ There are more [Wafarer Tools](https://wayfarer.tools).
 
 ## Information for developers
 
-Please look at the [GitHub repository](https://github.com/AlterTobi/WFES/) and the
+Please look at the [GitHub repository](https://github.com/AlterTobi/Wayfarer-Extension-Scripts) and the
 [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
