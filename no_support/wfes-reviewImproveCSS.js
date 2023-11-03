@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.0.10
+// @version 1.0.11
 // @description CSS modifcations for Wayfarer 5.7
 // @author AlterTobi
 
@@ -13,7 +13,7 @@
     .wf-review-card__footer { padding-bottom: 0.2rem; }
     .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
     .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
-    .wfes-h490 { min-height: 300px; }
+    .wfes-minContent { height:  min-content !important; }
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
     .wfes-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
@@ -58,7 +58,7 @@
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
     cardSelectors.forEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-h490");});
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-minContent");});
       // remove description texts
       const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
       window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");});
