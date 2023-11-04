@@ -37,7 +37,8 @@
     "app-review-new-b > div > div:nth-child(1) > p",
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
-  const supportTextSel = ".supporting-info-statement[_ngcontent-vpi-c245]";
+  const supportTextSel = "app-supporting-info-b > wf-review-card-b div.supporting-info-statement";
+  const supportTextClass = ".supporting-info-statement[_ngcontent-vpi-c245]";
   const qCardsSel = "app-question-card > div";
   const qCardsBtnSel = "app-question-card button";
 
@@ -81,12 +82,12 @@
     });
 
     // "komische" Zelenumbrüche im Supporttext entfernen
-    findStyle(supportTextSel)
-      .then((style) => { style.removeProperty("line-break"); })
-      .catch((error) => { console.error(error); });
-
-    // .wf-button -> padding -> 0.4rem
-
+    window.wfes.f.waitForElem(supportTextSel)
+      .then(()=>{
+        findStyle(supportTextClass)
+          .then((style) => { style.removeProperty("line-break"); })
+          .catch((error) => { console.error(error); });
+      });
 
     // remove empty space in "stars-only" cards
     // starsCardsSelectors.forEach(selector => {
