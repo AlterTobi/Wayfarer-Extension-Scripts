@@ -37,7 +37,7 @@
     "app-review-new-b > div > div:nth-child(1) > p",
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
-  const sopportTextSel = ".supporting-info-statement[_ngcontent-vpi-c245]";
+  const supportTextSel = ".supporting-info-statement[_ngcontent-vpi-c245]";
   const qCardsSel = "app-question-card > div";
 
   const findStyle = selector => new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@
     });
 
     // "komische" Zelenumbrüche im Supporttext entfernen
-    findStyle(sopportTextSel)
+    findStyle(supportTextSel)
       .then((style) => { style.removeProperty("line-break"); })
       .catch((error) => { console.error(error); });
 
