@@ -45,12 +45,14 @@
     const stylesheets = document.styleSheets;
     // Durchsuchen Sie alle Stylesheets nach der Regel mit dem gegebenen Selektor
     for (let i = 0; i < stylesheets.length; i++) {
-      const cssRules = stylesheets[i].cssRules || stylesheets[i].rules;
-      for (let j = 0; j < cssRules.length; j++) {
-        if (cssRules[j].selectorText === selector) {
+      if (!stylesheets[i].href || (stylesheets[i].href && stylesheets[i].href.startsWith(location.origin))) {
+        const cssRules = stylesheets[i].cssRules || stylesheets[i].rules;
+        for (let j = 0; j < cssRules.length; j++) {
+          if (cssRules[j].selectorText === selector) {
           // Wenn die Regel gefunden wurde, geben Sie sie über das Promise zurück
-          resolve(cssRules[j].style);
-          return;
+            resolve(cssRules[j].style);
+            return;
+          }
         }
       }
     }
@@ -82,6 +84,8 @@
       .then((style) => { style.removeProperty("line-break"); })
       .catch((error) => { console.error(error); });
 
+    // .wf-button -> padding -> 0.4rem
+
 
     // remove empty space in "stars-only" cards
     // starsCardsSelectors.forEach(selector => {
@@ -96,13 +100,13 @@
       const headerlist = document.querySelectorAll(".wf-review-card__header");
       headerlist.forEach(elem =>{elem.classList.add("wfes-card__header");});
     });
-    
+
     // question cards mit kleinerem Rand
     const qCardList = document.querySelectorAll(qCardsSel);
     qCardList.forEach(elem =>{
-        elem.classList.remove("p-4");
-        elem.classList.add("wfes-pad05");
-        });
+      elem.classList.remove("p-4");
+      elem.classList.add("wfes-pad05");
+    });
   }
 
   function editImproveCSS() {
