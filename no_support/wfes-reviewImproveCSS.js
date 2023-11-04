@@ -39,6 +39,7 @@
     "app-review-new-b > div > div:nth-child(2) > p"];
   const supportTextSel = ".supporting-info-statement[_ngcontent-vpi-c245]";
   const qCardsSel = "app-question-card > div";
+  const qCardsBtnSel = "app-question-card button";
 
   const findStyle = selector => new Promise((resolve, reject) => {
     // Holen Sie alle Stylesheets im Dokument
@@ -105,6 +106,10 @@
     const qCardList = document.querySelectorAll(qCardsSel);
     qCardList.forEach(elem =>{
       elem.classList.remove("p-4");
+      elem.classList.add("wfes-pad05");
+    });
+    const qCardBtnList = document.querySelectorAll(qCardsBtnSel);
+    qCardBtnList.forEach(elem =>{
       elem.classList.add("wfes-pad05");
     });
   }
