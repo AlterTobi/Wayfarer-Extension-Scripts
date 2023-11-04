@@ -22,6 +22,7 @@
     .wfes-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
     .wfes-stars-cards { height: min-content !important; margin-top: 1rem }
     .wfes-fit-content { max-width: fit-content; }
+    .wfes-pad05 { padding: 0.5rem !important; }
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
 
@@ -37,7 +38,7 @@
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
   const sopportTextSel = ".supporting-info-statement[_ngcontent-vpi-c245]";
-  // const qCardsSel = "div.question-title.mb-1";
+  const qCardsSel = "app-question-card > div";
 
   const findStyle = selector => new Promise((resolve, reject) => {
     // Holen Sie alle Stylesheets im Dokument
@@ -81,11 +82,6 @@
       .then((style) => { style.removeProperty("line-break"); })
       .catch((error) => { console.error(error); });
 
-    /*
-    qCardsSelorEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add(@TODO);});
-    });
-    */
 
     // remove empty space in "stars-only" cards
     // starsCardsSelectors.forEach(selector => {
@@ -100,6 +96,13 @@
       const headerlist = document.querySelectorAll(".wf-review-card__header");
       headerlist.forEach(elem =>{elem.classList.add("wfes-card__header");});
     });
+    
+    // question cards mit kleinerem Rand
+    const qCardList = document.querySelectorAll(qCardsSel);
+    qCardList.forEach(elem =>{
+        elem.classList.remove("p-4");
+        elem.classList.add("wfes-pad05");
+        });
   }
 
   function editImproveCSS() {
