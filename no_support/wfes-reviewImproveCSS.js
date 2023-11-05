@@ -25,8 +25,8 @@
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
     .o1 { order: 1;}
-    .o2 { order: 2;}
-    .o3 { order: 3;}
+    .o2 { order: 2; background-color: #f7c3c3;}
+    .o3 { order: 3; background-color: #b1ffb1;}
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
 
