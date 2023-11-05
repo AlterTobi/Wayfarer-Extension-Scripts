@@ -124,7 +124,6 @@
       buttonList.forEach(elem => {elem.classList.add("o2");});
       buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > div");
       buttonList.forEach(elem => {elem.classList.add("o1");});
-
     });
 
   }
