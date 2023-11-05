@@ -1,5 +1,5 @@
 // @name URLify
-// @version 1.3.3
+// @version 1.3.4
 // @description detect links in supporting information
 // @author AlterTobi
 
