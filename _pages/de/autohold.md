@@ -6,8 +6,8 @@ Schreibe einfach **#hold** irgendwo in den Zusatztext (**,yxcv** geht auch ^^). 
 Nun erkennt das Tool den Text und setzt die entsprechenden Einreichungen automatisch auf "zurückgestellt". Bei vielen Einreichungen dauert es eine Weile, da
 eine Pause eingebaut ist, um nicht zu viele Anfragen zu schnell an den Wayfarer Server zu senden.
 
-Wenn der Vorgang abgeschlossen ist und die grüne Meldung erscheint, musst du die Seite einmal neu laden (F5) oder auf eine andere Seite und dann zurück wechseln,
-damit der geänderte Status angezeigt wird.
+Wenn der Vorgang abgeschlossen ist und die grüne Meldung erscheint, wird nach einer kurzen Wartezeit die Seite
+neu geladen, damit der geänderte Status angezeigt wird.
 
 ## Warnung:
 Das Tool kann nur arbeiten, wenn du aktiv die Seite deiner Einreichungen aufrufst. Und es funktioniert nur,
