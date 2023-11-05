@@ -38,7 +38,7 @@
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
   const supportTextSel = "app-supporting-info-b > wf-review-card-b div.supporting-info-statement";
-  const supportTextClass = ".supporting-info-statement[_ngcontent-vpi-c245]";
+  const supportTextClass = ".supporting-info-statement[_ngcontent-gsq-c245]";
   const qCardsSel = "app-question-card > div";
   const qCardsBtnSel = "app-question-card button";
 
