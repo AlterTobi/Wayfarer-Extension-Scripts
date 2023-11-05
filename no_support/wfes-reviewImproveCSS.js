@@ -24,6 +24,9 @@
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
+    .o1 { order: 1;}
+    .o2 { order: 2;}
+    .o3 { order: 3;}
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
 
@@ -113,9 +116,17 @@
       qCardBtnList.forEach(elem =>{
         elem.classList.add("wfes-pad05");
       });
+
+      // buttons umsortieren
+      let buttonList = document.querySelectorAll("#appropriate-card > div > div.action-buttons-row > button:nth-child(1)");
+      buttonList.forEach(elem => {elem.classList.add("o3");});
+      buttonList = document.querySelectorAll("#appropriate-card > div > div.action-buttons-row > button:nth-child(2)");
+      buttonList.forEach(elem => {elem.classList.add("o2");});
+      buttonList = document.querySelectorAll("#appropriate-card > div > div.action-buttons-row >div");
+      buttonList.forEach(elem => {elem.classList.add("o1");});
+
     });
-    
-    
+
   }
 
   function editImproveCSS() {
