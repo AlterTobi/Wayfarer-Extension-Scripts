@@ -23,6 +23,7 @@
     .wfes-stars-cards { height: min-content !important; margin-top: 1rem }
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
+    .wfes-linebreak { line-break: auto !important; }
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
 
@@ -38,10 +39,10 @@
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
   const supportTextSel = "app-supporting-info-b > wf-review-card-b div.supporting-info-statement";
-  const supportTextClass = ".supporting-info-statement[_ngcontent-gsq-c245]";
   const qCardsSel = "app-question-card > div";
   const qCardsBtnSel = "app-question-card button";
 
+  /*
   const findStyle = selector => new Promise((resolve, reject) => {
     // Holen Sie alle Stylesheets im Dokument
     const stylesheets = document.styleSheets;
@@ -61,7 +62,7 @@
     // Wenn die Regel nicht gefunden wurde, geben Sie ein Reject-Promise zurück
     reject(new Error("CSS rule not found for selector: " + selector));
   });
-
+*/
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
     cardSelectors.forEach(selector => {
@@ -83,11 +84,8 @@
 
     // "komische" Zelenumbrüche im Supporttext entfernen
     window.wfes.f.waitForElem(supportTextSel)
-      .then(()=>{
-        findStyle(supportTextClass)
-          .then((style) => { style.removeProperty("line-break"); })
-          .catch((error) => { console.error(error); });
-      });
+      .then((elem)=>{ elem.classList.add("wfes-linebreak");}
+      );
 
     // remove empty space in "stars-only" cards
     // starsCardsSelectors.forEach(selector => {
