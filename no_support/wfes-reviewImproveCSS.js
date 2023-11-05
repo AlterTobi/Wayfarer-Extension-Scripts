@@ -118,11 +118,11 @@
       });
 
       // buttons umsortieren
-      let buttonList = document.querySelectorAll("#appropriate-card > div > div.action-buttons-row > button:nth-child(1)");
+      let buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > button:nth-child(1)");
       buttonList.forEach(elem => {elem.classList.add("o3");});
-      buttonList = document.querySelectorAll("#appropriate-card > div > div.action-buttons-row > button:nth-child(2)");
+      buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > button:nth-child(2)");
       buttonList.forEach(elem => {elem.classList.add("o2");});
-      buttonList = document.querySelectorAll("#appropriate-card > div > div.action-buttons-row >div");
+      buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > div");
       buttonList.forEach(elem => {elem.classList.add("o1");});
 
     });
