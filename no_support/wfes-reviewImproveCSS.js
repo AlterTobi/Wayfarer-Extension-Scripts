@@ -39,7 +39,7 @@
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
   const supportTextSel = "app-supporting-info-b > wf-review-card-b div.supporting-info-statement";
-  // const qCardsSel = "app-question-card > div";
+  const qCardsSel = "app-question-card > div";
   const qCardsBtnSel = "app-question-card button.dont-know-button";
   const questionSel = "app-review-new-b > div > div.review-questions";
 
@@ -104,19 +104,18 @@
 
     // question cards mit kleinerem Rand
     window.wfes.f.waitForElem(questionSel).then(()=>{
-      /*
       const qCardList = document.querySelectorAll(qCardsSel);
       qCardList.forEach(elem =>{
         elem.classList.remove("p-4");
         elem.classList.add("wfes-pad05");
       });
-*/
       const qCardBtnList = document.querySelectorAll(qCardsBtnSel);
       qCardBtnList.forEach(elem =>{
         elem.classList.add("wfes-pad05");
       });
     });
-
+    
+    
   }
 
   function editImproveCSS() {
