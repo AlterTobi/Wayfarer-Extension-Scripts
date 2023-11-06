@@ -86,6 +86,7 @@
     const stylesheets = document.styleSheets;
     // Durchsuchen Sie alle Stylesheets nach der Regel mit dem gegebenen Selektor
     for (let i = 0; i < stylesheets.length; i++) {
+      // kein href (=style tag) oder href beginnt mit origin (sonst CORS-Fehler)
       if (!stylesheets[i].href || (stylesheets[i].href && stylesheets[i].href.startsWith(location.origin))) {
         const cssRules = stylesheets[i].cssRules || stylesheets[i].rules;
         for (let j = 0; j < cssRules.length; j++) {
