@@ -32,11 +32,6 @@
 
   const alCssID = "wfes-alfonso";
   const alStyle = `
-    .review-new[_ngcontent-xce-c237] {
-      grid-gap: 2rem;
-      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
-      display: block !important;
-    }
     .review-new > div:nth-child(1)  {
       flex-direction: row;
       flex-wrap: wrap;
@@ -50,9 +45,6 @@
     }
     .review-new > div:nth-child(1)  > * {
       flex-basis: 32%;
-    }
-    app-question-card {
-      max-width: 780px;
     }
     .review-new > div:nth-child(1) {
       flex-direction: row !important;
@@ -69,12 +61,6 @@
     }
     .ml-0 {
       flex-basis: 100%;
-    }
-    div.supporting-info-statement[_ngcontent-ukw-c245] {
-      line-break: normal;
-    }
-    div.max-w-7xl {
-      max-width: none !important; 
     }
 `;
 
