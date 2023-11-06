@@ -30,6 +30,54 @@
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
 
+  const alCssID = "wfes-alfonso";
+  const alStyle = `
+    .review-new[_ngcontent-xce-c237] {
+      grid-gap: 2rem;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      display: block !important;
+    }
+    .review-new > div:nth-child(1)  {
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 0;
+      grid-column: span 2;
+      gap: 0 1%;
+      justify-content: space-between;
+    }
+    .review-new > div:nth-child(1) > h4:nth-child(1) {
+      flex-basis: 100%;
+    }
+    .review-new > div:nth-child(1)  > * {
+      flex-basis: 32%;
+    }
+    app-question-card {
+      max-width: 780px;
+    }
+    .review-new > div:nth-child(1) {
+      flex-direction: row !important;
+      grid-column: span 4;
+      display: flex;
+    }
+    .review-new > div:nth-child(1)  >h4, .review-new > div:nth-child(1)  > p {
+      flex-basis: 100%;
+    }
+    .review-new > div:nth-child(1)  {
+      flex-wrap: wrap;
+      gap: 0 1%;
+      justify-content: space-between;
+    }
+    .ml-0 {
+      flex-basis: 100%;
+    }
+    div.supporting-info-statement[_ngcontent-ukw-c245] {
+      line-break: normal;
+    }
+    div.max-w-7xl {
+      max-width: none !important; 
+    }
+`;
+
   const cardSelectors = ["app-photo-b > wf-review-card-b", "app-title-and-description-b > wf-review-card", "app-supporting-info-b > wf-review-card-b"];
   const dupeSelector = "#check-duplicates-card";
   const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
@@ -69,6 +117,8 @@
 */
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
+    window.wfes.f.addCSS(alCssID, alStyle);
+
     cardSelectors.forEach(selector => {
       window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-minContent");});
       // remove description texts
