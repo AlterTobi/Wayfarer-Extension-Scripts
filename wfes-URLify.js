@@ -1,5 +1,5 @@
 // @name URLify
-// @version 1.3.3
+// @version 1.3.4
 // @description detect links in supporting information
 // @author AlterTobi
 
@@ -10,12 +10,12 @@
   const myStyle = `.wfes-extLnkBtn{
         border: 2pt solid white;
         border-radius: 2pt;
-        width: 15pt;
+        width: 17pt;
+        height: 17pt;
         font-size: 14px;
         background-color: white;
         color: black;
         display: inline-block;
-        height: 15pt;
         box-shadow: 0 0 2px grey;
       }
   `;
