@@ -25,7 +25,8 @@
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
-    .wfes-btnrigth { justify-content: end; gap: 0 0.5rem; }
+    .wfes-smallgap { gap: 1rem 0; }
+    .wfes-btnrigth { justify-content: end !important; gap: 0 0.5rem; }
     .o1 { order: 1;}
     .o2 { order: 2; background-color: #f7c3c3;}
     .o3 { order: 3; background-color: #b1ffb1;}
@@ -149,19 +150,24 @@
       buttonList.forEach(elem => {elem.classList.add("wfes-btnrigth");});
     });
 
-    window.wfes.f.waitForElem(mapSel).then(elem => {
-      elem.setAttribute("style", "grid-column: span 4;");
-    });
+    window.wfes.f.waitForElem(mapSel).then(elem => { elem.setAttribute("style", "grid-column: span 4;"); });
+    window.wfes.f.waitForElem("app-review-new-b > div").then(elem => { elem.classList.add("wfes-smallgap"); });
   }
 
   function editImproveCSS() {
     const abuseSelector = "div.report-abuse";
+    const mapSelector = "app-select-location-edit > wf-review-card > div.wf-review-card__body";
     window.wfes.f.addCSS(myCssId, myStyle);
 
     window.wfes.f.waitForElem(abuseSelector).then((elem)=>{
       elem.classList.add("wfes-fit-content");
       elem.classList.add("wf-button");
     });
+
+    window.wfes.f.waitForElem(mapSelector).then((elem)=>{
+      elem.classList.add("wfes-h490");
+    });
+
   }
 
   function init() {
