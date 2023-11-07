@@ -32,17 +32,6 @@
 
   const alCssID = "wfes-alfonso";
   const alStyle = `
-    .review-new > div:nth-child(1)  {
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: 0;
-      grid-column: span 2;
-      gap: 0 1%;
-      justify-content: space-between;
-    }
-    .review-new > div:nth-child(1) > h4:nth-child(1) {
-      flex-basis: 100%;
-    }
     .review-new > div:nth-child(1)  > * {
       flex-basis: 32%;
     }
@@ -50,17 +39,9 @@
       flex-direction: row !important;
       grid-column: span 4;
       display: flex;
-    }
-    .review-new > div:nth-child(1)  >h4, .review-new > div:nth-child(1)  > p {
-      flex-basis: 100%;
-    }
-    .review-new > div:nth-child(1)  {
       flex-wrap: wrap;
-      gap: 0 1%;
+      gap: 0 0.2rem;
       justify-content: space-between;
-    }
-    .ml-0 {
-      flex-basis: 100%;
     }
 `;
 
