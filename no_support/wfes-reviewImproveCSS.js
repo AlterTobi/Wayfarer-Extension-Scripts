@@ -26,7 +26,7 @@
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
-    .wfes-smallgap { gap: 1rem 0 !importan; }
+    .wfes-smallgap { gap: 1rem 0 !important; }
     .wfes-btnrigth { justify-content: end !important; gap: 0 0.5rem; }
     .o1 { order: 1;}
     .o2 { order: 2; background-color: #f7c3c3;}
