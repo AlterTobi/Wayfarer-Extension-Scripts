@@ -14,6 +14,7 @@
     .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
     .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
     .wfes-minContent { height:  min-content !important; }
+    .wfes-mh100p { min-height: 100px; }
     .wfes-h490 { min-height: 490px; }
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
@@ -92,7 +93,7 @@
     window.wfes.f.addCSS(alCssID, alStyle);
 
     cardSelectors.forEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-h490");});
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-mh100p");});
       // remove description texts
       const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
       window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");});
