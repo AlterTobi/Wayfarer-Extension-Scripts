@@ -14,6 +14,7 @@
     .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
     .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
     .wfes-minContent { height:  min-content !important; }
+    .wfes-h490 { min-height: 490px; }
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
     .wfes-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
@@ -24,6 +25,7 @@
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
+    .wfes-btnrigth { justify-content: end; gap: 0 0.5rem; }
     .o1 { order: 1;}
     .o2 { order: 2; background-color: #f7c3c3;}
     .o3 { order: 3; background-color: #b1ffb1;}
@@ -60,6 +62,7 @@
   const qCardsSel = "app-question-card > div";
   const qCardsBtnSel = "app-question-card button.dont-know-button";
   const questionSel = "app-review-new-b > div > div.review-questions";
+  const mapSel = "app-review-new-b > div > div.review-questions";
 
   /*
   const findStyle = selector => new Promise((resolve, reject) => {
@@ -88,7 +91,7 @@
     window.wfes.f.addCSS(alCssID, alStyle);
 
     cardSelectors.forEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-minContent");});
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-h490");});
       // remove description texts
       const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
       window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");});
@@ -142,8 +145,13 @@
       buttonList.forEach(elem => {elem.classList.add("o2");});
       buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > div");
       buttonList.forEach(elem => {elem.classList.add("o1");});
+      buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row");
+      buttonList.forEach(elem => {elem.classList.add("wfes-btnrigth");});
     });
 
+    window.wfes.f.waitForElem(mapSel).then(elem => {
+      elem.setAttribute("style", "grid-column: span 4;");
+    });
   }
 
   function editImproveCSS() {
