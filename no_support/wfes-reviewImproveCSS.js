@@ -14,7 +14,7 @@
     .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
     .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
     .wfes-minContent { height:  min-content !important; }
-    .wfes-mh100p { min-height: 100px; }
+    .wfes-mh100p { min-height: 100%; }
     .wfes-h490 { min-height: 490px; }
     .wfes-h790 { min-height: 790px; }
     .wfes-none { display: none; }
@@ -26,7 +26,7 @@
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
-    .wfes-smallgap { gap: 1rem 0; }
+    .wfes-smallgap { gap: 1rem 0 !importan; }
     .wfes-btnrigth { justify-content: end !important; gap: 0 0.5rem; }
     .o1 { order: 1;}
     .o2 { order: 2; background-color: #f7c3c3;}
