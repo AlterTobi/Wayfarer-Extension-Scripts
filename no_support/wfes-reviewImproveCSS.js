@@ -1,7 +1,7 @@
 // @name Review Improve CSS
 // @version 1.0.12
 // @description CSS modifcations for Wayfarer 5.7
-// @author AlterTobi
+// @author AlterTobi (parts by AlfonsoML)
 
 (function() {
   "use strict";
