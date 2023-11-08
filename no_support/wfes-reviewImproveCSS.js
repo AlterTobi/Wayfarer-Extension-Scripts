@@ -27,6 +27,7 @@
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
     .wfes-smallgap { gap: 1rem 0 !important; }
+    .wfes-photo { max-height: 350px !important; width: auto !important; }
     .wfes-btnrigth { justify-content: end !important; gap: 0 0.5rem; }
     .o1 { order: 1;}
     .o2 { order: 2; background-color: #f7c3c3;}
@@ -65,6 +66,8 @@
   const qCardsBtnSel = "app-question-card button.dont-know-button";
   const questionSel = "app-review-new-b > div > div.review-questions";
   const mapSel = "app-review-new-b > div > div.review-questions";
+  const photoSel = "app-photo-b > wf-review-card-b div.wf-image-modal > img";
+  const suppImgSel = "app-supporting-info-b > wf-review-card-b div.wf-image-modal.supporting-info-img-container > img";
 
   /*
   const findStyle = selector => new Promise((resolve, reject) => {
@@ -113,6 +116,10 @@
     window.wfes.f.waitForElem(supportTextSel)
       .then((elem)=>{ elem.classList.add("wfes-linebreak");}
       );
+
+    // bilder etwas kleiner
+    window.wfes.f.waitForElem(photoSel).then((elem) => {elem.classList.add("wfes-photo");});
+    window.wfes.f.waitForElem(suppImgSel).then((elem) => {elem.classList.add("wfes-photo");});
 
     // remove empty space in "stars-only" cards
     // starsCardsSelectors.forEach(selector => {
