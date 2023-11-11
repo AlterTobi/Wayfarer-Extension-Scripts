@@ -1,7 +1,7 @@
 // @name Review Improve CSS
-// @version 1.0.11
+// @version 1.0.12
 // @description CSS modifcations for Wayfarer 5.7
-// @author AlterTobi
+// @author AlterTobi (CSS parts by AlfonsoML)
 
 (function() {
   "use strict";
@@ -9,24 +9,23 @@
   const myCssId = "rICSS";
   const myStyle = `
     .wf-review-card__header { padding: 0.5rem; }
-    .wf-review-card__body { margin-bottom: 0.2rem; }
-    .wf-review-card__footer { padding-bottom: 0.2rem; }
+    .wf-review-card__body { margin-bottom: 0.5rem !important; }
+    .wf-review-card__footer { padding-bottom: 0.25rem !important; }
     .py-2 { padding-top: 0 !important;  padding-bottom: 0 !important;  margin-bottom: 0.3rem; }
     .px-4 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
-    .wfes-minContent { height:  min-content !important; }
     .wfes-mh100p { min-height: 100%; }
     .wfes-h490 { min-height: 490px; }
-    .wfes-h790 { min-height: 790px; }
+    .wfes-h725 { min-height: 725px; }
     .wfes-none { display: none; }
     .wfes-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
     .wfes-text-lg { line-height: 1.5rem !important; font-size: 1.1rem !important; }
     .wfes-h4 { font-size:1.5rem; line-height:1.2rem; padding-bottom:0.5rem; }
     .wfes-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
-    .wfes-stars-cards { height: min-content !important; margin-top: 1rem }
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
     .wfes-linebreak { line-break: auto !important; }
     .wfes-smallgap { gap: 1rem 0 !important; }
+    .wfes-photo { max-height: 350px !important; width: auto !important; }
     .wfes-btnrigth { justify-content: end !important; gap: 0 0.5rem; }
     .o1 { order: 1;}
     .o2 { order: 2; background-color: #f7c3c3;}
@@ -34,6 +33,7 @@
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
 
+  // CSS by Alfonso-ML, posted on WDD
   const alCssID = "wfes-alfonso";
   const alStyle = `
     .review-new > div:nth-child(1)  > * {
@@ -47,14 +47,12 @@
       gap: 0 0.2rem;
       justify-content: space-between;
     }
-`;
+    `;
 
   const cardSelectors = ["app-photo-b > wf-review-card-b", "app-title-and-description-b > wf-review-card", "app-supporting-info-b > wf-review-card-b"];
   const dupeSelector = "#check-duplicates-card";
   const titleSelector = "#title-description-card > div.wf-review-card__body > div > a > div";
   const descriptionSelector = "#title-description-card > div.wf-review-card__body > div > div";
-  // const starsCardsSelectors = ["#historical-cultural-card", "#visually-unique-card", "#safe-access-card"];
-  // const historicalCard = "#historical-cultural-card";
   const ccategorySelector = "app-review-categorization-b > wf-review-card > div.wf-review-card__header > div:nth-child(1) > h4";
   const displayNoneSelectors = ["app-review-new-b > div > div:nth-child(1) > h4",
     "app-review-new-b > div > div:nth-child(1) > p",
@@ -65,29 +63,9 @@
   const qCardsBtnSel = "app-question-card button.dont-know-button";
   const questionSel = "app-review-new-b > div > div.review-questions";
   const mapSel = "app-review-new-b > div > div.review-questions";
+  const photoSel = "app-photo-b > wf-review-card-b div.wf-image-modal > img";
+  const suppImgSel = "app-supporting-info-b > wf-review-card-b div.wf-image-modal.supporting-info-img-container > img";
 
-  /*
-  const findStyle = selector => new Promise((resolve, reject) => {
-    // Holen Sie alle Stylesheets im Dokument
-    const stylesheets = document.styleSheets;
-    // Durchsuchen Sie alle Stylesheets nach der Regel mit dem gegebenen Selektor
-    for (let i = 0; i < stylesheets.length; i++) {
-      // kein href (=style tag) oder href beginnt mit origin (sonst CORS-Fehler)
-      if (!stylesheets[i].href || (stylesheets[i].href && stylesheets[i].href.startsWith(location.origin))) {
-        const cssRules = stylesheets[i].cssRules || stylesheets[i].rules;
-        for (let j = 0; j < cssRules.length; j++) {
-          if (cssRules[j].selectorText === selector) {
-          // Wenn die Regel gefunden wurde, geben Sie sie über das Promise zurück
-            resolve(cssRules[j].style);
-            return;
-          }
-        }
-      }
-    }
-    // Wenn die Regel nicht gefunden wurde, geben Sie ein Reject-Promise zurück
-    reject(new Error("CSS rule not found for selector: " + selector));
-  });
-*/
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);
     window.wfes.f.addCSS(alCssID, alStyle);
@@ -98,7 +76,7 @@
       const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
       window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");});
     });
-    window.wfes.f.waitForElem(dupeSelector).then((elem)=>{elem.classList.add("wfes-h790");});
+    window.wfes.f.waitForElem(dupeSelector).then((elem)=>{elem.classList.add("wfes-h725");});
 
     // smaller font site for title and description
     window.wfes.f.waitForElem(titleSelector).then((elem)=>{elem.classList.add("wfes-text-4xl");});
@@ -114,13 +92,12 @@
       .then((elem)=>{ elem.classList.add("wfes-linebreak");}
       );
 
-    // remove empty space in "stars-only" cards
-    // starsCardsSelectors.forEach(selector => {
-    // window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-stars-cards");});
-    // });
-
-    // remove spaces between cards - grid class
-    // window.wfes.f.waitForElem(historicalCard).then((elem)=>{elem.parentElement.parentElement.classList.remove("grid");});
+    // bilder etwas kleiner und zentriert
+    window.wfes.f.waitForElem(photoSel).then((elem) => {
+      elem.classList.add("wfes-photo");
+      elem.parentElement.setAttribute("style", "justify-content: center; display: flex;");
+    });
+    window.wfes.f.waitForElem(suppImgSel).then((elem) => {elem.classList.add("wfes-photo");});
 
     // make all H4 smaller, wait for last box first
     window.wfes.f.waitForElem(ccategorySelector).then(()=>{
@@ -165,9 +142,12 @@
       elem.classList.add("wf-button");
     });
 
-    window.wfes.f.waitForElem(mapSelector).then((elem)=>{
-      elem.classList.add("wfes-h490");
-    });
+    const edit = window.wfes.g.edit();
+    if (edit.isEdit && edit.what.location) {
+      window.wfes.f.waitForElem(mapSelector)
+        .then((elem)=>{ elem.classList.add("wfes-h490"); })
+        .catch((e) => { console.warn(GM_info.script.name, ": ", e); });
+    }
 
   }
 
