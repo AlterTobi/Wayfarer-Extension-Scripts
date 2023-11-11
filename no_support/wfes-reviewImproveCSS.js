@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.0.12
+// @version 1.1.0
 // @description CSS modifcations for Wayfarer 5.7
 // @author AlterTobi (CSS parts by AlfonsoML)
 
@@ -88,9 +88,13 @@
     });
 
     // "komische" Zelenumbrüche im Supporttext entfernen
-    window.wfes.f.waitForElem(supportTextSel)
-      .then((elem)=>{ elem.classList.add("wfes-linebreak");}
-      );
+    const pagedata = window.wfes.g.reviewPageData();
+    if (pagedata.statement.length < 256) {
+      // bei langen text gibt es den Unsinn nicht
+      window.wfes.f.waitForElem(supportTextSel)
+        .then((elem)=>{ elem.classList.add("wfes-linebreak");} )
+        .catch((e) => { console.warn(GM_info.script.name, "- support statement ", e); });
+    }
 
     // bilder etwas kleiner und zentriert
     window.wfes.f.waitForElem(photoSel).then((elem) => {
