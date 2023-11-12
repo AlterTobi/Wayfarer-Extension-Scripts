@@ -6,6 +6,8 @@
 (function() {
   "use strict";
 
+  const reorder_thumbs = true;
+
   const myCssId = "rICSS";
   const myStyle = `
     .wf-review-card__header { padding: 0.5rem; }
@@ -28,8 +30,10 @@
     .wfes-photo { max-height: 350px !important; width: auto !important; }
     .wfes-btnrigth { justify-content: end !important; gap: 0 0.5rem; }
     .o1 { order: 1;}
-    .o2 { order: 2; background-color: #f7c3c3;}
-    .o3 { order: 3; background-color: #b1ffb1;}
+    .o2 { order: 2;}
+    .o3 { order: 3;}
+    .bg_red { background-color: #f7c3c3;}
+    .bg_green { background-color: #b1ffb1;}
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
 
@@ -122,15 +126,30 @@
       });
 
       // buttons umsortieren
-      let buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > button:nth-child(1)");
-      buttonList.forEach(elem => {elem.classList.add("o3");});
-      buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > button:nth-child(2)");
-      buttonList.forEach(elem => {elem.classList.add("o2");});
-      buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > div");
-      buttonList.forEach(elem => {elem.classList.add("o1");});
-      buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row");
+      let buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row");
       buttonList.forEach(elem => {elem.classList.add("wfes-btnrigth");});
+      if (reorder_thumbs) {
+        buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > button:nth-child(1)");
+        buttonList.forEach(elem => {elem.classList.add("o3"); elem.classList.add("bg_green");});
+        buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > button:nth-child(2)");
+        buttonList.forEach(elem => {elem.classList.add("o2"); elem.classList.add("bg_red");});
+        buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > div");
+        buttonList.forEach(elem => {elem.classList.add("o1");});
+      }
     });
+
+    // reorder main cards
+    window.wfes.f.waitForElem("app-title-and-description-b")
+      .then(elem=>{elem.classList.add("o2");})
+      .catch((e) => { console.warn(GM_info.script.name, "- reorder title ", e); });
+
+    window.wfes.f.waitForElem("app-photo-b")
+      .then(elem=>{elem.classList.add("o1"); elem.style.setProperty("margin-left", "0", "important");})
+      .catch((e) => { console.warn(GM_info.script.name, "- reorder photo ", e); });
+
+    window.wfes.f.waitForElem("app-supporting-info-b")
+      .then(elem=>{elem.classList.add("o3"); elem.style.setProperty("margin-left", "0", "important");})
+      .catch((e) => { console.warn(GM_info.script.name, "- reorder supporting info ", e); });
 
     window.wfes.f.waitForElem(mapSel).then(elem => { elem.setAttribute("style", "grid-column: span 4;"); });
     window.wfes.f.waitForElem("app-review-new-b > div").then(elem => { elem.classList.add("wfes-smallgap"); });
