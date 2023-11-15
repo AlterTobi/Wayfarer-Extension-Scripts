@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.3.0
+// @version      1.3.1
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -29,9 +29,9 @@ lgfwyth1DZ1zdlQXPunVoTTLcs+p7Fzth1yd0e17sHZ6PB55vrFU9zbEdUvJCYuXengNh00D6Fg8\
 OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq\
 3jRG+DXKSqfzvkOdbOovl0n81ZsVr3cNhRsO7xfZDDNvvXjvCT/+BmgGosHgV3/JF/wjwACvbhgT\
 fnV1HwAAAABJRU5ErkJggg==');
-        }
-            .bgING {
-            background-image:  url('data:image/png;base64,\
+    }
+    .bgING {
+        background-image:  url('data:image/png;base64,\
 iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ\
 bWFnZVJlYWR5ccllPAAAAMBQTFRF7Oby5dvscj2aNQF2hFmp/Pv9WCaOSROFXCySdkCcwavUk2qy\
 ZDSWbTuZ8e31e1GlqozDvabRd0uinYC+bDSWnHu7Zi2SWx6LrJPH3dLny7rbiGaw9vP5lHC12c3l\
@@ -49,8 +49,11 @@ W/4cQluN7vLbZHJRMJ7JYdVx9tHDJtEn3HY0IYRuwYcgalkULQBUbPNvnhLMTitNifiYI8CSMoKp\
 msqzhMX9D7VJotwvKKA1oVMgNaNJDNsjZTvo2WdEpXjaryj2PFGizxWvVQjbPzdTzPg88biHDRZF\
 ao7gTYkYY4ufrWjxhNVUQhcNLyHFFPN89trIG7UviJSZLPv8Hdh37+8x2JqqqjJMj4GiMKaq9unf\
 IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
-        }
-    `;
+   }
+    .showcase-item__image > img {
+        object-fit: contain !important;
+    }
+ `;
 
   function showDetails(details) {
     const myGameID = "wfesGame";
@@ -90,7 +93,6 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     window.wfes.f.waitForElem(itemSelector).then(elem=> {
       elem.style.userSelect = "text"; // allow text selection
     });
-
   }
 
   let loadHomeTimerId = null;
