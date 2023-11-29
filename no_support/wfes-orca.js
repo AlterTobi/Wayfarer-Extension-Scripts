@@ -2,7 +2,7 @@
 // @version      1.0.0
 // @description  ORCa
 // @author       AlterTobi
-// @resource     orca https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/images/orca.png
+// @resource     orca https://altertobi.github.io/Wayfarer-Extension-Scripts/images/orca.png
 // @grant        GM_getResourceURL
 
 (function() {
