@@ -1,5 +1,5 @@
 // @name         Click Nodupes Button
-// @version      1.0.1
+// @version      1.0.2
 // @description  auto-click the "no dupes"-Button
 // @author       AlterTobi
 
@@ -9,7 +9,11 @@
   const btnSel = "#check-duplicates-card button.noDuplicatesButton";
 
   function click() {
-    window.wfes.f.waitForElem(btnSel).then((elem)=>{ elem.click(); })
+    window.wfes.f.waitForElem(btnSel).then((elem)=>{
+      if (!elem.classList.contains("is-selected")) {
+        elem.click();
+      }
+    })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 

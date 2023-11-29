@@ -10,6 +10,9 @@ module.exports = {
   extends: [
     "eslint:recommended",
   ],
+  globals: {
+        "wfes": "readonly"
+    },
   rules: {
       // errors & suggestions
       "block-scoped-var": "error",
