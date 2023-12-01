@@ -1,5 +1,5 @@
 // @name         ORCa
-// @version      1.0.0
+// @version      1.0.1
 // @description  ORCa
 // @author       AlterTobi
 // @resource     orca https://altertobi.github.io/Wayfarer-Extension-Scripts/images/orca.png
@@ -18,20 +18,29 @@
     `;
 
   const sessvarMiss = "warnBase";
-  const noDupesBtn = "#check-duplicates-card button.noDuplicatesButton";
+  // const noDupesBtn = "#check-duplicates-card button.noDuplicatesButton";
   const acceptBtnList = ["#appropriate-card", "#safe-card", "#accurate-and-high-quality-card", "#permanent-location-card"];
   const rejectBtnList = ["#socialize-card", "#exercise-card", "#explore-card"];
   const categoriesSel = "#categorization-card > div.wf-review-card__body > div > mat-button-toggle-group > mat-button-toggle:nth-child(2) > button";
-  let orcaButton;
+  const buttonID = "orcaButton";
+
+  function removeButton() {
+    const button = document.getElementById(buttonID);
+    if (button !== null) {
+      button.remove();
+    }
+  }
 
   function orcaClick() {
     // noDupes Butten drücken
+    /*
     wfes.f.waitForElem(noDupesBtn).then((elem)=>{
       if (!elem.classList.contains("is-selected")) {
         elem.click();
       }
     })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    */
 
     // die ersten 4 Daumen hoch
     acceptBtnList.forEach(sel => {
@@ -53,11 +62,12 @@
 
 
   function createButton() {
+    removeButton(); // remove before creating new
     wfes.f.waitForElem("wf-logo").then(elem=>{
       const image = GM_getResourceURL("orca");
-
       const div = document.createElement("div");
       div.className = "wfesORC";
+      div.id = buttonID;
       const link = document.createElement("a");
       link.title = "ORC";
       link.addEventListener("click", orcaClick);
@@ -66,7 +76,6 @@
       img.src = image;
       link.appendChild(img);
       div.appendChild(link);
-      orcaButton = div;
       const container = elem.parentNode.parentNode;
       container.appendChild(div);
     })
@@ -78,10 +87,6 @@
   function ORCa() {
     wfes.f.addCSS(myCssId, myStyle);
     createButton();
-  }
-
-  function removeButton() {
-    orcaButton.remove();
   }
 
   function init() {
