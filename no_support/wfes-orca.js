@@ -24,6 +24,13 @@
   const categoriesSel = "#categorization-card > div.wf-review-card__body > div > mat-button-toggle-group > mat-button-toggle:nth-child(2) > button";
   const buttonID = "orcaButton";
 
+  function removeButton() {
+    const button = document.getElementById(buttonID);
+    if (button !== null) {
+      button.remove();
+    }
+  }
+
   function orcaClick() {
     // noDupes Butten drücken
     /*
@@ -55,6 +62,7 @@
 
 
   function createButton() {
+    removeButton(); // remove before creating new
     wfes.f.waitForElem("wf-logo").then(elem=>{
       const image = GM_getResourceURL("orca");
       const div = document.createElement("div");
@@ -79,13 +87,6 @@
   function ORCa() {
     wfes.f.addCSS(myCssId, myStyle);
     createButton();
-  }
-
-  function removeButton() {
-    const button = document.getElementById(buttonID);
-    if (button !== null) {
-      button.remove();
-    }
   }
 
   function init() {
