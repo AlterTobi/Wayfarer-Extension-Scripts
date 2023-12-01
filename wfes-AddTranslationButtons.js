@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.1.0
+// @version      2.1.1
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 
@@ -34,9 +34,17 @@
     Deepl:  {name: "Deepl", title: "Deepl translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl"}
   };
 
-  const myID = "wfesTranslateButton";
+  const buttonID = "wfesTranslateButton";
   const storageName = "wfes_translateEngine";
-  let currentEngine, translateButton;
+  let currentEngine;
+
+
+  function removeButton() {
+    const button = document.getElementById(buttonID);
+    if (button !== null) {
+      button.remove();
+    }
+  }
 
   function init() {
     window.wfes.f.addCSS(myCSSId, myStyle);
@@ -47,10 +55,11 @@
 
   function createButton(text) {
     window.wfes.f.waitForElem("wf-logo").then(elem=>{
-      const buttonEl = document.getElementById(myID);
+      const buttonEl = document.getElementById(buttonID);
       if (null === buttonEl) {
         const div = document.createElement("div");
         div.className = "wfesTranslate";
+        div.id = buttonID;
         const link = document.createElement("a");
         link.title = "Translate nomination";
         link.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>';
@@ -80,7 +89,6 @@
         });
         div.appendChild(select);
         div.appendChild(link);
-        translateButton = div;
         const container = elem.parentNode.parentNode;
         container.appendChild(div);
       } else {
@@ -151,10 +159,6 @@
       allText += candidate.description;
     }
     createButton(allText);
-  }
-
-  function removeButton() {
-    translateButton.remove();
   }
 
   init();
