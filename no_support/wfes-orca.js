@@ -18,7 +18,7 @@
     `;
 
   const sessvarMiss = "warnBase";
-  const noDupesBtn = "#check-duplicates-card button.noDuplicatesButton";
+  // const noDupesBtn = "#check-duplicates-card button.noDuplicatesButton";
   const acceptBtnList = ["#appropriate-card", "#safe-card", "#accurate-and-high-quality-card", "#permanent-location-card"];
   const rejectBtnList = ["#socialize-card", "#exercise-card", "#explore-card"];
   const categoriesSel = "#categorization-card > div.wf-review-card__body > div > mat-button-toggle-group > mat-button-toggle:nth-child(2) > button";
@@ -26,12 +26,14 @@
 
   function orcaClick() {
     // noDupes Butten drücken
+    /*
     wfes.f.waitForElem(noDupesBtn).then((elem)=>{
       if (!elem.classList.contains("is-selected")) {
         elem.click();
       }
     })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    */
 
     // die ersten 4 Daumen hoch
     acceptBtnList.forEach(sel => {
