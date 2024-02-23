@@ -1,4 +1,4 @@
-// @name         disableTextDiff
+// @name         Disable Text Diff
 // @version      1.0.0
 // @description  disables the Niantic text diff display by clicking at the slider
 // @author       AlterTobi
