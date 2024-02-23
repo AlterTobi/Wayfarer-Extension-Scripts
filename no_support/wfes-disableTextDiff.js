@@ -10,15 +10,18 @@
   const inputSlider = "input.mat-slide-toggle-input";
 
   function disableTextDiff() {
-    window.wfes.f.waitForElem(matSlider).then( () =>{
-      const sliders = document.querySelectorAll(inputSlider);
-      sliders.forEach((s) => {
-        if ("true" === s.getAttribute("aria-checked")) {
-          s.click();
-        }
-      });
-    })
-    .catch();
+    const edit = window.wfes.g.edit();
+    if (edit.what.description || edit.what.title) {
+      window.wfes.f.waitForElem(matSlider).then( () =>{
+        const sliders = document.querySelectorAll(inputSlider);
+        sliders.forEach((s) => {
+          if ("true" === s.getAttribute("aria-checked")) {
+            s.click();
+          }
+        });
+      })
+        .catch( () => { console.log(GM_info.script.name, "no slider found"); } );
+    }
   }
 
   window.addEventListener("WFESReviewPageEditLoaded", disableTextDiff);
