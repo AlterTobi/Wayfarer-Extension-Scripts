@@ -90,8 +90,9 @@ def fill_meta(source, script_name):
   append_line('namespace', cfg['namespace'])
   append_line('homepage', cfg['homepage'])
   append_line('supportURL', cfg['supportURL'])
-  append_line('icon', 'https://wayfarer.nianticlabs.com/imgpub/favicon-256.png')
-
+  # append_line('icon', 'https://wayfarer.nianticlabs.com/imgpub/favicon-256.png')
+  append_line('icon', cfg['favicon'])
+  
   url_dist_base = cfg.get('url_dist_base',fallback = False)
   if url_dist_base:
     path = url_dist_base + script_name
