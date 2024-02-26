@@ -92,6 +92,7 @@ def fill_meta(source, script_name):
   append_line('supportURL', cfg['supportURL'])
   # append_line('icon', 'https://wayfarer.nianticlabs.com/imgpub/favicon-256.png')
   append_line('icon', cfg['favicon'])
+  append_line('icon64', cfg['favicon64'])
   
   url_dist_base = cfg.get('url_dist_base',fallback = False)
   if url_dist_base:
