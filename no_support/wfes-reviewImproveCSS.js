@@ -1,6 +1,6 @@
 // @name Review Improve CSS
-// @version 1.1.0
-// @description CSS modifcations for Wayfarer 5.7
+// @version 1.2.0
+// @description CSS modifcations for Wayfarer >= 5.7
 // @author AlterTobi (CSS parts by AlfonsoML)
 
 (function() {
@@ -156,15 +156,16 @@
   }
 
   function editImproveCSS() {
-    const abuseSelector = "div.report-abuse";
+    // const abuseSelector = "div.report-abuse";
     const mapSelector = "app-select-location-edit > wf-review-card > div.wf-review-card__body";
     window.wfes.f.addCSS(myCssId, myStyle);
 
+    /*
     window.wfes.f.waitForElem(abuseSelector).then((elem)=>{
       elem.classList.add("wfes-fit-content");
       elem.classList.add("wf-button");
     });
-
+    */
     const edit = window.wfes.g.edit();
     if (edit.isEdit && edit.what.location) {
       window.wfes.f.waitForElem(mapSelector)
