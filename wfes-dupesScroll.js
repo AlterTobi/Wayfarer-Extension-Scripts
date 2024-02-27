@@ -1,5 +1,5 @@
 // @name         dupes Scroll
-// @version      1.1.2
+// @version      1.1.3
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 
@@ -34,9 +34,7 @@
           }
         }
       })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     }
   }
 

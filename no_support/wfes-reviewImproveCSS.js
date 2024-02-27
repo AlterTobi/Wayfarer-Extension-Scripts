@@ -75,20 +75,26 @@
     window.wfes.f.addCSS(alCssID, alStyle);
 
     cardSelectors.forEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-mh100p");});
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-mh100p");})
+        .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
       // remove description texts
       const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
-      window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");});
+      window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");})
+        .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     });
-    window.wfes.f.waitForElem(dupeSelector).then((elem)=>{elem.classList.add("wfes-h725");});
+    window.wfes.f.waitForElem(dupeSelector).then((elem)=>{elem.classList.add("wfes-h725");})
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
 
     // smaller font site for title and description
-    window.wfes.f.waitForElem(titleSelector).then((elem)=>{elem.classList.add("wfes-text-4xl");});
-    window.wfes.f.waitForElem(descriptionSelector).then((elem)=>{elem.classList.add("wfes-text-lg");});
+    window.wfes.f.waitForElem(titleSelector).then((elem)=>{elem.classList.add("wfes-text-4xl");})
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    window.wfes.f.waitForElem(descriptionSelector).then((elem)=>{elem.classList.add("wfes-text-lg");})
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
 
     // remove card headers and descriptions
     displayNoneSelectors.forEach(selector => {
-      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-none");});
+      window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-none");})
+        .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     });
 
     // "komische" Zelenumbrüche im Supporttext entfernen
@@ -104,14 +110,17 @@
     window.wfes.f.waitForElem(photoSel).then((elem) => {
       elem.classList.add("wfes-photo");
       elem.parentElement.setAttribute("style", "justify-content: center; display: flex;");
-    });
-    window.wfes.f.waitForElem(suppImgSel).then((elem) => {elem.classList.add("wfes-photo");});
+    })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    window.wfes.f.waitForElem(suppImgSel).then((elem) => {elem.classList.add("wfes-photo");})
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
 
     // make all H4 smaller, wait for last box first
     window.wfes.f.waitForElem(ccategorySelector).then(()=>{
       const headerlist = document.querySelectorAll(".wf-review-card__header");
       headerlist.forEach(elem =>{elem.classList.add("wfes-card__header");});
-    });
+    })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
 
     // question cards mit kleinerem Rand
     window.wfes.f.waitForElem(questionSel).then(()=>{
@@ -136,7 +145,8 @@
         buttonList = document.querySelectorAll("app-question-card > div > div > div.action-buttons-row > div");
         buttonList.forEach(elem => {elem.classList.add("o1");});
       }
-    });
+    })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
 
     // reorder main cards
     window.wfes.f.waitForElem("app-title-and-description-b")
@@ -151,8 +161,10 @@
       .then(elem=>{elem.classList.add("o3"); elem.style.setProperty("margin-left", "0", "important");})
       .catch((e) => { console.warn(GM_info.script.name, "- reorder supporting info ", e); });
 
-    window.wfes.f.waitForElem(mapSel).then(elem => { elem.setAttribute("style", "grid-column: span 4;"); });
-    window.wfes.f.waitForElem("app-review-new-b > div").then(elem => { elem.classList.add("wfes-smallgap"); });
+    window.wfes.f.waitForElem(mapSel).then(elem => { elem.setAttribute("style", "grid-column: span 4;"); })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    window.wfes.f.waitForElem("app-review-new-b > div").then(elem => { elem.classList.add("wfes-smallgap"); })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   function editImproveCSS() {

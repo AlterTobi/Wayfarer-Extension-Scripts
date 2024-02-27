@@ -1,5 +1,5 @@
 // @name URLify
-// @version 1.3.4
+// @version 1.3.5
 // @description detect links in supporting information
 // @author AlterTobi
 
@@ -47,7 +47,7 @@
               setSmallButton(url, elem);
             });
           })
-          .catch((e)=>{console.warn(e);});
+          .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
       }
     }
   }

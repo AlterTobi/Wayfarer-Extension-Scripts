@@ -1,5 +1,5 @@
 // @name         ORCa
-// @version      1.0.1
+// @version      1.0.2
 // @description  ORCa
 // @author       AlterTobi
 // @resource     orca https://altertobi.github.io/Wayfarer-Extension-Scripts/images/orca.png
@@ -18,7 +18,6 @@
     `;
 
   const sessvarMiss = "warnBase";
-  // const noDupesBtn = "#check-duplicates-card button.noDuplicatesButton";
   const acceptBtnList = ["#appropriate-card", "#safe-card", "#accurate-and-high-quality-card", "#permanent-location-card"];
   const rejectBtnList = ["#socialize-card", "#exercise-card", "#explore-card"];
   const categoriesSel = "#categorization-card > div.wf-review-card__body > div > mat-button-toggle-group > mat-button-toggle:nth-child(2) > button";
@@ -32,16 +31,6 @@
   }
 
   function orcaClick() {
-    // noDupes Butten drücken
-    /*
-    wfes.f.waitForElem(noDupesBtn).then((elem)=>{
-      if (!elem.classList.contains("is-selected")) {
-        elem.click();
-      }
-    })
-      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
-    */
-
     // die ersten 4 Daumen hoch
     acceptBtnList.forEach(sel => {
       const fulSel = sel + "> div > div.action-buttons-row > button:nth-child(1)";
@@ -80,7 +69,7 @@
       container.appendChild(div);
     })
       .catch(e => {
-        console.warn(e);
+        console.warn(GM_info.script.name, ": ", e);
       });
   }
 

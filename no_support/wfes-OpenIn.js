@@ -1,5 +1,5 @@
 // @name maps open in
-// @version 1.4.1
+// @version 1.4.2
 // @description add "Open In" for maps
 // @author AlterTobi
 
@@ -135,7 +135,8 @@
         window.wfes.f.waitForElem("#check-duplicates-card > div.wf-review-card__body > div > div.mt-2.flex.justify-between.pb-1.space-x-4 > div:nth-child(1) > button")
           .then((elem) => {
             elem.insertAdjacentElement("BeforeBegin", mainButton);
-          });
+          })
+          .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
         break;
       case "EDIT": {
         const edit = window.wfes.g.edit();

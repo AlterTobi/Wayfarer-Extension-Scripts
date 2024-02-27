@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.0.3
+// @version      2.0.4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -390,7 +390,8 @@
           //          touchendY = event.changedTouches[0].screenY;
           handleGesture();
         }, false);
-      });
+      })
+        .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     }
   }
 

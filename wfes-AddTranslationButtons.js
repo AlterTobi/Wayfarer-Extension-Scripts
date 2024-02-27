@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.1.1
+// @version      2.1.2
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 
@@ -97,9 +97,7 @@
         a.target = engines[currentEngine].url;
       }
     })
-      .catch(e => {
-        console.warn(e);
-      });
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   function addTranslationButtonsNew() {

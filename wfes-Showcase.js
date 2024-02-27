@@ -1,5 +1,5 @@
 // @name         Showcase
-// @version      1.3.1
+// @version      1.3.2
 // @description  Improve Wayfarer Showcase
 // @author       AlterTobi
 
@@ -92,7 +92,8 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     showDetails(showcase.list[0]);
     window.wfes.f.waitForElem(itemSelector).then(elem=> {
       elem.style.userSelect = "text"; // allow text selection
-    });
+    })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   let loadHomeTimerId = null;
