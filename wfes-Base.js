@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.0.4
+// @version      2.0.5
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -550,13 +550,17 @@
 
   // add CSS to the head, if not there
   window.wfes.f.addCSS = function(myID, styles) {
-    // already there?
-    if (null === document.getElementById(myID)) {
-      const headElem = document.getElementsByTagName("HEAD")[0];
-      const customStyleElem = document.createElement("style");
-      customStyleElem.setAttribute("id", myID);
-      customStyleElem.appendChild(document.createTextNode(styles));
-      headElem.appendChild(customStyleElem);
+    if ("string"===typeof(myID) && myID.length>0) {
+      // already there?
+      if (null === document.getElementById(myID)) {
+        const headElem = document.getElementsByTagName("HEAD")[0];
+        const customStyleElem = document.createElement("style");
+        customStyleElem.setAttribute("id", myID);
+        customStyleElem.appendChild(document.createTextNode(styles));
+        headElem.appendChild(customStyleElem);
+      }
+    } else {
+      console.error(GM_info.script.name, " addCSS() error: need ID to be defined");
     }
   };
 
