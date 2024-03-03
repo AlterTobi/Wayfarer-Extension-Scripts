@@ -1,6 +1,6 @@
 // @name review Add Street Address
-// @version 1.1.1
-// @description fix for missing Street Address in Wayfarer 5.2
+// @version 1.1.2
+// @description fix for missing Street Address in Wayfarer 5.2 - obsolete
 // @author AlterTobi
 
 (function() {
