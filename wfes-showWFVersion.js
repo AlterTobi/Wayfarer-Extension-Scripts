@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.3.2
+// @version      1.3.3
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -18,9 +18,9 @@
     padding: 5px;
     max-width: 50%;
     box-shadow: 7px 7px 5px grey;
-    cursor: pointer;}
+    cursor: pointer;
     max-height: 95%;
-    overflow: auto;
+    overflow: auto;}
     /* Styles for dark mode */
     @media (prefers-color-scheme: dark) {
     .wfVersionCSS {
