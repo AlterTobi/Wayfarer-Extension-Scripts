@@ -69,16 +69,16 @@
       versionList.appendChild(listItem);
     }
 
-    if (null === document.getElementById(versionDivID)) {
+    let versionDiv = document.getElementById(versionDivID);
+    if (null === versionDiv) {
       const bodyElem = document.getElementsByTagName("body")[0];
-      const versionDiv = document.createElement("div");
+      versionDiv = document.createElement("div");
       versionDiv.setAttribute("class", "wfVersionCSS");
       versionDiv.setAttribute("id", versionDivID);
       versionDiv.appendChild(versionDropdown);
       bodyElem.appendChild(versionDiv);
     } else {
-      const versionDiv = document.getElementById(versionDivID);
-      // remove existing child first - skip null check, because it must be there
+      // remove existing child first
       versionDiv.removeChild(document.getElementById("version-dropdown"));
       versionDiv.appendChild(versionDropdown);
     }
