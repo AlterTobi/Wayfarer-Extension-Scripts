@@ -129,7 +129,8 @@
           }
 
           // Niantic Review?
-          if (false === historicalData.isNianticControlled && true === nom.isNianticControlled) {
+          if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
+          || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
             window.wfes.f.createNotification(`${nom.title} went into Niantic review!`, "red");
           }
 
