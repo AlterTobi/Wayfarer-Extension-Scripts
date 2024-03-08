@@ -6,6 +6,7 @@ on:
       - 'issue/*'
       - 'feature/*'
       - 'hotfix/*'
+      - 'test/*'
 
 jobs:
   build-and-deploy:
