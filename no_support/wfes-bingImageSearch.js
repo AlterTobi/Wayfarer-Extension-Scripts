@@ -12,12 +12,12 @@
     }
     `;
   const mainImageElem = "app-photo-b > wf-review-card-b > div.wf-review-card__header > div";
-  const suppImageElem = 'app-supporting-info-b > wf-review-card-b > div.wf-review-card__header > div '
+  const suppImageElem = "app-supporting-info-b > wf-review-card-b > div.wf-review-card__header > div ";
   const targetName = "wfesReverseImageBing";
 
   function prepareURI(imgUrl) {
-    const encoded = encodeURIComponent(imgUrl);
-    const bingURI = `https://www.bing.com/images/search?view=detailv2&iss=sbi&form=SBIWEB&sbisrc=UrlPaste&q=imgurl:${encoded}&idpbck=1&selectedindex=0&id=${encoded}&ccid=wKrWr9BS&mediaurl=${encoded}&exph=2815&expw=2592&vt=2&sim=1`;
+    const encodedURI = encodeURIComponent(imgUrl);
+    const bingURI = `https://www.bing.com/images/search?view=detailv2&iss=sbi&form=SBIWEB&sbisrc=UrlPaste&q=imgurl:${encodedURI}&idpbck=1&selectedindex=0&id=${encodedURI}&ccid=wKrWr9BS&mediaurl=${encodedURI}&exph=2815&expw=2592&vt=2&sim=1`;
     return bingURI;
   }
 
