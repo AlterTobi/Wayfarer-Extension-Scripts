@@ -12,6 +12,7 @@
     }
     `;
   const mainImageElem = "app-photo-b > wf-review-card-b > div.wf-review-card__header > div";
+  const suppImageElem = 'app-supporting-info-b > wf-review-card-b > div.wf-review-card__header > div '
   const targetName = "wfesReverseImageBing";
 
   function prepareURI(imgUrl) {
@@ -38,6 +39,13 @@
     window.wfes.f.waitForElem(mainImageElem)
       .then((e)=>{
         const imageUrl = data.imageUrl + "=s0";
+        addLink(prepareURI(imageUrl), e);
+      })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    // supporting image
+    window.wfes.f.waitForElem(suppImageElem)
+      .then((e)=>{
+        const imageUrl = data.supportingImageUrl + "=s0";
         addLink(prepareURI(imageUrl), e);
       })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
