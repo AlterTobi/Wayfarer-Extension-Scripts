@@ -6,13 +6,13 @@
 (function() {
   "use strict";
 
-/*
+  /*
   const myCssId = "bingImageSearchCSS";
   const myStyle = `body {
     }
     `;
 */
-  const mainImageElem = "wf-image-modal flex-grow bg-contain bg-center bg-no-repeat";
+  const mainImageElem = "app-photo-b > wf-review-card-b > div.wf-review-card__header > div";
   const targetName = "wfesReverseImageBing";
 
   function prepareURI(imgUrl) {
@@ -28,7 +28,7 @@
     link.target = targetName;
     link.textContent = "Bing Reverse Image Search";
     span.appendChild(link);
-    elem.parentNode.insertBefore(span, elem);
+    elem.appendChild(span);
   }
 
   function reviewNew() {
