@@ -6,12 +6,11 @@
 (function() {
   "use strict";
 
-  /*
   const myCssId = "bingImageSearchCSS";
-  const myStyle = `body {
+  const myStyle = `wfesBingIMage {
+        margin: 0.6em 0;
     }
     `;
-*/
   const mainImageElem = "app-photo-b > wf-review-card-b > div.wf-review-card__header > div";
   const targetName = "wfesReverseImageBing";
 
@@ -23,6 +22,7 @@
 
   function addLink(url, elem ) {
     const span = document.createElement("span");
+    span.setAttribute("class", "wfesBingIMage");
     const link = document.createElement("a");
     link.href = url;
     link.target = targetName;
@@ -32,7 +32,7 @@
   }
 
   function reviewNew() {
-  //  window.wfes.f.addCSS(myCssId, myStyle);
+    window.wfes.f.addCSS(myCssId, myStyle);
     const data = window.wfes.g.reviewPageData();
     // wait for main photo
     window.wfes.f.waitForElem(mainImageElem)
