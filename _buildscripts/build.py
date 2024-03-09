@@ -159,12 +159,12 @@ def run():
   else:
     lic.link_to(tf) # create a hard link
 
-  # check if beta (issue, hotfix, feature)
+  # check if beta (issue, hotfix, feature, test)
   ref = re.match('refs/heads/(\w+)/([\w#\-\.\_]+)?',environ['GITHUB_REF'])
   if ref:
     if ref.group(1) == 'issue':
       extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.issue' + ref.group(2)[1:]
-    elif (ref.group(1) == 'feature')|(ref.group(1) == 'hotfix'):
+    elif (ref.group(1) == 'feature')|(ref.group(1) == 'hotfix')|(ref.group(1) == 'test'):
       extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.' + ref.group(1) + '.' + ref.group(2)
   
   # process js files
