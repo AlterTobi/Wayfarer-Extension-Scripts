@@ -7,7 +7,7 @@
   "use strict";
 
   const myCssId = "bingImageSearchCSS";
-  const myStyle = `wfesBingIMage {
+  const myStyle = `.wfesBingIMage {
         margin: 0.6em 0;
     }
     `;
