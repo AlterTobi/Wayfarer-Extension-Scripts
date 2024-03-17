@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.1.2
+// @version      1.1.3
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -8,7 +8,7 @@
 (function() {
   "use strict";
 
-  const searchRegex = /#hold|,yxcv/;
+  const searchRegex = /#hold|,yxcv|,zxcv/;
   const idlist = [];
   const timeout = 2500;
 
