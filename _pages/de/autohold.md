@@ -2,7 +2,7 @@
 
 Bist du auch zu faul, unterwegs beim Einreichen lange Texte zu tippen und bearbeitest lieber zu Hause am PC?
 
-Schreibe einfach **#hold** irgendwo in den Zusatztext (**,yxcv** geht auch ^^). Nach dem Hochladen (*wenn die Mail da ist*) öffnest du Wayfarer und gehst auf die Seite Beiträge.
+Schreibe einfach **#hold** oder **Platzhalter** irgendwo in den Zusatztext (**,yxcv** geht auch ^^). Nach dem Hochladen (*wenn die Mail da ist*) öffnest du Wayfarer und gehst auf die Seite Beiträge.
 Nun erkennt das Tool den Text und setzt die entsprechenden Einreichungen automatisch auf "zurückgestellt". Bei vielen Einreichungen dauert es eine Weile, da
 eine Pause eingebaut ist, um nicht zu viele Anfragen zu schnell an den Wayfarer Server zu senden.
 
@@ -14,7 +14,7 @@ Das Tool kann nur arbeiten, wenn du aktiv die Seite deiner Einreichungen aufrufs
 solange die Einreichung sich noch in der Warteschlange befindet. Warte also nach dem Hochladen nicht zu lange,
 ehe du in Wayfarer gehst. Besonders wenn du in einer schnellen Zelle unterwegs bist, kann der nächste Tag schon zu spät sein.
 
-Öffne Wayfarer auch nicht vor dem Hochladen. Da die Einreichungsliste gecached (zwischengespeichert) wird, ist diese sonst möglicherweise nicht aktuell und es dauert eine Stunde, ehe sie sich aktualisiert.
+Öffne Wayfarer auch nicht vor dem Hochladen. Da die Einreichungsliste gecached (zwischengespeichert) wird, ist diese sonst möglicherweise nicht aktuell und es kann bis zu einer Stunde dauern, ehe sie sich aktualisiert.
 
 ---
 
