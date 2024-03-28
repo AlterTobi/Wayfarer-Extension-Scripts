@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.6.0
+// @version     1.7.0
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -528,7 +528,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
         script = document.createElement("script");
         script.type = "text/javascript";
-        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyB8G-1vuHW3Sx8ONsM71G9TzWJHHWXfAf8&libraries=visualization,geometry&callback=initMap");
+        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&libraries=visualization,geometry&callback=initMap");
         body.appendChild(script);
       }
 
