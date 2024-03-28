@@ -127,10 +127,12 @@ def process_file(source, out_dir):
 
   info = get_info(cfg.get('url_dist_base',fallback = False))
 
+  body =  re.sub(r'\$__(\w+)__', lambda match: environ.get(match.group(1), match.group(0)), script)
+
   data = [
     meta,
     info,
-    script
+    body
     ]
 
   (out_dir / (script_name + '.user.js')).write_text(''.join(data), encoding='utf8')
@@ -164,7 +166,7 @@ def run():
   if ref:
     if ref.group(1) == 'issue':
       extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.issue' + ref.group(2)[1:]
-    elif (ref.group(1) == 'feature')|(ref.group(1) == 'hotfix'):
+    elif ref.group(1) in ['feature', 'hotfix', 'test']:
       extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.' + ref.group(1) + '.' + ref.group(2)
   
   # process js files
