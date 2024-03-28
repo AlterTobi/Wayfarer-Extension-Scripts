@@ -23,7 +23,8 @@ jobs:
           TEST_VARIABLE: ${{ vars.TEST_VARIABLE }}
           TEST_SECRET: ${{ secrets.TEST_SECRET }}
         run: |
-          /usr/bin/env
+          echo "testvar: $TEST_VARIABLE"
+          echo "testsec: $TEST_SECRET"
           cd _buildscripts
           /usr/bin/python3 ./build.py -c build_dev.ini
 
