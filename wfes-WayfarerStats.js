@@ -516,9 +516,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
             `;
         }
         script.innerHTML += `
-          async function initMap() {
-            const { Map } = await google.maps.importLibrary("maps");
-            map = new Map(document.getElementById('map'), {
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
               zoom: 7,
               center: {lat: 51.38, lng: 10.12},
               mapTypeId: 'hybrid',
