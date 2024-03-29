@@ -491,8 +491,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
             const title = ti1 + " " + ti2;
             const icon = iconBase + ico;
             innerScript += "marker = new google.maps.marker.AdvancedMarkerElement({" +
+              "map," +
               "position: {lat:"+lat+",lng:"+lng+"}," +
-              "map: map," +
               "title: '" + title + "'," +
               "icon: '"+ icon + "'"+
               "});\n";
