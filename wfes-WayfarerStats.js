@@ -14,7 +14,7 @@
   const lStoreCheck = selfname+"_IsChecked";
   const lStoreCheckS2 = selfname+"_IsCheckedS2";
   const lStoreUpgrades = selfname+"_myUpgrades";
-  const mapId = 'DEMO_MAP_ID'';
+  const mapId = "DEMO_MAP_ID";
 
   const myCssId = "wayfarerStatsCSS";
   const myStyle = `
