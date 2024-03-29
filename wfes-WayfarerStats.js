@@ -530,7 +530,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
         script = document.createElement("script");
         script.type = "text/javascript";
-        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&libraries=visualization,geometry&callback=initMap");
+        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&libraries=visualization,geometry,marker&callback=initMap");
         body.appendChild(script);
       }
 
