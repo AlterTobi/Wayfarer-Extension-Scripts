@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.7.0
+// @version     1.7.1
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -14,6 +14,7 @@
   const lStoreCheck = selfname+"_IsChecked";
   const lStoreCheckS2 = selfname+"_IsCheckedS2";
   const lStoreUpgrades = selfname+"_myUpgrades";
+  const mapId = selfname+"_mapId";
 
   const myCssId = "wayfarerStatsCSS";
   const myStyle = `
@@ -489,7 +490,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
             }
             const title = ti1 + " " + ti2;
             const icon = iconBase + ico;
-            innerScript += "marker = new google.maps.Marker({" +
+            innerScript += "marker = new google.maps.AdvancedMarkerElement({" +
               "position: {lat:"+lat+",lng:"+lng+"}," +
               "map: map," +
               "title: '" + title + "'," +
@@ -520,7 +521,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
             map = new Map(document.getElementById('map'), {
               zoom: 7,
               center: {lat: 51.38, lng: 10.12},
-              mapTypeId: 'hybrid'
+              mapTypeId: 'hybrid',
+              mapId: ${mapId}
             })
           `;
         script.innerHTML += innerScript + "}";
