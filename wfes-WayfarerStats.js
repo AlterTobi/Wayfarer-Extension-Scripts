@@ -494,7 +494,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
               "map," +
               "position: {lat:"+lat+",lng:"+lng+"}," +
               "title: '" + title + "'," +
-              "icon: '"+ icon + "'"+
+              "iconUrl: '"+ icon + "'"+
               "});\n";
             if ( 0 === i) { break; }// weniger geht nicht
           }
