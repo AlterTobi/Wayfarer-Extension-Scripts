@@ -522,7 +522,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
               zoom: 7,
               center: {lat: 51.38, lng: 10.12},
               mapTypeId: 'hybrid',
-              mapId: ${mapId}
+              mapId: '${mapId}'
             })
           `;
         script.innerHTML += innerScript + "}";
