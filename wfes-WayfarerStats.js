@@ -452,8 +452,6 @@ fnV1HwAAAABJRU5ErkJggg==`;
           histText = "/#wfrmarker";
           const iconBase = "https://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/";
 
-          innerScript += "const markerImg = document.createElement(\"img\"); ";
-
           for (let i = PoGoStats.length - 1; i > PoGoStats.length -501; i--) {
             // nur die neuesten 500
             const lat = PoGoStats[i].latE6/1E6;
@@ -493,12 +491,14 @@ fnV1HwAAAABJRU5ErkJggg==`;
             const title = ti1 + " " + ti2;
             const icon = iconBase + ico;
 
-            innerScript += "markerImg.src = '" + icon + "';" +
+            innerScript += "const markerImg"+i+" = document.createElement(\"img\"); ";
+
+            innerScript += "markerImg"+i+".src = '" + icon + "';" +
                "marker = new google.maps.marker.AdvancedMarkerElement({" +
               "map," +
               "position: {lat:"+lat+",lng:"+lng+"}," +
               "title: '" + title + "'," +
-              "content: markerImg" +
+              "content: markerImg" + i +
               "});\n";
             if ( 0 === i) { break; }// weniger geht nicht
           }
@@ -535,7 +535,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
         script = document.createElement("script");
         script.type = "text/javascript";
-        script.setAttribute("async")
+        script.setAttribute("async");
         script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&&libraries=visualization,geometry,marker&loading=async&callback=initMa");
         body.appendChild(script);
       }
