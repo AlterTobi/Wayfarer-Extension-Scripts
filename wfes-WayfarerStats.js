@@ -470,11 +470,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
               case "NEW":
                 switch (PoGoStats[i].subtyp) {
                   case 0:
-                    ti1 = "NEW R";
+                    ti1 = "NEW Redacted";
                     ico = "Map-Marker-Push-Pin-1-"+color+"-icon.png";
                     break;
                   case 1:
-                    ti1 = "NEW P";
+                    ti1 = "NEW ";
                     ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
                     break;
                 }
