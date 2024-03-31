@@ -520,8 +520,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
             `;
         }
         script.innerHTML += `
-          function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
+          async function initMap() {
+            const { Map } = await google.maps.importLibrary("maps");
+            map = new Map(document.getElementById('map'), {
               zoom: 7,
               center: {lat: 51.38, lng: 10.12},
               mapTypeId: 'hybrid',
@@ -534,7 +535,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
         script = document.createElement("script");
         script.type = "text/javascript";
-        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&libraries=visualization,geometry,marker&callback=initMap");
+        script.setAttribute("async")
+        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&&libraries=visualization,geometry,marker&loading=async&callback=initMa");
         body.appendChild(script);
       }
 
