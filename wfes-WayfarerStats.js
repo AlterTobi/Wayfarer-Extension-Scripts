@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.7.0
+// @version     1.7.1
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -14,6 +14,7 @@
   const lStoreCheck = selfname+"_IsChecked";
   const lStoreCheckS2 = selfname+"_IsCheckedS2";
   const lStoreUpgrades = selfname+"_myUpgrades";
+  const mapId = "DEMO_MAP_ID";
 
   const myCssId = "wayfarerStatsCSS";
   const myStyle = `
@@ -469,11 +470,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
               case "NEW":
                 switch (PoGoStats[i].subtyp) {
                   case 0:
-                    ti1 = "NEW R";
+                    ti1 = "NEW Redacted";
                     ico = "Map-Marker-Push-Pin-1-"+color+"-icon.png";
                     break;
                   case 1:
-                    ti1 = "NEW P";
+                    ti1 = "NEW ";
                     ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
                     break;
                 }
@@ -489,11 +490,15 @@ fnV1HwAAAABJRU5ErkJggg==`;
             }
             const title = ti1 + " " + ti2;
             const icon = iconBase + ico;
-            innerScript += "marker = new google.maps.Marker({" +
+
+            innerScript += "const markerImg"+i+" = document.createElement(\"img\"); ";
+
+            innerScript += "markerImg"+i+".src = '" + icon + "';" +
+               "marker = new google.maps.marker.AdvancedMarkerElement({" +
+              "map," +
               "position: {lat:"+lat+",lng:"+lng+"}," +
-              "map: map," +
               "title: '" + title + "'," +
-              "icon: '"+ icon + "'"+
+              "content: markerImg" + i +
               "});\n";
             if ( 0 === i) { break; }// weniger geht nicht
           }
@@ -520,7 +525,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
             map = new Map(document.getElementById('map'), {
               zoom: 7,
               center: {lat: 51.38, lng: 10.12},
-              mapTypeId: 'hybrid'
+              mapTypeId: 'hybrid',
+              mapId: '${mapId}'
             })
           `;
         script.innerHTML += innerScript + "}";
@@ -529,7 +535,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
         script = document.createElement("script");
         script.type = "text/javascript";
-        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&libraries=visualization,geometry&callback=initMap");
+        script.setAttribute("async", "");
+        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&&libraries=visualization,geometry,marker&loading=async&callback=initMap");
         body.appendChild(script);
       }
 
