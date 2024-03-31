@@ -535,8 +535,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
         script = document.createElement("script");
         script.type = "text/javascript";
-        script.setAttribute("async");
-        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&&libraries=visualization,geometry,marker&loading=async&callback=initMa");
+        script.setAttribute("async", "");
+        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&&libraries=visualization,geometry,marker&loading=async&callback=initMap");
         body.appendChild(script);
       }
 
