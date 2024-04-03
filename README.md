@@ -11,7 +11,7 @@ Scripts are available at my [GitHub Pages](https://altertobi.github.io/Wayfarer-
 
 ### Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
-Pull-Requests welcome - please use the **dev** branch.
+Pull-Requests welcomeh.
 
 ---
 
@@ -26,4 +26,4 @@ Die Skripte sind auf meinen [GitHub Pages](https://altertobi.github.io/Wayfarer-
 
 ### Entwicklerdokumentation
 Eine Entwicklerdokumentation findet ihr im [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
-Pull-Requests sind gerne gesehen - bitte nutzt den **dev** branch als Basis.
+Pull-Requests sind gerne gesehen.
