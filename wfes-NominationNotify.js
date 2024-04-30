@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.5.4
+// @version      1.6.0
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -102,6 +102,11 @@
 
         for (let i = 0; i < nomList.length; i++) {
           nom = nomList[i];
+          //@TODO: only handle NOMINATIONs so far (need data examples for edits first)
+          if ("NOMINATION" !== nom.type) {
+              continue(); //next
+          }
+
           historicalData = historyDict[nom.id];
           myDates = [];
 

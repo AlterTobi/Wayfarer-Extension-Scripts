@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.1.4
+// @version      1.2.0
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -75,8 +75,8 @@
 
     for (let i = 0; i < nomList.length; i++) {
       nom = nomList[i];
-      // process all new / in queue
-      if ("NOMINATED" === nom.status) {
+      // process all new / in queue - NOMINATION only
+      if (("NOMINATION" === nom.type) && ("NOMINATED" === nom.status) {
         // search for '#hold'
         if (nom.statement.toLowerCase().search(searchRegex) > -1) {
           const o = {};
