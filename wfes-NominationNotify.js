@@ -172,8 +172,10 @@
           nomList[i] = nom;
         }
 
+        const _tmpnomlist = nomList.filter(nom => "NOMINATION" === nom.type);
+
         // Store the new state
-        const nomDict = window.wfes.f.makeIDbasedDictionary(nomList);
+        const nomDict = window.wfes.f.makeIDbasedDictionary(_tmpnomlist);
         detectMissing().then((missingDict)=>{
           const fullDict = Object.assign(nomDict, missingDict);
           window.wfes.f.localSave(lStoreList, fullDict);
