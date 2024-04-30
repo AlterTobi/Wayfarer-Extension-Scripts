@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.0.5
+// @version      2.1.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -257,7 +257,8 @@
           break;
         case PREFIX + "manage":
         // nomination list
-          wfes.nominations.list = json.result.nominations;
+        // @TODO handle Edits
+          wfes.nominations.list = json.result.nominations.filter(obj => "NOMINATION" === obj.type).slice();
           wfes.nominations.canAppeal = json.result.canAppeal;
           wfes.nominations.wayspots = json.result.wayspots;
           window.dispatchEvent(new Event("WFESNominationListLoaded"));
