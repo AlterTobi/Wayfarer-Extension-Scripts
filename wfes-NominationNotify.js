@@ -102,9 +102,9 @@
 
         for (let i = 0; i < nomList.length; i++) {
           nom = nomList[i];
-          //@TODO: only handle NOMINATIONs so far (need data examples for edits first)
-          if ("NOMINATION" !== nom.type) {
-              continue(); //next
+          // @TODO: only handle NOMINATIONs so far (need data examples for edits first)
+          if ( "NOMINATION" !== nom.type) {
+            continue; // next
           }
 
           historicalData = historyDict[nom.id];

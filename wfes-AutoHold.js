@@ -76,7 +76,7 @@
     for (let i = 0; i < nomList.length; i++) {
       nom = nomList[i];
       // process all new / in queue - NOMINATION only
-      if (("NOMINATION" === nom.type) && ("NOMINATED" === nom.status) {
+      if (("NOMINATION" === nom.type) && ("NOMINATED" === nom.status)) {
         // search for '#hold'
         if (nom.statement.toLowerCase().search(searchRegex) > -1) {
           const o = {};
