@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.1.0
+// @version      2.1.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -266,14 +266,17 @@
           break;
         case PREFIX + "manage/detail":
         // nomination detail
-          wfes.nominations.detail = json.result;
-          // save nomination Details in Sessionstorage
-          window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
-            nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-            window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
-              window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+        // @TODO handle Edits
+          if ("NOMINATION" === json.result.type) {
+            wfes.nominations.detail = json.result;
+            // save nomination Details in Sessionstorage
+            window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+              nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
+              window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+                window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+              });
             });
-          });
+          }
           break;
         case PREFIX + "properties":
           wfes.properties = json.result;
