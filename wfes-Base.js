@@ -114,7 +114,7 @@
     try {
       wfes.userId = TSH(wfes.properties.socialProfile.email).toString(16);
     } catch(e) {
-      console.error(GM_info.script.name, ": userprofile does not contain email");
+      console.error(GM_info.script.name, ": userprofile does not contain email ", e);
     }
   }
   window.addEventListener("WFESPropertiesLoaded", setUserId);
