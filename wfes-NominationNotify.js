@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.6.0
+// @version      1.6.1
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -102,10 +102,6 @@
 
         for (let i = 0; i < nomList.length; i++) {
           nom = nomList[i];
-          // @TODO: only handle NOMINATIONs so far (need data examples for edits first)
-          if ( "NOMINATION" !== nom.type) {
-            continue; // next
-          }
 
           historicalData = historyDict[nom.id];
           myDates = [];
@@ -172,10 +168,8 @@
           nomList[i] = nom;
         }
 
-        const _tmpnomlist = nomList.filter(nom => "NOMINATION" === nom.type);
-
         // Store the new state
-        const nomDict = window.wfes.f.makeIDbasedDictionary(_tmpnomlist);
+        const nomDict = window.wfes.f.makeIDbasedDictionary(nomList);
         detectMissing().then((missingDict)=>{
           const fullDict = Object.assign(nomDict, missingDict);
           window.wfes.f.localSave(lStoreList, fullDict);

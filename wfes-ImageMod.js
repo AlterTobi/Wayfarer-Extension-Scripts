@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.1.2
+// @version      1.2.0
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
@@ -107,26 +107,35 @@
 
     let imageUrl;
     const myData = window.wfes.g.nominationDetail();
-    window.wfes.f.addCSS(myCssId, myStyle);
+    // only nominations, for edits use Wayfarer Contribution Management Layout
+    if ("NOMINATION" === myData.type) {
+      window.wfes.f.addCSS(myCssId, myStyle);
 
-    const elem = document.getElementsByClassName("wf-image-modal details-pane__image");
-    imageUrl = myData.imageUrl + "=s0";
+      const elem = document.getElementsByClassName("wf-image-modal details-pane__image");
+      imageUrl = myData.imageUrl + "=s0";
 
-    // main Image
-    if ( null === document.getElementById(buttonIDmain)) {
-      addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin", "luperel", buttonIDmain, "absolute");
-    } else {
-      setImageURL(buttonIDmain, imageUrl);
-    }
-
-    // Supporting Image
-    if (myData.supportingImageUrl) {
-      imageUrl = myData.supportingImageUrl + "=s0";
-      if ( null === document.getElementById(buttonIDsup)) {
-        addFullImageButton(elem[1].parentNode, imageUrl, "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
+      // main Image
+      if ( null === document.getElementById(buttonIDmain)) {
+        addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin", "luperel", buttonIDmain, "absolute");
       } else {
-        setImageURL(buttonIDsup, imageUrl);
+        setImageURL(buttonIDmain, imageUrl);
       }
+
+      // Supporting Image
+      if (myData.supportingImageUrl) {
+        imageUrl = myData.supportingImageUrl + "=s0";
+        if ( null === document.getElementById(buttonIDsup)) {
+          addFullImageButton(elem[1].parentNode, imageUrl, "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
+        } else {
+          setImageURL(buttonIDsup, imageUrl);
+        }
+      }
+    } else {
+      // remove magnifier
+      [buttonIDmain, buttonIDsup].forEach(buttonID => {
+        const element = document.getElementById(buttonID);
+        if (element) {element.remove();}
+      });
     }
   }
 

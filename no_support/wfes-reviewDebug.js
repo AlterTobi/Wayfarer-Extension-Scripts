@@ -1,5 +1,5 @@
 // @name         review Debug
-// @version      1.1.2
+// @version      1.1.4
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -28,7 +28,9 @@
   .wfes-red { color: red; }
   `;
 
-  const skipNamesCommon = ["description", "title"];
+  // @TODO bring back title
+  //  const skipNamesCommon = ["description", "title"];
+  const skipNamesCommon = ["description"];
 
   let overlay = null;
 
@@ -74,7 +76,7 @@
 
     skipped.sort();
 
-    content += "<hr/><strong>skipped entries:</strong><br/>";
+    content += "<hr/><strong>ignored entries:</strong><br/>";
     content += `<p>${skipped.join(", ")}</p>`;
     const missing = skipNames.filter(x => !skipped.includes(x));
     if (missing.length > 0) {
@@ -121,7 +123,7 @@
 
   function nominationDetail() {
     const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons",
-      "upgraded", "city", "state", "type", "appealNotes", "canHold", "canReleaseHold",
+      "upgraded", "city", "state", "appealNotes", "canHold", "canReleaseHold",
       "nextUpgrade", "order", "day"];
     const candidate = window.wfes.g.nominationDetail();
     showDebugBox(candidate, lskips);

@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.1.1
+// @version      2.2.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -257,8 +257,7 @@
           break;
         case PREFIX + "manage":
         // nomination list
-        // @TODO handle Edits
-          wfes.nominations.list = json.result.nominations.filter(obj => "NOMINATION" === obj.type).slice();
+          wfes.nominations.list = json.result.nominations; // .filter(obj => "NOMINATION" === obj.type).slice();
           wfes.nominations.canAppeal = json.result.canAppeal;
           wfes.nominations.wayspots = json.result.wayspots;
           window.dispatchEvent(new Event("WFESNominationListLoaded"));
@@ -266,17 +265,15 @@
           break;
         case PREFIX + "manage/detail":
         // nomination detail
-        // @TODO handle Edits
-          if ("NOMINATION" === json.result.type) {
-            wfes.nominations.detail = json.result;
-            // save nomination Details in Sessionstorage
-            window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
-              nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-              window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
-                window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-              });
+          wfes.nominations.detail = json.result;
+          // save nomination Details in Sessionstorage
+          window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+            nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
+            window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+              window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+              window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
             });
-          }
+          });
           break;
         case PREFIX + "properties":
           wfes.properties = json.result;
