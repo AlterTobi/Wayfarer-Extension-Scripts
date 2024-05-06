@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.6.1
+// @version      1.6.2
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -102,6 +102,10 @@
 
         for (let i = 0; i < nomList.length; i++) {
           nom = nomList[i];
+
+          // find title
+          const _title = nom.poiData?.title || nom.title;
+          nom.title = _title;
 
           historicalData = historyDict[nom.id];
           myDates = [];
