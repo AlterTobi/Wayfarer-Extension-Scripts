@@ -108,7 +108,7 @@
           nom.title = _title;
 
           // set title for notification
-          const notiTitle = nom.title + "("+nom.type+")";
+          const notiTitle = nom.title + " ("+nom.type+")";
 
           historicalData = historyDict[nom.id];
           myDates = [];
