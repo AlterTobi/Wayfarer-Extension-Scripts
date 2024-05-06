@@ -107,12 +107,15 @@
           const _title = nom.poiData?.title || nom.title;
           nom.title = _title;
 
+          // set title for notification
+          const notiTitle = nom.title + "("+nom.type+")";
+
           historicalData = historyDict[nom.id];
           myDates = [];
 
           // detect unknown states
           if (!states.includes(nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} has unknown state: ${nom.status}`, "blue");
+            window.wfes.f.createNotification(`${notiTitle} has unknown state: ${nom.status}`, "blue");
           }
 
           if (undefined === historicalData) {
@@ -130,36 +133,36 @@
           // upgrade?
           if (false === historicalData.upgraded && true === nom.upgraded) {
             myDates.push([today, "UPGRADE"]);
-            window.wfes.f.createNotification(`${nom.title} was upgraded!`);
+            window.wfes.f.createNotification(`${notiTitle} was upgraded!`);
           }
 
           // Niantic Review?
           if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
           || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
-            window.wfes.f.createNotification(`${nom.title} went into Niantic review!`, "red");
+            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "red");
           }
 
           // was missing?
           if (("MISSING" === historicalData.status)) {
-            window.wfes.f.createNotification(`${nom.title} returned`, "orange");
+            window.wfes.f.createNotification(`${notiTitle} returned`, "orange");
           }
           // In queue -> In voting
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} went into voting!`);
+            window.wfes.f.createNotification(`${notiTitle} went into voting!`);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
             // only if nomination is "old"
             if (getDateDiff(nom.day) > noHeldMsgDays) {
-              window.wfes.f.createNotification(`${nom.title} put on HOLD!`, "red");
+              window.wfes.f.createNotification(`${notiTitle} put on HOLD!`, "red");
             }
           } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
-            window.wfes.f.createNotification(`${nom.title} was appealed!`);
+            window.wfes.f.createNotification(`${notiTitle} was appealed!`);
           } else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
             if ("ACCEPTED" === nom.status) {
-              window.wfes.f.createNotification(`${nom.title} was accepted!`);
+              window.wfes.f.createNotification(`${notiTitle} was accepted!`);
             }else if("REJECTED" === nom.status) {
-              window.wfes.f.createNotification(`${nom.title} was rejected!`);
+              window.wfes.f.createNotification(`${notiTitle} was rejected!`);
             }else if("DUPLICATE" === nom.status) {
-              window.wfes.f.createNotification(`${nom.title} was marked as a duplicate!`);
+              window.wfes.f.createNotification(`${notiTitle} was marked as a duplicate!`);
             }
           }
 
