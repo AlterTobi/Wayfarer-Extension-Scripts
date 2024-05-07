@@ -1,5 +1,5 @@
 // @name         review Debug
-// @version      1.1.4
+// @version      1.1.5
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -135,8 +135,12 @@
   window.addEventListener("WFESReviewPagePhotoLoaded", newPhoto);
   window.addEventListener("WFESNominationDetailLoaded", nominationDetail);
 
-  // remove debug ooverlay
+  // remove debug ooverlay - explizit alle Seiten, weil WFESPageLoaded es sonst auch auf der review-Seite wieder entfernen würde
   window.addEventListener("WFESReviewDecisionSent", removeInfobox);
+  window.addEventListener("WFESHomePageLoaded", removeInfobox);
+  window.addEventListener("WFESProfileLoaded", removeInfobox);
+  window.addEventListener("WFESHelpPageLoaded", removeInfobox);
+  window.addEventListener("WFESSettingsLoaded", removeInfobox);
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
