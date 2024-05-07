@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.6.2
+// @version      1.6.3
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -108,7 +108,7 @@
           nom.title = _title;
 
           // set title for notification
-          const notiTitle = nom.title + " ("+nom.type+")";
+          const notiTitle = nom.type + ": " + nom.title;
 
           historicalData = historyDict[nom.id];
           myDates = [];
