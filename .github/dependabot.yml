@@ -12,11 +12,11 @@ updates:
       interval: "weekly"
 
   # Maintain dependencies for npm
-  #- package-ecosystem: "npm"
-  #  directory: "/"
-  #  schedule:
-  #    interval: "weekly"
-  #  target-branch: dev
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: dev
       
 #  - package-ecosystem: "" # See documentation for possible values
 #    directory: "/" # Location of package manifests
