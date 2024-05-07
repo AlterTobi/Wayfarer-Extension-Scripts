@@ -96,7 +96,7 @@
   function removeInfobox() {
     // remove the overlay
     if (overlay && document.getElementById(myID)) {
-      overlay.parentNode.removeChild(overlay);
+      overlay.remove();
       overlay = null;
     }
   }
