@@ -156,16 +156,24 @@
   });
 
   /* =========== IndexedDB ============================= */
-  const getIDBInstance = (objStore = idbLocalStorageCompat, options = { keyPath: "index" }) => new Promise((resolve, reject) => {
+  const getIDBInstance = (objStore = idbLocalStorageCompat, options = { keyPath: "index" }, version) => new Promise((resolve, reject) => {
     if (!window.indexedDB) {
       reject("This browser doesn't support IndexedDB!");
       return;
     }
 
-    const openRequest = window.indexedDB.open(idbName);
+    const openRequest = window.indexedDB.open(idbName, version);
     openRequest.onsuccess = event => {
       const db = event.target.result;
-      resolve(db);
+      const dbVer = db.version;
+      if (db.objectStoreNames.contains(objStore)) {
+        resolve(db);
+      } else {
+        db.close();
+        console.log("Database does not contain store ${objStore}. Closing and incrementing version.");
+        getIDBInstance(objStore, options, dbVer + 1).then(resolve);
+      }
+
     };
     openRequest.onerror = (event) => {
       console.error("Error using IndexedDB", event.target.errorCode);
@@ -174,7 +182,6 @@
     openRequest.onupgradeneeded = event => {
       console.log(GM_info.script.name, "Upgrading database...");
       const db = event.target.result;
-      // const ver = db.version;
       if (!db.objectStoreNames.contains(objStore)) {
         db.createObjectStore(objStore, options);
       }
