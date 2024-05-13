@@ -166,17 +166,18 @@
     openRequest.onsuccess = event => {
       const db = event.target.result;
       const dbVer = db.version;
+      console.log(GM_info.script.name, "IndexedDB initialization complete (database version", dbVer, ").");
       if (db.objectStoreNames.contains(objStore)) {
         resolve(db);
       } else {
         db.close();
-        console.log("Database does not contain store ${objStore}. Closing and incrementing version.");
+        console.log(GM_info.script.name, "Database does not contain store ", objStore, ". Closing and incrementing version.");
         getIDBInstance(objStore, options, dbVer + 1).then(resolve);
       }
 
     };
     openRequest.onerror = (event) => {
-      console.error("Error using IndexedDB", event.target.errorCode);
+      console.error(GM_info.script.name, "Error using IndexedDB", event.target.errorCode);
       reject(event.target.errorCode);
     };
     openRequest.onupgradeneeded = event => {
