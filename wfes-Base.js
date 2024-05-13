@@ -156,13 +156,13 @@
   });
 
   /* =========== IndexedDB ============================= */
-  const getIDBInstance = version => new Promise((resolve, reject) => {
+  const getIDBInstance = (objStore = idbLocalStorageCompat, options = { keyPath: "index" }) => new Promise((resolve, reject) => {
     if (!window.indexedDB) {
       reject("This browser doesn't support IndexedDB!");
       return;
     }
 
-    const openRequest = window.indexedDB.open(idbName, version);
+    const openRequest = window.indexedDB.open(idbName);
     openRequest.onsuccess = event => {
       const db = event.target.result;
       resolve(db);
@@ -175,48 +175,28 @@
       console.log(GM_info.script.name, "Upgrading database...");
       const db = event.target.result;
       // const ver = db.version;
-      if (!db.objectStoreNames.contains(idbLocalStorageCompat)) {
-        db.createObjectStore(idbLocalStorageCompat, { keyPath: "index" });
+      if (!db.objectStoreNames.contains(objStore)) {
+        db.createObjectStore(objStore, options);
       }
     };
   });
 
-  // Funktion zum Hinzufügen eines neuen Objectstores
-  const addNewObjectStore = (dbName, storeName, options) => {
-    return new Promise((resolve, reject) => {
-      const openRequest = window.indexedDB.open(dbName);
-      openRequest.onupgradeneeded = event => {
-        const db = event.target.result;
-        if (!db.objectStoreNames.contains(storeName)) {
-          db.createObjectStore(storeName, options);
-        }
-        resolve(db);
-      };
-      openRequest.onerror = event => {
-        reject(event.target.error);
-      };
-    });
-  };
-
   // Funktion zum Speichern einer Log-Nachricht
-  const _saveLogMessage = (type, message) => {
+  const _saveLogMessage = (type, message) => new Promise((resolve, reject) => {
     const timestamp = new Date().getTime();
     const logData = { timestamp, type, message };
-    return new Promise((resolve, reject) => {
-      addNewObjectStore(idbName, idbLogStore, { autoIncrement: true }).then(db => {
-        const tx = db.transaction([idbLogStore], "readwrite");
-        const store = tx.objectStore(idbLogStore);
-        const request = store.add(logData);
-        request.onsuccess = () => {
-          resolve();
-        };
-        request.onerror = () => {
-          reject("Failed to save log message");
-        };
-      })
-        .catch(reject);
-    });
-  };
+
+    getIDBInstance(idbLogStore, { autoIncrement: true } ).then(db => {
+      const tx = db.transaction([idbLogStore], "readwrite");
+      tx.oncomplete = event => { db.close(); resolve(); };
+      tx.onerror = reject;
+
+      const store = tx.objectStore(idbLogStore);
+      store.add(logData);
+      tx.commit();
+    })
+      .catch(reject);
+  });
 
   // Funktion zum Auslesen von Log-Nachrichten, nach Datum sortiert
   /*
@@ -497,7 +477,7 @@
       // console.log(GM_info.script.name, "localSave:", userId, name, content);
       const index = name+"_"+userId;
       const data = {index: index, data:content};
-      getIDBInstance().then(db => {
+      getIDBInstance(idbLocalStorageCompat).then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readwrite");
         tx.oncomplete = event => { db.close(); resolve(); };
         tx.onerror = reject;
@@ -519,7 +499,7 @@
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
       const index = name+"_"+userId;
-      getIDBInstance().then(db => {
+      getIDBInstance(idbLocalStorageCompat).then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readonly");
         tx.oncomplete = ( event ) => {db.close();};
         tx.onerror = ( event ) => {console.log("transaction error:", event);};
