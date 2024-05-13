@@ -20,8 +20,7 @@ on:
 
 jobs:
   eslint:
-    if: ${{ (github.event_name == 'push') || ( (github.event_name == 'pull_request') && (github.actor != 'AlterTobi')) }}
-    if: github.actor != 'dependabot[bot]'
+    if:  (github.event_name == 'push') || ( (github.event_name == 'pull_request') && ((github.actor != 'AlterTobi') && (github.actor != 'dependabot[bot]'))) 
     name: Run eslint scanning
     runs-on: ubuntu-latest
     permissions:
