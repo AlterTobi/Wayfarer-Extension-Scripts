@@ -18,6 +18,7 @@
   // indexedDB
   const idbName = "wfes-data";
   const idbLocalStorageCompat = "localStorage";
+  const idbLogStore = "logMessages"; // Objectstore für Log-Nachrichten
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
@@ -156,7 +157,6 @@
 
   /* =========== IndexedDB ============================= */
   const getIDBInstance = version => new Promise((resolve, reject) => {
-
     if (!window.indexedDB) {
       reject("This browser doesn't support IndexedDB!");
       return;
@@ -180,6 +180,64 @@
       }
     };
   });
+
+  // Funktion zum Hinzufügen eines neuen Objectstores
+  const addNewObjectStore = (dbName, storeName, options) => {
+    return new Promise((resolve, reject) => {
+      const openRequest = window.indexedDB.open(dbName);
+      openRequest.onupgradeneeded = event => {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains(storeName)) {
+          db.createObjectStore(storeName, options);
+        }
+        resolve(db);
+      };
+      openRequest.onerror = event => {
+        reject(event.target.error);
+      };
+    });
+  };
+
+  // Funktion zum Speichern einer Log-Nachricht
+  const _saveLogMessage = (type, message) => {
+    const timestamp = new Date().getTime();
+    const logData = { timestamp, type, message };
+    return new Promise((resolve, reject) => {
+      addNewObjectStore(idbName, idbLogStore, { autoIncrement: true }).then(db => {
+        const tx = db.transaction([idbLogStore], "readwrite");
+        const store = tx.objectStore(idbLogStore);
+        const request = store.add(logData);
+        request.onsuccess = () => {
+          resolve();
+        };
+        request.onerror = () => {
+          reject("Failed to save log message");
+        };
+      })
+        .catch(reject);
+    });
+  };
+
+  // Funktion zum Auslesen von Log-Nachrichten, nach Datum sortiert
+  /*
+  const _getLogMessages = () => {
+    return new Promise((resolve, reject) => {
+      addNewObjectStore(idbName, idbLogStore).then(db => {
+        const tx = db.transaction([idbLogStore], "readonly");
+        const store = tx.objectStore(idbLogStore);
+        const request = store.getAll();
+        request.onsuccess = () => {
+          const logMessages = request.result.sort((a, b) => a.timestamp - b.timestamp);
+          resolve(logMessages);
+        };
+        request.onerror = () => {
+          reject("Failed to retrieve log messages");
+        };
+      })
+        .catch(reject);
+    });
+  };
+*/
   /* =========== /IndexedDB ============================ */
 
   /* ================ overwrite XHR ================ */
@@ -622,6 +680,9 @@
     notification.appendChild(content);
 
     document.getElementById("wfesNotify").appendChild(notification);
+
+    // save notification
+    _saveLogMessage(color, message).catch((e) => {console.warn(GM_info.script.name, "- _saveLogMessage: ", e);});
   };
 
   window.wfes.f.waitForElem = _waitForElem;
