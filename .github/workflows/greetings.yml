@@ -4,7 +4,7 @@ on: [pull_request_target, issues]
 
 jobs:
   greeting:
-    if: ${{ github.actor != 'AlterTobi' }}
+    if: ${{ (github.actor != 'AlterTobi') || (github.actor != 'dependabot[bot]') }}
     runs-on: ubuntu-latest
     permissions:
       issues: write

@@ -6,6 +6,7 @@ on:
       - main
 jobs:
   build-and-deploy:
+    if: github.actor != 'dependabot[bot]'
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
