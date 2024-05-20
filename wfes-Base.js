@@ -156,7 +156,7 @@
   });
 
   /* =========== IndexedDB ============================= */
-  const getIDBInstance = (objStore = idbLocalStorageCompat, options = { keyPath: "index" }, version) => new Promise((resolve, reject) => {
+  const _getIDBInstance = (objStore = idbLocalStorageCompat, options = { keyPath: "index" }, version) => new Promise((resolve, reject) => {
     if (!window.indexedDB) {
       reject("This browser doesn't support IndexedDB!");
       return;
@@ -172,7 +172,7 @@
       } else {
         db.close();
         console.log(GM_info.script.name, "Database does not contain store ", objStore, ". Closing and incrementing version.");
-        getIDBInstance(objStore, options, dbVer + 1).then(resolve);
+        _getIDBInstance(objStore, options, dbVer + 1).then(resolve);
       }
 
     };
@@ -194,7 +194,7 @@
     const timestamp = new Date().getTime();
     const logData = { timestamp, type, message };
 
-    getIDBInstance(idbLogStore, { autoIncrement: true } ).then(db => {
+    _getIDBInstance(idbLogStore, { autoIncrement: true } ).then(db => {
       const tx = db.transaction([idbLogStore], "readwrite");
       tx.oncomplete = event => { db.close(); resolve(); };
       tx.onerror = reject;
@@ -485,7 +485,7 @@
       // console.log(GM_info.script.name, "localSave:", userId, name, content);
       const index = name+"_"+userId;
       const data = {index: index, data:content};
-      getIDBInstance(idbLocalStorageCompat).then(db => {
+      _getIDBInstance(idbLocalStorageCompat).then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readwrite");
         tx.oncomplete = event => { db.close(); resolve(); };
         tx.onerror = reject;
@@ -507,7 +507,7 @@
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
       const index = name+"_"+userId;
-      getIDBInstance(idbLocalStorageCompat).then(db => {
+      _getIDBInstance(idbLocalStorageCompat).then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readonly");
         tx.oncomplete = ( event ) => {db.close();};
         tx.onerror = ( event ) => {console.log("transaction error:", event);};
@@ -674,6 +674,7 @@
   };
 
   window.wfes.f.waitForElem = _waitForElem;
+  window.wfes.f.getIDBInstance = _getIDBInstance;
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */
