@@ -1,5 +1,5 @@
 // @name         Appeal Data
-// @version      1.2.3
+// @version      1.2.4
 // @description  save and show appeal your statements
 // @author       AlterTobi
 
@@ -16,7 +16,8 @@
     window.wfes.f.localGet(lStoreList, {}).then((appealHistory)=>{
       appealHistory[appeal.id] = appeal.statement;
       window.wfes.f.localSave(lStoreList, appealHistory);
-    });
+    })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   function NominationSelected() {
