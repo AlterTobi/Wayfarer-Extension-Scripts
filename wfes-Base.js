@@ -421,11 +421,11 @@
     });
   }
   function nominationsClickHander(elem) {
-    const nomItem = elem.target.closest("app-nominations-list-item");
+    const nomItem = elem.target.closest("app-submissions-list-item");
     window.setTimeout(loadCachedNomination, 250, nomItem);
   }
   function addNominationsClickHandler() {
-    const nomList = document.getElementsByTagName("app-nominations-list")[0];
+    const nomList = document.getElementsByTagName("app-submissions-list")[0];
     nomList.addEventListener("click", nominationsClickHander);
   }
   window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
