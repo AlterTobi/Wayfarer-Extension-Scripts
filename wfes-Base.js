@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.2.1
+// @version      2.2.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -303,9 +303,8 @@
           break;
         case PREFIX + "manage":
         // nomination list
-          wfes.nominations.list = json.result.nominations; // .filter(obj => "NOMINATION" === obj.type).slice();
+          wfes.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
           wfes.nominations.canAppeal = json.result.canAppeal;
-          wfes.nominations.wayspots = json.result.wayspots;
           window.dispatchEvent(new Event("WFESNominationListLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
@@ -468,12 +467,20 @@
     });
   }
   function nominationsClickHander(elem) {
-    const nomItem = elem.target.closest("app-nominations-list-item");
-    window.setTimeout(loadCachedNomination, 250, nomItem);
+    const nomItem = elem.target.closest("app-submissions-list-item");
+    if (nomItem) {
+      window.setTimeout(loadCachedNomination, 250, nomItem);
+    } else {
+      console.warn(GM_info.script.name, ": app-submissions-list-item missing");
+    }
   }
   function addNominationsClickHandler() {
-    const nomList = document.getElementsByTagName("app-nominations-list")[0];
-    nomList.addEventListener("click", nominationsClickHander);
+    const nomList = document.getElementsByTagName("app-submissions-list")[0];
+    if (nomList) {
+      nomList.addEventListener("click", nominationsClickHander);
+    } else {
+      console.warn(GM_info.script.name, ": app-submissions-list missing");
+    }
   }
   window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
   /* ================ /nomination page ============== */

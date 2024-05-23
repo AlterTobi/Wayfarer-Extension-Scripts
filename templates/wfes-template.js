@@ -15,6 +15,7 @@
   function myTemplate() {
     window.wfes.f.addCSS(myCssId, myStyle);
     // YOUR CODE HERE
+    // .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   window.addEventListener("WFESHomePageLoaded", myTemplate);
