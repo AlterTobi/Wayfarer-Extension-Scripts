@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.2.0
+// @version      2.2.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -257,9 +257,8 @@
           break;
         case PREFIX + "manage":
         // nomination list
-          wfes.nominations.list = json.result.nominations; // .filter(obj => "NOMINATION" === obj.type).slice();
+          wfes.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
           wfes.nominations.canAppeal = json.result.canAppeal;
-          wfes.nominations.wayspots = json.result.wayspots;
           window.dispatchEvent(new Event("WFESNominationListLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
@@ -422,11 +421,11 @@
     });
   }
   function nominationsClickHander(elem) {
-    const nomItem = elem.target.closest("app-nominations-list-item");
+    const nomItem = elem.target.closest("app-submissions-list-item");
     window.setTimeout(loadCachedNomination, 250, nomItem);
   }
   function addNominationsClickHandler() {
-    const nomList = document.getElementsByTagName("app-nominations-list")[0];
+    const nomList = document.getElementsByTagName("app-submissions-list")[0];
     nomList.addEventListener("click", nominationsClickHander);
   }
   window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
