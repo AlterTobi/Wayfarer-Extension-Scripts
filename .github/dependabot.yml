@@ -14,6 +14,9 @@ updates:
     # Add assignees
     assignees:
       - "AlterTobi"
+    commit-message:
+      prefix: "github-actions"
+      include: "scope"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -23,6 +26,14 @@ updates:
     target-branch: dev
     assignees:
       - "AlterTobi"
+    groups:
+      development-dependencies:
+        dependency-type: "development"
+    commit-message:
+      prefix: "npm"
+      prefix-development: "npm dev"
+      include: "scope"
+    
       
 #  - package-ecosystem: "" # See documentation for possible values
 #    directory: "/" # Location of package manifests
