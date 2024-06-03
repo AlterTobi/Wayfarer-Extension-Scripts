@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.2.1
+// @version      2.2.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -422,11 +422,19 @@
   }
   function nominationsClickHander(elem) {
     const nomItem = elem.target.closest("app-submissions-list-item");
-    window.setTimeout(loadCachedNomination, 250, nomItem);
+    if (nomItem) {
+      window.setTimeout(loadCachedNomination, 250, nomItem);
+    } else {
+      console.warn(GM_info.script.name, ": app-submissions-list-item missing");
+    }
   }
   function addNominationsClickHandler() {
     const nomList = document.getElementsByTagName("app-submissions-list")[0];
-    nomList.addEventListener("click", nominationsClickHander);
+    if (nomList) {
+      nomList.addEventListener("click", nominationsClickHander);
+    } else {
+      console.warn(GM_info.script.name, ": app-submissions-list missing");
+    }
   }
   window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
   /* ================ /nomination page ============== */
