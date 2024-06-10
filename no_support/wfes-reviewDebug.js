@@ -1,5 +1,5 @@
 // @name         review Debug
-// @version      1.1.6
+// @version      1.1.7
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -54,8 +54,8 @@
     const decodedID = atob(id);
     let guid = "";
 
-    if (decodedID.length > 36) {
-      console.warn("poidata enthält keine guid", id);
+    if ((decodedID.length > 36) || (decodedID.length < 32)) {
+      console.warn("decoded data contains no guid", id);
       return id;
     }
 
@@ -90,7 +90,6 @@
 
   function showDebugBox(candidate, lskips) {
     const skipNames = [...new Set(skipNamesCommon.concat(lskips))];
-    let guid;
     skipNames.sort();
 
     const skipped = [];
@@ -110,10 +109,6 @@
         continue;
       }
       switch(key) {
-        case "id":
-          guid = getGUIDFromID( candidate[key], matrix);
-          content += `<p><strong>${key}:</strong> ${guid}</p>`;
-          break;
         case "expires": {
           const date = new Date(candidate[key]);
           const dateStr = date.toLocaleString();
@@ -128,10 +123,6 @@
           }
           break;
         }
-        case "poiId":
-          guid = getGUIDFromID( candidate[key], matrix);
-          content += `<p><strong>${key}:</strong> ${guid}</p>`;
-          break;
         default:
           content += `<p><strong>${key}:</strong> ${candidate[key]}</p>`;
       }
@@ -191,8 +182,9 @@
     const candidate = window.wfes.g.nominationDetail();
     const poiId = wfes.g.nominationsList().find(obj => obj.id === candidate.id).poiData.id;
     if (poiId) {
-      candidate.poiId = poiId;
+      candidate.poiId = getGUIDFromID( poiId, matrix);
     }
+    candidate.id = getGUIDFromID( candidate.id, matrix);
     showDebugBox(candidate, lskips);
   }
 
