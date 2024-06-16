@@ -1,4 +1,4 @@
-// @name         review Debug
+// @name         Debug
 // @version      1.1.9
 // @description  show some debugging info
 // @author       AlterTobi
