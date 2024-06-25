@@ -1,9 +1,7 @@
-// @name         review Debug
-// @version      1.1.8
+// @name         Debug
+// @version      1.1.9
 // @description  show some debugging info
 // @author       AlterTobi
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-Debug.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-Debug.meta.js
 
 (function() {
   "use strict";
