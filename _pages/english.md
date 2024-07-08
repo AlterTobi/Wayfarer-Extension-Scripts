@@ -46,8 +46,6 @@ Other scripts are new, untested, still in development, obsolete or outdated.
     - shows reject reasons for appealed nominations
 * [Show version](wfes-showWFVersion.user.js)
     - show current Wayfarer version
-* [Scroll Fix](wfes-ScrollFix.user.js)
-    - fixes the Wayfarer srooll down bug
 * [Open In](wfes-OpenIn.user.js)
     - add "Open In" for maps - discontinued - use tehstone's "Open In" instead
 * [Add Street Address](wfes-reviewAddStreetAddress.user.js)
