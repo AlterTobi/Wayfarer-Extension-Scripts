@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.1.9
+// @version      1.2.0
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -87,7 +87,6 @@
     return guid;
   }
 
-
   function showDebugBox(candidate, lskips) {
     const skipNames = [...new Set(skipNamesCommon.concat(lskips))];
     skipNames.sort();
@@ -138,6 +137,12 @@
       content += "<hr/><strong>missing entries:</strong><br/>";
       content += `<p>${missing.join(", ")}</p>`;
     }
+
+    // email ADresse ausgeben
+    const props = window.wfes.g.properties();
+    const email = props.socialProfile.email;
+    content += "<hr/><strong>profile email:</strong><br/>";
+    content += `<p>${email}</p>`;
 
     overlay.innerHTML = content;
 
