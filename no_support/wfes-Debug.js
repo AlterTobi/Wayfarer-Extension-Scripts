@@ -1,11 +1,12 @@
 // @name         Debug
-// @version      1.2.0
+// @version      1.2.1
 // @description  show some debugging info
 // @author       AlterTobi
 
 (function() {
   "use strict";
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
+  const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
   const myID = "wfes-debugOverlay";
   const myCssId = "wfes-debugCSS";
   const myStyle = `.wfes-debug {
@@ -138,12 +139,6 @@
       content += `<p>${missing.join(", ")}</p>`;
     }
 
-    // email ADresse ausgeben
-    const props = window.wfes.g.properties();
-    const email = props.socialProfile.email;
-    content += "<hr/><strong>profile email:</strong><br/>";
-    content += `<p>${email}</p>`;
-
     overlay.innerHTML = content;
 
     // const mainContent = document.querySelector(mainContentSelector);
@@ -193,11 +188,21 @@
     showDebugBox(candidate, lskips);
   }
 
+  function addMail2ProfilePic() {
+    // email ADresse ausgeben
+    const props = window.wfes.g.properties();
+    const email = props.socialProfile.email;
+    window.wfes.f.waitForElem(profileImageSelector).then(elem=>{
+      elem.setAttribute("title", email);
+    });
+  }
+
   // display debug ooverlay
   window.addEventListener("WFESReviewPageNewLoaded", reviewNew);
   window.addEventListener("WFESReviewPageEditLoaded", reviewEdit);
   window.addEventListener("WFESReviewPagePhotoLoaded", newPhoto);
   window.addEventListener("WFESNominationDetailLoaded", nominationDetail);
+  window.addEventListener("WFESPageLoaded", addMail2ProfilePic);
 
   // remove debug ooverlay - explizit alle Seiten, weil WFESPageLoaded es sonst auch auf der review-Seite wieder entfernen würde
   window.addEventListener("WFESReviewDecisionSent", removeInfobox);
