@@ -88,6 +88,35 @@
     return guid;
   }
 
+  /*
+  function getIDFromGUID(guid, matrix) {
+    let encodedID = "";
+    if (guid.length < 32 || guid.length > 36) {
+      console.warn("invalid guid format", guid);
+      return guid;
+    }
+    for (let j = 0; j < guid.length; j++) {
+      const hexChar = guid[j];
+
+      if ("." === hexChar) {
+        encodedID += String.fromCharCode(75);
+      } else {
+        const hexValue = parseInt(hexChar, 16); // Hexadezimalwert ermitteln
+
+        // Finde das entsprechende Zeichen in der Matrix an der Position j
+        const matrixValue = matrix[hexValue][j];
+
+        console.log("Pos", j, "Wert", hexChar, "Matrix", matrixValue);
+        // Convertiere den Matrixwert zurück in das Zeichen
+        encodedID += String.fromCharCode(matrixValue);
+      }
+    }
+    // Base64 kodieren
+    const encodedIDBase64 = btoa(encodedID);
+    return encodedIDBase64;
+  }
+*/
+
   function showDebugBox(candidate, lskips) {
     const skipNames = [...new Set(skipNamesCommon.concat(lskips))];
     skipNames.sort();
