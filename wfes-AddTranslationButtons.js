@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.1.2
+// @version      2.1.3
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 
@@ -31,7 +31,7 @@
 
   const engines ={
     Google: {name: "Google", title: "Google translate", url: "https://translate.google.com/?sl=auto&q=", target: "wfesTranslateGoogle"},
-    Deepl:  {name: "Deepl", title: "Deepl translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl"}
+    Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl"}
   };
 
   const buttonID = "wfesTranslateButton";
