@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      1.0.1
+// @version      1.0.2
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -62,30 +62,31 @@
   function createButton(header, text, count) {
     window.wfes.f.waitForElem("wf-logo").then(elem=>{
       const buttonEl = document.getElementById(buttonID);
-      if (null === buttonEl) {
-        const div = document.createElement("div");
-        div.className = "wfesEdChCo";
-        div.id = buttonID;
-
-        const headerEl = document.createElement("p");
-        headerEl.innerText = header;
-        div.appendChild(headerEl);
-
-        const countEl = document.createElement("span");
-        countEl.className = "wfesEdChCoText";
-        countEl.innerText = count;
-        div.appendChild(countEl);
-
-        const textEl = document.createElement("span");
-        textEl.className = "wfesEdChCoSmall";
-        textEl.innerText = text;
-        div.appendChild(textEl);
-
-        const container = elem.parentNode.parentNode;
-        container.appendChild(div);
-      } else {
-        buttonEl.innerHTML;
+      if (null !== buttonEl) {
+        // remove
+        buttonEl.delete();
       }
+
+      const div = document.createElement("div");
+      div.className = "wfesEdChCo";
+      div.id = buttonID;
+
+      const headerEl = document.createElement("p");
+      headerEl.innerText = header;
+      div.appendChild(headerEl);
+
+      const countEl = document.createElement("span");
+      countEl.className = "wfesEdChCoText";
+      countEl.innerText = count;
+      div.appendChild(countEl);
+
+      const textEl = document.createElement("span");
+      textEl.className = "wfesEdChCoSmall";
+      textEl.innerText = text;
+      div.appendChild(textEl);
+
+      const container = elem.parentNode.parentNode;
+      container.appendChild(div);
     })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
