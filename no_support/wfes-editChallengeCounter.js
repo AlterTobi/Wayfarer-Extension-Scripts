@@ -64,7 +64,7 @@
       const buttonEl = document.getElementById(buttonID);
       if (null !== buttonEl) {
         // remove
-        buttonEl.delete();
+        buttonEl.remove();
       }
 
       const div = document.createElement("div");
