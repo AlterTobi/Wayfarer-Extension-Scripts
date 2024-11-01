@@ -1,11 +1,12 @@
 // @name         Debug
-// @version      1.1.9
+// @version      1.2.1
 // @description  show some debugging info
 // @author       AlterTobi
 
 (function() {
   "use strict";
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
+  const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
   const myID = "wfes-debugOverlay";
   const myCssId = "wfes-debugCSS";
   const myStyle = `.wfes-debug {
@@ -87,6 +88,34 @@
     return guid;
   }
 
+  /*
+  function getIDFromGUID(guid, matrix) {
+    let encodedID = "";
+    if (guid.length < 32 || guid.length > 36) {
+      console.warn("invalid guid format", guid);
+      return guid;
+    }
+    for (let j = 0; j < guid.length; j++) {
+      const hexChar = guid[j];
+
+      if ("." === hexChar) {
+        encodedID += String.fromCharCode(75);
+      } else {
+        const hexValue = parseInt(hexChar, 16); // Hexadezimalwert ermitteln
+
+        // Finde das entsprechende Zeichen in der Matrix an der Position j
+        const matrixValue = matrix[hexValue][j];
+
+        console.log("Pos", j, "Wert", hexChar, "Matrix", matrixValue);
+        // Convertiere den Matrixwert zurück in das Zeichen
+        encodedID += String.fromCharCode(matrixValue);
+      }
+    }
+    // Base64 kodieren
+    const encodedIDBase64 = btoa(encodedID);
+    return encodedIDBase64;
+  }
+*/
 
   function showDebugBox(candidate, lskips) {
     const skipNames = [...new Set(skipNamesCommon.concat(lskips))];
@@ -188,11 +217,21 @@
     showDebugBox(candidate, lskips);
   }
 
+  function addMail2ProfilePic() {
+    // email ADresse ausgeben
+    const props = window.wfes.g.properties();
+    const email = props.socialProfile.email;
+    window.wfes.f.waitForElem(profileImageSelector).then(elem=>{
+      elem.setAttribute("title", email);
+    });
+  }
+
   // display debug ooverlay
   window.addEventListener("WFESReviewPageNewLoaded", reviewNew);
   window.addEventListener("WFESReviewPageEditLoaded", reviewEdit);
   window.addEventListener("WFESReviewPagePhotoLoaded", newPhoto);
   window.addEventListener("WFESNominationDetailLoaded", nominationDetail);
+  window.addEventListener("WFESPageLoaded", addMail2ProfilePic);
 
   // remove debug ooverlay - explizit alle Seiten, weil WFESPageLoaded es sonst auch auf der review-Seite wieder entfernen würde
   window.addEventListener("WFESReviewDecisionSent", removeInfobox);

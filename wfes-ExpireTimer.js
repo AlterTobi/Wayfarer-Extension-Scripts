@@ -1,12 +1,35 @@
 // @name        Expire Timer
-// @version     1.0.5
+// @version     1.1.0
 // @description Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author      MrJPGames / AlterTobi
 
 (function() {
   "use strict";
+
+  const sessvarMiss = "warnBase";
+  const myCSSId = "wfesExpireCSS";
+  const myStyle = `.wfesExpire {
+      color: #333;
+      margin-left: 2em;
+      padding-top: 0.3em;
+      text-align: center;
+      display: flex;
+      align-items: center;
+    }
+    .dark .wfesTranslate {
+      color: #ddd;
+    }
+`;
+
+  const buttonID = "expireButton";
   let timeElem;
-  let headerTimer;
+
+  function removeButton() {
+    const button = document.getElementById(buttonID);
+    if (button !== null) {
+      button.remove();
+    }
+  }
 
   // Helper functions
   function pad(num, size) {
@@ -32,21 +55,43 @@
   }
 
   function createTimer(message) {
-    const header = document.getElementsByTagName("wf-header")[0].children[0].children[0];
-    const headerTimerWrapper = document.createElement("div");
-    headerTimer = document.createElement("span");
-    headerTimer.appendChild(document.createTextNode(message));
-    headerTimerWrapper.appendChild(headerTimer);
-    headerTimerWrapper.setAttribute("style", "display: inline-block; margin-left: 5em;");
-    headerTimerWrapper.setAttribute("class", "revExprTimer");
-    timeElem = document.createElement("div");
-    timeElem.appendChild(document.createTextNode("??:??"));
-    timeElem.style.display = "inline-block";
-    headerTimerWrapper.appendChild(timeElem);
-    header.insertAdjacentElement("afterend", headerTimerWrapper);
-    updateTimer();
+    window.wfes.f.addCSS(myCSSId, myStyle);
+    wfes.f.waitForElem("wf-logo").then(elem=>{
+      const div = document.createElement("div");
+      div.className = "wfesExpire";
+      div.id = buttonID;
+      const expireTimer = document.createElement("span");
+      expireTimer.appendChild(document.createTextNode(message));
+      div.appendChild(expireTimer);
+      timeElem = document.createElement("div");
+      timeElem.appendChild(document.createTextNode("??:??"));
+      timeElem.style.display = "inline-block";
+      div.appendChild(timeElem);
+      const container = elem.parentNode.parentNode;
+      container.appendChild(div);
+      updateTimer();
+    })
+      .catch(e => {
+        console.warn(GM_info.script.name, ": ", e);
+      });
   }
 
-  window.addEventListener("WFESReviewPageLoaded", () => createTimer("Time remaining: "));
+  const init = () => {
+    window.addEventListener("WFESReviewPageLoaded", () => createTimer("Time remaining: "));
+    window.addEventListener("WFESReviewDecisionSent", removeButton);
+  };
+
+
+  // === no changes needed below this line ======================
+  if("undefined" === typeof(wfes)) {
+    if (undefined === sessionStorage[sessvarMiss]) {
+      sessionStorage[sessvarMiss] = 1;
+      alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+      console.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+    }
+  } else {
+    init();
+  }
+
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
