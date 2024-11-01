@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      0.1.0
+// @version      1.0.0
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -93,7 +93,7 @@
 
     const result = countContributions(contributions);
     const resultSum = result.PHOTO + result.EDIT_TITLE + result.EDIT_DESCRIPTION + result.EDIT_LOCATION;
-    const resulttext = "(P" + result.PHOTO + " T" + result.EDIT_TITLE +
+    const resulttext = " (P" + result.PHOTO + " T" + result.EDIT_TITLE +
       " D" + result.EDIT_DESCRIPTION + " L" + result.EDIT_LOCATION + ")";
 
     createButton("2024 Edit Challenge", resulttext, resultSum);
