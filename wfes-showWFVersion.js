@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.3.5
+// @version      1.3.6
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -22,12 +22,11 @@
     max-height: 95%;
     overflow: auto;}
     /* Styles for dark mode */
-    @media (prefers-color-scheme: dark) {
-    .wfVersionCSS {
+   .dark .wfVersionCSS {
+        color: #ddd;
         background-color: #303030;
         box-shadow: 6px 6px 4px darkgrey;
       }
-    }
     .wfes-hidden { display: none; }
     .wfes-versionChanged {
       background-color: red !important;

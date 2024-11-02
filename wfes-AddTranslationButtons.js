@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.1.3
+// @version      2.1.4
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 
@@ -24,8 +24,8 @@
        fill: currentColor;
        margin: 0 auto;
     }
-    .dark .wayfarertranslate select,
-    .dark .wayfarertranslate option {
+    .dark .wfesTranslate select,
+    .dark .wfesTranslate option {
         background: #000;
     }`;
 
