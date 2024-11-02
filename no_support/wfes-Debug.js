@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.2.1
+// @version      1.2.2
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -19,6 +19,9 @@
     max-width : 20%;
     box-shadow: 7px 7px 5px grey;
     z-index: 999;
+  }
+  .dark .wfes-debug {
+    color: #000;
   }
   .wfes-debug > hr {
     background-Color : #828282;
