@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.7.1
+// @version     1.7.2
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -27,10 +27,11 @@
     #s2box { margin: 0 10px; }
     #buttonsdiv button { margin: 0 10px; }
     #buttonsdiv, #statsdiv, #gamesdiv { margin-bottom: 2em; }
-    `;
 
-  const myStyle_nodark = `
-    table, td, th { border-color: black;}
+    #statsdiv table, td, th { border-color: black;}
+    .dark #statsdiv table, td, th {
+      border-color: #ddd;
+    }
   `;
 
   const WARN_POGO = `data:image/png;base64,
@@ -624,14 +625,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
 
     // ---
 
-    // test darkMode
-    const _props = window.wfes.g.properties();
-    if ("DISABLED" === _props.darkMode) {
-      const style = myStyle + myStyle_nodark;
-      window.wfes.f.addCSS(myCssId, style);
-    } else {
-      window.wfes.f.addCSS(myCssId, myStyle);
-    }
+    window.wfes.f.addCSS(myCssId, myStyle);
 
     addDivs();
     showStatsTable();
