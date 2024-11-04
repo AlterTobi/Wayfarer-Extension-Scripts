@@ -101,9 +101,6 @@
       " D" + result.EDIT_DESCRIPTION + " L" + result.EDIT_LOCATION + ")";
 
     createButton("2024 Edit Challenge", resulttext, resultSum);
-
-    // YOUR CODE HERE
-    // .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   const init = () => {
