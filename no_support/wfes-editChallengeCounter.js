@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      1.0.2
+// @version      1.0.3
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -45,11 +45,11 @@
     });
 
     // Zählprozess
+    const startDate = new Date(START_DATE);
+    const endDate = new Date(END_DATE);
     contributions.forEach(item => {
       // Vergleiche Datum und Typ des Objekts
       const itemDate = new Date(item.day);
-      const startDate = new Date(START_DATE);
-      const endDate = new Date(END_DATE);
 
       if (itemDate >= startDate && itemDate <= endDate && TYPES.includes(item.type)) {
         counts[item.type]++;
@@ -96,14 +96,14 @@
     const contributions = window.wfes.g.nominationsList();
 
     const result = countContributions(contributions);
-    const resultSum = result.PHOTO + result.EDIT_TITLE + result.EDIT_DESCRIPTION + result.EDIT_LOCATION;
+    let resultSum = 0;
+    TYPES.forEach(type => {
+      resultSum += result[type];
+    });
     const resulttext = " (P" + result.PHOTO + " T" + result.EDIT_TITLE +
       " D" + result.EDIT_DESCRIPTION + " L" + result.EDIT_LOCATION + ")";
 
     createButton("2024 Edit Challenge", resulttext, resultSum);
-
-    // YOUR CODE HERE
-    // .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   const init = () => {
