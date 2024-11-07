@@ -159,29 +159,35 @@
       TYPES.forEach(type => {
         html += `<th>${type}</th>`;
       });
-      html += "</tr>";
+      html += "<th></th><th>TOTAL</th></tr>";
 
       // Tabellenzeilen für jeden Status
       STATUSES.forEach(status => {
+        let rowtotal = 0;
         html += `<tr><th>${status}</th>`;
         TYPES.forEach(type => {
+          rowtotal += counts[type][status];
           html += `<td>${counts[type][status]}</td>`;
         });
+        html += `<td></td><td>${rowtotal}</td>`;
         html += "</tr>";
       });
 
       // Leerzeile hinzufügen
-      html += `<tr id="empty"><th></th>${TYPES.map(() => "<td></td>").join("")}</tr>`;
+      html += `<tr id="empty"><th></th>${TYPES.map(() => "<td></td>").join("")}<td></td><td></td></tr>`;
 
       html += '<tr id="total"><th>TOTAL</th>';
+
+      let abstotal = 0;
       TYPES.forEach(type => {
         let typeTotal = 0;
         STATUSES.forEach(status => {
           typeTotal += counts[type][status];
         });
         html += `<td>${typeTotal}</td>`;
+        abstotal += typeTotal;
       });
-      html += "</tr></table>";
+      html += `<td></td><td></td>${abstotal}</tr></table>`;
 
       return html;
     }
