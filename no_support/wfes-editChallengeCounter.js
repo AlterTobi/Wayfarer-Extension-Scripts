@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      1.0.3
+// @version      1.0.4
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -14,6 +14,7 @@
       padding-top: 0.3em;
       text-align: center;
       display: block;
+      cursor: pointer;
     }
     .dark .wfesEdChCo {
       color: #ddd;
@@ -25,6 +26,79 @@
     .wfesEdChCoSmall {
       font-size: smaller;
     }
+    .wfesEdChCo-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 100000;
+    }
+    .wfesEdChCo-popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: calc(100vw - 50px);
+        background-color: #fff;
+        padding: 20px;
+        max-width: 900px;
+    }
+    .dark .wfesEdChCo-popup {
+        background-color: #333;
+    }
+    .wfesEdChCo-popup h1 {
+        margin-bottom: 20px;
+        width: calc(70% - 70px);
+        float: left;
+    }
+    .wfesEdChCo-close {
+        z-index: 2;
+        font-size: 2em;
+        cursor: pointer;
+        opacity: 0.5;
+        float: right;
+        margin-left: 14px;
+    }
+    .wfesEdChCo-close:hover {
+        opacity: 1;
+    }
+    .wfesEdChCo-close {
+        z-index: 2;
+        font-size: 2em;
+        cursor: pointer;
+        opacity: 0.5;
+        float: right;
+        margin-left: 14px;
+    }
+    .wfesEdChCo-close:hover {
+        opacity: 1;
+    }
+    .wfesEdChCo-box {
+        height: calc(100% - 60px);
+        display: flex;
+        background-color: #ddd;
+        clear: both;
+    }
+    .dark .wfesEdChCo-box {
+        background-color: #222;
+    }
+    .wfesEdChCo-box > table {
+        margin: auto;
+        width: 90%; 
+    }
+    .wfesEdChCo-box th, td {
+        padding: 8px 12px;      /* Abstand innerhalb der Zellen */
+        text-align: right;      /* Rechtsbündige Ausrichtung der Inhalte */
+    }
+    .wfesEdChCo-box th {
+        background-color: #fff;
+    }
+    .dark .wfesEdChCo-box th {
+        background-color: #333;
+    }
+
     `;
 
   const buttonID = "wfesECCButton";
@@ -33,6 +107,101 @@
   const START_DATE = "2024-10-30";
   const END_DATE = "2024-11-13";
   const TYPES = ["PHOTO", "EDIT_TITLE", "EDIT_DESCRIPTION", "EDIT_LOCATION"]; // Typen, die berücksichtigt werden sollen
+  const STATUSES = ["NOMINATED", "VOTING", "NIANTIC_REVIEW", "ACCEPTED", "REJECTED", "WITHDRAWN"]; // Erwartete Statuswerte
+
+  // Funktion zur erweiterten Zählung nach Typ und Status
+  function countContributionsExtended(contributions) {
+    // Zweidimensionales Array für die Zählung initialisieren
+    const counts = {};
+    TYPES.forEach(type => {
+      counts[type] = {};
+      STATUSES.forEach(status => {
+        counts[type][status] = 0;
+      });
+    });
+
+    // Zählprozess mit Überprüfung von Typ und Status
+    const startDate = new Date(START_DATE);
+    const endDate = new Date(END_DATE);
+
+    contributions.forEach(item => {
+      const itemDate = new Date(item.day);
+
+      if (itemDate >= startDate && itemDate <= endDate && TYPES.includes(item.type)) {
+        if (STATUSES.includes(item.status)) {
+          counts[item.type][item.status]++;
+        } else {
+          console.log("Unbekannter Status:", item.status, "bei ID:", item.id);
+        }
+      }
+    });
+
+    return counts;
+  }
+
+  // Modalbox für Ausgabe der erweiterten Statistik
+  // Idea and (parts of) code taken from https://github.com/tehstone/wayfarer-addons/raw/main/wayfarer-ticket-saver.user.js
+  function showCounterModal() {
+    // Funktion zur Umwandlung des Zähl-Arrays in eine HTML-Tabelle
+    function generateHTMLTable(counts) {
+      let html = "<table border='1'>";
+
+      // Tabellenkopf für Typen
+      html += "<tr><th>&nbsp;</th>";
+      TYPES.forEach(type => {
+        html += `<th>${type}</th>`;
+      });
+      html += "</tr>";
+
+      // Tabellenzeilen für jeden Status
+      STATUSES.forEach(status => {
+        html += `<tr><th>${status}</th>`;
+        TYPES.forEach(type => {
+          html += `<td>${counts[type][status]}</td>`;
+        });
+        html += "</tr>";
+      });
+
+      html += "</table>";
+      return html;
+    }
+
+    const outer = document.createElement("div");
+    outer.classList.add("wfesEdChCo-bg");
+    document.querySelector("body").appendChild(outer);
+
+    const inner = document.createElement("div");
+    inner.classList.add("wfesEdChCo-popup");
+    outer.appendChild(inner);
+
+    const header = document.createElement("h1");
+    header.textContent = "2024 Edit Challenge Statistics";
+    inner.appendChild(header);
+
+    const closeBtn = document.createElement("div");
+    closeBtn.textContent = "❌";
+    closeBtn.title = "Close";
+    closeBtn.classList.add("wfesEdChCo-close");
+    closeBtn.addEventListener("click", () => {
+      outer.remove();
+    });
+    inner.appendChild(closeBtn);
+
+    // contributions holen
+    const contributions = window.wfes.g.nominationsList();
+
+    // zählen
+    const resultCounts = countContributionsExtended(contributions);
+    const htmlTable = generateHTMLTable(resultCounts);
+
+    const box = document.createElement("div");
+    box.classList.add("wfesEdChCo-box");
+    box.innerHTML = htmlTable;
+    inner.appendChild(box);
+
+  }
+
+  // /Modalbox
 
   // Funktion zur Zählung der Objekte
   function countContributions(contributions) {
@@ -70,6 +239,7 @@
       const div = document.createElement("div");
       div.className = "wfesEdChCo";
       div.id = buttonID;
+      div.addEventListener("click", showCounterModal);
 
       const headerEl = document.createElement("p");
       headerEl.innerText = header;
