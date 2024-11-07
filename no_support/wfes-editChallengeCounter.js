@@ -86,7 +86,8 @@
     }
     .wfesEdChCo-box > table {
         margin: auto;
-        width: 90%; 
+        width: 100%; 
+        border: 1px;
     }
     .wfesEdChCo-box th, td {
         padding: 8px 12px;      /* Abstand innerhalb der Zellen */
@@ -98,7 +99,14 @@
     .dark .wfesEdChCo-box th {
         background-color: #333;
     }
-
+    .dark .wfesEdChCo-box tr#total th,
+    .dark .wfesEdChCo-box tr#total td {
+        background-color: #444;
+        font-weight: bold;
+    }
+    .wfesEdChCo-box tr#empty > th {
+        background-color: inherit;
+    }
     `;
 
   const buttonID = "wfesECCButton";
@@ -144,7 +152,7 @@
   function showCounterModal() {
     // Funktion zur Umwandlung des Zähl-Arrays in eine HTML-Tabelle
     function generateHTMLTable(counts) {
-      let html = "<table border='1'>";
+      let html = "<table>";
 
       // Tabellenkopf für Typen
       html += "<tr><th>&nbsp;</th>";
@@ -162,7 +170,19 @@
         html += "</tr>";
       });
 
-      html += "</table>";
+      // Leerzeile hinzufügen
+      html += `<tr id="empty"><th></th>${TYPES.map(() => "<td></td>").join("")}</tr>`;
+
+      html += '<tr id="total"><th>TOTAL</th>';
+      TYPES.forEach(type => {
+        let typeTotal = 0;
+        STATUSES.forEach(status => {
+          typeTotal += counts[type][status];
+        });
+        html += `<td>${typeTotal}</td>`;
+      });
+      html += "</tr></table>";
+
       return html;
     }
 
