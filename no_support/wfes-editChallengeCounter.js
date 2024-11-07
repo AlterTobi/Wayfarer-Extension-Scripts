@@ -187,7 +187,7 @@
         html += `<td>${typeTotal}</td>`;
         abstotal += typeTotal;
       });
-      html += `<td></td><td></td>${abstotal}</tr></table>`;
+      html += `<td></td><td>${abstotal}</td></tr></table>`;
 
       return html;
     }
