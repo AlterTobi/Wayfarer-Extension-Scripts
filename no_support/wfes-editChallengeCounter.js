@@ -102,6 +102,11 @@
         background-color: #fff;
         border-color: #000;
     }
+    .wfesEdChCo-box tr#total th,
+    .wfesEdChCo-box tr#total td {
+        background-color: #eee;
+        font-weight: bold;
+    }
 
     .dark .wfesEdChCo-box th,
     .dark .wfesEdChCo-box td {
@@ -113,7 +118,7 @@
         background-color: #444;
         font-weight: bold;
     }
-    .wfesEdChCo-box tr#empty > td,
+    .wfesEdChCo-box tr#empty > th,
     .wfesEdChCo-box tr#empty > td {
         background-color: #eee;
         font-weight: bold;
