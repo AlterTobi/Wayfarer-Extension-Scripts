@@ -173,7 +173,7 @@
           rowtotal += counts[type][status];
           html += `<td>${counts[type][status]}</td>`;
         });
-        html += `<td></td><td>${rowtotal}</td>`;
+        html += `<td></td><th>${rowtotal}</th>`;
         html += "</tr>";
       });
 
