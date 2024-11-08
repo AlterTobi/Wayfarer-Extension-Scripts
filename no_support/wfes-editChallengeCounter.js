@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      1.1.0
+// @version      1.1.1
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -44,6 +44,7 @@
         background-color: #fff;
         padding: 1em;
         max-width: 95vw;
+        max-height: 95vh;
     }
     .dark .wfesEdChCo-popup {
         background-color: #333;
