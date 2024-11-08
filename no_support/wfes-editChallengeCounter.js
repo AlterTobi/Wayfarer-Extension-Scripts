@@ -42,8 +42,8 @@
         transform: translateX(-50%) translateY(-50%);
         overflow: auto;
         background-color: #fff;
-        padding: 20px;
-        max-width: 900px;
+        padding: 1em;
+        max-width: 95vw;
     }
     .dark .wfesEdChCo-popup {
         background-color: #333;
@@ -117,8 +117,9 @@
         background-color: #eee;
         font-weight: bold;
     }
-    .dark .wfesEdChCo-box tr#empty > th {
-        background-color: inherit;
+    .dark .wfesEdChCo-box tr#empty > th,
+    .dark .wfesEdChCo-box tr#empty > td {
+        background-color: #000;
     }
     .wfesEdChCo-box td#alltotal {
         color: #20B8E3;
