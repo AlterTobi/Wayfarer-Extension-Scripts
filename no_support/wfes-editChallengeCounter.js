@@ -41,6 +41,9 @@
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
         width: calc(100vw - 50px);
+        height: calc(100vh - 50px);
+        overflow-x: hidden;
+        overflow-y: scroll;
         background-color: #fff;
         padding: 20px;
         max-width: 900px;
