@@ -133,6 +133,12 @@
   const START_DATE = "2024-10-30";
   const END_DATE = "2024-11-13";
   const TYPES = ["PHOTO", "EDIT_TITLE", "EDIT_DESCRIPTION", "EDIT_LOCATION"]; // Typen, die berücksichtigt werden sollen
+  const TYPE_LABELS = {
+    "PHOTO": "Photo",
+    "EDIT_TITLE": "Title",
+    "EDIT_DESCRIPTION": "Description",
+    "EDIT_LOCATION":"Location"
+  };
   const STATUSES = ["NOMINATED", "VOTING", "NIANTIC_REVIEW", "ACCEPTED", "REJECTED", "WITHDRAWN"]; // Erwartete Statuswerte
 
   // Funktion zur erweiterten Zählung nach Typ und Status
@@ -175,7 +181,8 @@
       // Tabellenkopf für Typen
       html += "<tr><th>&nbsp;</th>";
       TYPES.forEach(type => {
-        html += `<th>${type}</th>`;
+        const label = TYPE_LABELS[type] || type; // Verwende Übersetzung oder Originalnamen als Fallback
+        html += `<th>${label}</th>`;
       });
       html += "<th></th><th>TOTAL</th></tr>";
 
