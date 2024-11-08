@@ -107,6 +107,10 @@
     .wfesEdChCo-box tr#empty > th {
         background-color: inherit;
     }
+    .wfesEdChCo-box td#alltotal {
+        color: #20B8E3;
+        font-size: x-large;
+    }
     `;
 
   const buttonID = "wfesECCButton";
@@ -178,16 +182,16 @@
 
       html += '<tr id="total"><th>TOTAL</th>';
 
-      let abstotal = 0;
+      let alltotal = 0;
       TYPES.forEach(type => {
         let typeTotal = 0;
         STATUSES.forEach(status => {
           typeTotal += counts[type][status];
         });
         html += `<td>${typeTotal}</td>`;
-        abstotal += typeTotal;
+        alltotal += typeTotal;
       });
-      html += `<td></td><td>${abstotal}</td></tr></table>`;
+      html += `<td></td><td id="alltotal">${alltotal}</td></tr></table>`;
 
       return html;
     }
