@@ -90,14 +90,19 @@
         margin: auto;
         width: 100%; 
         border: 1px;
+        border-color: black;
     }
     .wfesEdChCo-box th, td {
         padding: 8px 12px;      /* Abstand innerhalb der Zellen */
         text-align: right;      /* Rechtsbündige Ausrichtung der Inhalte */
     }
     .wfesEdChCo-box th {
+        background-color: #eee;
+    }
+    .wfesEdChCo-box td {
         background-color: #fff;
     }
+
     .dark .wfesEdChCo-box th {
         background-color: #333;
     }
@@ -106,7 +111,12 @@
         background-color: #444;
         font-weight: bold;
     }
-    .wfesEdChCo-box tr#empty > th {
+    .wfesEdChCo-box tr#empty > td,
+    .wfesEdChCo-box tr#empty > td {
+        background-color: #eee;
+        font-weight: bold;
+    }
+    .dark .wfesEdChCo-box tr#empty > th {
         background-color: inherit;
     }
     .wfesEdChCo-box td#alltotal {
