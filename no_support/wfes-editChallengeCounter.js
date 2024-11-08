@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      1.0.4
+// @version      1.1.0
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -51,7 +51,7 @@
     .wfesEdChCo-popup h1 {
         margin-bottom: 20px;
         float: left;
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
     .wfesEdChCo-close {
         z-index: 2;
