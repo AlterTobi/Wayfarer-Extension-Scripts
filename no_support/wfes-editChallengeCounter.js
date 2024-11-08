@@ -41,7 +41,6 @@
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
         width: calc(100vw - 50px);
-        height: calc(100vh - 50px);
         overflow: auto;
         background-color: #fff;
         padding: 20px;
@@ -98,9 +97,11 @@
     }
     .wfesEdChCo-box th {
         background-color: #eee;
+        border-color: #000;
     }
     .wfesEdChCo-box td {
         background-color: #fff;
+        border-color: #000;
     }
 
     .dark .wfesEdChCo-box th {
