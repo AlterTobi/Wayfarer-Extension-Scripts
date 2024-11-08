@@ -40,7 +40,6 @@
         top: 50%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
-        width: calc(100vw - 50px);
         overflow: auto;
         background-color: #fff;
         padding: 20px;
@@ -51,7 +50,6 @@
     }
     .wfesEdChCo-popup h1 {
         margin-bottom: 20px;
-        width: calc(70% - 70px);
         float: left;
     }
     .wfesEdChCo-close {
@@ -104,8 +102,10 @@
         border-color: #000;
     }
 
-    .dark .wfesEdChCo-box th {
+    .dark .wfesEdChCo-box th,
+    .dark .wfesEdChCo-box td {
         background-color: #333;
+        border-color: #eee;
     }
     .dark .wfesEdChCo-box tr#total th,
     .dark .wfesEdChCo-box tr#total td {
