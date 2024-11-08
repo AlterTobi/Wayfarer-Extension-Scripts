@@ -51,6 +51,7 @@
     .wfesEdChCo-popup h1 {
         margin-bottom: 20px;
         float: left;
+        font-size: 1.75rem;
     }
     .wfesEdChCo-close {
         z-index: 2;
@@ -137,10 +138,17 @@
     "PHOTO": "Photo",
     "EDIT_TITLE": "Title",
     "EDIT_DESCRIPTION": "Description",
-    "EDIT_LOCATION":"Location"
+    "EDIT_LOCATION": "Location"
   };
   const STATUSES = ["NOMINATED", "VOTING", "NIANTIC_REVIEW", "ACCEPTED", "REJECTED", "WITHDRAWN"]; // Erwartete Statuswerte
-
+  const STATUS_LABELS = {
+    "NOMINATED": "Nominated",
+    "VOTING": "Voting",
+    "NIANTIC_REVIEW": "Niantic",
+    "ACCEPTED": "Accepted",
+    "REJECTED": "Rejected",
+    "WITHDRAWN": "Withdrawn"
+  };
   // Funktion zur erweiterten Zählung nach Typ und Status
   function countContributionsExtended(contributions) {
     // Zweidimensionales Array für die Zählung initialisieren
@@ -188,8 +196,9 @@
 
       // Tabellenzeilen für jeden Status
       STATUSES.forEach(status => {
+        const label = STATUS_LABELS[status] || status; // Verwende Übersetzung oder Originalnamen als Fallback
         let rowtotal = 0;
-        html += `<tr><th>${status}</th>`;
+        html += `<tr><th>${label}</th>`;
         TYPES.forEach(type => {
           rowtotal += counts[type][status];
           html += `<td>${counts[type][status]}</td>`;
