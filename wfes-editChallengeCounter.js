@@ -122,7 +122,7 @@
         font-size: x-large;
     }
     /* Anpassungen für Bildschirme bis zu einer Breite von 600px (Mobiltelefone) */
-    @media (max-width: 900px) {
+    @media (max-width: 900px),(max-height: 500px) {
         .wfesEdChCo-popup {
             padding: 0.5em;  /* Weniger Abstand um das Popup herum */
             font-size: smaller;
