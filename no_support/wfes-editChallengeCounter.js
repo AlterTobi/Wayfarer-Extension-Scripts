@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      1.1.1
+// @version      1.1.2
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -54,16 +54,17 @@
         float: left;
         font-size: 1.5rem;
     }
-    .wfesEdChCo-close {
-        z-index: 2;
-        font-size: 2em;
-        cursor: pointer;
-        opacity: 0.5;
-        float: right;
-        margin-left: 14px;
-    }
-    .wfesEdChCo-close:hover {
-        opacity: 1;
+
+    /* Anpassungen für Bildschirme bis zu einer Breite von 600px (Mobiltelefone) */
+    @media (max-width: 900px) {
+        .wfesEdChCo-popup {
+            padding: 0.5em;  /* Weniger Abstand um das Popup herum */
+            font-size: smaller;
+        }
+        .wfesEdChCo-popup h1 {
+            font-size: 1rem; /* Kleinere Schriftgröße für Mobilgeräte */
+            margin-bottom: 10px; /* Weniger Abstand unter dem Titel */
+        }
     }
     .wfesEdChCo-close {
         z-index: 2;
