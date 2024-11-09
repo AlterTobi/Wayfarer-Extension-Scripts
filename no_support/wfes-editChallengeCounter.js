@@ -54,18 +54,6 @@
         float: left;
         font-size: 1.5rem;
     }
-
-    /* Anpassungen für Bildschirme bis zu einer Breite von 600px (Mobiltelefone) */
-    @media (max-width: 900px) {
-        .wfesEdChCo-popup {
-            padding: 0.5em;  /* Weniger Abstand um das Popup herum */
-            font-size: smaller;
-        }
-        .wfesEdChCo-popup h1 {
-            font-size: 1rem; /* Kleinere Schriftgröße für Mobilgeräte */
-            margin-bottom: 10px; /* Weniger Abstand unter dem Titel */
-        }
-    }
     .wfesEdChCo-close {
         z-index: 2;
         font-size: 2em;
@@ -132,6 +120,20 @@
     .wfesEdChCo-box td#alltotal {
         color: #20B8E3;
         font-size: x-large;
+    }
+    /* Anpassungen für Bildschirme bis zu einer Breite von 600px (Mobiltelefone) */
+    @media (max-width: 900px) {
+        .wfesEdChCo-popup {
+            padding: 0.5em;  /* Weniger Abstand um das Popup herum */
+            font-size: smaller;
+        }
+        .wfesEdChCo-popup h1 {
+            font-size: 1rem; /* Kleinere Schriftgröße für Mobilgeräte */
+            margin-bottom: 10px; /* Weniger Abstand unter dem Titel */
+        }
+        .wfesEdChCo-box th, td {
+            padding: 3px 6px;      /* Abstand innerhalb der Zellen */
+        }
     }
     `;
 
