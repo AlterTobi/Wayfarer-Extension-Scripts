@@ -1,5 +1,5 @@
 // @name         Edit Challenge Counter
-// @version      1.1.2
+// @version      1.1.3
 // @description  Count Edit Contributions for the 2024 Wayfarer Edit Challenge
 // @author       AlterTobi
 
@@ -151,12 +151,12 @@
   };
   const STATUSES = ["NOMINATED", "VOTING", "NIANTIC_REVIEW", "ACCEPTED", "REJECTED", "WITHDRAWN"]; // Erwartete Statuswerte
   const STATUS_LABELS = {
-    "NOMINATED": "Nominated",
-    "VOTING": "Voting",
-    "NIANTIC_REVIEW": "Niantic",
-    "ACCEPTED": "Accepted",
-    "REJECTED": "Rejected",
-    "WITHDRAWN": "Withdrawn"
+    "NOMINATED":      "In Queue",
+    "VOTING":         "In Voting",
+    "NIANTIC_REVIEW": "NIA Review",
+    "ACCEPTED":       "Accepted",
+    "REJECTED":       "Rejected",
+    "WITHDRAWN":      "Withdrawn"
   };
   // Funktion zur erweiterten Zählung nach Typ und Status
   function countContributionsExtended(contributions) {
