@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from os import environ
 from shutil import copytree
-from datetime import date
+from datetime import date, datetime
 
 extra_version = ''
 
@@ -196,7 +196,11 @@ def run():
   # process js files
   shortlist = []
   shortlist.append('## shortlist\n\n')
-  shortlist.append('created automatically\n\n')
+  
+  # Aktuelles Datum und Uhrzeit abrufen
+  current_time = datetime.now().strftime('%Y/%m/%d %H:%M')
+  shortlist.append(f'created automatically at {current_time}\n\n')
+
   shortlist.append('Not all scripts on this page are fully functional. This list is for reference only. Use at your own risk.\n\n')
   
   all_files = list(source.glob('**/wfes*.js'))
