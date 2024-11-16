@@ -65,7 +65,7 @@ It's linked at [wayfarer.tools](https://wayfarer.tools/), where you can find mor
 
 ## License and copyright
 
-Copyright 2023 AlterTobi
+Copyright {{CURRENT_YEAR}} AlterTobi
 
 Wayfarer Extension Scripts are free software: you can redistribute and/or modify
 them under the terms of the GNU General Public License as published by
