@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from os import environ
 from shutil import copytree
-from datetime import date
+from datetime import date, datetime
 
 extra_version = ''
 
@@ -40,6 +40,25 @@ def get_info(base_url):
 '''
   return infotext
     
+def replace_placeholder_in_files(directory, placeholder, replacement, file_extension=".md"):
+    """
+    Ersetzt einen Platzhalter in allen Dateien mit einer bestimmten Erweiterung im angegebenen Verzeichnis.
+    
+    :param directory: Pfad zum Verzeichnis, in dem die Dateien durchsucht werden sollen.
+    :param placeholder: Der Platzhalter, der ersetzt werden soll.
+    :param replacement: Der Wert, der den Platzhalter ersetzen soll.
+    :param file_extension: Die Dateierweiterung der Dateien, die geprüft werden (Standard: '.md').
+    """
+    for file in directory.glob(f'*{file_extension}'):  # Nur Dateien mit der angegebenen Erweiterung
+        with open(file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        if placeholder in content:
+            content = content.replace(placeholder, replacement)
+            with open(file, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"Replaced placeholder in: {file.name}")
+            
 def readtext(filename):
   return filename.read_text(encoding='utf-8-sig')
 
@@ -150,6 +169,11 @@ def run():
   pagesrc = source / '_pages/'
   copytree(pagesrc,target,dirs_exist_ok=True) 
   
+  # Replace placeholder in Markdown files
+  current_year = str(date.today().year)
+  placeholder = "{{CURRENT_YEAR}}"
+  replace_placeholder_in_files(target, placeholder, current_year)
+    
   # copy LICENSE
   print('process LICENSE')
   lic = source / 'LICENSE'
@@ -172,7 +196,11 @@ def run():
   # process js files
   shortlist = []
   shortlist.append('## shortlist\n\n')
-  shortlist.append('created automatically\n\n')
+  
+  # Aktuelles Datum und Uhrzeit abrufen
+  current_time = datetime.now().strftime('%Y/%m/%d %H:%M')
+  shortlist.append(f'created automatically at {current_time}\n\n')
+
   shortlist.append('Not all scripts on this page are fully functional. This list is for reference only. Use at your own risk.\n\n')
   
   all_files = list(source.glob('**/wfes*.js'))

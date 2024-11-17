@@ -68,7 +68,7 @@ Des weiteren gibt es auch einen [deutschsprachigen Discord](https://discord.gg/9
 
 ## Lizenz und Copyright
 
-Copyright 2023 AlterTobi
+Copyright {{CURRENT_YEAR}} AlterTobi
 
 Wayfarer Extension Scripts sind Freie Software: Sie können sie unter den Bedingungen
 der GNU General Public License, wie von der Free Software Foundation,
