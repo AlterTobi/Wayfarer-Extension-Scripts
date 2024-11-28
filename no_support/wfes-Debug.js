@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.2.2
+// @version      1.2.3
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -210,7 +210,7 @@
   function nominationDetail() {
     const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons",
       "upgraded", "city", "state", "appealNotes", "canHold", "canReleaseHold",
-      "nextUpgrade", "order", "day"];
+      "order", "day"];
     const candidate = window.wfes.g.nominationDetail();
     const poiId = wfes.g.nominationsList().find(obj => obj.id === candidate.id).poiData.id;
     if (poiId) {
