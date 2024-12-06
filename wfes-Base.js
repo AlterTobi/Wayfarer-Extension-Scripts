@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.2.2
+// @version      2.2.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -45,6 +45,9 @@
     }
     .wfesBgBlue{
     background-color: #0010DFD0;
+    }
+    .wfesBgFuchsia{
+    background-color: fuchsia;
     }
     `;
 
@@ -614,6 +617,9 @@
         break;
       case "blue":
         notification.setAttribute("class", "wfesNotification wfesBgBlue");
+        break;
+      case "fuchsia":
+        notification.setAttribute("class", "wfesNotification wfesBgFuchsia");
         break;
       default:
         notification.setAttribute("class", "wfesNotification wfesBgGreen");
