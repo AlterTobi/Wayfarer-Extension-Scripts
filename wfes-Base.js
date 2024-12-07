@@ -40,7 +40,6 @@
     position: relative;
     }
     .wfesCloseButton {
-      background: none;
       border: none;
       padding: 0;
       position: absolute;
@@ -49,18 +48,12 @@
       cursor: pointer;
     }
    .wfesActionButton {
-      background: none;
       border: none;
       padding: 0;
       position: absolute;
       top: 12px;
       right: 40px;
       cursor: pointer;
-    }
-
-    .wfesCloseButton svg {
-      width: 32px;
-      height: 32px;
     }
     .wfesBgGreen{
     background-color: #3e8e41CC;
@@ -653,31 +646,32 @@
         notification.setAttribute("class", "wfesNotification wfesBgGreen");
         break;
     }
-    // Schließen-Button mit globalem SVG
-    const closeButton = document.createElement("button");
-    closeButton.setAttribute("class", "wfesCloseButton");
-    closeButton.setAttribute("aria-label", "Close notification");
-    closeButton.innerHTML = closeIconSVG;
-    closeButton.onclick = function() {
-      notification.remove();
-    };
 
     const content = document.createElement("p");
     content.textContent = message;
 
-    notification.appendChild(content);
+    // Schließen-Button mit globalem SVG
+ const imgClose = GM_getResourceURL("img_close");
+    const closeButton = document.createElement("img");
+      closeButton.setAttribute("class", "wfesCloseButton");
+      closeButton.src = imgClose;
+    closeButton.onclick = function() {
+      notification.remove();
+    };
 
     // Optionaler Callback-Button
     if (callback && "function" === typeof callback) {
-      const actionButton = document.createElement("button");
+        const imgAction= GM_getResourceURL("img_action");
+      const actionButton = document.createElement("img");
       actionButton.setAttribute("class", "wfesActionButton");
-      actionButton.innerHTML = actionIconSVG;
+      actionButton.src = imgAction;
       actionButton.onclick = function() {
         callback(...callbackParams); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
       };
       notification.appendChild(actionButton);
     }
 
+    notification.appendChild(content);
     notification.appendChild(closeButton);
 
 
