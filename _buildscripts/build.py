@@ -63,11 +63,23 @@ def readtext(filename):
   return filename.read_text(encoding='utf-8-sig')
 
 def fill_meta(source, script_name):
+  allowed_multiple = ['resource', 'grant']  # Definierte Schlüssel, die mehrfach vorkommen dürfen
+
   meta = ['// ==UserScript==']
   keys = set()
 
   def append_line(key, value):
-    if key not in keys:
+    """
+    Fügt eine Zeile zum Meta-Block hinzu, erlaubt aber bestimmte Schlüssel mehrfach.
+
+    :param key: Der Metadaten-Schlüssel (z. B. 'resource').
+    :param value: Der zugehörige Wert (z. B. 'http://example.com/resource.js').
+    """
+    if key in allowed_multiple:
+      # Erlaubt mehrfaches Hinzufügen
+      meta.append(f'// @{key:<14} {value}')
+    elif key not in keys:
+      # Fügt einmalig hinzu, wenn nicht bereits vorhanden
       meta.append(f'// @{key:<14} {value}')
       keys.add(key)
 
