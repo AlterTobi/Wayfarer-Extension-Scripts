@@ -45,8 +45,6 @@ Andere Skripte sind neu, ungetestet, noch in Entwicklung oder veraltet.
     - Zeigt die Ablehngründe auch bei Einsprüchen an
 * [Show version](wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
-* [Scroll Fix](wfes-ScrollFix.user.js)
-    - fixt den Bug, dass Wayfarer immer zum Streetview scrollt
 * [Open In](wfes-OpenIn.user.js)
     - fügt "Open In" für Karten hinzu - wird nicht weiterentwickelt - nutze stattdessen tehstones "Open In"
 * [Add Street Address](wfes-reviewAddStreetAddress.user.js)
@@ -70,7 +68,7 @@ Des weiteren gibt es auch einen [deutschsprachigen Discord](https://discord.gg/9
 
 ## Lizenz und Copyright
 
-Copyright 2023 AlterTobi
+Copyright {{CURRENT_YEAR}} AlterTobi
 
 Wayfarer Extension Scripts sind Freie Software: Sie können sie unter den Bedingungen
 der GNU General Public License, wie von der Free Software Foundation,

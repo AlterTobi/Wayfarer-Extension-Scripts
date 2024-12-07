@@ -1,5 +1,5 @@
 // @name         show Wayfarer version
-// @version      1.3.3
+// @version      1.3.6
 // @description  show current Wayfarer version
 // @author       AlterTobi
 
@@ -11,7 +11,7 @@
   const myStyle = `.wfVersionCSS {
     position: absolute;
     z-index: 9999;
-    right: 70px;
+    right: 270px;
     top: 10px;
     background-color: white;
     border: 2px solid red;
@@ -22,12 +22,11 @@
     max-height: 95%;
     overflow: auto;}
     /* Styles for dark mode */
-    @media (prefers-color-scheme: dark) {
-    .wfVersionCSS {
+   .dark .wfVersionCSS {
+        color: #ddd;
         background-color: #303030;
         box-shadow: 6px 6px 4px darkgrey;
       }
-    }
     .wfes-hidden { display: none; }
     .wfes-versionChanged {
       background-color: red !important;
@@ -85,8 +84,10 @@
     versionDropdown.addEventListener("click", toggleVersions);
   }
 
-  function versionChanged() {
+  function versionChanged(version) {
     console.warn(GM_info.script.name, "version changed");
+    const msgStr = "WF version change " + version;
+    window.wfes.f.createNotification(msgStr, "red");
     const elem = document.getElementById(versionDivID);
     if (null !== elem) {
       elem.classList.add("wfes-versionChanged");
@@ -112,7 +113,7 @@
     if ( len > 0 ) {
       const last = versionHistory[len-1].version;
       if (last !== wfVersion) {
-        versionChanged();
+        versionChanged(wfVersion);
         versionHistory.push(v);
         window.wfes.f.localSave(lStoreHist, versionHistory);
       }

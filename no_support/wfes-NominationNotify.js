@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.6.3
+// @version      1.6.4
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -139,7 +139,7 @@
           // Niantic Review?
           if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
           || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
-            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "red");
+            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia");
           }
 
           // was missing?
@@ -160,7 +160,7 @@
             if ("ACCEPTED" === nom.status) {
               window.wfes.f.createNotification(`${notiTitle} was accepted!`);
             }else if("REJECTED" === nom.status) {
-              window.wfes.f.createNotification(`${notiTitle} was rejected!`);
+              window.wfes.f.createNotification(`${notiTitle} was rejected!`, "red");
             }else if("DUPLICATE" === nom.status) {
               window.wfes.f.createNotification(`${notiTitle} was marked as a duplicate!`);
             }

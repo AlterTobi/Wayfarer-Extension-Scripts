@@ -7,11 +7,11 @@ Tools and scripts for Niantic Wayfarer
 Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 
 ### Download 
-Scripts are available at my [GitHub Pages](https://altertobi.github.io/Wayfarer-Extension-Scripts/).
+Scripts and some documentation are available at my [GitHub Pages](https://altertobi.github.io/Wayfarer-Extension-Scripts/).
 
 ### Developer documentation
 Documentation for devs is available in the [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
-Pull-Requests welcomeh.
+Pull-Requests are welcome.
 
 ---
 
@@ -22,7 +22,7 @@ Tools und Skripte für Niantic Wayfarer
 Userskripte für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 
 ### Download 
-Die Skripte sind auf meinen [GitHub Pages](https://altertobi.github.io/Wayfarer-Extension-Scripts/) verfügbar.
+Die Skripte und eine Dokumentation sind auf meinen [GitHub Pages](https://altertobi.github.io/Wayfarer-Extension-Scripts/) verfügbar.
 
 ### Entwicklerdokumentation
 Eine Entwicklerdokumentation findet ihr im [Wiki](https://github.com/AlterTobi/Wayfarer-Extension-Scripts/wiki/WFES-Base).
