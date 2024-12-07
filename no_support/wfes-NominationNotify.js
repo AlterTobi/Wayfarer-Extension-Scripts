@@ -89,11 +89,12 @@
       .catch(()=>{reject();});
   });
 
-  function myCustomFunction(param1, param2=null) {
-    const event = new Event("input", { bubbles: true, cancelable: true }); console.log("Custom Function Triggered:", param1, param2);
+  function searchSubmission(title) {
+    const event = new Event("input", { bubbles: true, cancelable: true });
+    console.log("Custom Function Triggered:", title);
     wfes.f.waitForElem(searchBarSel).then(
       elem => {
-        elem.value = param1;
+        elem.value = title;
         elem.dispatchEvent(event);
       }
     )
@@ -127,7 +128,7 @@
 
           // detect unknown states
           if (!states.includes(nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} has unknown state: ${nom.status}`, "blue");
+            window.wfes.f.createNotification(`${notiTitle} has unknown state: ${nom.status}`, "blue", searchSubmission, [nom.title]);
           }
 
           if (undefined === historicalData) {
@@ -145,36 +146,36 @@
           // upgrade?
           if (false === historicalData.upgraded && true === nom.upgraded) {
             myDates.push([today, "UPGRADE"]);
-            window.wfes.f.createNotification(`${notiTitle} was upgraded!`);
+            window.wfes.f.createNotification(`${notiTitle} was upgraded!`, "green", searchSubmission, [nom.title]);
           }
 
           // Niantic Review?
           if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
           || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
-            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia", myCustomFunction, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia", searchSubmission, [nom.title]);
           }
 
           // was missing?
           if (("MISSING" === historicalData.status)) {
-            window.wfes.f.createNotification(`${notiTitle} returned`, "orange");
+            window.wfes.f.createNotification(`${notiTitle} returned`, "orange", searchSubmission, [nom.title]);
           }
           // In queue -> In voting
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} went into voting!`, myCustomFunction, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} went into voting!`, searchSubmission, [nom.title]);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
             // only if nomination is "old"
             if (getDateDiff(nom.day) > noHeldMsgDays) {
-              window.wfes.f.createNotification(`${notiTitle} put on HOLD!`, "red");
+              window.wfes.f.createNotification(`${notiTitle} put on HOLD!`, "red", searchSubmission, [nom.title]);
             }
           } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} was appealed!`);
+            window.wfes.f.createNotification(`${notiTitle} was appealed!`, "green", searchSubmission, [nom.title]);
           } else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
             if ("ACCEPTED" === nom.status) {
-              window.wfes.f.createNotification(`${notiTitle} was accepted!`);
+              window.wfes.f.createNotification(`${notiTitle} was accepted!`, "green", searchSubmission, [nom.title]);
             }else if("REJECTED" === nom.status) {
-              window.wfes.f.createNotification(`${notiTitle} was rejected!`, "red");
+              window.wfes.f.createNotification(`${notiTitle} was rejected!`, "red", searchSubmission, [nom.title]);
             }else if("DUPLICATE" === nom.status) {
-              window.wfes.f.createNotification(`${notiTitle} was marked as a duplicate!`);
+              window.wfes.f.createNotification(`${notiTitle} was marked as a duplicate!`, "", searchSubmission, [nom.title]);
             }
           }
 
