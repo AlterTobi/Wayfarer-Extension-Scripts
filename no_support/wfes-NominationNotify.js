@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.6.4
+// @version      1.6.5
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -11,6 +11,7 @@
   const lCanAppeal = "wfes_CurrentAppealState";
   const states = ["ACCEPTED", "REJECTED", "VOTING", "DUPLICATE", "WITHDRAWN", "NOMINATED", "APPEALED", "NIANTIC_REVIEW", "HELD"];
   const noHeldMsgDays = 42;
+  const searchBarSel = "app-submissions app-submissions-search > div > input";
 
   function getCurrentDateStr() {
     return new Date().toISOString()
@@ -88,6 +89,17 @@
       .catch(()=>{reject();});
   });
 
+  function myCustomFunction(param1, param2=null) {
+    const event = new Event("input", { bubbles: true, cancelable: true }); console.log("Custom Function Triggered:", param1, param2);
+    wfes.f.waitForElem(searchBarSel).then(
+      elem => {
+        elem.value = param1;
+        elem.dispatchEvent(event);
+      }
+    )
+      .catch(()=>{console.warn("searchbar not found");});
+  }
+
   function detectChange() {
     const nomList = window.wfes.g.nominationsList();
     window.wfes.f.localGet(lStoreList, []).then((historyDict)=>{
@@ -139,7 +151,7 @@
           // Niantic Review?
           if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
           || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
-            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia");
+            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia", myCustomFunction, [nom.title]);
           }
 
           // was missing?
@@ -148,7 +160,7 @@
           }
           // In queue -> In voting
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} went into voting!`);
+            window.wfes.f.createNotification(`${notiTitle} went into voting!`, myCustomFunction, [nom.title]);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
             // only if nomination is "old"
             if (getDateDiff(nom.day) > noHeldMsgDays) {
