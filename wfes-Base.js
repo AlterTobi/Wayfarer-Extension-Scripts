@@ -7,7 +7,6 @@
 // @resource     img_close https://altertobi.github.io/Wayfarer-Extension-Scripts/images/white_cross.png
 // @resource     img_action https://altertobi.github.io/Wayfarer-Extension-Scripts/images/white-arrow-right-up.png
 
-
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
 (function() {

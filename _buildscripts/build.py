@@ -63,7 +63,8 @@ def readtext(filename):
   return filename.read_text(encoding='utf-8-sig')
 
 def fill_meta(source, script_name):
-  allowed_multiple = ['resource', 'grant']  # Definierte Schlüssel, die mehrfach vorkommen dürfen
+  allowed_multiple = ['resource']  # Definierte Schlüssel, die mehrfach vorkommen dürfen
+  # grant muss man dann nochmal extra machen (none)
 
   meta = ['// ==UserScript==']
   keys = set()
