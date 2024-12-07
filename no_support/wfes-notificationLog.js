@@ -1,10 +1,12 @@
 // @name         Notification Log
-// @version      0.0.1
+// @version      0.0.2
 // @description  shows notification log archive
 // @author       AlterTobi
 
 (function() {
   "use strict";
+
+  const sessvarMiss = "warnBase";
 
   /*
   const myCssId = "templateCSS";
@@ -14,8 +16,9 @@
     `;
 */
 
-  const idbLogStore = "logMessages"; // Objectstore für Log-Nachrichten
-const mainContentSel = 'body > app-root > app-wayfarer > div > mat-sidenav-container > mat-sidenav-content > div';
+  const idbLogStoreBase = "logMessages"; // Objectstore für Log-Nachrichten
+  let idbLogStore = idbLogStoreBase + "_temp";
+  const mainContentSel = "body > app-root > app-wayfarer > div > mat-sidenav-container > mat-sidenav-content > div";
 
   // Funktion zum Auslesen von Log-Nachrichten, nach Datum sortiert
   const getLogMessages = () => {
@@ -77,7 +80,26 @@ const mainContentSel = 'body > app-root > app-wayfarer > div > mat-sidenav-conta
 
   }
 
-  window.addEventListener("WFESHomePageLoaded", notificationLog);
+  const init = () => {
+    window.addEventListener("WFESHomePageLoaded", notificationLog);
+
+    window.wfes.g.userId().then(name => {
+      idbLogStore = idbLogStoreBase + "_" + name;
+    })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+  };
+
+
+  // === no changes needed below this line ======================
+  if("undefined" === typeof(wfes)) {
+    if (undefined === sessionStorage[sessvarMiss]) {
+      sessionStorage[sessvarMiss] = 1;
+      alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+      console.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+    }
+  } else {
+    init();
+  }
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);

@@ -18,7 +18,8 @@
   // indexedDB
   const idbName = "wfes-data";
   const idbLocalStorageCompat = "localStorage";
-  const idbLogStore = "logMessages"; // Objectstore für Log-Nachrichten
+  const idbLogStoreBase = "logMessages"; // Objectstore für Log-Nachrichten
+  let idbLogStore = idbLogStoreBase + "_temp";
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
@@ -197,16 +198,29 @@
     const timestamp = new Date().getTime();
     const logData = { timestamp, type, message };
 
-    _getIDBInstance(idbLogStore, { autoIncrement: true } ).then(db => {
-      const tx = db.transaction([idbLogStore], "readwrite");
-      tx.oncomplete = event => { db.close(); resolve(); };
-      tx.onerror = reject;
+    getUserId().then(name => {
+      idbLogStore = idbLogStoreBase + "_" + name;
 
-      const store = tx.objectStore(idbLogStore);
-      store.add(logData);
-      tx.commit();
+
+      _getIDBInstance(idbLogStore, { autoIncrement: true } ).then(db => {
+        const tx = db.transaction([idbLogStore], "readwrite");
+        tx.oncomplete = event => { db.close(); resolve(); };
+        tx.onerror = reject;
+
+        const store = tx.objectStore(idbLogStore);
+        store.add(logData);
+        tx.commit();
+      })
+        .catch(reject);
+
+
     })
-      .catch(reject);
+      .catch((e) => {
+        console.warn(GM_info.script.name, ": ", e);
+        reject;
+      });
+
+
   });
 
   // Funktion zum Auslesen von Log-Nachrichten, nach Datum sortiert
