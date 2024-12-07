@@ -651,17 +651,17 @@
     content.textContent = message;
 
     // Schließen-Button mit globalem SVG
- const imgClose = GM_getResourceURL("img_close");
+    const imgClose = GM_getResourceURL("img_close");
     const closeButton = document.createElement("img");
-      closeButton.setAttribute("class", "wfesCloseButton");
-      closeButton.src = imgClose;
+    closeButton.setAttribute("class", "wfesCloseButton");
+    closeButton.src = imgClose;
     closeButton.onclick = function() {
       notification.remove();
     };
 
     // Optionaler Callback-Button
     if (callback && "function" === typeof callback) {
-        const imgAction= GM_getResourceURL("img_action");
+      const imgAction= GM_getResourceURL("img_action");
       const actionButton = document.createElement("img");
       actionButton.setAttribute("class", "wfesActionButton");
       actionButton.src = imgAction;
