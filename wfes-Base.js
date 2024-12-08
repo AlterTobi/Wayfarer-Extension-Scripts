@@ -690,7 +690,7 @@
 
     // Optionaler Callback-Button
     if (callback && "function" === typeof callback) {
-      console.log("notification callback", ...callbackParams);
+      // console.log("notification callback", ...callbackParams);
       const actionButton = document.createElement("img");
       actionButton.setAttribute("class", "wfesNotiButton");
       actionButton.src = imgAction;
@@ -698,10 +698,12 @@
         callback(...callbackParams); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
       };
       buttonGroup.appendChild(actionButton);
-    } else {
-      console.warn("notification callback ");
-      console.dir(callback);
     }
+    /*
+     else {
+      console.warn("notification callback ");
+      console.dir(typeof callback);
+    } */
 
     buttonGroup.appendChild(closeButton);
 

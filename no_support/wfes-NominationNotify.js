@@ -161,7 +161,7 @@
           }
           // In queue -> In voting
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} went into voting!`, searchSubmission, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} went into voting!`, 'green', searchSubmission, [nom.title]);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
             // only if nomination is "old"
             if (getDateDiff(nom.day) > noHeldMsgDays) {
