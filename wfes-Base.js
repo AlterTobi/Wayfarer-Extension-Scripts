@@ -3,9 +3,6 @@
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
-// @grant        GM_getResourceURL
-// @resource     img_close https://altertobi.github.io/Wayfarer-Extension-Scripts/images/white_cross.png
-// @resource     img_action https://altertobi.github.io/Wayfarer-Extension-Scripts/images/white-arrow-right-up.png
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
@@ -21,6 +18,9 @@
   // indexedDB
   const idbName = "wfes-data";
   const idbLocalStorageCompat = "localStorage";
+
+  const imgClose = "https://altertobi.github.io/Wayfarer-Extension-Scripts/images/white_cross.png";
+  const imgAction = "https://altertobi.github.io/Wayfarer-Extension-Scripts/images/white-arrow-right-up.png";
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
@@ -650,7 +650,6 @@
     content.textContent = message;
 
     // Schließen-Button mit globalem SVG
-    const imgClose = GM_getResourceURL("img_close");
     const closeButton = document.createElement("img");
     closeButton.setAttribute("class", "wfesCloseButton");
     closeButton.src = imgClose;
@@ -660,7 +659,6 @@
 
     // Optionaler Callback-Button
     if (callback && "function" === typeof callback) {
-      const imgAction= GM_getResourceURL("img_action");
       const actionButton = document.createElement("img");
       actionButton.setAttribute("class", "wfesActionButton");
       actionButton.src = imgAction;
