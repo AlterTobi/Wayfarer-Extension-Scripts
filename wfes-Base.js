@@ -9,6 +9,9 @@
 (function() {
   "use strict";
 
+  // wegen der *monkey Sandboxen
+  // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
   const loginPath = "/login";
@@ -24,36 +27,58 @@
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
-    #wfesNotify{
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    width: 30em;
-    z-index: 100;
-    }
-    .wfesNotification{
-    border-radius: 0.5em;
-    padding: 1em;
-    margin-top: 1.5em;
-    color: white;
-    position: relative;
-    }
-    .wfesCloseButton {
-      border: none;
-      padding: 0;
-      position: absolute;
-      top: 12px;
-      right: 10px;
-      cursor: pointer;
-    }
-   .wfesActionButton {
-      border: none;
-      padding: 0;
-      position: absolute;
-      top: 12px;
-      right: 40px;
-      cursor: pointer;
-    }
+    /* Container */
+        #wfesNotify {
+          position: absolute;
+          bottom: 1em;
+          right: 1em;
+          width: 30em;
+          z-index: 100;
+        }
+        
+    /* Einzelne Notifications */
+        .wfesNotification {
+          border-radius: 0.5em;
+          padding: 1em;
+          margin-top: 1.5em;
+          color: white;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5em;
+        }
+        
+    /* Inhalt mit Text und Buttons */
+        .wfesNotificationContent {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+    /* Text */
+        .wfesNotificationContent p {
+          flex: 1; /* Flexibles Wachstum des Textes */
+          margin: 0;
+          padding-right: 10px; /* Platz zwischen Text und Buttons */
+          word-wrap: break-word; /* Zeilenumbruch für lange Texte */
+          overflow-wrap: break-word;
+        }
+        
+    /* Buttons-Gruppe */
+        .wfesButtonGroup {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+        }
+        
+    /* notification Buttons */
+        .wfesNotiButton {
+          border: none;
+          width: 32px;
+          height: 32px;
+          cursor: pointer;
+        }
+
     .wfesBgGreen{
     background-color: #3e8e41CC;
     }
@@ -646,12 +671,18 @@
         break;
     }
 
+    const notificationContent = document.createElement("div");
+    notificationContent.setAttribute("class", "wfesNotificationContent");
+
     const content = document.createElement("p");
     content.textContent = message;
 
-    // Schließen-Button mit globalem SVG
+    const buttonGroup = document.createElement("div");
+    buttonGroup.setAttribute("class", "wfesButtonGroup");
+
+    // Schließen-Button
     const closeButton = document.createElement("img");
-    closeButton.setAttribute("class", "wfesCloseButton");
+    closeButton.setAttribute("class", "wfesNotiButton");
     closeButton.src = imgClose;
     closeButton.onclick = function() {
       notification.remove();
@@ -659,18 +690,25 @@
 
     // Optionaler Callback-Button
     if (callback && "function" === typeof callback) {
+      console.log("notification callback", ...callbackParams);
       const actionButton = document.createElement("img");
-      actionButton.setAttribute("class", "wfesActionButton");
+      actionButton.setAttribute("class", "wfesNotiButton");
       actionButton.src = imgAction;
       actionButton.onclick = function() {
         callback(...callbackParams); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
       };
-      notification.appendChild(actionButton);
+      buttonGroup.appendChild(actionButton);
+    } else {
+      console.warn("notification callback ");
+      console.dir(callback);
     }
 
-    notification.appendChild(content);
-    notification.appendChild(closeButton);
+    buttonGroup.appendChild(closeButton);
 
+    notificationContent.appendChild(content);
+    notificationContent.appendChild(buttonGroup);
+
+    notification.appendChild(notificationContent);
 
     if (!document.getElementById("wfesNotify")) {
       window.wfes.f.createNotificationArea();
