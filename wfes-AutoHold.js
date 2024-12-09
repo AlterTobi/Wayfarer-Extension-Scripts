@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.2.1
+// @version      1.3.0
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -57,6 +57,10 @@
     request.send(postData);
   }
 
+  function _reloadPage() {
+    window.location.reload();
+  }
+
   function _prozessNext() {
     if (idlist.length > 0) {
       // have more?
@@ -64,8 +68,7 @@
       window.wfes.f.createNotification(`AutoHold: ${o.title}`, "orange");
       _setHold(o.id);
     } else {
-      window.wfes.f.createNotification("AutoHold: all nominations processed, reloading page", "green");
-      setTimeout(()=>{window.location.reload();}, 5*timeout);
+      window.wfes.f.createNotification("AutoHold: all nominations processed, click arrow to reload page", "green", _reloadPage);
     }
   }
 
@@ -92,10 +95,10 @@
     }
   }
 
-  if (window.wfes.f.hasMinVersion("1.4.0")) {
+  if (window.wfes.f.hasMinVersion("2.3.0")) {
     window.addEventListener("WFESNominationListLoaded", autoHold);
   } else {
-    console.warn(GM_info.script.name, "Need at least wfes-Base version 1.4.0. Please upgrade.");
+    console.warn(GM_info.script.name, "Need at least wfes-Base version 2.3.0. Please upgrade.");
   }
 
   /* we are done :-) */
