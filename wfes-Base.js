@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.2.4
+// @version      2.3.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -693,7 +693,9 @@
       const actionButton = document.createElement("img");
       actionButton.setAttribute("class", "wfesNotiButton");
       actionButton.src = imgAction;
-      actionButton.onclick = function() {
+
+      actionButton.onclick = function(event) {
+        event.stopPropagation(); // Verhindert, dass der Klick das notification-Element erreicht
         callback(...callbackParams); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
       };
       buttonGroup.appendChild(actionButton);
