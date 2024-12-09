@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.6.5
+// @version      1.7.0
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -91,7 +91,6 @@
 
   function searchSubmission(title) {
     const event = new Event("input", { bubbles: true, cancelable: true });
-    console.log("Custom Function Triggered:", title);
     wfes.f.waitForElem(searchBarSel).then(
       elem => {
         elem.value = title;
