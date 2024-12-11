@@ -238,6 +238,13 @@
     };
   });
 
+    // StorageNamen aus Usernamen ermitteln
+    // Param: basename für Storage
+const getStorageName = (storageBase) => new Promise ((resolve, reject) => {
+    #### ChatGPT wegen Promise fragen -- getUserId
+    });
+
+
   // Funktion zum Speichern einer Log-Nachricht
   const _saveLogMessage = (type, message) => new Promise((resolve, reject) => {
     const timestamp = new Date().getTime();
