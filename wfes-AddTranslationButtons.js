@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.1.4
+// @version      2.1.5
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 
@@ -17,12 +17,13 @@
     .dark .wfesTranslate {
       color: #ddd;
     }
-    .wfesTranslate svg {
-       width: 24px;
-       height: 24px;
-       filter: none;
-       fill: currentColor;
-       margin: 0 auto;
+    .wfesTranslate select {
+        margin-bottom: 0.2em; /* Abstand zwischen Dropdown und Button */
+    }
+    .wfesTranslateButton {
+        display: block; /* Button wird unterhalb des Selects angezeigt */
+        text-decoration: none;
+        color: #20B8E3;
     }
     .dark .wfesTranslate select,
     .dark .wfesTranslate option {
@@ -62,7 +63,8 @@
         div.id = buttonID;
         const link = document.createElement("a");
         link.title = "Translate nomination";
-        link.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>';
+        link.classname = "wfesTranslateButton";
+        link.innerHTML = '<span class="material-icons">translate</span>';
 
         const select = document.createElement("select");
         select.title = "Select translation engine";
