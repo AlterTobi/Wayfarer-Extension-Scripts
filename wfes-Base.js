@@ -64,14 +64,12 @@
     /* Buttons-Gruppe */
         .wfesButtonGroup {
           display: flex;
-          gap: 10px;
           align-items: center;
         }
         
     /* notification Buttons */
         .wfesNotiButton {
-          width: 32px;
-          height: 32px;
+          font-size: 32px;
           cursor: pointer;
         }
 
