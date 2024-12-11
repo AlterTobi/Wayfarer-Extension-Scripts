@@ -695,7 +695,7 @@
         case "search":
           actionIcon = "search";
           break;
-        case "renow":
+        case "renew":
           actionIcon="autorenew";
           break;
         default:
