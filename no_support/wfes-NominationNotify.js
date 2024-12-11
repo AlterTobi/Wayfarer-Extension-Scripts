@@ -124,9 +124,12 @@
 
           // find title
           const _title = nom.poiData?.title || nom.title;
+
           nom.title = _title;
 
+          console.log("setze Titel: ".nom.title);
           callbackConfig.params = [nom.title];
+          console.dir(callbackConfig);
 
           // set title for notification
           const notiTitle = nom.type + ": " + nom.title;
