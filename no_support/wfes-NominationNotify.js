@@ -112,13 +112,6 @@
         const today = getCurrentDateStr();
         let myDates, historicalData, nom;
 
-        // prepare callback for createNotification()
-        const callbackConfig = {
-          callback: searchSubmission,
-          params: [],
-          icon: "search"
-        };
-
         for (let i = 0; i < nomList.length; i++) {
           nom = nomList[i];
 
@@ -127,9 +120,12 @@
 
           nom.title = _title;
 
-          console.log("setze Titel: ".nom.title);
-          callbackConfig.params = [nom.title];
-          console.dir(callbackConfig);
+          // prepare callback for createNotification()
+          const callbackConfig = {
+            callback: searchSubmission,
+            params: [nom.title],
+            icon: "search"
+          };
 
           // set title for notification
           const notiTitle = nom.type + ": " + nom.title;
