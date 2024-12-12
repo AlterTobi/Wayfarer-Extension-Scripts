@@ -1,5 +1,5 @@
 // @name         Notification Log
-// @version      0.0.2
+// @version      0.0.3
 // @description  shows notification log archive
 // @author       AlterTobi
 
@@ -7,6 +7,7 @@
   "use strict";
 
   const sessvarMiss = "warnBase";
+  let idbLogStore;
 
   /*
   const myCssId = "templateCSS";
@@ -16,9 +17,7 @@
     `;
 */
 
-  const idbLogStoreBase = "logMessages"; // Objectstore für Log-Nachrichten
-  let idbLogStore = idbLogStoreBase + "_temp";
-  const mainContentSel = "body > app-root > app-wayfarer > div > mat-sidenav-container > mat-sidenav-content > div";
+  // const mainContentSel = "body > app-root > app-wayfarer > div > mat-sidenav-container > mat-sidenav-content > div";
 
   // Funktion zum Auslesen von Log-Nachrichten, nach Datum sortiert
   const getLogMessages = () => {
@@ -81,14 +80,15 @@
   }
 
   const init = () => {
-    window.addEventListener("WFESHomePageLoaded", notificationLog);
+    if (window.wfes.f.hasMinVersion("2.4.0")) {
+      idbLogStore = window.wfes.g.logStorageName();
 
-    window.wfes.g.userId().then(name => {
-      idbLogStore = idbLogStoreBase + "_" + name;
-    })
-      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+      window.addEventListener("WFESHomePageLoaded", notificationLog);
+    } else {
+      console.warn(GM_info.script.name, "Need at least wfes-Base version 2.4.0. Please upgrade.");
+    }
+
   };
-
 
   // === no changes needed below this line ======================
   if("undefined" === typeof(wfes)) {

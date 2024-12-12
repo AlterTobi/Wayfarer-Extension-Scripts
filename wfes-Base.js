@@ -232,11 +232,19 @@
     };
   });
 
-    // StorageNamen aus Usernamen ermitteln
-    // Param: basename für Storage
-const getStorageName = (storageBase) => new Promise ((resolve, reject) => {
-    #### ChatGPT wegen Promise fragen -- getUserId
-    });
+  // StorageNamen aus Usernamen ermitteln
+  // Param: basename für Storage
+  const getStorageName = (storageBase) => new Promise((resolve, reject) => {
+    getUserId().then(userId => {
+      // Speichername dynamisch erstellen
+      const storageName = `${storageBase}_${userId}`;
+      resolve(storageName);
+    })
+      .catch(err => {
+      // Fehlerbehandlung - degault Wert zurückgeben
+        resolve(`${storageBase}_temp`);
+      });
+  });
 
 
   // Funktion zum Speichern einer Log-Nachricht
@@ -850,6 +858,8 @@ const getStorageName = (storageBase) => new Promise ((resolve, reject) => {
       resolve(userID);
     });
   });
+  window.wfes.g.logStorageName = getStorageName(idbLogStoreBase);
+
   window.wfes.g.isMobile = function() {
     return _isMobile;
   };

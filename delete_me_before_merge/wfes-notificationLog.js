@@ -20,7 +20,7 @@
 
   const idbLogStoreBase = "logMessages"; // Objectstore für Log-Nachrichten
   let idbLogStore = idbLogStoreBase + "_temp";
-  const mainContentSel = "body > app-root > app-wayfarer > div > mat-sidenav-container > mat-sidenav-content > div";
+  //  const mainContentSel = "body > app-root > app-wayfarer > div > mat-sidenav-container > mat-sidenav-content > div";
 
   // Funktion zum Auslesen von Log-Nachrichten, nach Datum sortiert
   const getLogMessages = () => {
