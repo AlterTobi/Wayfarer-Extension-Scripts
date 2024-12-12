@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.3.0
+// @version      1.3.1
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -68,7 +68,7 @@
       window.wfes.f.createNotification(`AutoHold: ${o.title}`, "orange");
       _setHold(o.id);
     } else {
-      window.wfes.f.createNotification("AutoHold: all nominations processed, click arrow to reload page", "green", _reloadPage);
+      window.wfes.f.createNotification("AutoHold: all nominations processed, click arrow to reload page", "green", { callback: _reloadPage, icon: "renew"});
     }
   }
 

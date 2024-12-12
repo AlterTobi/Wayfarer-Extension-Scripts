@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.7.0
+// @version      1.7.1
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -117,7 +117,15 @@
 
           // find title
           const _title = nom.poiData?.title || nom.title;
+
           nom.title = _title;
+
+          // prepare callback for createNotification()
+          const callbackConfig = {
+            callback: searchSubmission,
+            params: [nom.title],
+            icon: "search"
+          };
 
           // set title for notification
           const notiTitle = nom.type + ": " + nom.title;
@@ -127,7 +135,7 @@
 
           // detect unknown states
           if (!states.includes(nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} has unknown state: ${nom.status}`, "blue", searchSubmission, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} has unknown state: ${nom.status}`, "blue", callbackConfig);
           }
 
           if (undefined === historicalData) {
@@ -145,36 +153,36 @@
           // upgrade?
           if (false === historicalData.upgraded && true === nom.upgraded) {
             myDates.push([today, "UPGRADE"]);
-            window.wfes.f.createNotification(`${notiTitle} was upgraded!`, "green", searchSubmission, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} was upgraded!`, "green", callbackConfig);
           }
 
           // Niantic Review?
           if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
           || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
-            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia", searchSubmission, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia", callbackConfig);
           }
 
           // was missing?
           if (("MISSING" === historicalData.status)) {
-            window.wfes.f.createNotification(`${notiTitle} returned`, "orange", searchSubmission, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} returned`, "orange", callbackConfig);
           }
           // In queue -> In voting
           if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} went into voting!`, "green", searchSubmission, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} went into voting!`, "green", callbackConfig);
           } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
             // only if nomination is "old"
             if (getDateDiff(nom.day) > noHeldMsgDays) {
-              window.wfes.f.createNotification(`${notiTitle} put on HOLD!`, "red", searchSubmission, [nom.title]);
+              window.wfes.f.createNotification(`${notiTitle} put on HOLD!`, "red", callbackConfig);
             }
           } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
-            window.wfes.f.createNotification(`${notiTitle} was appealed!`, "green", searchSubmission, [nom.title]);
+            window.wfes.f.createNotification(`${notiTitle} was appealed!`, "green", callbackConfig);
           } else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
             if ("ACCEPTED" === nom.status) {
-              window.wfes.f.createNotification(`${notiTitle} was accepted!`, "green", searchSubmission, [nom.title]);
+              window.wfes.f.createNotification(`${notiTitle} was accepted!`, "green", callbackConfig);
             }else if("REJECTED" === nom.status) {
-              window.wfes.f.createNotification(`${notiTitle} was rejected!`, "red", searchSubmission, [nom.title]);
+              window.wfes.f.createNotification(`${notiTitle} was rejected!`, "red", callbackConfig);
             }else if("DUPLICATE" === nom.status) {
-              window.wfes.f.createNotification(`${notiTitle} was marked as a duplicate!`, "", searchSubmission, [nom.title]);
+              window.wfes.f.createNotification(`${notiTitle} was marked as a duplicate!`, "", callbackConfig);
             }
           }
 
