@@ -80,12 +80,12 @@
   }
 
   const init = () => {
-    if (window.wfes.f.hasMinVersion("2.4.0")) {
+    if (window.wfes.f.hasMinVersion("2.3.0")) {
       idbLogStore = window.wfes.g.logStorageName();
 
       window.addEventListener("WFESHomePageLoaded", notificationLog);
     } else {
-      console.warn(GM_info.script.name, "Need at least wfes-Base version 2.4.0. Please upgrade.");
+      console.warn(GM_info.script.name, "Need at least wfes-Base version 2.3.0. Please upgrade.");
     }
 
   };
