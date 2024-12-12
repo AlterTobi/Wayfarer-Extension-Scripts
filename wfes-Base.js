@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.3.0
+// @version      2.3.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -21,9 +21,6 @@
   // indexedDB
   const idbName = "wfes-data";
   const idbLocalStorageCompat = "localStorage";
-
-  const imgClose = "https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/images/white_cross.png";
-  const imgAction = "https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/images/white-arrow-right-up.png";
 
   const myCssId = "notifyAreaCSS";
   const myStyle = `
@@ -67,15 +64,12 @@
     /* Buttons-Gruppe */
         .wfesButtonGroup {
           display: flex;
-          gap: 10px;
           align-items: center;
         }
         
     /* notification Buttons */
         .wfesNotiButton {
-          border: none;
-          width: 32px;
-          height: 32px;
+          font-size: 32px;
           cursor: pointer;
         }
 
@@ -651,7 +645,7 @@
     }
   };
 
-  window.wfes.f.createNotification = function(message = "no message", color = "green", callback = null, callbackParams = []) {
+  window.wfes.f.createNotification = function(message = "no message", color = "green", callbackConfig = null) {
     const notification = document.createElement("div");
     switch (color) {
       case "red":
@@ -681,22 +675,38 @@
     buttonGroup.setAttribute("class", "wfesButtonGroup");
 
     // Schließen-Button
-    const closeButton = document.createElement("img");
-    closeButton.setAttribute("class", "wfesNotiButton");
-    closeButton.src = imgClose;
+    const closeButton = document.createElement("button");
+    closeButton.setAttribute("class", "wfesNotiButton material-icons");
+    closeButton.innerText = "close";
     closeButton.onclick = function() {
       notification.remove();
     };
 
     // Optionaler Callback-Button
-    if (callback && "function" === typeof callback) {
-      const actionButton = document.createElement("img");
-      actionButton.setAttribute("class", "wfesNotiButton");
-      actionButton.src = imgAction;
+    if (callbackConfig && "function" === typeof callbackConfig.callback) {
+      const actionButton = document.createElement("button");
+      actionButton.setAttribute("class", "wfesNotiButton material-icons");
+
+      let actionIcon;
+      switch (callbackConfig.icon) {
+        case "play":
+          actionIcon = "play_circle_outline";
+          break;
+        case "search":
+          actionIcon = "search";
+          break;
+        case "renew":
+          actionIcon="autorenew";
+          break;
+        default:
+          actionIcon = "play_circle";
+      }
+
+      actionButton.innerText = actionIcon;
 
       actionButton.onclick = function(event) {
         event.stopPropagation(); // Verhindert, dass der Klick das notification-Element erreicht
-        callback(...callbackParams); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
+        callbackConfig.callback(...(callbackConfig.params || [])); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
       };
       buttonGroup.appendChild(actionButton);
     }
