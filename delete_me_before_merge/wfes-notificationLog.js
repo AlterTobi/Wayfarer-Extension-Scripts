@@ -1,7 +1,9 @@
 // @name         Notification Log
-// @version      0.0.2
+// @version      0.0.3
 // @description  shows notification log archive
 // @author       AlterTobi
+// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-NotificationLog.user.js
+// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-NotificationLog.meta.js
 
 (function() {
   "use strict";
