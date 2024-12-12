@@ -690,7 +690,7 @@
       let actionIcon;
       switch (callbackConfig.icon) {
         case "play":
-          actionIcon = "play_circle";
+          actionIcon = "play_circle_outline";
           break;
         case "search":
           actionIcon = "search";
