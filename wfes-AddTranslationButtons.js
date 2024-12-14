@@ -63,7 +63,7 @@
         div.id = buttonID;
         const link = document.createElement("a");
         link.title = "Translate nomination";
-        link.classname = "wfesTranslateButton";
+        link.className = "wfesTranslateButton";
         link.innerHTML = '<span class="material-icons">translate</span>';
 
         const select = document.createElement("select");
@@ -97,6 +97,7 @@
         const a = buttonEl.querySelector("a");
         a.href = engines[currentEngine].url + encodeURIComponent(text);
         a.target = engines[currentEngine].url;
+        
       }
     })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
