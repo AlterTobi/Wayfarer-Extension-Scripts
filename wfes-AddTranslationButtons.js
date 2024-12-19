@@ -97,7 +97,7 @@
         const a = buttonEl.querySelector("a");
         a.href = engines[currentEngine].url + encodeURIComponent(text);
         a.target = engines[currentEngine].url;
-        
+
       }
     })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
