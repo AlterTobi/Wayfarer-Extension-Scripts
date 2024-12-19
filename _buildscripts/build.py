@@ -208,6 +208,12 @@ def run():
   
   # process js files
   shortlist = []
+  # front matter for shortlist: noindex, no sitemap
+  shortlist.append('---\n')
+  shortlist.append('sitemap: false\n')
+  shortlist.append('robots: "noindex"\n')
+  shortlist.append('---\n')
+  
   shortlist.append('## shortlist\n\n')
   
   # Aktuelles Datum und Uhrzeit abrufen
