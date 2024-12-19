@@ -4,3 +4,9 @@ description: Tools and scripts for Niantic Wayfarer
 show_downloads: false
 plugins:
   - jekyll-sitemap
+defaults:
+  -
+    scope:
+      path:            "dev/**/*"
+    values:
+      sitemap:         false
