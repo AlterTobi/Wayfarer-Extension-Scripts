@@ -40,6 +40,26 @@ def get_info(base_url):
 '''
   return infotext
     
+def add_jekyll_frontmatter(directory, file_extension=".md"):
+    """
+    Fügt allen Dateien eines Verzeichnisses ein Jekyll-Frontmatter hinzu, falls es noch nicht vorhanden ist.
+
+    :param directory: Pfad zum Verzeichnis, in dem die Dateien durchsucht werden sollen.
+    :param file_extension: Die Dateierweiterung der Dateien, die geprüft werden (Standard: '.md').
+    """
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    frontmatter = f"---\nlast_modified_at: {current_date}\n---\n\n"
+
+    for file in directory.rglob(f'*{file_extension}'):  # Nur Dateien mit der angegebenen Erweiterung
+        with open(file, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        if not content.startswith("---\n"):  # Prüft, ob bereits ein Frontmatter existiert
+            content = frontmatter + content
+            with open(file, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"Added frontmatter to: {file.relative_to(directory)}")
+
 def replace_placeholder_in_files(directory, placeholder, replacement, file_extension=".md"):
     """
     Ersetzt einen Platzhalter in allen Dateien mit einer bestimmten Erweiterung im angegebenen Verzeichnis.
@@ -186,6 +206,7 @@ def run():
   current_year = str(date.today().year)
   placeholder = "{{CURRENT_YEAR}}"
   replace_placeholder_in_files(target, placeholder, current_year)
+  add_jekyll_frontmatter(target)
     
   # copy LICENSE
   print('process LICENSE')
