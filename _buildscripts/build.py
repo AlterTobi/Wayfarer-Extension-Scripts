@@ -50,16 +50,16 @@ def add_jekyll_frontmatter(directory, file_extension=".md"):
     current_date = datetime.now().strftime('%Y-%m-%d')
     frontmatter = f"---\nlast_modified_at: {current_date}\n---\n\n"
 
-    for file in directory.glob(f'*{file_extension}'):  # Nur Dateien mit der angegebenen Erweiterung
+    for file in directory.rglob(f'*{file_extension}'):  # Nur Dateien mit der angegebenen Erweiterung
         with open(file, 'r', encoding='utf-8') as f:
             content = f.read()
-        
+
         if not content.startswith("---\n"):  # Prüft, ob bereits ein Frontmatter existiert
             content = frontmatter + content
             with open(file, 'w', encoding='utf-8') as f:
                 f.write(content)
-            print(f"Added frontmatter to: {file.name}")
-    
+            print(f"Added frontmatter to: {file.relative_to(directory)}")
+
 def replace_placeholder_in_files(directory, placeholder, replacement, file_extension=".md"):
     """
     Ersetzt einen Platzhalter in allen Dateien mit einer bestimmten Erweiterung im angegebenen Verzeichnis.
