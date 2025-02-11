@@ -16,7 +16,8 @@ def get_info(base_url):
   infotext = '/* Copyright {} AlterTobi'.format(date.today().year)
   infotext += '''
 
-   This file is part of the Wayfarer Extension Scripts collection.
+   This file is part of the Wayfarer Extension Scripts collection. Further scripts
+   can be found on the @homepage, see above.
 
    Wayfarer Extension Scripts are free software: you can redistribute and/or modify
    them under the terms of the GNU General Public License as published by
