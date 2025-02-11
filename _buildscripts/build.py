@@ -16,7 +16,8 @@ def get_info(base_url):
   infotext = '/* Copyright {} AlterTobi'.format(date.today().year)
   infotext += '''
 
-   This file is part of the Wayfarer Extension Scripts collection.
+   This file is part of the Wayfarer Extension Scripts collection. Further scripts
+   can be found on the @homepage, see above.
 
    Wayfarer Extension Scripts are free software: you can redistribute and/or modify
    them under the terms of the GNU General Public License as published by
@@ -231,8 +232,8 @@ def run():
   shortlist = []
   # front matter for shortlist: noindex, no sitemap
   shortlist.append('---\n')
-  shortlist.append('sitemap: false\n')
-  shortlist.append('robots: "noindex"\n')
+  # shortlist.append('sitemap: false\n')
+  # shortlist.append('robots: "noindex"\n')
   shortlist.append('---\n')
   
   shortlist.append('## shortlist\n\n')
