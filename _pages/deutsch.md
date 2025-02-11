@@ -36,7 +36,8 @@ Zuerst [WFES Base](wfes-Base.user.js) installieren!
 
 ### Nichtunterstützte Skripte / Skripte in Entwicklung
 Manche dieser Skripte sind eine schnelle Migration von MrJPGames' Wayfarer Toolkit. Es ist nicht garantiert, dass sie funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
-Andere Skripte sind neu, ungetestet, noch in Entwicklung oder veraltet.
+
+Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
  
 * [Nomination page StreetView](wfes-NominationsStreetView.user.js)
     - Fügt bei den eigenen Nominierungen eine Streetview-Ansicht hinzu, wie es die Bewerter sehen würden
@@ -45,12 +46,18 @@ Andere Skripte sind neu, ungetestet, noch in Entwicklung oder veraltet.
     - Zeigt die Ablehngründe auch bei Einsprüchen an
 * [Show version](wfes-showWFVersion.user.js)
     - zeigt die aktuelle Wayfarer-Version an
-* [Open In](wfes-OpenIn.user.js)
-    - fügt "Open In" für Karten hinzu - wird nicht weiterentwickelt - nutze stattdessen tehstones "Open In"
-* [Add Street Address](wfes-reviewAddStreetAddress.user.js)
-     - fügt die seit Version 5.2 fehlende Adresse wieder hinzu
 * [Review Improve CSS](de/reviewImproveCSS.html)
     - Verschiedene Layout-Änderungen für Bewertungen am Desktop
+
+
+### veraltete Skripte
+Diese Skripte sind nicht mehr aktuell und werden nicht weiterentwickelt. Die Funktionalität
+wird nicht mehr benötigt, da sich Wayfarer geändert hat oder Fehler behoben wurden.
+
+* [Add Street Address](wfes-reviewAddStreetAddress.user.js) - veraltet, da Wayfarer die Adresse wieder anzeigt
+     - fügt die seit Version 5.2 fehlende Adresse wieder hinzu
+* [Open In](wfes-OpenIn.user.js)
+    - fügt "Open In" für Karten hinzu - wird nicht weiterentwickelt - nutze stattdessen tehstones "Open In"
 
 ---
 
