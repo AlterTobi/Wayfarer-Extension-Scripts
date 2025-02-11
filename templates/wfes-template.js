@@ -1,5 +1,5 @@
 // @name         Template
-// @version      1.1.0
+// @version      1.2.0
 // @description  Template
 // @author       AlterTobi
 
@@ -7,6 +7,7 @@
   "use strict";
 
   const sessvarMiss = "warnBase";
+  const baseMinVersion = "2.3.0";
   const myCssId = "templateCSS";
   const myStyle = `body {
         display: none;
@@ -31,8 +32,10 @@
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
       console.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
     }
-  } else {
+  } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
+  } else {
+    console.warn(GM_info.script.name, "Need at least wfes-Base version ", baseMinVersion, " Please upgrade.");
   }
 
   /* we are done :-) */
