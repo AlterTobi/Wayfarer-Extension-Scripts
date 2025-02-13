@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.3.1
+// @version      2.4.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -53,6 +53,11 @@
         }
         
     /* Text */
+        .wfesTextGroup {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
         .wfesNotificationContent p {
           flex: 1; /* Flexibles Wachstum des Textes */
           margin: 0;
@@ -668,8 +673,28 @@
     const notificationContent = document.createElement("div");
     notificationContent.setAttribute("class", "wfesNotificationContent");
 
-    const content = document.createElement("p");
-    content.textContent = message;
+    if ("string" === typeof message) {
+      const content = document.createElement("p");
+      content.textContent = message;
+      notificationContent.appendChild(content);
+    } else if (Array.isArray(message)) {
+      const textGroup = document.createElement("div");
+      textGroup.setAttribute("class", "wfesTextGroup");
+      message.forEach(item => {
+        if ("string" === typeof item) {
+          const content = document.createElement("p");
+          content.textContent = item;
+          textGroup.appendChild(content);
+        } else {
+          console.warn("Ungültiges Element in der Nachrichtenliste: ", item);
+        }
+      });
+      notificationContent.appendChild(textGroup);
+    } else {
+      console.error("Ungültiger Nachrichtentyp: Muss ein String oder ein Array von Strings sein.");
+      return;
+    }
+
 
     const buttonGroup = document.createElement("div");
     buttonGroup.setAttribute("class", "wfesButtonGroup");
@@ -713,7 +738,6 @@
 
     buttonGroup.appendChild(closeButton);
 
-    notificationContent.appendChild(content);
     notificationContent.appendChild(buttonGroup);
 
     notification.appendChild(notificationContent);
