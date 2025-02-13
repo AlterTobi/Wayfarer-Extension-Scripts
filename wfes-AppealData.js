@@ -18,9 +18,10 @@
       if(warn) {
         return(false);
       } else {
-        const msg = GM_info.script.name + ": <br/>Wayfarer now handles appeal statements. " +
-                "This script still saves data, but will not show it in the future (as long as Wayfarer does this) " +
-                "<br/>Maybe you want to disable the script?";
+        const msg = Array(GM_info.script.name + ":",
+          "Wayfarer now handles appeal statements. This script still saves data, but will not show it in the future (as long as Wayfarer does this) ",
+          "Maybe you want to disable the script?"
+        );
         window.wfes.f.createNotification(msg, "fuchsia");
         window.wfes.f.localSave(warnFlag, true);
         return(true);
