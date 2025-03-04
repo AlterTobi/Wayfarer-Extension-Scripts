@@ -37,7 +37,8 @@ Install [WFES Base](wfes-Base.user.js) first!
 ### Unsupported scripts / scripts in beta state
 Some of these scripts are a quick migration from MrJPGames' Wayfarer Toolkit Scripts. They
 may work or not. If you are a developer, have a look at it and fix bugs. :-)
-Other scripts are new, untested, still in development, obsolete or outdated.
+
+Other scripts are new, untested or still in development.
 
 * [Nomination page StreetView](wfes-NominationsStreetView.user.js)
     - Adds the streetview view a reviewer will see on your own nominations!
@@ -46,13 +47,17 @@ Other scripts are new, untested, still in development, obsolete or outdated.
     - shows reject reasons for appealed nominations
 * [Show version](wfes-showWFVersion.user.js)
     - show current Wayfarer version
-* [Open In](wfes-OpenIn.user.js)
-    - add "Open In" for maps - discontinued - use tehstone's "Open In" instead
-* [Add Street Address](wfes-reviewAddStreetAddress.user.js)
-     - fixes missing street address from WF5.2
 * [Review Improve CSS](en/reviewImproveCSS.html)
     - increases height for images and titel/description cards
     - removes padding and description text
+
+### obsolete ore outdated scripts
+These scripts are outdated and will not be developed further. The functionality is no longer needed because Wayfarer has changed or bugs have been fixed.
+
+* [Add Street Address](wfes-reviewAddStreetAddress.user.js) - obsolete because Wayfarer shows the address again
+     - fixes missing street address from WF5.2
+* [Open In](wfes-OpenIn.user.js)
+    - add "Open In" for maps - discontinued - use tehstone's "Open In" instead
 
 ---
 
