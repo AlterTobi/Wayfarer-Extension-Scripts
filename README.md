@@ -1,6 +1,12 @@
 # Wayfarer Extension Scripts
 ---
 ## English
+
+> ⚠️ **Notice:**  
+> I no longer actively use Niantic Wayfarer and will not continue development of these scripts.  
+> [More information →](https://altertobi.github.io/Wayfarer-Extension-Scripts/discontinued.html)
+
+
 Tools and scripts for Niantic Wayfarer
 
 ### What is it?
@@ -16,6 +22,12 @@ Pull-Requests are welcome.
 ---
 
 ## Deutsch
+
+> ⚠️ **Hinweis:**  
+> Ich nutze Niantic Wayfarer nicht mehr aktiv und werde die Skripte nicht weiterentwickeln.  
+> [Weitere Informationen →](https://altertobi.github.io/Wayfarer-Extension-Scripts/discontinued.html)
+
+
 Tools und Skripte für Niantic Wayfarer
 
 ### What is it?

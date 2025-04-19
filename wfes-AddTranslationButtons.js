@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.1.5
+// @version      2.1.6
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 
@@ -124,16 +124,16 @@
       allText += candidate.title + "\n\n";
     }
 
-    // has description
-    if (candidate.description) {
-      allText += candidate.description + "\n\n";
-    }
-
     // is title-edit
     if (edit.what.title) {
       for (let i = 0; i < candidate.titleEdits.length; i++) {
         allText += candidate.titleEdits[i].value + "\n\n";
       }
+    }
+
+    // has description
+    if (candidate.description) {
+      allText += candidate.description + "\n\n";
     }
 
     // is description-edit
