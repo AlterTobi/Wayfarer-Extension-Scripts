@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.2.0
+// @version 1.2.1
 // @description CSS modifcations for Wayfarer >= 5.7
 // @author AlterTobi (CSS parts by AlfonsoML)
 
@@ -25,7 +25,6 @@
     .wfes-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
     .wfes-fit-content { max-width: fit-content; }
     .wfes-pad05 { padding: 0.5rem !important; }
-    .wfes-linebreak { line-break: auto !important; }
     .wfes-smallgap { gap: 1rem 0 !important; }
     .wfes-photo { max-height: 350px !important; width: auto !important; }
     .wfes-btnrigth { justify-content: end !important; gap: 0 0.5rem; }
@@ -36,6 +35,7 @@
     .bg_green { background-color: #b1ffb1;}
     div.question-title.mb-1 { font-size: 1.25rem !important; line-height: 1.2rem;}
     `;
+  // deaktiviert     .wfes-linebreak { line-break: auto !important; }
 
   // CSS by Alfonso-ML, posted on WDD
   const alCssID = "wfes-alfonso";
@@ -62,7 +62,7 @@
     "app-review-new-b > div > div:nth-child(1) > p",
     "app-review-new-b > div > div:nth-child(2) > h4",
     "app-review-new-b > div > div:nth-child(2) > p"];
-  const supportTextSel = "app-supporting-info-b > wf-review-card-b div.supporting-info-statement";
+  //  const supportTextSel = "app-supporting-info-b > wf-review-card-b div.supporting-info-statement";
   const qCardsSel = "app-question-card > div";
   const qCardsBtnSel = "app-question-card button.dont-know-button";
   const questionSel = "app-review-new-b > div > div.review-questions";
@@ -98,6 +98,7 @@
     });
 
     // "komische" Zelenumbrüche im Supporttext entfernen
+    /*
     const pagedata = window.wfes.g.reviewPageData();
     if (pagedata.statement.length < 256) {
       // bei langen text gibt es den Unsinn nicht
@@ -105,6 +106,7 @@
         .then((elem)=>{ elem.classList.add("wfes-linebreak");} )
         .catch((e) => { console.warn(GM_info.script.name, "- support statement ", e); });
     }
+    */
 
     // bilder etwas kleiner und zentriert
     window.wfes.f.waitForElem(photoSel).then((elem) => {
