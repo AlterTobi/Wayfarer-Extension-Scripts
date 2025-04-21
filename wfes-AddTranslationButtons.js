@@ -75,10 +75,8 @@
 
   function createButton(text) {
     window.wfes.f.waitForElem("wf-logo").then(elem => {
-      const buttonEl = document.getElementById(buttonID);
-      if (buttonEl) {
-        buttonEl.remove();
-      }
+      // remove if exist
+      removeButton();
       const div = document.createElement("div");
       div.className = "wfesTranslate";
       div.id = buttonID;
