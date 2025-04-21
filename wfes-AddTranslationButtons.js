@@ -43,16 +43,32 @@
     Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl", twindow: null}
   };
 
+  let fensterG = null; // merke dir das Google fenster
+
   const buttonID = "wfesTranslateButton";
   const storageName = "wfes_translateEngine";
   let currentEngine;
-  let fensterWatcherG = null;
 
   function removeButton() {
     const button = document.getElementById(buttonID);
     if (button !== null) {
       button.remove();
     }
+  }
+
+  // debug
+  function watchWindow(win, onClose, interval = 1000) {
+    if (!win || win.closed) {
+      onClose();
+      return;
+    }
+
+    const checker = setInterval(() => {
+      if (!win || win.closed) {
+        clearInterval(checker);
+        onClose();
+      }
+    }, interval);
   }
 
   function onTranslateButtonClick(text) {
@@ -64,24 +80,17 @@
     switch(currentEngine) {
       case "Google":
         // fenster per Link öffnen
-        if (engine.twindow && !engine.twindow.closed) {
-          engine.twindow.location.href = url;
-          // Beobachtung starten, wenn noch nicht aktiv
-          if (!fensterWatcherG) {
-            fensterWatcherG = setInterval(() => {
-              let fenster = engines.Google.twindow;
-              if (!fenster || fenster.closed) {
-                clearInterval(fensterWatcherG);
-                fensterWatcherG = null;
-                fenster = null;
-                console.log("Übersetzungsfenster wurde geschlossen.");
-                // Optional: hier eigene Reaktion auf das Schließen
-              }
-            }, 500); // alle 0,5 Sekunden prüfen
-          }
+        if (fensterG && !fensterG.closed) {
+          fensterG.location.href = url;
         } else {
-          const twin = window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
-          engine.twindow = twin;
+          fensterG = window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
+
+          // Beobachtung starten, wenn noch nicht aktiv
+          watchWindow(fensterG, () => {
+            console.log("Google Übersetzungsfenster wurde geschlossen.");
+            fensterG = null;
+            // Optional: UI zurücksetzen
+          });
         }
         break;
       case "Deepl":
