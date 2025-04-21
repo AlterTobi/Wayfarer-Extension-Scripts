@@ -46,6 +46,7 @@
   const buttonID = "wfesTranslateButton";
   const storageName = "wfes_translateEngine";
   let currentEngine;
+  let fensterWatcherG = null;
 
   function removeButton() {
     const button = document.getElementById(buttonID);
@@ -63,11 +64,24 @@
     switch(currentEngine) {
       case "Google":
         // fenster per Link öffnen
-        if (null === engine.twindow) {
+        if (engine.twindow && !engine.twindow.closed) {
+          engine.twindow.location.href = url;
+          // Beobachtung starten, wenn noch nicht aktiv
+          if (!fensterWatcherG) {
+            fensterWatcherG = setInterval(() => {
+              let fenster = engines.Google.twindow;
+              if (!fenster || fenster.closed) {
+                clearInterval(fensterWatcherG);
+                fensterWatcherG = null;
+                fenster = null;
+                console.log("Übersetzungsfenster wurde geschlossen.");
+                // Optional: hier eigene Reaktion auf das Schließen
+              }
+            }, 500); // alle 0,5 Sekunden prüfen
+          }
+        } else {
           const twin = window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
           engine.twindow = twin;
-        } else {
-          engine.twindow.location = url;
         }
         break;
       case "Deepl":
