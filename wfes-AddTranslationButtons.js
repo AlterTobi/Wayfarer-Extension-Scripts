@@ -4,6 +4,7 @@
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
 // @match        https://www.deepl.com/*
+// @match        https://translate.google.com/
 
 (function() {
   "use strict";
@@ -284,19 +285,25 @@
   // ----- BEGIN - the Deepl part ------
   // ----- END - the Deepl part ------
   // ----- BEGIN - the Googl part ------
+  function initG() {
+    alert("UserScript läuft auf dieser Seite!");
+    window.addEventListener("message", e => alert("Nachricht empfangen: " + e.data));
+  }
   // ----- END - the Google part ------
 
   // ----- BEGIN - general instructions ------
 
   switch(window.origin) {
     case ORIGIN_WAYFARER:
-      console.log("Init Script loaded:", GM_info.script.name, " - Wayfarer");
+      console.log("Init Script loading:", GM_info.script.name, " - Wayfarer");
       initWF();
       break;
     case ORIGIN_DEEPL:
-      console.log("Init Script loaded:", GM_info.script.name, " - Deepl");
+      console.log("Init Script loading:", GM_info.script.name, " - Deepl");
       break;
     case ORIGIN_GOOGLE:
+      console.log("Init Script loading:", GM_info.script.name, " - Google");
+      initG();
       break;
     default:
       console.warn("unknown origin".window.origin, "not handled");
