@@ -1,11 +1,18 @@
 // @name         Add Translation Buttons
-// @version      2.1.6
+// @version      2.1.7
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
+// @match        https://wayfarer.nianticlabs.com/*
+// @match        https://www.deepl.com/*
 
 (function() {
   "use strict";
 
+  const ORIGIN_WAYFARER = "https://wayfarer.nianticlabs.com";
+  const ORIGIN_DEEPL = "https://www.deepl.com";
+  const ORIGIN_GOOGLE = "https://translate.google.com";
+
+  // ----- BEGIN - the Wayfarer part ------
   const myCSSId = "wfesTranslateCSS";
   const myStyle = `.wfesTranslate {
       color: #333;
@@ -45,13 +52,6 @@
     if (button !== null) {
       button.remove();
     }
-  }
-
-  function init() {
-    window.wfes.f.addCSS(myCSSId, myStyle);
-    window.wfes.f.localGet(storageName, "Deepl").then(e => {
-      currentEngine = e;
-    });
   }
 
   function createButton(text) {
@@ -162,11 +162,39 @@
     createButton(allText);
   }
 
-  init();
-  window.addEventListener("WFESReviewPageNewLoaded", addTranslationButtonsNew);
-  window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
-  window.addEventListener("WFESReviewPagePhotoLoaded", addTranslationButtonsPhoto);
-  window.addEventListener("WFESReviewDecisionSent", removeButton);
+  function initWF() {
+    window.addEventListener("WFESReviewPageNewLoaded", addTranslationButtonsNew);
+    window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
+    window.addEventListener("WFESReviewPagePhotoLoaded", addTranslationButtonsPhoto);
+    window.addEventListener("WFESReviewDecisionSent", removeButton);
+
+    window.wfes.f.addCSS(myCSSId, myStyle);
+    window.wfes.f.localGet(storageName, "Deepl").then(e => {
+      currentEngine = e;
+    });
+  }
+
+  // ----- END - the Wayfarer part ------
+  // ----- BEGIN - the Deepl part ------
+  // ----- END - the Deepl part ------
+  // ----- BEGIN - the Googl part ------
+  // ----- END - the Google part ------
+
+  // ----- BEGIN - general instructions ------
+
+  switch(window.origin) {
+    case ORIGIN_WAYFARER:
+      console.log("Init Script loaded:", GM_info.script.name, " - Wayfarer");
+      initWF();
+      break;
+    case ORIGIN_DEEPL:
+      console.log("Init Script loaded:", GM_info.script.name, " - Deepl");
+      break;
+    case ORIGIN_GOOGLE:
+      break;
+    default:
+      console.warn("unknown origin".window.origin, "not handled");
+  }
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
