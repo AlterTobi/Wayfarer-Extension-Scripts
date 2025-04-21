@@ -44,6 +44,7 @@
   };
 
   let fensterG = null; // merke dir das Google fenster
+  let fensterD = null; //
 
   const buttonID = "wfesTranslateButton";
   const storageName = "wfes_translateEngine";
@@ -89,12 +90,23 @@
           watchWindow(fensterG, () => {
             console.log("Google Übersetzungsfenster wurde geschlossen.");
             fensterG = null;
-            // Optional: UI zurücksetzen
           });
         }
         break;
       case "Deepl":
         // fenster öffnen und nachricht senden
+        // fenster per Link öffnen - DEBUG
+        if (fensterD && !fensterD.closed) {
+          fensterD.location.href = url;
+        } else {
+          fensterD = window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
+
+          // Beobachtung starten, wenn noch nicht aktiv
+          watchWindow(fensterD, () => {
+            console.log("Deepl Übersetzungsfenster wurde geschlossen.");
+            fensterD = null;
+          });
+        }
         break;
       default:
         console.warn("unbekannte Engine:", currentEngine, "not handeled");
