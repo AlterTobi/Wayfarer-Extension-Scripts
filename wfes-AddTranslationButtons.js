@@ -54,7 +54,76 @@
     }
   }
 
+  function onTranslateButtonClick(text) {
+    const engine = engines[currentEngine];
+    const url = engine.url + encodeURIComponent(text);
+    const target = engine.target;
+
+    // Google und Deepl (vorerst) unterscheiden)
+    switch(currentEngine) {
+      case "Google":
+        // fenster per Link öffnen
+        window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
+        break;
+      case "Deepl":
+        // fenster öffnen und nachricht senden
+        break;
+      default:
+        console.warn("unbekannte Engine:", currentEngine, "not handeled");
+    }
+  }
+
   function createButton(text) {
+    window.wfes.f.waitForElem("wf-logo").then(elem => {
+      const buttonEl = document.getElementById(buttonID);
+      if (buttonEl) {
+        buttonEl.remove();
+      }
+      const div = document.createElement("div");
+      div.className = "wfesTranslate";
+      div.id = buttonID;
+
+      const select = document.createElement("select");
+      select.title = "Select translation engine";
+
+      for (const engineName of Object.keys(engines)) {
+        const engine = engines[engineName];
+        const option = document.createElement("option");
+        option.value = engine.name;
+
+        if (engine.name === currentEngine) {
+          option.setAttribute("selected", "true");
+        }
+
+        option.innerText = engine.title;
+        select.appendChild(option);
+      }
+
+      select.addEventListener("change", function() {
+        currentEngine = select.value;
+        window.wfes.f.localSave(storageName, currentEngine);
+      });
+
+      const button = document.createElement("button");
+      button.title = "Translate nomination";
+      button.className = "wfesTranslateButton";
+      button.innerHTML = '<span class="material-icons">translate</span>';
+      button.addEventListener("click", function() {
+        onTranslateButtonClick(text); // <- Deine eigene Funktion aufrufen
+      });
+
+      div.appendChild(select);
+      div.appendChild(button);
+
+      const container = elem.parentNode.parentNode;
+      container.appendChild(div);
+    })
+      .catch((e) => {
+        console.warn(GM_info.script.name, ": ", e);
+      });
+  }
+
+  function ignored_createButton(text) {
     window.wfes.f.waitForElem("wf-logo").then(elem=>{
       const buttonEl = document.getElementById(buttonID);
       if (null === buttonEl) {
@@ -97,7 +166,6 @@
         const a = buttonEl.querySelector("a");
         a.href = engines[currentEngine].url + encodeURIComponent(text);
         a.target = engines[currentEngine].url;
-
       }
     })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
