@@ -39,14 +39,13 @@
     }`;
 
   const engines ={
-    Google: {name: "Google", title: "Google translate", url: "https://translate.google.com/?sl=auto&q=", target: "wfesTranslateGoogle"},
-    Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl"}
+    Google: {name: "Google", title: "Google translate", url: "https://translate.google.com/?sl=auto&q=", target: "wfesTranslateGoogle", twindow: null},
+    Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl", twindow: null}
   };
 
   const buttonID = "wfesTranslateButton";
   const storageName = "wfes_translateEngine";
   let currentEngine;
-
 
   function removeButton() {
     const button = document.getElementById(buttonID);
@@ -64,7 +63,12 @@
     switch(currentEngine) {
       case "Google":
         // fenster per Link öffnen
-        window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
+        if (null === engine.twindow) {
+          const twin = window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
+          engine.twindow = twin;
+        } else {
+          engine.twindow.location = url;
+        }
         break;
       case "Deepl":
         // fenster öffnen und nachricht senden
