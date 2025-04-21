@@ -31,6 +31,7 @@
         display: block; /* Button wird unterhalb des Selects angezeigt */
         text-decoration: none;
         color: #20B8E3;
+        margin: 0 auto;
     }
     .dark .wfesTranslate select,
     .dark .wfesTranslate option {
