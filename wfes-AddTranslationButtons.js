@@ -252,30 +252,44 @@
   }
   // ----- END - the Wayfarer part ------
 
+  // common functions (can't use wfes functions in translation windows)
+  function waitForElem(selector, maxWaitTime = 5000) {
+    const startTime = Date.now();
+    return new Promise((resolve, reject) => {
+      const checkForElement = () => {
+        const elem = document.querySelector(selector);
+        if (elem) {
+          resolve(elem);
+        } else if (Date.now() - startTime >= maxWaitTime) {
+          reject(new Error(`Timeout waiting for element with selector ${selector} after ${maxWaitTime/1000} seconds`));
+        } else {
+          setTimeout(checkForElement, 200);
+        }
+      };
+      checkForElement();
+    });
+  }
+
   // ----- BEGIN - the Deepl part ------
+  const deeplInputArea = 'd-textarea[name="source"] div[contenteditable="true"]';
+
   function initD() {
-    const readyCheck = setInterval(() => {
-      console.log("readyCheck");
-      const inputDiv = document.querySelector('d-textarea[name="source"] div[contenteditable="true"]');
-      if (inputDiv) {
-        clearInterval(readyCheck);
+    waitForElem(deeplInputArea)
+      .then( () => {
         console.log("readyCheck -> post");
-        window.opener?.postMessage({ type: "deepl-ready" }, "*");
+        window.opener?.postMessage({ type: "deepl-ready" }, ORIGIN_WAYFARER);
       }
-    }, 200);
+      )
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
 
     function setDeepLText(text) {
-      const inputDiv = document.querySelector('d-textarea[name="source"] div[contenteditable="true"]');
-
-      if (inputDiv) {
-      // Text einsetzen (DeepL erwartet <p> mit Text)
-        inputDiv.innerHTML = `<p>${text.replace(/\n/g, "<br>")}</p>`;
-
-        // DeepL über Änderungen informieren
-        inputDiv.dispatchEvent(new InputEvent("input", { bubbles: true }));
-      } else {
-        console.warn("DeepL: Eingabefeld nicht gefunden.");
-      }
+      waitForElem(deeplInputArea)
+        .then( elem => {
+          elem.innerHTML = `<p>${text.replace(/\n/g, "<br>")}</p>`;
+          // DeepL über Änderungen informieren
+          elem.dispatchEvent(new InputEvent("input", { bubbles: true }));
+        })
+        .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     }
 
     window.addEventListener("message", (event) => {
