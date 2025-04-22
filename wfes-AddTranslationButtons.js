@@ -166,7 +166,7 @@
       button.className = "wfesTranslateButton";
       button.innerHTML = '<span class="material-icons">translate</span>';
       button.addEventListener("click", function() {
-        onTranslateButtonClick(text); // <- Deine eigene Funktion aufrufen
+        onTranslateButtonClick(text);
       });
 
       div.appendChild(select);
@@ -250,12 +250,10 @@
       currentEngine = e;
     });
   }
-
   // ----- END - the Wayfarer part ------
+
   // ----- BEGIN - the Deepl part ------
   function initD() {
-
-
     const readyCheck = setInterval(() => {
       console.log("readyCheck");
       const inputDiv = document.querySelector('d-textarea[name="source"] div[contenteditable="true"]');
@@ -267,7 +265,6 @@
     }, 200);
 
     function setDeepLText(text) {
-
       const inputDiv = document.querySelector('d-textarea[name="source"] div[contenteditable="true"]');
 
       if (inputDiv) {
@@ -291,6 +288,7 @@
     });
   }
   // ----- END - the Deepl part ------
+
   // ----- BEGIN - the Googl part ------
   function initG() {
     // alert("UserScript läuft auf dieser Seite!");
