@@ -40,8 +40,8 @@
     }`;
 
   const engines ={
-    Google: {name: "Google", title: "Google translate", url: "https://translate.google.com/?sl=auto&q=", target: "wfesTranslateGoogle", twindow: null},
-    Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl", twindow: null}
+    Google: {name: "Google", title: "Google translate", url: "https://translate.google.com/?sl=auto&q=", target: "wfesTranslateGoogle", twindow: null, origin: ORIGIN_GOOGLE},
+    Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl", twindow: null, origin: ORIGIN_DEEPL}
   };
 
   let fensterG = null; // merke dir das Google fenster
@@ -73,14 +73,26 @@
     }, interval);
   }
 
+  function sendTextToTranslateWindow(fenster, text, origin) {
+    try {
+      fenster.postMessage({
+        type: "translate",
+        payload: text
+      }, origin); // "*" = alle Ursprünge erlauben (für Google Translate nötig)
+    } catch (e) {
+      console.warn("Nachricht konnte nicht gesendet werden:", e.message);
+    }
+  }
+
   function onTranslateButtonClick(text) {
     const engine = engines[currentEngine];
-    const url = engine.url + encodeURIComponent(text);
+    let url;
     const target = engine.target;
 
     // Google und Deepl (vorerst) unterscheiden)
     switch(currentEngine) {
       case "Google":
+        url = engine.url + encodeURIComponent(text);
         // fenster per Link öffnen
         if (fensterG && !fensterG.closed) {
           fensterG.location.href = url;
@@ -95,13 +107,19 @@
         }
         break;
       case "Deepl":
+        url = engine.url;
         // fenster öffnen und nachricht senden
         // fenster per Link öffnen - DEBUG
         if (fensterD && !fensterD.closed) {
-          fensterD.location.href = url;
+          fensterD.focus();
+          sendTextToTranslateWindow(fensterD, text, ORIGIN_DEEPL);
         } else {
           fensterD = window.open(url, target); // Beispiel: öffnet die Übersetzung in neuem Tab/Fenster
-
+          window.addEventListener("message", (event) => {
+            if ("deepl-ready" === event.data?.type && fensterD && !fensterD.closed) {
+              sendTextToTranslateWindow(fensterD, text, ORIGIN_DEEPL);
+            }
+          });
           // Beobachtung starten, wenn noch nicht aktiv
           watchWindow(fensterD, () => {
             console.log("Deepl Übersetzungsfenster wurde geschlossen.");
@@ -283,11 +301,48 @@
 
   // ----- END - the Wayfarer part ------
   // ----- BEGIN - the Deepl part ------
+  function initD() {
+
+
+    const readyCheck = setInterval(() => {
+      console.log("readyCheck");
+      const inputDiv = document.querySelector('d-textarea[name="source"] div[contenteditable="true"]');
+      if (inputDiv) {
+        clearInterval(readyCheck);
+        console.log("readyCheck -> post");
+        window.opener?.postMessage({ type: "deepl-ready" }, "*");
+      }
+    }, 200);
+
+    function setDeepLText(text) {
+
+      const inputDiv = document.querySelector('d-textarea[name="source"] div[contenteditable="true"]');
+
+      if (inputDiv) {
+      // Text einsetzen (DeepL erwartet <p> mit Text)
+        inputDiv.innerHTML = `<p>${text.replace(/\n/g, "<br>")}</p>`;
+
+        // DeepL über Änderungen informieren
+        inputDiv.dispatchEvent(new InputEvent("input", { bubbles: true }));
+      } else {
+        console.warn("DeepL: Eingabefeld nicht gefunden.");
+      }
+    }
+
+    window.addEventListener("message", (event) => {
+      const msg = event.data;
+
+      if ("translate" === msg?.type && "string" === typeof msg.payload) {
+        console.log("DeepL: Text erhalten:", msg.payload);
+        setDeepLText(msg.payload);
+      }
+    });
+  }
   // ----- END - the Deepl part ------
   // ----- BEGIN - the Googl part ------
   function initG() {
-    alert("UserScript läuft auf dieser Seite!");
-    window.addEventListener("message", e => alert("Nachricht empfangen: " + e.data));
+    // alert("UserScript läuft auf dieser Seite!");
+    // window.addEventListener("message", e => alert("Nachricht empfangen: " + e.data));
   }
   // ----- END - the Google part ------
 
