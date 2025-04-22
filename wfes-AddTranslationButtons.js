@@ -180,54 +180,6 @@
       });
   }
 
-  function ignored_createButton(text) {
-    window.wfes.f.waitForElem("wf-logo").then(elem=>{
-      const buttonEl = document.getElementById(buttonID);
-      if (null === buttonEl) {
-        const div = document.createElement("div");
-        div.className = "wfesTranslate";
-        div.id = buttonID;
-        const link = document.createElement("a");
-        link.title = "Translate nomination";
-        link.className = "wfesTranslateButton";
-        link.innerHTML = '<span class="material-icons">translate</span>';
-
-        const select = document.createElement("select");
-        select.title = "Select translation engine";
-
-        for (const engineName of Object.keys(engines)) {
-          const engine = engines[engineName];
-          const option = document.createElement("option");
-          option.value = engine.name;
-
-          if (engine.name === currentEngine) {
-            option.setAttribute("selected", "true");
-            link.target = engine.target;
-            link.href = engine.url + encodeURIComponent(text);
-          }
-          option.innerText = engine.title;
-          select.appendChild(option);
-        }
-
-        select.addEventListener("change", function() {
-          currentEngine = select.value;
-          window.wfes.f.localSave(storageName, currentEngine);
-          link.href = engines[currentEngine].url + encodeURIComponent(text);
-          link.target = engines[currentEngine].target;
-        });
-        div.appendChild(select);
-        div.appendChild(link);
-        const container = elem.parentNode.parentNode;
-        container.appendChild(div);
-      } else {
-        const a = buttonEl.querySelector("a");
-        a.href = engines[currentEngine].url + encodeURIComponent(text);
-        a.target = engines[currentEngine].url;
-      }
-    })
-      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
-  }
-
   function addTranslationButtonsNew() {
     const candidate = window.wfes.g.reviewPageData();
 
