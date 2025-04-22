@@ -52,7 +52,7 @@ export default [
     "yoda": ["error", "always", { "onlyEquality": true }],
 
     // keine Warnung für die init() Funktion
-    "no-unused-vars": ["error", { "varsIgnorePattern": "init" }],
+    "no-unused-vars": ["error", { "varsIgnorePattern": "init|ignored" }],
 
     // Layout
     "@stylistic/js/array-bracket-newline": ["warn", "consistent"],
