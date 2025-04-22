@@ -319,6 +319,7 @@
       break;
     case ORIGIN_DEEPL:
       console.log("Init Script loading:", GM_info.script.name, " - Deepl");
+      initD();
       break;
     case ORIGIN_GOOGLE:
       console.log("Init Script loading:", GM_info.script.name, " - Google");
