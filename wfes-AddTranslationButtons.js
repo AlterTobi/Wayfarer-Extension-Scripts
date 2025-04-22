@@ -1,11 +1,18 @@
 // @name         Add Translation Buttons
-// @version      2.1.6
+// @version      2.2.0
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
+// @match        https://wayfarer.nianticlabs.com/*
+// @match        https://www.deepl.com/*
 
 (function() {
   "use strict";
 
+  const ORIGIN_WAYFARER = "https://wayfarer.nianticlabs.com";
+  const ORIGIN_DEEPL = "https://www.deepl.com";
+  const ORIGIN_GOOGLE = "https://translate.google.com";
+
+  // ----- BEGIN - the Wayfarer part ------
   const myCSSId = "wfesTranslateCSS";
   const myStyle = `.wfesTranslate {
       color: #333;
@@ -24,6 +31,7 @@
         display: block; /* Button wird unterhalb des Selects angezeigt */
         text-decoration: none;
         color: #20B8E3;
+        margin: 0 auto;
     }
     .dark .wfesTranslate select,
     .dark .wfesTranslate option {
@@ -31,14 +39,13 @@
     }`;
 
   const engines ={
-    Google: {name: "Google", title: "Google translate", url: "https://translate.google.com/?sl=auto&q=", target: "wfesTranslateGoogle"},
-    Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl"}
+    Google: {name: "Google", title: "Google translate", url: "https://translate.google.com/?sl=auto&q=", target: "wfesTranslateGoogle", twindow: null, origin: ORIGIN_GOOGLE},
+    Deepl:  {name: "Deepl", title: "DeepL translate", url: "https://www.deepl.com/translator#auto/"+navigator.language+"/", target: "wfesTranslateDeepl", twindow: null, origin: ORIGIN_DEEPL}
   };
 
   const buttonID = "wfesTranslateButton";
   const storageName = "wfes_translateEngine";
   let currentEngine;
-
 
   function removeButton() {
     const button = document.getElementById(buttonID);
@@ -47,59 +54,100 @@
     }
   }
 
-  function init() {
-    window.wfes.f.addCSS(myCSSId, myStyle);
-    window.wfes.f.localGet(storageName, "Deepl").then(e => {
-      currentEngine = e;
-    });
+  function sendTextToTranslateWindow(fenster, text, origin) {
+    try {
+      fenster.postMessage({
+        type: "translate",
+        payload: text
+      }, origin); // "*" = alle Ursprünge erlauben (für Google Translate nötig)
+    } catch (e) {
+      console.warn("Nachricht konnte nicht gesendet werden:", e.message);
+    }
+  }
+
+  function onTranslateButtonClick(text) {
+    const engine = engines[currentEngine];
+    let url;
+    const target = engine.target;
+
+    // Google und Deepl unterscheiden
+    switch(currentEngine) {
+      case "Google":
+        url = engine.url + encodeURIComponent(text);
+        // fenster per Link öffnen
+        if (engine.twindow && !engine.twindow.closed) {
+          engine.twindow.location.href = url;
+        } else {
+          engine.twindow = window.open(url, target); // neues Tab/Fenster
+        }
+        break;
+      case "Deepl":
+        url = engine.url;
+        // fenster öffnen und nachricht senden
+        if (engine.twindow && !engine.twindow.closed) {
+          engine.twindow.focus();
+          sendTextToTranslateWindow(engine.twindow, text, engine.origin);
+        } else {
+          window.addEventListener("message", (event) => {
+            const dtype = engine.name + "-ready";
+            if (dtype === event.data?.type && engine.twindow && !engine.twindow.closed) {
+              sendTextToTranslateWindow(engine.twindow, text, engine.origin);
+            }
+          });
+          engine.twindow = window.open(url, target); // öffne neues Tab/Fenster
+        }
+        break;
+      default:
+        console.warn("unbekannte Engine:", currentEngine, "not handeled");
+    }
   }
 
   function createButton(text) {
-    window.wfes.f.waitForElem("wf-logo").then(elem=>{
-      const buttonEl = document.getElementById(buttonID);
-      if (null === buttonEl) {
-        const div = document.createElement("div");
-        div.className = "wfesTranslate";
-        div.id = buttonID;
-        const link = document.createElement("a");
-        link.title = "Translate nomination";
-        link.className = "wfesTranslateButton";
-        link.innerHTML = '<span class="material-icons">translate</span>';
+    window.wfes.f.waitForElem("wf-logo").then(elem => {
+      // remove if exist
+      removeButton();
+      const div = document.createElement("div");
+      div.className = "wfesTranslate";
+      div.id = buttonID;
 
-        const select = document.createElement("select");
-        select.title = "Select translation engine";
+      const select = document.createElement("select");
+      select.title = "Select translation engine";
 
-        for (const engineName of Object.keys(engines)) {
-          const engine = engines[engineName];
-          const option = document.createElement("option");
-          option.value = engine.name;
+      for (const engineName of Object.keys(engines)) {
+        const engine = engines[engineName];
+        const option = document.createElement("option");
+        option.value = engine.name;
 
-          if (engine.name === currentEngine) {
-            option.setAttribute("selected", "true");
-            link.target = engine.target;
-            link.href = engine.url + encodeURIComponent(text);
-          }
-          option.innerText = engine.title;
-          select.appendChild(option);
+        if (engine.name === currentEngine) {
+          option.setAttribute("selected", "true");
         }
 
-        select.addEventListener("change", function() {
-          currentEngine = select.value;
-          window.wfes.f.localSave(storageName, currentEngine);
-          link.href = engines[currentEngine].url + encodeURIComponent(text);
-          link.target = engines[currentEngine].target;
-        });
-        div.appendChild(select);
-        div.appendChild(link);
-        const container = elem.parentNode.parentNode;
-        container.appendChild(div);
-      } else {
-        const a = buttonEl.querySelector("a");
-        a.href = engines[currentEngine].url + encodeURIComponent(text);
-        a.target = engines[currentEngine].url;
+        option.innerText = engine.title;
+        select.appendChild(option);
       }
+
+      select.addEventListener("change", function() {
+        currentEngine = select.value;
+        window.wfes.f.localSave(storageName, currentEngine);
+      });
+
+      const button = document.createElement("button");
+      button.title = "Translate nomination";
+      button.className = "wfesTranslateButton";
+      button.innerHTML = '<span class="material-icons">translate</span>';
+      button.addEventListener("click", function() {
+        onTranslateButtonClick(text);
+      });
+
+      div.appendChild(select);
+      div.appendChild(button);
+
+      const container = elem.parentNode.parentNode;
+      container.appendChild(div);
     })
-      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+      .catch((e) => {
+        console.warn(GM_info.script.name, ": ", e);
+      });
   }
 
   function addTranslationButtonsNew() {
@@ -161,11 +209,83 @@
     createButton(allText);
   }
 
-  init();
-  window.addEventListener("WFESReviewPageNewLoaded", addTranslationButtonsNew);
-  window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
-  window.addEventListener("WFESReviewPagePhotoLoaded", addTranslationButtonsPhoto);
-  window.addEventListener("WFESReviewDecisionSent", removeButton);
+  function initWF() {
+    window.addEventListener("WFESReviewPageNewLoaded", addTranslationButtonsNew);
+    window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
+    window.addEventListener("WFESReviewPagePhotoLoaded", addTranslationButtonsPhoto);
+    window.addEventListener("WFESReviewDecisionSent", removeButton);
+
+    window.wfes.f.addCSS(myCSSId, myStyle);
+    window.wfes.f.localGet(storageName, "Deepl").then(e => {
+      currentEngine = e;
+    });
+  }
+  // ----- END - the Wayfarer part ------
+
+  // common functions (can't use wfes functions in translation windows)
+  function waitForElem(selector, maxWaitTime = 5000) {
+    const startTime = Date.now();
+    return new Promise((resolve, reject) => {
+      const checkForElement = () => {
+        const elem = document.querySelector(selector);
+        if (elem) {
+          resolve(elem);
+        } else if (Date.now() - startTime >= maxWaitTime) {
+          reject(new Error(`Timeout waiting for element with selector ${selector} after ${maxWaitTime/1000} seconds`));
+        } else {
+          setTimeout(checkForElement, 200);
+        }
+      };
+      checkForElement();
+    });
+  }
+
+  // ----- BEGIN - the Deepl part ------
+  const deeplInputArea = 'd-textarea[name="source"] div[contenteditable="true"]';
+
+  function initD() {
+    waitForElem(deeplInputArea)
+      .then( () => {
+        console.log("readyCheck -> post");
+        window.opener?.postMessage({ type: "Deepl-ready" }, ORIGIN_WAYFARER);
+      })
+      .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+
+    function setDeepLText(text) {
+      waitForElem(deeplInputArea)
+        .then( elem => {
+          elem.innerHTML = `<p>${text.replace(/\n/g, "<br>")}</p>`;
+          // DeepL über Änderungen informieren
+          elem.dispatchEvent(new InputEvent("input", { bubbles: true }));
+        })
+        .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    }
+
+    window.addEventListener("message", (event) => {
+      const msg = event.data;
+
+      if ("translate" === msg?.type && "string" === typeof msg.payload) {
+        console.log("DeepL: Text erhalten:", msg.payload);
+        setDeepLText(msg.payload);
+      }
+    });
+  }
+  // ----- END - the Deepl part ------
+
+  // ----- BEGIN - general instructions ------
+
+  switch(window.origin) {
+    case ORIGIN_WAYFARER:
+      console.log("Init Script loading:", GM_info.script.name, " - Wayfarer");
+      initWF();
+      break;
+    case ORIGIN_DEEPL:
+      console.log("Init Script loading:", GM_info.script.name, " - Deepl");
+      initD();
+      break;
+    default:
+      console.warn("unknown origin".window.origin, "not handled");
+  }
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
