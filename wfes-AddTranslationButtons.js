@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.2.2
+// @version      2.3.0
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
