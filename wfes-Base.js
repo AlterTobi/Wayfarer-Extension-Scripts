@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.4.0
+// @version      2.5.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -108,6 +108,18 @@
   wfes.messages = {};
   wfes.version = "0.0.0";
   wfes.userId = false;
+  wfes.currentPage = null;
+
+  wfes.WF_PAGES = {
+    HOME: 1,
+    REVIEW: 2,
+    PROFILE: 3,
+    MANAGE: 4,
+    MANAGE_DETAIL: 5,
+    PROPERTIES: 6,
+    SETTINGS: 7,
+    HELP: 8
+  };
 
   const tmpUserId = "temporaryUserId";
   let propsLoaded = false;
@@ -288,29 +300,34 @@
       let lang;
       switch (this._url) {
         case PREFIX + "home":
+          wfes.currentPage = wfes.WF_PAGES.HOME;
           wfes.showcase.list = json.result.showcase;
           window.dispatchEvent(new Event("WFESHomePageLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "review":
+          wfes.currentPage = wfes.WF_PAGES.REVIEW;
           if ("GET" === this._method) {
             handleReviewData(json.result);
           }
           break;
         case PREFIX + "profile":
+          wfes.currentPage = wfes.WF_PAGES.PROFILE;
           wfes.profile = json.result;
           window.dispatchEvent(new Event("WFESProfileLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "manage":
-        // nomination list
+          wfes.currentPage = wfes.WF_PAGES.MANAGE;
+          // nomination list
           wfes.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
           wfes.nominations.canAppeal = json.result.canAppeal;
           window.dispatchEvent(new Event("WFESNominationListLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "manage/detail":
-        // nomination detail
+          wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
+          // nomination detail
           wfes.nominations.detail = json.result;
           // save nomination Details in Sessionstorage
           window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
@@ -322,15 +339,18 @@
           });
           break;
         case PREFIX + "properties":
+          wfes.currentPage = wfes.WF_PAGES.PROPERTIES;
           wfes.properties = json.result;
           window.dispatchEvent(new Event("WFESPropertiesLoaded"));
           break;
         case PREFIX + "settings":
+          wfes.currentPage = wfes.WF_PAGES.SETTINGS;
           wfes.settings = json.result;
           window.dispatchEvent(new Event("WFESSettingsLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "help":
+          wfes.currentPage = wfes.WF_PAGES.HELP;
           window.dispatchEvent(new Event("WFESHelpPageLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
@@ -752,6 +772,10 @@
     document.getElementById("wfesNotify").appendChild(notification);
   };
 
+  window.wfes.f.isPage = function(...pages) {
+    return pages.includes(wfes.currentPage);
+  };
+
   window.wfes.f.waitForElem = _waitForElem;
   /* ================ /basic functions=============== */
 
@@ -761,6 +785,9 @@
   };
   window.wfes.g.canAppeal = function() {
     return jCopy(wfes.nominations.canAppeal);
+  };
+  window.wfes.g.curentPage = function() {
+    return jCopy(wfes.currentPage);
   };
   window.wfes.g.edit = function() {
     return jCopy(wfes.edit);
@@ -803,6 +830,9 @@
       resolve(userID);
     });
   });
+  window.wfes.g.wfPages = function() {
+    return jCopy(wfes.WF_PAGES);
+  };
   window.wfes.g.wfVersion = function() {
     return jCopy(wfes.version);
   };
