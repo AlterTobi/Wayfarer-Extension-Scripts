@@ -759,52 +759,52 @@
   window.wfes.g.baseVersion = function() {
     return GM_info.script.version;
   };
-  window.wfes.g.wfVersion = function() {
-    return jCopy(wfes.version);
-  };
-  window.wfes.g.showcase = function() {
-    return jCopy(wfes.showcase);
-  };
-  window.wfes.g.profile = function() {
-    return jCopy(wfes.profile);
-  };
-  window.wfes.g.nominationsList = function() {
-    return jCopy(wfes.nominations.list);
-  };
-  window.wfes.g.nominationDetail = function() {
-    return jCopy(wfes.nominations.detail);
-  };
   window.wfes.g.canAppeal = function() {
     return jCopy(wfes.nominations.canAppeal);
-  };
-  window.wfes.g.reviewPageData = function() {
-    return jCopy(wfes.review.pageData);
-  };
-  window.wfes.g.reviewDecision = function() {
-    return jCopy(wfes.review.decision);
-  };
-  window.wfes.g.reviewAppeal = function() {
-    return jCopy(wfes.review.appeal);
   };
   window.wfes.g.edit = function() {
     return jCopy(wfes.edit);
   };
+  window.wfes.g.isMobile = function() {
+    return _isMobile;
+  };
+  window.wfes.g.messages = function() {
+    return jCopy(wfes.messages);
+  };
+  window.wfes.g.nominationDetail = function() {
+    return jCopy(wfes.nominations.detail);
+  };
+  window.wfes.g.nominationsList = function() {
+    return jCopy(wfes.nominations.list);
+  };
+  window.wfes.g.profile = function() {
+    return jCopy(wfes.profile);
+  };
   window.wfes.g.properties = function() {
     return jCopy(wfes.properties);
+  };
+  window.wfes.g.reviewAppeal = function() {
+    return jCopy(wfes.review.appeal);
+  };
+  window.wfes.g.reviewDecision = function() {
+    return jCopy(wfes.review.decision);
+  };
+  window.wfes.g.reviewPageData = function() {
+    return jCopy(wfes.review.pageData);
   };
   window.wfes.g.settings = function() {
     return jCopy(wfes.settings);
   };
-  window.wfes.g.messages = function() {
-    return jCopy(wfes.messages);
+  window.wfes.g.showcase = function() {
+    return jCopy(wfes.showcase);
   };
   window.wfes.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
       resolve(userID);
     });
   });
-  window.wfes.g.isMobile = function() {
-    return _isMobile;
+  window.wfes.g.wfVersion = function() {
+    return jCopy(wfes.version);
   };
   /* ================ /getter ======================= */
 
