@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.3.0
+// @version      2.3.1
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -279,6 +279,13 @@
     createButton(allText);
   }
 
+  function pageLoad() {
+    const PAGES = window.wfes.g.wfPages(); // load constants
+    if (!window.wfes.f.isPage(PAGES.HOME, PAGES.REVIEW)) {
+      removeButton();
+    }
+  }
+
   function initWF() {
     window.addEventListener("WFESReviewPageNewLoaded", addTranslationButtonsNew);
     window.addEventListener("WFESReviewPageEditLoaded", addTranslationButtonsEdit);
@@ -286,6 +293,8 @@
     window.addEventListener("WFESReviewDecisionSent", removeButton);
     window.addEventListener("WFESHomePageLoaded", addTranslationButtonsShowcase);
     window.addEventListener("WFESShowCaseClick", showCaseClick);
+    window.addEventListener("WFESPageLoaded", pageLoad);
+    window.addEventListener("WFESNominationListLoaded", removeButton);
 
     window.wfes.f.addCSS(myCSSId, myStyle);
     window.wfes.f.localGet(storageName, "Deepl").then(e => {
