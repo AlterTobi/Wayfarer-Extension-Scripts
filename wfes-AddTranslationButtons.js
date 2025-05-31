@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.3.1
+// @version      2.3.2
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -348,10 +348,18 @@
       })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
 
+    function escapeHTML(str) {
+      return str.replace(/[&<>"']/g, (char) => {
+        const escapeMap = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+        return escapeMap[char];
+      });
+    }
+
     function setDeepLText(text) {
       waitForElem(deeplInputArea)
         .then( elem => {
-          elem.innerHTML = `<p>${text.replace(/\n/g, "<br>")}</p>`;
+          const sanitizedText = escapeHTML(text).replace(/\n/g, "<br>");
+          elem.innerHTML = `<p>${sanitizedText}</p>`;
           // DeepL über Änderungen informieren
           elem.dispatchEvent(new InputEvent("input", { bubbles: true }));
         })
