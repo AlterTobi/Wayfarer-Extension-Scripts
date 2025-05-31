@@ -23,6 +23,7 @@ jobs:
         env:
           GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
         run: |
+          /usr/bin/env
           cd _buildscripts
           /usr/bin/python3 ./build.py -c build_dev.ini
 
