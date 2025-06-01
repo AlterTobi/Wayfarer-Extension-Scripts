@@ -1,6 +1,6 @@
 {
   "name": "wfes",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "devDependencies": {
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@stylistic/eslint-plugin-js": "^2.2.2",
