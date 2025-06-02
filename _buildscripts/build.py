@@ -12,9 +12,61 @@ from datetime import date, datetime
 
 extra_version = ''
 
+def auto_detect_config():
+    """Bestimme, welche INI-Konfiguration geladen werden soll."""
+    # Standard: build.ini
+    config_file = 'build.ini'
+
+    # Versuche, GITHUB_REF zu lesen
+    github_ref = environ.get('GITHUB_REF', '')
+    if github_ref:
+        # refs/heads/main, refs/heads/dev, ...
+        m = re.match(r'refs/heads/([^/]+)', github_ref)
+        if m:
+            branch = m.group(1)
+            if branch == 'main':
+                config_file = 'build.ini'
+            else:
+                # für dev, feature, hotfix, etc.
+                config_file = 'build_dev.ini'
+    return config_file
+
+def dynamic_url_dist_base(cfg):
+    """Erzeuge url_dist_base dynamisch, falls möglich und sinnvoll."""
+    github_repo = environ.get('GITHUB_REPOSITORY', '')
+    github_ref = environ.get('GITHUB_REF', '')
+    # Standardwert, falls kein ENV
+    url_dist_base = cfg.get('url_dist_base', 'https://altertobi.github.io/Wayfarer-Extension-Scripts/')
+    branch_is_main = False
+
+    if github_repo:
+        # Format: Nutzer/Repo
+        try:
+            user, repo = github_repo.split('/', 1)
+            domain = user.lower() + '.github.io'
+            # Standard-URL
+            url = f"https://{domain}/{repo}/"
+
+            # Branch-Analyse für dev
+            if github_ref:
+                m = re.match(r'refs/heads/([^/]+)', github_ref)
+                if m:
+                    branch = m.group(1)
+                    branch_is_main = branch == 'main'
+                    if not branch_is_main:
+                        url += 'dev/'
+
+            url_dist_base = url
+        except Exception as e:
+            print(f"Warnung: Konnte GITHUB_REPOSITORY nicht auswerten: {e}")
+
+    # Überschreibe in der Konfiguration
+    cfg['url_dist_base'] = url_dist_base
+    return url_dist_base
+
 def get_info(base_url):
-  infotext = '/* Copyright {} AlterTobi'.format(date.today().year)
-  infotext += '''
+    infotext = '/* Copyright {} AlterTobi'.format(date.today().year)
+    infotext += '''
 
    This file is part of the Wayfarer Extension Scripts collection. Further scripts
    can be found on the @homepage, see above.
@@ -32,239 +84,212 @@ def get_info(base_url):
    You can find a copy of the GNU General Public License at the
    web space where you got this script from
 '''
-  infotext += '   {}LICENSE.txt'.format(base_url)
+    infotext += '   {}LICENSE.txt'.format(base_url)
 
-  infotext += '''
+    infotext += '''
    If not, see <http://www.gnu.org/licenses/>.
 */
 
 '''
-  return infotext
-    
-def add_jekyll_frontmatter(directory, file_extension=".md"):
-    """
-    Fügt allen Dateien eines Verzeichnisses ein Jekyll-Frontmatter hinzu, falls es noch nicht vorhanden ist.
+    return infotext
 
-    :param directory: Pfad zum Verzeichnis, in dem die Dateien durchsucht werden sollen.
-    :param file_extension: Die Dateierweiterung der Dateien, die geprüft werden (Standard: '.md').
-    """
+def add_jekyll_frontmatter(directory, file_extension=".md"):
     current_date = datetime.now().strftime('%Y-%m-%d')
     frontmatter = f"---\nlast_modified_at: {current_date}\n---\n\n"
 
-    for file in directory.rglob(f'*{file_extension}'):  # Nur Dateien mit der angegebenen Erweiterung
+    for file in directory.rglob(f'*{file_extension}'):
         with open(file, 'r', encoding='utf-8') as f:
             content = f.read()
-
-        if not content.startswith("---\n"):  # Prüft, ob bereits ein Frontmatter existiert
+        if not content.startswith("---\n"):
             content = frontmatter + content
             with open(file, 'w', encoding='utf-8') as f:
                 f.write(content)
             print(f"Added frontmatter to: {file.relative_to(directory)}")
 
 def replace_placeholder_in_files(directory, placeholder, replacement, file_extension=".md"):
-    """
-    Ersetzt einen Platzhalter in allen Dateien mit einer bestimmten Erweiterung im angegebenen Verzeichnis.
-    
-    :param directory: Pfad zum Verzeichnis, in dem die Dateien durchsucht werden sollen.
-    :param placeholder: Der Platzhalter, der ersetzt werden soll.
-    :param replacement: Der Wert, der den Platzhalter ersetzen soll.
-    :param file_extension: Die Dateierweiterung der Dateien, die geprüft werden (Standard: '.md').
-    """
-    for file in directory.glob(f'*{file_extension}'):  # Nur Dateien mit der angegebenen Erweiterung
+    for file in directory.glob(f'*{file_extension}'):
         with open(file, 'r', encoding='utf-8') as f:
             content = f.read()
-        
         if placeholder in content:
             content = content.replace(placeholder, replacement)
             with open(file, 'w', encoding='utf-8') as f:
                 f.write(content)
             print(f"Replaced placeholder in: {file.name}")
-            
+
 def readtext(filename):
-  return filename.read_text(encoding='utf-8-sig')
+    return filename.read_text(encoding='utf-8-sig')
 
 def fill_meta(source, script_name):
-  allowed_multiple = ['resource', 'match']  # Definierte Schlüssel, die mehrfach vorkommen dürfen
-  # grant muss man dann nochmal extra machen (none)
+    allowed_multiple = ['resource', 'match']
+    meta = ['// ==UserScript==']
+    keys = set()
 
-  meta = ['// ==UserScript==']
-  keys = set()
+    def append_line(key, value):
+        if key in allowed_multiple:
+            meta.append(f'// @{key:<14} {value}')
+        elif key not in keys:
+            meta.append(f'// @{key:<14} {value}')
+            keys.add(key)
 
-  def append_line(key, value):
-    """
-    Fügt eine Zeile zum Meta-Block hinzu, erlaubt aber bestimmte Schlüssel mehrfach.
+    for line in source.splitlines():
+        text = line.lstrip()
+        rem = text[:2]
+        if rem != '//':
+            raise UserWarning(f'{script_name}: wrong line in metablock: {line}')
+        text = text[2:].strip()
+        try:
+            key, value = text.split(None, 1)
+        except ValueError:
+            if text == '==UserScript==':
+                continue
+            elif text == '==/UserScript==':
+                continue
+        else:
+            if key[0] == '@':
+                key = key[1:]
+            else:
+                meta[-1] += ' ' + text
+                continue
 
-    :param key: Der Metadaten-Schlüssel (z. B. 'resource').
-    :param value: Der zugehörige Wert (z. B. 'http://example.com/resource.js').
-    """
-    if key in allowed_multiple:
-      # Erlaubt mehrfaches Hinzufügen
-      meta.append(f'// @{key:<14} {value}')
-    elif key not in keys:
-      # Fügt einmalig hinzu, wenn nicht bereits vorhanden
-      meta.append(f'// @{key:<14} {value}')
-      keys.add(key)
+            if key == 'version':
+                if not re.match(r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$', value):
+                    print(f'{script_name}: wrong version format: {value}')
+                value += extra_version
+                sversion = value
+            elif key == 'name':
+                sname = value
+                value = 'WFES - ' + value
+            elif key == 'description':
+                sdescription = value
 
-  for line in source.splitlines():
-    text = line.lstrip()
-    rem = text[:2]
-    if rem != '//':
-      raise UserWarning(f'{script_name}: wrong line in metablock: {line}')
-    text = text[2:].strip()
-    try:
-      key, value = text.split(None, 1)
-    except ValueError:
-      if text == '==UserScript==':
-        # raise UserWarning(f'{script_name}: wrong metablock detected')
-        continue
-      elif text == '==/UserScript==':
-        # raise UserWarning(f'{script_name}: wrong metablock detected')
-        continue
-    else:
-      if key[0] == '@':
-        key = key[1:]
-      else:  # continue previous line
-        meta[-1] += ' ' + text
-        continue
+            append_line(key, value)
 
-      if key == 'version':
-        if not re.match(r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$', value):
-          print(f'{script_name}: wrong version format: {value}')  # expected: major.minor.patch
-        value += extra_version
-        sversion = value
-      elif key == 'name':
-          sname = value 
-          value = 'WFES - ' + value
-      elif key == 'description':
-        sdescription = value 
+    append_line('namespace', cfg['namespace'])
+    append_line('homepage', cfg['homepage'])
+    append_line('supportURL', cfg['supportURL'])
+    append_line('icon', cfg['favicon'])
+    append_line('icon64', cfg['favicon64'])
 
-      append_line(key,value)
+    url_dist_base = cfg.get('url_dist_base', fallback=False)
+    if url_dist_base:
+        path = url_dist_base + script_name
+        surl = path + '.user.js'
+        if keys.isdisjoint({'downloadURL'}):
+            append_line('downloadURL', path + '.user.js')
+            append_line('updateURL', path + '.meta.js')
 
-  append_line('namespace', cfg['namespace'])
-  append_line('homepage', cfg['homepage'])
-  append_line('supportURL', cfg['supportURL'])
-  # append_line('icon', 'https://wayfarer.nianticlabs.com/imgpub/favicon-256.png')
-  append_line('icon', cfg['favicon'])
-  append_line('icon64', cfg['favicon64'])
-  
-  url_dist_base = cfg.get('url_dist_base',fallback = False)
-  if url_dist_base:
-    path = url_dist_base + script_name
-    surl = path + '.user.js'
-    if keys.isdisjoint({'downloadURL'}):
-      append_line('downloadURL', path + '.user.js')
-      append_line('updateURL', path + '.meta.js')
+    if keys.isdisjoint({'match', 'include'}):
+        append_line('match', cfg['match'])
 
-  if keys.isdisjoint({'match', 'include'}):
-    append_line('match', cfg['match'])
+    append_line('grant', 'none')
+    meta.append('// ==/UserScript==\n\n')
 
-  append_line('grant', 'none')
-  meta.append('// ==/UserScript==\n\n')
-  
-  sl = '  * [{}]({}) {}\n    - {}\n'.format(sname,surl,sversion,sdescription)
-  return '\n'.join(meta), sl
+    sl = '  * [{}]({}) {}\n    - {}\n'.format(sname, surl, sversion, sdescription)
+    return '\n'.join(meta), sl
 
 def process_file(source, out_dir):
-  """Generate .user.js and .meta.js from given source file.
+    try:
+        meta, script = readtext(source).split('\n\n', 1)
+    except ValueError:
+        raise Exception(f'{source}: wrong input: empty line expected after metablock')
 
-    Resulted file(s) put into out_dir (if specified, otherwise - use current).
-    """
-  try:
-    meta, script = readtext(source).split('\n\n', 1)
-  except ValueError:
-    raise Exception(f'{source}: wrong input: empty line expected after metablock')
+    script_name = source.stem
+    meta, shortl = fill_meta(meta, script_name)
+    info = get_info(cfg.get('url_dist_base', fallback=False))
 
-  script_name = source.stem
+    body = re.sub(r'\$__(\w+)__', lambda match: environ.get(match.group(1), match.group(0)), script)
 
-  meta, shortl = fill_meta(meta, script_name)
-
-  info = get_info(cfg.get('url_dist_base',fallback = False))
-
-  body =  re.sub(r'\$__(\w+)__', lambda match: environ.get(match.group(1), match.group(0)), script)
-
-  data = [
-    meta,
-    info,
-    body
+    data = [
+        meta,
+        info,
+        body
     ]
 
-  (out_dir / (script_name + '.user.js')).write_text(''.join(data), encoding='utf8')
-  (out_dir / (script_name + '.meta.js')).write_text(meta, encoding='utf8')
-  return shortl
+    (out_dir / (script_name + '.user.js')).write_text(''.join(data), encoding='utf8')
+    (out_dir / (script_name + '.meta.js')).write_text(meta, encoding='utf8')
+    return shortl
 
 def run():
-  global extra_version
-  source = Path('..')
-  target = Path('../build')
+    global extra_version
+    source = Path('..')
+    target = Path('../build')
 
-  target.mkdir(parents=True,exist_ok = True)
-  
-  # copy all from _pages
-  pagesrc = source / '_pages/'
-  copytree(pagesrc,target,dirs_exist_ok=True) 
-  
-  # Replace placeholder in Markdown files
-  current_year = str(date.today().year)
-  placeholder = "{{CURRENT_YEAR}}"
-  replace_placeholder_in_files(target, placeholder, current_year)
-  add_jekyll_frontmatter(target)
-    
-  # copy LICENSE
-  print('process LICENSE')
-  lic = source / 'LICENSE'
-  # tf = target / lic.name
-  tf = target / 'LICENSE.txt'
+    target.mkdir(parents=True, exist_ok=True)
 
-  if sys.version_info >= (3, 10):
-    tf.hardlink_to(lic) # create a hard link
-  else:
-    lic.link_to(tf) # create a hard link
+    # copy all from _pages
+    pagesrc = source / '_pages/'
+    copytree(pagesrc, target, dirs_exist_ok=True)
 
-  # check if beta (issue, hotfix, feature)
-  ref = re.match(r'refs/heads/(\w+)/([\w#\-\.\_]+)?', environ['GITHUB_REF'])
-  if ref:
-    if ref.group(1) == 'issue':
-      extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.issue' + ref.group(2)[1:]
-    elif ref.group(1) in ['feature', 'hotfix', 'test']:
-      extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.' + ref.group(1) + '.' + ref.group(2)
-  
-  # process js files
-  shortlist = []
-  # front matter for shortlist: noindex, no sitemap
-  shortlist.append('---\n')
-  # shortlist.append('sitemap: false\n')
-  # shortlist.append('robots: "noindex"\n')
-  shortlist.append('---\n')
-  
-  shortlist.append('## shortlist\n\n')
-  
-  # Aktuelles Datum und Uhrzeit abrufen
-  current_time = datetime.now().strftime('%Y/%m/%d %H:%M')
-  shortlist.append(f'created automatically at {current_time}\n\n')
+    # Replace placeholder in Markdown files
+    current_year = str(date.today().year)
+    placeholder = "{{CURRENT_YEAR}}"
+    replace_placeholder_in_files(target, placeholder, current_year)
+    add_jekyll_frontmatter(target)
 
-  shortlist.append('Not all scripts on this page are fully functional. This list is for reference only. Use at your own risk.\n\n')
-  
-  all_files = list(source.glob('**/wfes*.js'))
-  all_files.sort(key=lambda self: self.parts[-1].lower())
-  for filename in all_files:
-    print('process file {} {}'.format(filename,target))
-    short = process_file(
-      filename,
-      target
-      )
-    shortlist.append(short)
+    # copy LICENSE
+    print('process LICENSE')
+    lic = source / 'LICENSE'
+    tf = target / 'LICENSE.txt'
 
-  shortdest = target / 'shortlist.md'
-  shortdest.write_text(''.join(shortlist), encoding='utf8')
+    if sys.version_info >= (3, 10):
+        tf.hardlink_to(lic)
+    else:
+        lic.link_to(tf)
+
+    # check if beta (issue, hotfix, feature)
+    ref = re.match(r'refs/heads/(\w+)/([\w#\-\.\_]+)?', environ.get('GITHUB_REF', ''))
+    if ref:
+        if ref.group(1) == 'issue':
+            extra_version = '-beta' + environ.get('GITHUB_RUN_NUMBER', '') + '.issue' + ref.group(2)[1:]
+        elif ref.group(1) in ['feature', 'hotfix', 'test']:
+            extra_version = '-beta' + environ.get('GITHUB_RUN_NUMBER', '') + '.' + ref.group(1) + '.' + ref.group(2)
+
+    # process js files
+    shortlist = []
+    shortlist.append('---\n')
+    shortlist.append('---\n')
+    shortlist.append('## shortlist\n\n')
+    current_time = datetime.now().strftime('%Y/%m/%d %H:%M')
+    shortlist.append(f'created automatically at {current_time}\n\n')
+    shortlist.append('Not all scripts on this page are fully functional. This list is for reference only. Use at your own risk.\n\n')
+
+    all_files = list(source.glob('**/wfes*.js'))
+    all_files.sort(key=lambda self: self.parts[-1].lower())
+    for filename in all_files:
+        print('process file {} {}'.format(filename, target))
+        short = process_file(
+            filename,
+            target
+        )
+        shortlist.append(short)
+
+    shortdest = target / 'shortlist.md'
+    shortdest.write_text(''.join(shortlist), encoding='utf8')
 
 ##### MAIN ######
 
 if __name__ == '__main__':
-  parser = argparse.ArgumentParser()
-  parser.add_argument('--config_file', '-c', help='config file', default='build.ini')
-  args = parser.parse_args()
-  
-  config = configparser.ConfigParser()
-  config.read(args.config_file)
-  cfg = config['defaults']
-  run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config_file', '-c', help='config file')
+    args = parser.parse_args()
+
+    # Auswahl der INI-Datei: CLI-Argument > auto > fallback
+    if args.config_file:
+        config_file = args.config_file
+    else:
+        config_file = auto_detect_config()
+
+    if not Path(config_file).exists():
+        print(f"Warnung: {config_file} existiert nicht, fallback auf build.ini")
+        config_file = 'build.ini'
+
+    print(f"Benutze Konfiguration: {config_file}")
+
+    config = configparser.ConfigParser()
+    config.read(config_file)
+    cfg = config['defaults']
+
+    # Dynamische url_dist_base-Generierung
+    dynamic_url_dist_base(cfg)
+
+    run()
