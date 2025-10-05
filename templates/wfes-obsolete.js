@@ -6,7 +6,7 @@
 (function() {
   "use strict";
 
-  const warnText = ": This script is no longer supported, please remove.";
+  const warnText = ": This script is no longer supported, please uninstall.";
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
   console.error(GM_info.script.name, warnText);
