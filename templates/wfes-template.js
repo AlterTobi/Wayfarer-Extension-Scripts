@@ -1,6 +1,6 @@
 // @name         Template
 // @version      1.2.0
-// @description  Template
+// @description  Template (do not install)
 // @author       AlterTobi
 
 (function() {
