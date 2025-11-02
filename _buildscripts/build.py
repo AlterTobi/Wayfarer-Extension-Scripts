@@ -239,8 +239,8 @@ def run():
   shortlist.append('## shortlist\n\n')
   
   # Aktuelles Datum und Uhrzeit abrufen
-  current_time = datetime.now().strftime('%Y/%m/%d %H:%M')
-  shortlist.append(f'created automatically at {current_time}\n\n')
+  current_date = datetime.now().strftime('%Y/%m/%d')
+  shortlist.append(f'Generated automatically on {current_date}.\n\n')
 
   shortlist.append('Not all scripts on this page are fully functional. This list is for reference only. Use at your own risk.\n\n')
   
