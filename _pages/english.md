@@ -1,5 +1,9 @@
 ## What is it?
-Userscripts/Tools for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+This site offers a collection of my userscripts and tools for [Niantic Wayfarer](https://wayfarer.nianticlabs.com/), designed to help you review and manage nominations faster and more efficiently.
+All listed extensions aim to improve the Wayfarer experience and make everyday tasks easier.
+
+Please note: These projects are unofficial and not affiliated with Niantic or Wayfarer.
+Use them at your own risk.
 > Userscript manager such as [Tampermonkey](https://tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/) required!
 
 ---

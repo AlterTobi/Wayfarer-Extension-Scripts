@@ -1,10 +1,15 @@
 ## Was ist das hier?
-Userscripts/Tools für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+Diese Seite bietet eine Sammlung meiner Userscripts und Tools für [Niantic Wayfarer](https://wayfarer.nianticlabs.com/), die dir helfen sollen, Bewertungen und Vorschläge schneller und komfortabler zu bearbeiten.
+Alle hier vorgestellten Erweiterungen wurden mit dem Ziel entwickelt, die Nutzung von Wayfarer zu verbessern und alltägliche Aufgaben zu vereinfachen.
+
+Bitte beachte: Diese Projekte sind inoffiziell und stehen in keiner Verbindung zu Niantic oder Wayfarer.
+Die Verwendung erfolgt auf eigene Verantwortung.
+
 > ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) oder [Violentmonkey](https://violentmonkey.github.io/) ist erforderlich!
 
 ---
 
-# Installation
+## Installation
 Zuerst [WFES Base](wfes-Base.user.js) installieren!
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
