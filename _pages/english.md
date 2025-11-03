@@ -4,6 +4,7 @@ All listed extensions aim to improve the Wayfarer experience and make everyday t
 
 Please note: These projects are unofficial and not affiliated with Niantic or Wayfarer.
 Use them at your own risk.
+
 > Userscript manager such as [Tampermonkey](https://tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/) required!
 
 ---
