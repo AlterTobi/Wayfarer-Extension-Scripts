@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.2.4
+// @version      1.3.0
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -242,6 +242,15 @@
   window.addEventListener("WFESProfileLoaded", removeInfobox);
   window.addEventListener("WFESHelpPageLoaded", removeInfobox);
   window.addEventListener("WFESSettingsLoaded", removeInfobox);
+
+  // Events abfangen
+  const originalDispatch = window.dispatchEvent;
+  window.dispatchEvent = function(event) {
+    if (event.type.startsWith("WFES")) {
+      window.wfes.f.createNotification("Event ausgelöst: " + event.type, "fuchsia");
+    }
+    return originalDispatch.call(this, event);
+  };
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
