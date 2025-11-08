@@ -18,21 +18,21 @@ updates:
       prefix: "github-actions"
       include: "scope"
 
-#  # Maintain dependencies for npm
-#  - package-ecosystem: "npm"
-#    directory: "/"
-#    schedule:
-#      interval: "weekly"
-#    target-branch: dev
-#    assignees:
-#      - "AlterTobi"
-#    groups:
-#      development-dependencies:
-#        dependency-type: "development"
-#    commit-message:
-#      prefix: "npm"
-#      prefix-development: "npm dev"
-#      include: "scope"
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: dev
+    assignees:
+      - "AlterTobi"
+    groups:
+      development-dependencies:
+        dependency-type: "development"
+    commit-message:
+      prefix: "npm"
+      prefix-development: "npm dev"
+      include: "scope"
     
       
 #  - package-ecosystem: "" # See documentation for possible values
