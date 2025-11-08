@@ -1,6 +1,6 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
-import stylisticJs from "@stylistic/eslint-plugin-js";
+import stylisticJs from "@stylistic/eslint-plugin";
 
 export default [
   {files: ["**/*.js"],
@@ -59,7 +59,7 @@ export default [
     "@stylistic/js/brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
     "@stylistic/js/comma-dangle": ["warn", "only-multiline"],
     "@stylistic/js/comma-spacing": ["warn", { "before": false, "after": true }],
-    "@stylistic/js/func-call-spacing": ["warn", "never"],
+    "@/func-call-spacing": ["warn", "never"],
     "@stylistic/js/indent": ["warn", 2, { "SwitchCase": 1 }],
     "@stylistic/js/newline-per-chained-call": "warn",
     "@stylistic/js/no-multi-spaces": "warn",

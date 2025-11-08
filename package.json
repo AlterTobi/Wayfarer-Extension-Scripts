@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "devDependencies": {
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
-    "@stylistic/eslint-plugin-js": "^2.2.2",
+    "@stylistic/eslint-plugin": "^5.5.0",
     "eslint": "^9.28.0",
     "globals": "^16.2.0"
   }
