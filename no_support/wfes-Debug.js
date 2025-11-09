@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.3.2
+// @version      1.3.3
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -249,7 +249,8 @@
   const originalDispatch = window.dispatchEvent;
   window.dispatchEvent = function(event) {
     if (event.type.startsWith("WFES")) {
-      window.wfes.f.createNotification("#" + ++notificationCounter + " Event ausgelöst: " + event.type, "fuchsia", {autoclose: 30});
+      const jetzt = new Date().toLocaleTimeString("de-DE");
+      window.wfes.f.createNotification("#" + ++notificationCounter + " " + jetzt + " Event: " + event.type, "fuchsia", {autoclose: 30});
     }
     return originalDispatch.call(this, event);
   };
