@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.3.1
+// @version      1.3.2
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -33,6 +33,8 @@
   `;
 
   const skipNamesCommon = ["description", "title"];
+
+  let notificationCounter = 0;
 
   const matrix = [
     [85, +6, +7, +6, +6, 81, +6, +0, +3, 85, +5, 84, -1, +8, +6, +0, -1, +3, +7, 86, +2, +8, +4, 81, +7, +7, +5, 82, +4, +0, 82, 85, 75, -1, +7, 7],
@@ -247,7 +249,7 @@
   const originalDispatch = window.dispatchEvent;
   window.dispatchEvent = function(event) {
     if (event.type.startsWith("WFES")) {
-      window.wfes.f.createNotification("Event ausgelöst: " + event.type, "fuchsia", {autoclose: 30});
+      window.wfes.f.createNotification("#" + ++notificationCounter + " Event ausgelöst: " + event.type, "fuchsia", {autoclose: 30});
     }
     return originalDispatch.call(this, event);
   };
