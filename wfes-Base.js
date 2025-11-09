@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.5.0
+// @version      2.6.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -727,33 +727,41 @@
       notification.remove();
     };
 
-    // Optionaler Callback-Button
-    if (callbackConfig && "function" === typeof callbackConfig.callback) {
-      const actionButton = document.createElement("button");
-      actionButton.setAttribute("class", "wfesNotiButton material-icons");
+    // Handle Callbacks - Buttons, autoclose...
+    if (callbackConfig) {
+      // do we have a callback function?
+      if ("function" === typeof callbackConfig.callback) {
+        const actionButton = document.createElement("button");
+        actionButton.setAttribute("class", "wfesNotiButton material-icons");
 
-      let actionIcon;
-      switch (callbackConfig.icon) {
-        case "play":
-          actionIcon = "play_circle_outline";
-          break;
-        case "search":
-          actionIcon = "search";
-          break;
-        case "renew":
-          actionIcon="autorenew";
-          break;
-        default:
-          actionIcon = "play_circle";
+        let actionIcon;
+        switch (callbackConfig.icon) {
+          case "play":
+            actionIcon = "play_circle_outline";
+            break;
+          case "search":
+            actionIcon = "search";
+            break;
+          case "renew":
+            actionIcon="autorenew";
+            break;
+          default:
+            actionIcon = "play_circle";
+        }
+
+        actionButton.innerText = actionIcon;
+
+        actionButton.onclick = function(event) {
+          event.stopPropagation(); // Verhindert, dass der Klick das notification-Element erreicht
+          callbackConfig.callback(...(callbackConfig.params || [])); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
+        };
+        buttonGroup.appendChild(actionButton);
       }
-
-      actionButton.innerText = actionIcon;
-
-      actionButton.onclick = function(event) {
-        event.stopPropagation(); // Verhindert, dass der Klick das notification-Element erreicht
-        callbackConfig.callback(...(callbackConfig.params || [])); // Ruft die Callback-Funktion mit den übergebenen Parametern auf
-      };
-      buttonGroup.appendChild(actionButton);
+      // autoclose this notification?
+      if (callbackConfig.autoclose && (callbackConfig.autoclose > 0)) {
+        // setTimeout is MilliSeconds
+        setTimeout(()=>{notification.remove();}, 1000*callbackConfig.autoclose);
+      }
     }
 
     buttonGroup.appendChild(closeButton);
