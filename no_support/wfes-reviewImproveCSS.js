@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.2.1
+// @version 1.2.2
 // @description CSS modifcations for Wayfarer >= 5.7
 // @author AlterTobi (CSS parts by AlfonsoML)
 
@@ -68,7 +68,8 @@
   const questionSel = "app-review-new-b > div > div.review-questions";
   const mapSel = "app-review-new-b > div > div.review-questions";
   const photoSel = "app-photo-b > wf-review-card-b div.wf-image-modal > img";
-  const suppImgSel = "app-supporting-info-b > wf-review-card-b div.wf-image-modal.supporting-info-img-container > img";
+  // const suppImgSel = "app-supporting-info-b > wf-review-card-b div.wf-image-modal.supporting-info-img-container > img";
+  const suppImgSel = "app-supporting-info-b > wf-review-card-b div.supporting-info-img-container img";
 
   function reviewImproveCSS() {
     window.wfes.f.addCSS(myCssId, myStyle);

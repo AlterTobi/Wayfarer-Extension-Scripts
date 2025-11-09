@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.2.0
+// @version      1.2.1
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
@@ -64,8 +64,9 @@
 
         // Supporting Image
         if (myData.supportingImageUrl) {
+          elem = document.getElementsByClassName("supporting-info-img-container");
           imageUrl = myData.supportingImageUrl + "=s0";
-          addFullImageButton(elem[1], imageUrl, "supportingImage");
+          addFullImageButton(elem[0], imageUrl, "supportingImage");
         }
         break;
       case "EDIT":
