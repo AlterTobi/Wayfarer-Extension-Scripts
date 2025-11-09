@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.3.0
+// @version      1.3.1
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -247,7 +247,7 @@
   const originalDispatch = window.dispatchEvent;
   window.dispatchEvent = function(event) {
     if (event.type.startsWith("WFES")) {
-      window.wfes.f.createNotification("Event ausgelöst: " + event.type, "fuchsia");
+      window.wfes.f.createNotification("Event ausgelöst: " + event.type, "fuchsia", {autoclose: 30});
     }
     return originalDispatch.call(this, event);
   };
