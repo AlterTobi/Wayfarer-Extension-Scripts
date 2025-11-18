@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/first-interaction@v3
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: 'Thanks for your report. I will have a look at it soon.'
-        pr-message: 'Thank you for submitting. Please give me some time, as I am busy at the moment.'
+       repo-token: ${{ secrets.GITHUB_TOKEN }}
+       issue-message: 'Thanks for your report. I will have a look at it soon.'
+       pr-message: 'Thank you for submitting. Please give me some time, as I am busy at the moment.'
