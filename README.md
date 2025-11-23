@@ -30,7 +30,7 @@ Pull-Requests are welcome.
 
 Tools und Skripte für Niantic Wayfarer
 
-### What is it?
+### Was ist das?
 Userskripte für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
 
 ### Download 
