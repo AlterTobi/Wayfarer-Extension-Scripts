@@ -4,7 +4,7 @@
   "devDependencies": {
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@stylistic/eslint-plugin": "^5.6.1",
-    "eslint": "^9.28.0",
+    "eslint": "^9.39.2",
     "globals": "^16.2.0"
   }
 }
