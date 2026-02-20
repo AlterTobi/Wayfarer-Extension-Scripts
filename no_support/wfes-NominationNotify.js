@@ -70,12 +70,12 @@
     window.wfes.f.localGet(lStoreList, []).then((historyDict)=>{
       const today = getCurrentDateStr();
       const missingDict = {};
-      let miss = {};
+      //      let miss = {};
 
       for (const histID in historyDict) {
         if (undefined === nomDict[histID]) {
           // missing
-          miss = historyDict[histID];
+          const miss = historyDict[histID];
           if ((miss.status !== "MISSING")) {
             miss.wfesDates.push([today, "MISSING"]);
             miss.status = "MISSING";
