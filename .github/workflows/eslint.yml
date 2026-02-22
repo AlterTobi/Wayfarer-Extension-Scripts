@@ -30,15 +30,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Node 20
+      - name: Setup Node 22
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
       - run: npm ci
 
       - name: Run ESLint and Convert
         run: |
-          npx eslint . --config eslint.config.mjs -f json > eslint-results.json
+          npx eslint . --config eslint.config.mjs -f json > eslint-results.json || true
           node eslint-to-sarif.mjs < eslint-results.json
         continue-on-error: true
 
