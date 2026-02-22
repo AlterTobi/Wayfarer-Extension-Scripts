@@ -36,15 +36,13 @@ jobs:
           node-version: 20
       - run: npm ci
 
-      - name: Run ESLint
-        run: npx eslint .
-          --config eslint.config.mjs
-          --format @microsoft/eslint-formatter-sarif 
-          --output-file eslint-results.sarif
-        continue-on-error: true
-
-      - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v4
+      - name: Run ESLint and Convert
+        run: |
+          # Wir nutzen '|| true', damit der Workflow nicht stoppt, wenn ESLint Fehler findet
+          npx eslint . --config eslint.config.mjs -f json > eslint-results.json || true
+          node eslint-to-sarif.mjs < eslint-results.json
+        
+      - name: Upload to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
+          sarif_file: results.sarif
