@@ -16,7 +16,7 @@ try {
   console.log(`Gefundene ESLint-Meldungen: ${totalMessages}`);
 
   const sarifOutput = {
-    $schema: "https://json.schemastore.org/sarif-2.1.0-rtm.5",
+    $schema: "https://www.schemastore.org/sarif-2.1.0.json",
     version: "2.1.0",
     runs: [{
       tool: {
