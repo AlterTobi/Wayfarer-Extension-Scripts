@@ -48,3 +48,8 @@ jobs:
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linter-sarif
+          path: eslint-results.sarif
