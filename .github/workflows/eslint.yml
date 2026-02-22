@@ -30,10 +30,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Node 18
+      - name: Setup Node 20
         uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 20
       - run: npm ci
 
       - name: Run ESLint
