@@ -38,10 +38,10 @@ jobs:
 
       - name: Run ESLint and Convert
         run: |
-          # Wir nutzen '|| true', damit der Workflow nicht stoppt, wenn ESLint Fehler findet
-          npx eslint . --config eslint.config.mjs -f json > eslint-results.json || true
+          npx eslint . --config eslint.config.mjs -f json > eslint-results.json
           node eslint-to-sarif.mjs < eslint-results.json
-        
+        continue-on-error: true
+
       - name: Upload to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v4
         with:
