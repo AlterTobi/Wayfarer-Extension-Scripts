@@ -43,6 +43,6 @@ jobs:
           node eslint-to-sarif.mjs < eslint-results.json
         
       - name: Upload to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: results.sarif
