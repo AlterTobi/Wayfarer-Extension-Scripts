@@ -1,1 +1,4 @@
 node_modules/
+eslint-results.json
+results.sarif
+.eslintcache

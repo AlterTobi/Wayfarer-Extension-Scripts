@@ -2,9 +2,12 @@
   "name": "wfes",
   "version": "1.0.2",
   "devDependencies": {
-    "@microsoft/eslint-formatter-sarif": "^3.1.0",
+    "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.6.1",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.1",
     "globals": "^17.0.0"
+  },
+  "scripts": {
+    "lint:sarif": "eslint . -f json | node eslint-to-sarif.mjs"
   }
 }
