@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - production
 jobs:
   build-and-deploy:
     if: github.actor != 'dependabot[bot]'
