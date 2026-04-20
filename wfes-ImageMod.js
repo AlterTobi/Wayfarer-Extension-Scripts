@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.2.1
+// @version      1.3.0
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
@@ -47,6 +47,11 @@
         position: absolute;
         left: 0px;
       }
+      .lupetop {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
       .bottom {
         bottom: 0px;
       }
@@ -63,10 +68,11 @@
         addFullImageButton(elem[0], imageUrl, "mainImage");
 
         // Supporting Image
-        if (myData.supportingImageUrl) {
-          elem = document.getElementsByClassName("supporting-info-img-container");
-          imageUrl = myData.supportingImageUrl + "=s0";
-          addFullImageButton(elem[0], imageUrl, "supportingImage");
+        if (myData.supportingImageUrls) {
+          //          elem = document.getElementsByClassName("supporting-info-img-container");
+          elem = document.getElementsByClassName("carousel-container");
+          imageUrl = myData.supportingImageUrls[0] + "=s0";
+          addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "lupetop");
         }
         break;
       case "EDIT":

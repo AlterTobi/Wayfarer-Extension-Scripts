@@ -1,5 +1,5 @@
 // @name         Click Enlarge Images
-// @version      1.0.0
+// @version      1.0.1
 // @description  auto-click the enlarge images symbols (requires image mod script)
 // @author       AlterTobi
 
@@ -7,7 +7,7 @@
   "use strict";
 
   const l1Sel = "app-photo-b > wf-review-card-b > div.wf-review-card__body > div > a.lupe";
-  const l2Sel = "app-supporting-info-b > wf-review-card-b > div.wf-review-card__body > div > a.lupe";
+  const l2Sel = "wf-image-carousel a.lupe";
 
   function click() {
     window.wfes.f.waitForElem(l2Sel).then((elem)=>{ elem.click(); })
