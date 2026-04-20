@@ -47,7 +47,7 @@
         position: absolute;
         left: 0px;
       }
-      .lupetop {
+      .lupesup {
         position: absolute;
         left: 0px;
         top: 0px;
@@ -72,7 +72,7 @@
           //          elem = document.getElementsByClassName("supporting-info-img-container");
           elem = document.getElementsByClassName("carousel-container");
           imageUrl = myData.supportingImageUrls[0] + "=s0";
-          addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "lupetop");
+          addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "lupesup");
         }
         break;
       case "EDIT":
