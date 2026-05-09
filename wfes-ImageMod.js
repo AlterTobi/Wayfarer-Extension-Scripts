@@ -33,10 +33,12 @@
       case "afterBegin":
         elem.style.position = "relative";
         break;
+      default:
+        break;
     }
     if (usediff) {
       div.appendChild(a);
-      elem.insertAdjacentElement(position, div);
+      elem.insertAdjacentElement("beforeBegin", div);
     } else {
       elem.insertAdjacentElement(position, a);
     }
