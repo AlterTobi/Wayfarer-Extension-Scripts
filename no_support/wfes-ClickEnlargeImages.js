@@ -10,10 +10,17 @@
   const l2Sel = "div#lupesup";
 
   function click() {
-    window.wfes.f.waitForElem(l2Sel).then((elem)=>{ elem.click(); })
+    window.wfes.f.waitForElem(l2Sel)
+      .then((elem)=>{
+        console.log(GM_info.script.name, ": click supporting image");
+        elem.click();
+      })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     window.wfes.f.waitForElem(l1Sel)
-      .then((elem)=>{ elem.click(); })
+      .then((elem)=>{
+        console.log(GM_info.script.name, ": click main image");
+        elem.click();
+      })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
