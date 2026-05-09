@@ -6,10 +6,14 @@
 (function() {
   "use strict";
 
-  function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "") {
+  function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "", usediff = false) {
     const a = document.createElement("a");
     const span = document.createElement("span");
 
+    if (usediff) {
+        const div = document.createElement("div");
+        div.id = 'lupesup';
+    }
     span.className = "material-icons material-icons-fontsize " + spanclass;
     span.appendChild(document.createTextNode("search"));
     a.appendChild(span);
@@ -29,7 +33,12 @@
         elem.style.position = "relative";
         break;
     }
-    elem.insertAdjacentElement(position, a);
+    if (usediff) {
+        div.appendChild(a);
+        elem.insertAdjacentElement(position, div);
+    } else {
+        elem.insertAdjacentElement(position, a);
+    }
   }
 
   // setImage URL on existing element
@@ -47,8 +56,8 @@
         position: absolute;
         left: 0px;
       }
-      .lupesup {
-        position: absolute;
+      #lupesup {
+        position: relative;
         left: 0px;
         top: 0px;
       }
@@ -69,10 +78,10 @@
 
         // Supporting Image
         if (myData.supportingImageUrls) {
-          //          elem = document.getElementsByClassName("supporting-info-img-container");
-          elem = document.getElementsByClassName("carousel-container");
+          elem = document.getElementsByClassName("supporting-info-img-container");
+          // elem = document.getElementsByClassName("carousel-container");
           imageUrl = myData.supportingImageUrls[0] + "=s0";
-          addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "lupesup");
+          addFullImageButton(elem[0], imageUrl, "supportingImage", "beforeBegin", "", '','',true);
         }
         break;
       case "EDIT":
