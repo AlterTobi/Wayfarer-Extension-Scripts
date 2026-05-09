@@ -82,7 +82,7 @@
           elem = document.getElementsByClassName("supporting-info-img-container");
           // elem = document.getElementsByClassName("carousel-container");
           imageUrl = myData.supportingImageUrls[0] + "=s0";
-          addFullImageButton(elem[0], imageUrl, "supportingImage", "beforeBegin", "", "", "", true);
+          addFullImageButton(elem[0], imageUrl, "supportingImage", "supporting", "", "", "", true);
         }
         break;
       case "EDIT":
