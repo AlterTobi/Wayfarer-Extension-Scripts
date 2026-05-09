@@ -7,7 +7,8 @@
   "use strict";
 
   const l1Sel = "app-photo-b > wf-review-card-b > div.wf-review-card__body > div > a.lupe";
-  const l2Sel = "div#lupesup > a";
+  // const l2Sel = "div#lupesup > a";
+  const l2Sel = "a#lupesup";
 
   function click() {
     window.wfes.f.waitForElem(l2Sel)
