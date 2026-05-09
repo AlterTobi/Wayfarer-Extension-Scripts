@@ -38,7 +38,7 @@
     }
     if (usediff) {
       div.appendChild(a);
-      elem.insertAdjacentElement("beforeBegin", div);
+      elem.insertAdjacentElement(position, div);
     } else {
       elem.insertAdjacentElement(position, a);
     }
@@ -60,7 +60,7 @@
         left: 0px;
       }
       #lupesup {
-        position: relative;
+        position: absolute;
         left: 0px;
         top: 0px;
       }
@@ -84,7 +84,7 @@
           elem = document.getElementsByClassName("supporting-info-img-container");
           // elem = document.getElementsByClassName("carousel-container");
           imageUrl = myData.supportingImageUrls[0] + "=s0";
-          addFullImageButton(elem[0], imageUrl, "supportingImage", "supporting", "", "", "", true);
+          addFullImageButton(elem[0], imageUrl, "supportingImage", "beforeBegin", "", "", "", true);
         }
         break;
       case "EDIT":
