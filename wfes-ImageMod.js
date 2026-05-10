@@ -6,15 +6,13 @@
 (function() {
   "use strict";
 
-  function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "", usediff = false) {
+let _currentSupImage = 0; // zähler des aktuellen Zusatzbildes
+
+  function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "") {
     const a = document.createElement("a");
     const span = document.createElement("span");
     let div;
 
-    if (usediff) {
-      div = document.createElement("div");
-      div.id = "lupesup";
-    }
     span.className = "material-icons material-icons-fontsize " + spanclass;
     span.appendChild(document.createTextNode("search"));
     a.appendChild(span);
@@ -36,12 +34,7 @@
       default:
         break;
     }
-    if (usediff) {
-      div.appendChild(a);
-      elem.insertAdjacentElement(position, div);
-    } else {
-      elem.insertAdjacentElement(position, a);
-    }
+    elem.insertAdjacentElement(position, a);
   }
 
   // setImage URL on existing element
@@ -85,8 +78,7 @@
           elem = document.getElementsByClassName("supporting-info-img-container");
           // elem = document.getElementsByClassName("carousel-container");
           imageUrl = myData.supportingImageUrls[0] + "=s0";
-          //          addFullImageButton(elem[0], imageUrl, "supportingImage", "beforeBegin", "", "", "", true);
-          addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", "lupesup", "", false);
+          addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", "lupesup");
         }
         break;
       case "EDIT":
