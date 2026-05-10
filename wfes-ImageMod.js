@@ -10,7 +10,7 @@
   let _supImageCount = 1; // wieviel Zusatzbilder gibt es?
   let _supImages; // speichern die imageUrls
   const supBtnPrevSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.prev-button";
-  const supBtnNextSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.nex-button";
+  const supBtnNextSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.next-button";
   const supLensId= "lupesup";
 
   function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "") {
@@ -102,16 +102,14 @@
           } else if (myData.supportingImageUrls.length > 1) {
             _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
             _supImageCount = myData.supportingImageUrls.length;
-            for (const imageUrl in myData.supportingImageUrls) {
-              const fullImageUrl = imageUrl + "=s0";
-              _supImages.push(fullImageUrl);
+            for (let i = 0; i < _supImageCount; i++) {
+              const imageUrl = myData.supportingImageUrls[i] + "=s0";
+              _supImages.push(imageUrl);
             }
             addFullImageButton(elem[0], _supImages[0], "supportingImage", "afterEnd", "", supLensId);
             addClickHandlerSupImg();
           }
         }
-
-
         break;
       case "EDIT":
         elem = document.getElementsByClassName("wf-image-modal");
