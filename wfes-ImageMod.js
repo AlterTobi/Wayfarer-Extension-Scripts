@@ -1,10 +1,17 @@
 // @name         image Mods
-// @version      1.2.1
+// @version      1.3.0
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
 (function() {
   "use strict";
+
+  let _currentSupImage = 0; // zähler des aktuellen Zusatzbildes
+  let _supImageCount = 1; // wieviel Zusatzbilder gibt es?
+  let _supImages; // speichern die imageUrls
+  const supBtnPrevSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.prev-button";
+  const supBtnNextSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.next-button";
+  const supLensId= "lupesup";
 
   function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "") {
     const a = document.createElement("a");
@@ -28,6 +35,8 @@
       case "afterBegin":
         elem.style.position = "relative";
         break;
+      default:
+        break;
     }
     elem.insertAdjacentElement(position, a);
   }
@@ -38,6 +47,22 @@
     elem.href = imageUrl;
   }
 
+  function handleButtonClick(value) {
+    // Modulo rechnen - _supImageCount addieren um negative Werte zu vermeiden
+    _currentSupImage = (_currentSupImage + value + _supImageCount) % _supImageCount;
+    setImageURL(supLensId, _supImages[_currentSupImage]);
+  }
+
+  // Click-Handler for supporting images (left/right)
+  function addClickHandlerSupImg() {
+    window.wfes.f.waitForElem(supBtnPrevSelector).then(elem=> {
+      elem.addEventListener("click", () => handleButtonClick(-1));
+    });
+    window.wfes.f.waitForElem(supBtnNextSelector).then(elem=> {
+      elem.addEventListener("click", () => handleButtonClick( 1));
+    });
+  }
+
   function addFullSizeImageLinksReview() {
     const myCssId = "imageModsCSSReview";
     const myStyle = `.material-icons-fontsize {
@@ -46,6 +71,12 @@
       .lupe {
         position: absolute;
         left: 0px;
+      }
+      #lupesup {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 300;
       }
       .bottom {
         bottom: 0px;
@@ -63,10 +94,21 @@
         addFullImageButton(elem[0], imageUrl, "mainImage");
 
         // Supporting Image
-        if (myData.supportingImageUrl) {
+        if (myData.supportingImageUrls) {
           elem = document.getElementsByClassName("supporting-info-img-container");
-          imageUrl = myData.supportingImageUrl + "=s0";
-          addFullImageButton(elem[0], imageUrl, "supportingImage");
+          if (1 === myData.supportingImageUrls.length) {
+            imageUrl = myData.supportingImageUrls[0] + "=s0";
+            addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
+          } else if (myData.supportingImageUrls.length > 1) {
+            _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
+            _supImageCount = myData.supportingImageUrls.length;
+            for (let i = 0; i < _supImageCount; i++) {
+              const imageUrl = myData.supportingImageUrls[i] + "=s0";
+              _supImages.push(imageUrl);
+            }
+            addFullImageButton(elem[0], _supImages[0], "supportingImage", "afterEnd", "", supLensId);
+            addClickHandlerSupImg();
+          }
         }
         break;
       case "EDIT":
