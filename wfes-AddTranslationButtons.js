@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.3.2
+// @version      2.3.4
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -91,6 +91,7 @@
   }
 
   function sendTextToTranslateWindow(fenster, text, origin) {
+    console.log("##translate##", text);
     try {
       fenster.postMessage({
         type: "translate",
@@ -199,7 +200,7 @@
     let allText = candidate.title + "\n\n";
     allText += candidate.description + "\n\n";
 
-    if (candidate.supportingImageUrl) {
+    if (candidate.statement) {
       allText += candidate.statement;
     }
     createButton(allText);
