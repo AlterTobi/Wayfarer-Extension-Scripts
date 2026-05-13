@@ -13,6 +13,7 @@
   let panorama = null;
   const headSelector = "mat-sidenav-content div.details-header > div > h4";
 
+  // eslint-disable-next-line no-unused-vars
   function scrollUp() {
     // const _dom = document.querySelector("mat-sidenav-content");
     window.wfes.f.waitForElem("mat-sidenav-content").then(
@@ -101,6 +102,6 @@
   }
 
   window.addEventListener("WFESNominationDetailLoaded", setStreetView);
-  window.addEventListener("WFESNominationDetailLoaded", scrollUp);
+  // window.addEventListener("WFESNominationDetailLoaded", scrollUp);
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
