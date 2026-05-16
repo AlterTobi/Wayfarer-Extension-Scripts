@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.3.0
+// @version      1.4.0
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
@@ -9,8 +9,12 @@
   let _currentSupImage = 0; // zähler des aktuellen Zusatzbildes
   let _supImageCount = 1; // wieviel Zusatzbilder gibt es?
   let _supImages; // speichern die imageUrls
-  const supBtnPrevSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.prev-button";
-  const supBtnNextSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.next-button";
+
+  const reviewSupBtnPrevSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.prev-button";
+  const reviewSupBtnNextSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.next-button";
+  const contribSupBtnPrevSelector = "app-details-pane wf-image-carousel button.nav-button.prev-button";
+  const contribSupBtnNextSelector = "app-details-pane wf-image-carousel button.nav-button.next-button";
+
   const supLensId= "lupesup";
 
   function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "") {
@@ -54,11 +58,11 @@
   }
 
   // Click-Handler for supporting images (left/right)
-  function addClickHandlerSupImg() {
-    window.wfes.f.waitForElem(supBtnPrevSelector).then(elem=> {
+  function reviewAddClickHandlerSupImg() {
+    window.wfes.f.waitForElem(reviewSupBtnPrevSelector).then(elem=> {
       elem.addEventListener("click", () => handleButtonClick(-1));
     });
-    window.wfes.f.waitForElem(supBtnNextSelector).then(elem=> {
+    window.wfes.f.waitForElem(reviewSupBtnNextSelector).then(elem=> {
       elem.addEventListener("click", () => handleButtonClick( 1));
     });
   }
@@ -107,7 +111,7 @@
               _supImages.push(imageUrl);
             }
             addFullImageButton(elem[0], _supImages[0], "supportingImage", "afterEnd", "", supLensId);
-            addClickHandlerSupImg();
+            reviewAddClickHandlerSupImg();
           }
         }
         break;
@@ -125,6 +129,18 @@
         break;
     }
   }
+
+
+  // Click-Handler for supporting images (left/right)
+  function contribAddClickHandlerSupImg() {
+    window.wfes.f.waitForElem(contribSupBtnPrevSelector).then(elem=> {
+      elem.addEventListener("click", () => handleButtonClick(-1));
+    });
+    window.wfes.f.waitForElem(contribSupBtnNextSelector).then(elem=> {
+      elem.addEventListener("click", () => handleButtonClick( 1));
+    });
+  }
+
 
   function addFullSizeImageLinksNomDetail() {
     const myCssId = "imageModsCSSNomDetail";
@@ -148,13 +164,13 @@
     const buttonIDmain = "imageModsBtnMain";
     const buttonIDsup = "imageModsBtnSup";
 
-    let imageUrl;
+    let elem, imageUrl;
     const myData = window.wfes.g.nominationDetail();
     // only nominations, for edits use Wayfarer Contribution Management Layout
     if ("NOMINATION" === myData.type) {
       window.wfes.f.addCSS(myCssId, myStyle);
 
-      const elem = document.getElementsByClassName("wf-image-modal details-pane__image");
+      elem = document.getElementsByClassName("wf-image-modal details-pane__image");
       imageUrl = myData.imageUrl + "=s0";
 
       // main Image
@@ -165,13 +181,47 @@
       }
 
       // Supporting Image
-      if (myData.supportingImageUrl) {
+      if (myData.supportingImageUrls) {
+        elem = document.getElementsByClassName("supporting-images-container");
+
+
+        if (1 === myData.supportingImageUrls.length) {
+          imageUrl = myData.supportingImageUrls[0] + "=s0";
+          if ( null === document.getElementById(buttonIDsup)) {
+            // addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
+            addFullImageButton(elem[0], imageUrl, "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
+          } else {
+            setImageURL(buttonIDsup, imageUrl);
+          }
+
+        } else if (myData.supportingImageUrls.length > 1) {
+          _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
+          _supImageCount = myData.supportingImageUrls.length;
+          for (let i = 0; i < _supImageCount; i++) {
+            const imageUrl = myData.supportingImageUrls[i] + "=s0";
+            _supImages.push(imageUrl);
+          }
+
+
+          if ( null === document.getElementById(buttonIDsup)) {
+            // addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
+            addFullImageButton(elem[0], _supImages[0], "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
+          } else {
+            setImageURL(buttonIDsup, _supImages[0]);
+          }
+          contribAddClickHandlerSupImg();
+
+
+        }
+
         imageUrl = myData.supportingImageUrl + "=s0";
         if ( null === document.getElementById(buttonIDsup)) {
           addFullImageButton(elem[1].parentNode, imageUrl, "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
         } else {
           setImageURL(buttonIDsup, imageUrl);
         }
+
+
       }
     } else {
       // remove magnifier
