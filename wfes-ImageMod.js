@@ -113,6 +113,7 @@
             addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
           } else if (myData.supportingImageUrls.length > 1) {
             _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
+            _currentSupImage = 0;
             _supImageCount = myData.supportingImageUrls.length;
             for (let i = 0; i < _supImageCount; i++) {
               const imageUrl = myData.supportingImageUrls[i] + "=s0";
@@ -218,6 +219,7 @@
 
         } else if (myData.supportingImageUrls.length > 1) {
           _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
+          _currentSupImage = 0;
           _supImageCount = myData.supportingImageUrls.length;
           for (let i = 0; i < _supImageCount; i++) {
             const imageUrl = myData.supportingImageUrls[i] + "=s0";
