@@ -45,6 +45,8 @@
     elem.insertAdjacentElement(position, a);
   }
 
+  // Review Handler
+
   // setImage URL on existing element
   function setImageURL(buttonID, imageUrl) {
     const elem = document.getElementById(buttonID);
@@ -130,14 +132,25 @@
     }
   }
 
+  // Contribution List Handler
+
+  const buttonIDmain = "imageModsBtnMain";
+  const buttonIDsup = "imageModsBtnSup";
+
+  function contribHandleButtonClick(value) {
+    // Modulo rechnen - _supImageCount addieren um negative Werte zu vermeiden
+    _currentSupImage = (_currentSupImage + value + _supImageCount) % _supImageCount;
+    setImageURL(buttonIDsup, _supImages[_currentSupImage]);
+  }
+
 
   // Click-Handler for supporting images (left/right)
   function contribAddClickHandlerSupImg() {
     window.wfes.f.waitForElem(contribSupBtnPrevSelector).then(elem=> {
-      elem.addEventListener("click", () => handleButtonClick(-1));
+      elem.addEventListener("click", () => contribHandleButtonClick(-1));
     });
     window.wfes.f.waitForElem(contribSupBtnNextSelector).then(elem=> {
-      elem.addEventListener("click", () => handleButtonClick( 1));
+      elem.addEventListener("click", () => contribHandleButtonClick( 1));
     });
   }
 
@@ -150,7 +163,8 @@
       .lupesup {
         position: absolute;
         left: 0px;
-        top: 20px;
+        top: 0px;
+        z-index: 300;
       }
       .luperel {
         position: relative;
@@ -160,9 +174,6 @@
         position: absolute;
       }
     `;
-
-    const buttonIDmain = "imageModsBtnMain";
-    const buttonIDsup = "imageModsBtnSup";
 
     let elem, imageUrl;
     const myData = window.wfes.g.nominationDetail();
@@ -184,7 +195,6 @@
       if (myData.supportingImageUrls) {
         elem = document.getElementsByClassName("supporting-images-container");
 
-
         if (1 === myData.supportingImageUrls.length) {
           imageUrl = myData.supportingImageUrls[0] + "=s0";
           if ( null === document.getElementById(buttonIDsup)) {
@@ -202,7 +212,6 @@
             _supImages.push(imageUrl);
           }
 
-
           if ( null === document.getElementById(buttonIDsup)) {
             // addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
             addFullImageButton(elem[0], _supImages[0], "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
@@ -210,17 +219,7 @@
             setImageURL(buttonIDsup, _supImages[0]);
           }
           contribAddClickHandlerSupImg();
-
-
         }
-
-        imageUrl = myData.supportingImageUrl + "=s0";
-        if ( null === document.getElementById(buttonIDsup)) {
-          addFullImageButton(elem[1].parentNode, imageUrl, "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
-        } else {
-          setImageURL(buttonIDsup, imageUrl);
-        }
-
 
       }
     } else {
