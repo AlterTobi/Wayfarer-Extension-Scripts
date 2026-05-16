@@ -62,10 +62,16 @@
   // Click-Handler for supporting images (left/right)
   function reviewAddClickHandlerSupImg() {
     window.wfes.f.waitForElem(reviewSupBtnPrevSelector).then(elem=> {
-      elem.addEventListener("click", () => handleButtonClick(-1));
+      if (!elem.dataset.contribClickBound) {
+        elem.addEventListener("click", () => handleButtonClick(-1));
+        elem.dataset.contribClickBound = "1";
+      }
     });
     window.wfes.f.waitForElem(reviewSupBtnNextSelector).then(elem=> {
-      elem.addEventListener("click", () => handleButtonClick( 1));
+      if (!elem.dataset.contribClickBound) {
+        elem.addEventListener("click", () => handleButtonClick( 1));
+        elem.dataset.contribClickBound = "1";
+      }
     });
   }
 
@@ -147,10 +153,16 @@
   // Click-Handler for supporting images (left/right)
   function contribAddClickHandlerSupImg() {
     window.wfes.f.waitForElem(contribSupBtnPrevSelector).then(elem=> {
-      elem.addEventListener("click", () => contribHandleButtonClick(-1));
+      if (!elem.dataset.contribClickBound) {
+        elem.addEventListener("click", () => contribHandleButtonClick(-1));
+        elem.dataset.contribClickBound = "1";
+      }
     });
     window.wfes.f.waitForElem(contribSupBtnNextSelector).then(elem=> {
-      elem.addEventListener("click", () => contribHandleButtonClick( 1));
+      if (!elem.dataset.contribClickBound) {
+        elem.addEventListener("click", () => contribHandleButtonClick( 1));
+        elem.dataset.contribClickBound = "1";
+      }
     });
   }
 
