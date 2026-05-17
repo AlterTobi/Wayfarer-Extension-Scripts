@@ -225,7 +225,7 @@ def run():
   if ref:
     if ref.group(1) == 'issue':
       extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.issue' + ref.group(2)[1:]
-    elif ref.group(1) in ['feature', 'hotfix', 'test']:
+    elif ref.group(1) in ['feature', 'hotfix', 'test', 'dev']:
       extra_version = '-beta'+environ['GITHUB_RUN_NUMBER']+'.' + ref.group(1) + '.' + ref.group(2)
   
   # process js files
