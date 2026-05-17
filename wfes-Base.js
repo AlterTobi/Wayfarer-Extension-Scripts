@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.6.0
+// @version      2.7.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -118,7 +118,8 @@
     MANAGE_DETAIL: 5,
     PROPERTIES: 6,
     SETTINGS: 7,
-    HELP: 8
+    HELP: 8,
+    MAP: 9
   };
 
   const tmpUserId = "temporaryUserId";
@@ -354,14 +355,33 @@
           window.dispatchEvent(new Event("WFESHelpPageLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
+        case PREFIX + "mapview/track/access":
+          // has no result - do nothing
+          break;
+        case PREFIX + "mapview/track/zoom-range-entered":
+          // has no result - do nothing
+          break;
         default:
         // messages?language=de
           if (PREFIX + "messages?language=" === this._url.substr(0, 18 + PREFIX.length)) {
             lang = this._url.substr(18 + PREFIX.length);
             wfes.messages[lang] = json.result;
+          } else if (this._url.startsWith("mapview")) {
+            if (this._url.startsWith("mapview/lowzoom/gcs?")) {
+              console.log("WFES Base - lowzoom map ", this._url);
+              window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
+            } else if (this._url.startsWith("mapview/gcs?")) {
+              console.log("WFES Base - map ", this._url);
+              window.dispatchEvent(new Event("WFESMapFullLoaded"));
+            } else {
+              console.log("WFES Base - unhandled map ", this._url);
+            }
+            wfes.mapdata = json.result;
+            wfes.currentPage = wfes.WF_PAGES.MAP;
+            window.dispatchEvent(new Event("WFESMapLoaded"));
+            window.dispatchEvent(new Event("WFESPageLoaded"));
           } else {
-          // console.log('WFES Base - unhandled URL: ',
-          // this._url);
+            console.log("WFES Base - unhandled URL: ", this._url);
           }
           break;
       }
@@ -832,6 +852,9 @@
   };
   window.wfes.g.showcase = function() {
     return jCopy(wfes.showcase);
+  };
+  window.wfes.g.mapdata = function() {
+    return jCopy(wfes.mapdata);
   };
   window.wfes.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
