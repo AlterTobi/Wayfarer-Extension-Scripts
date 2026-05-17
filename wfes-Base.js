@@ -109,6 +109,7 @@
   wfes.version = "0.0.0";
   wfes.userId = false;
   wfes.currentPage = null;
+  wfes.mapdata = {};
 
   wfes.WF_PAGES = {
     HOME: 1,
@@ -367,10 +368,10 @@
             lang = this._url.substr(18 + PREFIX.length);
             wfes.messages[lang] = json.result;
           } else if (this._url.startsWith("mapview")) {
-            if (this._url.startsWith("mapview/lowzoom/gcs?")) {
+            if (this._url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
               console.log("WFES Base - lowzoom map ", this._url);
               window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
-            } else if (this._url.startsWith("mapview/gcs?")) {
+            } else if (this._url.startsWith(PREFIX + "mapview/gcs?")) {
               console.log("WFES Base - map ", this._url);
               window.dispatchEvent(new Event("WFESMapFullLoaded"));
             } else {
