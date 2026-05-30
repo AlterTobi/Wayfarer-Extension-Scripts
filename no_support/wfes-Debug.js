@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.3.4
+// @version      1.3.5
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -195,7 +195,7 @@
   }
 
   function reviewNew() {
-    const lskips = ["categoryIds", "nearbyPortals", "statement", "streetAddress", "supportingImageUrl", "imageUrl"];
+    const lskips = ["categoryIds", "nearbyPortals", "statement", "streetAddress", "supportingImageUrls", "imageUrl"];
     reviewInfobox(lskips);
   }
 
@@ -210,7 +210,7 @@
   }
 
   function nominationDetail() {
-    const lskips = ["supportingImageUrl", "imageUrl", "statement", "rejectReasons",
+    const lskips = ["supportingImageUrls", "imageUrl", "statement", "rejectReasons",
       "upgraded", "city", "state", "userAppealNotes", "canHold", "canReleaseHold", "appealNotes",
       "order", "day"];
     const candidate = window.wfes.g.nominationDetail();

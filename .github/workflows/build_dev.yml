@@ -2,8 +2,8 @@ name: DEVELOP build and deploy
 on:
   push:
     branches:
-      - dev
       - main
+      - 'dev/*'
       - 'issue/*'
       - 'feature/*'
       - 'hotfix/*'
