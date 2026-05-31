@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.7.0
+// @version      2.7.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -109,7 +109,7 @@
   wfes.version = "0.0.0";
   wfes.userId = false;
   wfes.currentPage = null;
-  wfes.mapdata = {};
+  wfes.mapData = {};
 
   wfes.WF_PAGES = {
     HOME: 1,
@@ -377,7 +377,7 @@
             } else {
               console.log("WFES Base - unhandled map ", this._url);
             }
-            wfes.mapdata = json.result;
+            wfes.mapData = json.result;
             wfes.currentPage = wfes.WF_PAGES.MAP;
             window.dispatchEvent(new Event("WFESMapLoaded"));
             window.dispatchEvent(new Event("WFESPageLoaded"));
@@ -854,8 +854,8 @@
   window.wfes.g.showcase = function() {
     return jCopy(wfes.showcase);
   };
-  window.wfes.g.mapdata = function() {
-    return jCopy(wfes.mapdata);
+  window.wfes.g.mapData = function() {
+    return jCopy(wfes.mapData);
   };
   window.wfes.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
