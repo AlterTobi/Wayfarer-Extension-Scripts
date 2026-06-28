@@ -4,8 +4,8 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "eslint": "^10.4.1",
-    "globals": "^17.6.0"
+    "eslint": "^10.6.0",
+    "globals": "^17.7.0"
   },
   "scripts": {
     "lint:sarif": "eslint . -f json | node eslint-to-sarif.mjs"
