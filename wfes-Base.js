@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.7.1
+// @version      2.7.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -361,6 +361,9 @@
           break;
         case PREFIX + "mapview/track/zoom-range-entered":
           // has no result - do nothing
+          break;
+        case PREFIX + "static-map-url":
+          // map tile - do nothing
           break;
         default:
         // messages?language=de
