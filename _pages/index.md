@@ -1,8 +1,8 @@
 ## ⚠️ Notice / Hinweis
-Active development of the Wayfarer scripts has been discontinued because I will no longer use Wayfarer.
+Active development of the Wayfarer scripts has been discontinued because I no longer use Wayfarer.
 [→ Details](discontinued.html)
 
-Die aktive Entwicklung der Wayfarer-Skripte wurde eingestellt, da ich Wayfarer künftig nicht mehr nutze.
+Die aktive Entwicklung der Wayfarer-Skripte wurde eingestellt, da ich Wayfarer nicht mehr nutze.
 [→ Details](discontinued.html)
 
 
