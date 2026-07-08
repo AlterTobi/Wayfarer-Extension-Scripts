@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.8.0
+// @version      2.8.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -113,6 +113,7 @@
   wfes.livePois = {};
   wfes.poiDetails = {};
   wfes.poiImages = {};
+  wfes.submitAvailable = {};
 
   wfes.WF_PAGES = {
     HOME: 1,
@@ -123,7 +124,8 @@
     PROPERTIES: 6,
     SETTINGS: 7,
     HELP: 8,
-    MAP: 9
+    MAP: 9,
+    SUBMIT: 10
   };
 
   const tmpUserId = "temporaryUserId";
@@ -367,6 +369,12 @@
           break;
         case PREFIX + "static-map-url":
           // map tile - do nothing
+          break;
+        case PREFIX + "submit/available":
+          wfes.currentPage = wfes.WF_PAGES.SUBMIT;
+          wfes.submitAvailable = json.result;
+          window.dispatchEvent(new Event("WFESSubmitAvailable"));
+          window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         default:
         // messages?language=de
@@ -884,6 +892,9 @@
   };
   window.wfes.g.poiImages = function() {
     return jCopy(wfes.poiImages);
+  };
+  window.wfes.g.submitAvailable = function() {
+    return jCopy(wfes.submitAvailable);
   };
   window.wfes.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
