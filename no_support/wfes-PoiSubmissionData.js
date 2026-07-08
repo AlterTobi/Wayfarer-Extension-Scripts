@@ -1,6 +1,6 @@
-// @name         POI Submission Data
+// @name         POI Submission Availability
 // @version      0.0.1
-// @description  adds information about submissions (max, available)
+// @description  adds information about submission availability (max, tomorrow)
 // @author       AlterTobi
 
 (function() {
