@@ -9,10 +9,13 @@
   const sessvarMiss = "warnBase";
   const baseMinVersion = "2.8.1";
   const myCssId = "submissiondataCSS";
-  const myStyle = `.dark table {
+  const myStyle = `table {
         background-color: antiquewhite;
     }
-    table {
+    th, td {
+        border-color: inherit;
+    }
+    .dark table {
         background-color: inherit;
     }
     `;
@@ -73,12 +76,10 @@
       elem.insertAdjacentElement("beforeBegin", table);
     })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
-
   }
 
   const init = () => {
     window.addEventListener("WFESSubmitAvailable", submissionData);
-
   };
 
   // === no changes needed below this line ======================
