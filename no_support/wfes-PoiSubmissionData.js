@@ -8,9 +8,12 @@
 
   const sessvarMiss = "warnBase";
   const baseMinVersion = "2.8.1";
-  const ignored_myCssId = "submissiondataCSS";
-  const ignored_myStyle = `body {
-        display: none;
+  const myCssId = "submissiondataCSS";
+  const myStyle = `.dark table {
+        background-color: antiquewhite;
+    }
+    table {
+        background-color: inherit;
     }
     `;
   const draftSel = "app-submit-wayspot-entry > div > div.drafts-section";
@@ -62,9 +65,8 @@
   }
 
   function submissionData() {
-    // window.wfes.f.addCSS(myCssId, myStyle);
-    // YOUR CODE HERE
-    // .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
+    window.wfes.f.addCSS(myCssId, myStyle);
+
     const submissionData = window.wfes.g.submitAvailable();
     const table = createPoiTable(submissionData);
     window.wfes.f.waitForElem(draftSel).then(elem => {
