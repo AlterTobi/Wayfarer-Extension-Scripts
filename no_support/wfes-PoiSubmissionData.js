@@ -27,7 +27,7 @@
     POI_SUBMISSION: "submit new",
     POI_TAKEDOWN_REQUEST:"report wayspot",
     POI_LOCATION_UPDATE: "edit location",
-    POI_IMAGE_SUBMISSIO: "add photo",
+    POI_IMAGE_SUBMISSION: "add photo",
   };
 
   // function mostly created by ChatGPT
@@ -57,7 +57,7 @@
         data.maxSubmissions - data.submissionsLeft,
         data.dailyNewSubmissions
       );
-      const rowtitle = descriptions.title || title;
+      const rowtitle = descriptions[title] || title;
 
       [ rowtitle,
         data.maxSubmissions,
