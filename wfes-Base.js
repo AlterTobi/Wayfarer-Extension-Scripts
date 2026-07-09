@@ -114,8 +114,10 @@
   wfes.poiDetails = {};
   wfes.poiImages = {};
   wfes.submitAvailable = {};
+  wfes.loginConfig = {};
 
   wfes.WF_PAGES = {
+    STARTPAGE: 0,
     HOME: 1,
     REVIEW: 2,
     PROFILE: 3,
@@ -317,6 +319,11 @@
           if ("GET" === this._method) {
             handleReviewData(json.result);
           }
+          break;
+        case PREFIX + "loginconfig":
+          wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
+          wfes.loginConfig = json.result;
+          window.dispatchEvent(new Event("WFESStartpageLoaded"));
           break;
         case PREFIX + "profile":
           wfes.currentPage = wfes.WF_PAGES.PROFILE;
@@ -850,6 +857,9 @@
   };
   window.wfes.g.isMobile = function() {
     return _isMobile;
+  };
+  window.wfes.g.loginConfig = function() {
+    return jCopy(wfes.loginConfig);
   };
   window.wfes.g.messages = function() {
     return jCopy(wfes.messages);
