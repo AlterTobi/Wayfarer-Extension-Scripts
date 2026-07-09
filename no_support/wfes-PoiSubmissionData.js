@@ -21,7 +21,16 @@
     `;
   const draftSel = "app-submit-wayspot-entry > div > div.drafts-section";
 
-  // function created by ChatGPT
+  const descriptions = {
+    POI_CATEGORY_VOTE_SUBMISSION: "add category",
+    POI_TEXT_METADATA_UPDATE: "text update",
+    POI_SUBMISSION: "submit new",
+    POI_TAKEDOWN_REQUEST:"report wayspot",
+    POI_LOCATION_UPDATE: "edit location",
+    POI_IMAGE_SUBMISSIO: "add photo",
+  };
+
+  // function mostly created by ChatGPT
   function createPoiTable(poiData) {
     const table = document.createElement("table");
 
@@ -29,7 +38,7 @@
     const thead = document.createElement("thead");
     const headerRow = document.createElement("tr");
 
-    ["title", "max submissions", "submissions left", "tomorrow"].forEach(text => {
+    ["", "max available", "available today", "added tomorrow"].forEach(text => {
       const th = document.createElement("th");
       th.textContent = text;
       headerRow.appendChild(th);
@@ -48,13 +57,12 @@
         data.maxSubmissions - data.submissionsLeft,
         data.dailyNewSubmissions
       );
+      const rowtitle = descriptions.title || title;
 
-      [
-        title,
+      [ rowtitle,
         data.maxSubmissions,
         data.submissionsLeft,
-        tomorrow
-      ].forEach(value => {
+        tomorrow].forEach(value => {
         const td = document.createElement("td");
         td.textContent = value;
         row.appendChild(td);
