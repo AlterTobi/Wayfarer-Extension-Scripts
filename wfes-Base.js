@@ -838,7 +838,7 @@
     document.getElementById("wfesNotify").appendChild(notification);
   };
 
-  window.wfes.f.exportDatabase = async function() {
+  window.wfes.f.exportIDB = async function() {
     const db = await getIDBInstance();
 
     return new Promise((resolve, reject) => {
@@ -855,6 +855,26 @@
       request.onerror = reject;
     });
 
+  };
+
+  window.wfes.f.importIDB = async function(records) {
+    const db = await getIDBInstance();
+
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction([idbLocalStorageCompat], "readwrite");
+      const store = tx.objectStore(idbLocalStorageCompat);
+
+      for (const record of records) {
+        store.put(record);
+      }
+
+      tx.oncomplete = () => {
+        db.close();
+        resolve();
+      };
+
+      tx.onerror = reject;
+    });
   };
 
   window.wfes.f.isPage = function(...pages) {
