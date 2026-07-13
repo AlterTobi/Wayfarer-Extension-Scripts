@@ -32,7 +32,7 @@
           width: 40em;
           z-index: 100;
         }
-        
+
     /* Einzelne Notifications */
         .wfesNotification {
           border-radius: 0.5em;
@@ -44,14 +44,14 @@
           flex-direction: column;
           gap: 0.5em;
         }
-        
+
     /* Inhalt mit Text und Buttons */
         .wfesNotificationContent {
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-        
+
     /* Text */
         .wfesTextGroup {
           display: flex;
@@ -65,13 +65,13 @@
           word-wrap: break-word; /* Zeilenumbruch für lange Texte */
           overflow-wrap: break-word;
         }
-        
+
     /* Buttons-Gruppe */
         .wfesButtonGroup {
           display: flex;
           align-items: center;
         }
-        
+
     /* notification Buttons */
         .wfesNotiButton {
           font-size: 32px;
@@ -826,6 +826,25 @@
       window.wfes.f.createNotificationArea();
     }
     document.getElementById("wfesNotify").appendChild(notification);
+  };
+
+  window.wfes.f.exportDatabase = async function() {
+    const db = await getIDBInstance();
+
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction([idbLocalStorageCompat], "readonly");
+      const store = tx.objectStore(idbLocalStorageCompat);
+
+      const request = store.getAll();
+
+      request.onsuccess = () => {
+        db.close();
+        resolve(request.result);
+      };
+
+      request.onerror = reject;
+    });
+
   };
 
   window.wfes.f.isPage = function(...pages) {
