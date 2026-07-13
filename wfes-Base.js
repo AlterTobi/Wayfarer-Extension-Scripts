@@ -114,8 +114,10 @@
   wfes.poiDetails = {};
   wfes.poiImages = {};
   wfes.submitAvailable = {};
+  wfes.loginConfig = {};
 
   wfes.WF_PAGES = {
+    STARTPAGE: 0,
     HOME: 1,
     REVIEW: 2,
     PROFILE: 3,
@@ -131,6 +133,7 @@
   const tmpUserId = "temporaryUserId";
   let propsLoaded = false;
   let _isMobile = false;
+  let _isLoggedIn = true; // be optimistic
 
   window.wfes = {};
   window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
@@ -179,6 +182,7 @@
   function setUserId() {
     try {
       wfes.userId = TSH(wfes.properties.socialProfile.email).toString(16);
+      console.warn("setuserid");
     } catch(e) {
       console.error(GM_info.script.name, ": userprofile does not contain email ", e);
     }
@@ -187,7 +191,7 @@
 
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
-    if (false === propsLoaded) {
+    if (_isLoggedIn && (false === propsLoaded)) {
       if ( null !== window.document.querySelector("body > app-root > app-wayfarer")) {
         // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
         const theUrl = "/api/v1/vault/properties";
@@ -317,6 +321,12 @@
           if ("GET" === this._method) {
             handleReviewData(json.result);
           }
+          break;
+        case PREFIX + "loginconfig":
+          wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
+          _isLoggedIn = false;
+          wfes.loginConfig = json.result;
+          window.dispatchEvent(new Event("WFESStartpageLoaded"));
           break;
         case PREFIX + "profile":
           wfes.currentPage = wfes.WF_PAGES.PROFILE;
@@ -869,6 +879,12 @@
   };
   window.wfes.g.isMobile = function() {
     return _isMobile;
+  };
+  window.wfes.g.isLoggedIn = function() {
+    return _isLoggedIn;
+  };
+  window.wfes.g.loginConfig = function() {
+    return jCopy(wfes.loginConfig);
   };
   window.wfes.g.messages = function() {
     return jCopy(wfes.messages);
