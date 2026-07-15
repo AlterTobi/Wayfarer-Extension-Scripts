@@ -16,6 +16,8 @@ Install [WFES Base](wfes-Base.user.js) first!
 ---
 
 ## List of scripts
+* [Availability matrix](wfes-PoiSubmissionData.user.js)
+    - submission availability
 * [Nomination Notify](wfes-NominationNotify.user.js)
     - show nomination status updates
 * [ImageMod](wfes-ImageMod.user.js)
