@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.8.1
+// @version      2.8.4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -115,6 +115,7 @@
   wfes.poiImages = {};
   wfes.submitAvailable = {};
   wfes.loginConfig = {};
+  wfes.drafts = {};
 
   wfes.WF_PAGES = {
     STARTPAGE: 0,
@@ -394,30 +395,40 @@
           } else if (this._url.startsWith(PREFIX + "mapview")) {
             wfes.currentPage = wfes.WF_PAGES.MAP;
             if (this._url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
-              console.log("WFES Base - lowzoom map ", this._url);
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/gcs?")) {
-              console.log("WFES Base - map ", this._url);
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapFullLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/poi-images?")) {
-              console.log("WFES Base - map poi images ", this._url);
               wfes.poiImages = json.result;
               window.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/poi-details?")) {
-              console.log("WFES Base - map poi details", this._url);
               wfes.poiDetails = json.result;
               window.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
             } else {
               console.log("WFES Base - unhandled map ", this._url);
             }
           } else if (this._url.startsWith(PREFIX + "live-pois-in-radius")) {
-            console.log("WFES Base - map click", this._url);
             wfes.livePois = json.result;
             window.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
+          } else if(this._url.startsWith(PREFIX + "manage/detail")) {
+            wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
+            // nomination detail
+            wfes.nominations.detail = json.result;
+            // save nomination Details in Sessionstorage
+            window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+              nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
+              window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+                window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+                window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+              });
+            });
+          } else if (this._url.startsWith(PREFIX + "submit/get/drafts")) {
+            wfes.drafts = json.result;
+            window.dispatchEvent(new Event("WFESGetDrafts"));
           } else {
             console.log("WFES Base - unhandled URL: ", this._url);
           }
@@ -893,6 +904,9 @@
   };
   window.wfes.g.curentPage = function() {
     return jCopy(wfes.currentPage);
+  };
+  window.wfes.g.drafts = function() {
+    return jCopy(wfes.drafts);
   };
   window.wfes.g.edit = function() {
     return jCopy(wfes.edit);
