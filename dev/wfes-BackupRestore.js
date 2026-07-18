@@ -20,7 +20,7 @@
       color: #ddd;
     }
     .wfesBackupRestoreButton {
-        display: block; 
+        display: block;
         text-decoration: none;
         color: #20B8E3;
         margin: 0 auto;
@@ -78,7 +78,9 @@
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
-    console.warn(GM_info.script.name, "Need at least wfes-Base version ", baseMinVersion, " Please upgrade.");
+    const msg = GM_info.script.name + "Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    console.warn(msg);
+    window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
   /* we are done :-) */
