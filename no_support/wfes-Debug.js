@@ -245,7 +245,7 @@
   window.addEventListener("WFESHelpPageLoaded", removeInfobox);
   window.addEventListener("WFESSettingsLoaded", removeInfobox);
   window.addEventListener("WFESMapLoaded", removeInfobox);
-  
+
   // Events abfangen
   const originalDispatch = window.dispatchEvent;
   window.dispatchEvent = function(event) {
