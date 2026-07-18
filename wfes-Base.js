@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.8.3
+// @version      2.8.4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -115,6 +115,7 @@
   wfes.poiImages = {};
   wfes.submitAvailable = {};
   wfes.loginConfig = {};
+  wfes.drafts = {};
 
   wfes.WF_PAGES = {
     STARTPAGE: 0,
@@ -425,6 +426,9 @@
                 window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
               });
             });
+          } else if (this._url.startsWith(PREFIX + "submit/get/drafts")) {
+            wfes.drafts = json.result;
+            window.dispatchEvent(new Event("WFESGetDrafts"));
           } else {
             console.log("WFES Base - unhandled URL: ", this._url);
           }
@@ -861,6 +865,9 @@
   };
   window.wfes.g.curentPage = function() {
     return jCopy(wfes.currentPage);
+  };
+  window.wfes.g.drafts = function() {
+    return jCopy(wfes.drafts);
   };
   window.wfes.g.edit = function() {
     return jCopy(wfes.edit);
