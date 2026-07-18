@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.8.2
+// @version      2.8.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -418,6 +418,18 @@
             console.log("WFES Base - map click", this._url);
             wfes.livePois = json.result;
             window.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
+          } else if(this._url.startsWith(PREFIX + "manage/detail")) {
+            wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
+            // nomination detail
+            wfes.nominations.detail = json.result;
+            // save nomination Details in Sessionstorage
+            window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+              nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
+              window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+                window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+                window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+              });
+            });
           } else {
             console.log("WFES Base - unhandled URL: ", this._url);
           }
