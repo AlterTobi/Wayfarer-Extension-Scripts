@@ -394,28 +394,23 @@
           } else if (this._url.startsWith(PREFIX + "mapview")) {
             wfes.currentPage = wfes.WF_PAGES.MAP;
             if (this._url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
-              console.log("WFES Base - lowzoom map ", this._url);
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/gcs?")) {
-              console.log("WFES Base - map ", this._url);
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapFullLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/poi-images?")) {
-              console.log("WFES Base - map poi images ", this._url);
               wfes.poiImages = json.result;
               window.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/poi-details?")) {
-              console.log("WFES Base - map poi details", this._url);
               wfes.poiDetails = json.result;
               window.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
             } else {
               console.log("WFES Base - unhandled map ", this._url);
             }
           } else if (this._url.startsWith(PREFIX + "live-pois-in-radius")) {
-            console.log("WFES Base - map click", this._url);
             wfes.livePois = json.result;
             window.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
           } else if(this._url.startsWith(PREFIX + "manage/detail")) {
