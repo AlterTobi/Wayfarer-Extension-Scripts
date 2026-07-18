@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.8.4
+// @version      2.8.5
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
