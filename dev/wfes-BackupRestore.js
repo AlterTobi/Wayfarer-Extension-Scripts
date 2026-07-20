@@ -20,7 +20,6 @@
       color: #ddd;
     }
     .wfesBackupRestoreButton {
-        display: block;
         text-decoration: none;
         color: #20B8E3;
         margin: 0 auto;
@@ -65,7 +64,7 @@
       // remove if exist
       removeButton();
       const div = document.createElement("div");
-      div.className = "wfesTranslate";
+      div.className = "wfesBackupRestore";
       div.id = buttonID;
 
       const headline = document.createElement("p");
