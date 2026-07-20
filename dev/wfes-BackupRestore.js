@@ -36,6 +36,30 @@
     }
   }
 
+  async function downloadBackup() {
+
+    const userId = await window.wfes.g.userId;
+    const data = await window.wfes.f.exportIDB(userId);
+
+    const blob = new Blob(
+      [JSON.stringify(data, null, 2)],
+      { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "wfes-indexeddb-backup.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
+
+  async function uploadBackup() {
+    console.log("import follows in a later update");
+  }
+
   function showButton() {
     window.wfes.f.waitForElem("wf-logo").then(elem => {
       // remove if exist
@@ -44,16 +68,28 @@
       div.className = "wfesTranslate";
       div.id = buttonID;
 
-      const button = document.createElement("button");
-      button.title = "Translate nomination";
-      button.className = "wfesBackupRestoreButton";
-      button.innerHTML = '<span class="material-icons">download</span>';
-      button.innerHTML = '<span class="material-icons">upload</span>';
-      button.addEventListener("click", function() {
-        // EXPORT
+      const headline = document.createElement("p");
+      headline.innerText = "WFES Backup";
+
+      const downButton = document.createElement("button");
+      downButton.title = "backup and download";
+      downButton.className = "wfesBackupRestoreButton";
+      downButton.innerHTML = '<span class="material-icons">download</span>';
+      downButton.addEventListener("click", function() {
+        downloadBackup();
       });
 
-      div.appendChild(button);
+      const upButton = document.createElement("button");
+      upButton.title = "upload and restore";
+      upButton.className = "wfesBackupRestoreButton";
+      upButton.innerHTML = '<span class="material-icons">upload</span>';
+      upButton.addEventListener("click", function() {
+        uploadBackup();
+      });
+
+      div.appendChild(headline);
+      div.appendChild(downButton);
+      div.appendChild(upButton);
       const container = elem.parentNode.parentNode;
       container.appendChild(div);
     })

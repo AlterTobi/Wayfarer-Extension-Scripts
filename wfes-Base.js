@@ -849,21 +849,39 @@
     document.getElementById("wfesNotify").appendChild(notification);
   };
 
-  window.wfes.f.exportIDB = async function() {
+  window.wfes.f.exportIDB = async function(userId) {
     const db = await getIDBInstance();
 
     return new Promise((resolve, reject) => {
+      const result = [];
       const tx = db.transaction([idbLocalStorageCompat], "readonly");
       const store = tx.objectStore(idbLocalStorageCompat);
 
-      const request = store.getAll();
-
+      /*      const request = store.getAll();
       request.onsuccess = () => {
         db.close();
         resolve(request.result);
       };
 
+*/
+
+      const request = store.openCursor();
       request.onerror = reject;
+      request.onsuccess = (event) => {
+        const cursor = event.target.result;
+
+        if (!cursor) {
+          db.close();
+          resolve(result);
+          return;
+        }
+
+        if (cursor.key.endsWith("_" + userId)) {
+          result.push(cursor.value);
+        }
+
+        cursor.continue();
+      };
     });
 
   };
