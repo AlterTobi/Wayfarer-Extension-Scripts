@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.3.6
+// @version      1.3.7
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -224,10 +224,18 @@
 
   function addMail2ProfilePic() {
     // email ADresse ausgeben
+    let titletext;
     const props = window.wfes.g.properties();
     const email = props.socialProfile.email;
+    const uid = window.wfes.f.hasUserId();
+    if (uid) {
+      titletext = email + " # " + uid;
+    } else {
+      titletext = email;
+    }
     window.wfes.f.waitForElem(profileImageSelector).then(elem=>{
-      elem.setAttribute("title", email);
+      elem.setAttribute("title", titletext);
+      elem.setAttribute("alt", titletext);
     });
   }
 
