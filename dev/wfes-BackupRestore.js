@@ -22,7 +22,7 @@
     .wfesBackupRestoreButton {
         color: #20B8E3;
         margin: 0 auto;
-        padding: 0em 0.3em;
+        padding: 0em 0.5em;
     }
     `;
 
