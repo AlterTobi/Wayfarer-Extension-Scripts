@@ -1,5 +1,5 @@
 // @name         Template
-// @version      1.2.0
+// @version      1.2.1
 // @description  Template (do not install)
 // @author       AlterTobi
 
@@ -8,7 +8,7 @@
 
   const sessvarMiss = "warnBase";
   const baseMinVersion = "2.3.0";
-  const myCssId = "templateCSS";
+  const myCssId = "wfesTemplateCSS";
   const myStyle = `body {
         display: none;
     }
@@ -35,7 +35,9 @@
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
-    console.warn(GM_info.script.name, "Need at least wfes-Base version ", baseMinVersion, " Please upgrade.");
+    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    console.warn(msg);
+    window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
   /* we are done :-) */
