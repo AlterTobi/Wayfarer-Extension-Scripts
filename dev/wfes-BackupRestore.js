@@ -1,5 +1,5 @@
 // @name         Backup Restore IDB Data
-// @version      0.1.0
+// @version      0.2.0
 // @description  Allows backup and restore of WFES IDB data
 // @author       AlterTobi
 
@@ -55,10 +55,6 @@
     URL.revokeObjectURL(url);
   }
 
-  async function uploadBackup() {
-    console.log("import follows in a later update");
-  }
-
   function showButton() {
     window.wfes.f.waitForElem("wf-logo").then(elem => {
       // remove if exist
@@ -78,13 +74,28 @@
         downloadBackup();
       });
 
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = ".json,application/json";
+      input.style.display = "none";
+
       const upButton = document.createElement("button");
       upButton.title = "upload and restore";
       upButton.className = "wfesBackupRestoreButton";
       upButton.innerHTML = '<span class="material-icons">upload</span>';
       upButton.addEventListener("click", function() {
-        uploadBackup();
+        input.click();
       });
+
+      input.onchange = async() => {
+        if (!input.files.length) {return;}
+        try {
+          const backup = JSON.parse(await input.files[0].text());
+          await window.wfes.f.importIDB(backup);
+        } finally {
+          input.value = "";
+        }
+      };
 
       div.appendChild(headline);
       div.appendChild(downButton);

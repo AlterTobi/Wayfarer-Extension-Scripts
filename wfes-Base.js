@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.8.5
+// @version      2.8.6
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -904,6 +904,7 @@
       tx.oncomplete = () => {
         db.close();
         resolve();
+        window.wfes.f.createNotification("import done");
       };
 
       tx.onerror = reject;
