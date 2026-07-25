@@ -2,8 +2,8 @@
 // @version      0.3.0
 // @description  Allows backup and restore of WFES IDB data
 // @author       AlterTobi
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-IDBBackupRestore.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-IDBBackupRestore.meta.js
+// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-IDBBackupRestore.user.js
+// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/wfes-IDBBackupRestore.meta.js
 
 (function() {
   "use strict";
