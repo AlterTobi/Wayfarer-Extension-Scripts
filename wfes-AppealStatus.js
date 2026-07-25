@@ -1,5 +1,5 @@
 // @name         Appeal Status
-// @version      1.0.0
+// @version      1.0.1
 // @description  tells you if an appeal is available
 // @author       AlterTobi
 
@@ -19,13 +19,14 @@
     .dark .wfesAppealStatus {
       color: #ddd;
     }
-    .wfesAppealStatusButtonYes {
-        color: #62D638;
+    .wfesAppealStatusButton {
         margin: 0 auto;
     }
-    .wfesAppealStatusButtonNo {
+    .wfesCYes {
+        color: #62D638;
+    }
+    .wfesCNo {
         color: #E13535;
-        margin: 0 auto;
     }
     `;
 
@@ -54,10 +55,10 @@
       statusButton.title = "appeal status";
 
       if (canAppeal) {
-        statusButton.className = "wfesAppealStatusButtonYes";
+        statusButton.className = "wfesAppealStatusButton wfesCYes";
         statusButton.innerHTML = '<span class="material-icons">check_circle</span>';
       } else {
-        statusButton.className = "wfesAppealStatusButtonNo";
+        statusButton.className = "wfesAppealStatusButton wfesCNo";
         statusButton.innerHTML = '<span class="material-icons">cancel</span>';
       }
 
