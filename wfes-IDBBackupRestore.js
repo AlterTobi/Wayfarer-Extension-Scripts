@@ -1,9 +1,7 @@
 // @name         Backup Restore IDB Data
-// @version      0.3.0
+// @version      0.4.0
 // @description  Allows backup and restore of WFES IDB data
 // @author       AlterTobi
-// @downloadURL    https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-IDBBackupRestore.user.js
-// @updateURL      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/wfes-IDBBackupRestore.meta.js
 
 (function() {
   "use strict";
@@ -22,9 +20,14 @@
       color: #ddd;
     }
     .wfesBackupRestoreButton {
-        color: #20B8E3;
         margin: 0 auto;
         padding: 0em 0.3em;
+    }
+    .wfesCDown {
+        color: #62D638;
+    }
+    .wfesCUp {
+        color: #F6E135;
     }
     `;
 
@@ -62,7 +65,7 @@
       // remove if exist
       removeButton();
       const div = document.createElement("div");
-      div.className = "wfesBackupRestore";
+      div.className = "wfesBackupRestore activ";
       div.id = buttonID;
 
       const headline = document.createElement("p");
@@ -70,7 +73,7 @@
 
       const downButton = document.createElement("button");
       downButton.title = "backup and download";
-      downButton.className = "wfesBackupRestoreButton";
+      downButton.className = "wfesBackupRestoreButton wfesCDown";
       downButton.innerHTML = '<span class="material-icons">download</span>';
       downButton.addEventListener("click", function() {
         downloadBackup();
@@ -83,7 +86,7 @@
 
       const upButton = document.createElement("button");
       upButton.title = "upload and restore";
-      upButton.className = "wfesBackupRestoreButton";
+      upButton.className = "wfesBackupRestoreButton wfesCUp";
       upButton.innerHTML = '<span class="material-icons">upload</span>';
       upButton.addEventListener("click", function() {
         input.click();

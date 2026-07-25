@@ -16,8 +16,10 @@ Zuerst [WFES Base](wfes-Base.user.js) installieren!
 ---
 
 ## Liste der Skripte
+* [Appeal Status](wfes-AppealStatus.user.js)
+    - zeigt an, ob aktuell ein Appeal möglich ist
 * [Verfügbarkeitsmatrix](wfes-PoiSubmissionData.user.js)
-    - Zeigt eine übersicht der verfügbaren Einreichungen nach Typ
+    - Zeigt eine Übersicht der verfügbaren Einreichungen nach Typ
 * [Nomination Notify](wfes-NominationNotify.user.js)
     - erkennt und zeigt Änderungen des Status eigener Einreichungen
 * [ImageMod](wfes-ImageMod.user.js)
