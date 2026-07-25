@@ -1,6 +1,6 @@
 // @name         Appeal Status
-// @version      0.1.0
-// @description  simply shows if you have an appeal available
+// @version      0.2.0
+// @description  tells you if an appeal is available
 // @author       AlterTobi
 
 (function() {
@@ -47,10 +47,9 @@
       div.id = buttonID;
 
       const headline = document.createElement("p");
-      headline.innerText = "Appeal Status";
+      headline.innerText = "Appeal";
 
       const canAppeal = window.wfes.g.canAppeal();
-
       const statusButton = document.createElement("button");
       statusButton.title = "appeal status";
 

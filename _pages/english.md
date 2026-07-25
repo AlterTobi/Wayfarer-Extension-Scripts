@@ -16,6 +16,8 @@ Install [WFES Base](wfes-Base.user.js) first!
 ---
 
 ## List of scripts
+* [Appeal Status](wfes-AppealStatus.user.js)
+    - tells you, if an appeal is available
 * [Availability matrix](wfes-PoiSubmissionData.user.js)
     - submission availability
 * [Nomination Notify](wfes-NominationNotify.user.js)
