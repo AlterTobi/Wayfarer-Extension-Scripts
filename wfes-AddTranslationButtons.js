@@ -2,14 +2,14 @@
 // @version      2.4.0
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
+// @match        https://wayfarer.scopely.com/*
 // @match        https://www.deepl.com/*
 // @match        https://translate.kagi.com/*
 
 (function() {
   "use strict";
 
-  const ORIGIN_WAYFARER = "https://wayfarer.nianticlabs.com";
+  const ORIGIN_WAYFARER = "https://wayfarer.scopely.com";
   const ORIGIN_DEEPL = "https://www.deepl.com";
   const ORIGIN_KAGI = "https://translate.kagi.com";
 
