@@ -861,14 +861,6 @@
       const tx = db.transaction([idbLocalStorageCompat], "readonly");
       const store = tx.objectStore(idbLocalStorageCompat);
 
-      /*      const request = store.getAll();
-      request.onsuccess = () => {
-        db.close();
-        resolve(request.result);
-      };
-
-*/
-
       const request = store.openCursor();
       request.onerror = reject;
       request.onsuccess = (event) => {
