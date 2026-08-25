@@ -1,5 +1,5 @@
 // @name         Backup Restore IDB Data
-// @version      0.4.0
+// @version      0.5.0
 // @description  Allows backup and restore of WFES IDB data
 // @author       AlterTobi
 
