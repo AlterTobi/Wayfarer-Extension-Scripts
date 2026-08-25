@@ -1,5 +1,5 @@
 // @name         Appeal Status
-// @version      1.0.1
+// @version      1.1.0
 // @description  tells you if an appeal is available
 // @author       AlterTobi
 

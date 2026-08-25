@@ -1,5 +1,5 @@
 // @name         ORCa
-// @version      1.0.2
+// @version      1.1.0
 // @description  ORCa
 // @author       AlterTobi
 // @resource     orca https://altertobi.github.io/Wayfarer-Extension-Scripts/images/orca.png

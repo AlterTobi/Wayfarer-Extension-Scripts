@@ -10,7 +10,7 @@
 Tools and scripts for Niantic Wayfarer
 
 ### What is it?
-Userscripts for [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+Userscripts for [NIANTIC WAYFARER](https://wayfarer.scopely.com/)
 
 ### Download 
 Scripts and some documentation are available at my [GitHub Pages](https://altertobi.github.io/Wayfarer-Extension-Scripts/).
@@ -31,7 +31,7 @@ Pull-Requests are welcome.
 Tools und Skripte für Niantic Wayfarer
 
 ### Was ist das?
-Userskripte für [NIANTIC WAYFARER](https://wayfarer.nianticlabs.com/)
+Userskripte für [NIANTIC WAYFARER](https://wayfarer.scopely.com/)
 
 ### Download 
 Die Skripte und eine Dokumentation sind auf meinen [GitHub Pages](https://altertobi.github.io/Wayfarer-Extension-Scripts/) verfügbar.

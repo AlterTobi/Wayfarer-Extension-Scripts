@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.7.2
+// @version     1.8.0
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 

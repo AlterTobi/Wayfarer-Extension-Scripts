@@ -1,5 +1,5 @@
 // @name         Click Enlarge Images
-// @version      1.0.1
+// @version      1.1.0
 // @description  auto-click the enlarge images symbols (requires image mod script)
 // @author       AlterTobi
 

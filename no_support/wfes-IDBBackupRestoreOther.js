@@ -1,6 +1,6 @@
-// @name         Backup Restore IDB Data
-// @version      0.5.1
-// @description  Allows backup and restore of WFES IDB data
+// @name         Backup IDB Data from wayfarer tools
+// @version      0.1.1
+// @description  backup and restore of wayfarer tools IDB data
 // @author       AlterTobi
 
 (function() {
@@ -8,30 +8,32 @@
 
   const sessvarMiss = "warnBase";
   const baseMinVersion = "2.8.5";
-  const myCssId = "wfesBackupRestoreCSS";
-  const myStyle = `.wfesBackupRestore {
+  const myCssId = "wfesBackupRestoreOtherOtherCSS";
+  const myStyle = `.wfesBackupRestoreOther {
       color: #333;
       margin-left: 2em;
       padding-top: 0.3em;
       text-align: center;
       display: block;
     }
-    .dark .wfesBackupRestore {
+    .dark .wfesBackupRestoreOther {
       color: #ddd;
     }
-    .wfesBackupRestoreButton {
+    .wfesBackupRestoreOtherButton {
         margin: 0 auto;
         padding: 0em 0.3em;
     }
-    .wfesCDown {
-        color: #62D638;
+    .wfbkCDown {
+        color: #32D6B8;
     }
-    .wfesCUp {
-        color: #F6E135;
+    .wfbkCUp {
+        color: #F7b105;
     }
     `;
 
-  const buttonID = "wfesBackupRestoreButton";
+  const buttonID = "wfesBackupRestoreOtherButton";
+
+  const idbName = "wayfarer-tools-db";
 
   function getDateTimeAsString() {
     const now = new Date();
@@ -53,10 +55,59 @@
     }
   }
 
-  async function downloadBackup() {
+  /* =========== IndexedDB ============================= */
+  const getIDBInstance = version => new Promise((resolve, reject) => {
 
-    const userId = await window.wfes.g.userId;
-    const data = await window.wfes.f.exportIDB(userId);
+    if (!window.indexedDB) {
+      reject("This browser doesn't support IndexedDB!");
+      return;
+    }
+
+    const openRequest = window.indexedDB.open(idbName, version);
+    openRequest.onsuccess = event => {
+      const db = event.target.result;
+      resolve(db);
+    };
+    openRequest.onerror = (event) => {
+      console.error("Error using IndexedDB", event.target.errorCode);
+      reject(event.target.error);
+    };
+  });
+  /* =========== /IndexedDB ============================ */
+
+  const exportIDB = async function() {
+    const db = await getIDBInstance();
+
+    const tx = db.transaction(db.objectStoreNames, "readonly");
+    const promises = [];
+
+    for (let i = 0; i < db.objectStoreNames.length; i++) {
+      const storeName = db.objectStoreNames.item(i);
+      const store = tx.objectStore(storeName);
+
+      promises.push(
+        new Promise((resolve, reject) => {
+          const request = store.getAll();
+
+          request.onsuccess = () => {
+            resolve([storeName, request.result]);
+          };
+
+          request.onerror = event => {
+            reject(event.target.error);
+          };
+        })
+      );
+    }
+
+    const stores = await Promise.all(promises);
+
+    return Object.fromEntries(stores);
+  };
+
+
+  async function downloadBackup() {
+    const data = await exportIDB();
 
     const blob = new Blob(
       [JSON.stringify(data, null, 2)],
@@ -68,26 +119,49 @@
     const datestr = getDateTimeAsString();
     const a = document.createElement("a");
     a.href = url;
-    a.download = "wfes-indexeddb-backup_" + datestr + ".json";
+    a.download = "wayfarer-indexeddb-backup_" + datestr + ".json";
     a.click();
 
     URL.revokeObjectURL(url);
   }
 
+  const importIDB = async function(records) {
+    return records;
+    /*
+    const db = await getIDBInstance();
+
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction([idbLocalStorageCompat], "readwrite");
+      const store = tx.objectStore(idbLocalStorageCompat);
+
+      for (const record of records) {
+        store.put(record);
+      }
+
+      tx.oncomplete = () => {
+        db.close();
+        resolve();
+        window.wfes.f.createNotification("import done");
+      };
+
+      tx.onerror = reject;
+    });
+*/
+  };
   function showButton() {
     window.wfes.f.waitForElem("wf-logo").then(elem => {
       // remove if exist
       removeButton();
       const div = document.createElement("div");
-      div.className = "wfesBackupRestore activ";
+      div.className = "wfesBackupRestoreOther activ";
       div.id = buttonID;
 
       const headline = document.createElement("p");
-      headline.innerText = "WFES Backup";
+      headline.innerText = "WF Backup";
 
       const downButton = document.createElement("button");
       downButton.title = "backup and download";
-      downButton.className = "wfesBackupRestoreButton wfesCDown";
+      downButton.className = "wfesBackupRestoreOtherButton wfbkCDown";
       downButton.innerHTML = '<span class="material-icons">download</span>';
       downButton.addEventListener("click", function() {
         downloadBackup();
@@ -100,7 +174,7 @@
 
       const upButton = document.createElement("button");
       upButton.title = "upload and restore";
-      upButton.className = "wfesBackupRestoreButton wfesCUp";
+      upButton.className = "wfesBackupRestoreOtherButton wfbkCUp";
       upButton.innerHTML = '<span class="material-icons">upload</span>';
       upButton.addEventListener("click", function() {
         input.click();
@@ -110,7 +184,7 @@
         if (!input.files.length) {return;}
         try {
           const backup = JSON.parse(await input.files[0].text());
-          await window.wfes.f.importIDB(backup);
+          await importIDB(backup);
         } finally {
           input.value = "";
         }

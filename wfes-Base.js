@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.8.6
+// @version      2.9.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -860,14 +860,6 @@
       const result = [];
       const tx = db.transaction([idbLocalStorageCompat], "readonly");
       const store = tx.objectStore(idbLocalStorageCompat);
-
-      /*      const request = store.getAll();
-      request.onsuccess = () => {
-        db.close();
-        resolve(request.result);
-      };
-
-*/
 
       const request = store.openCursor();
       request.onerror = reject;

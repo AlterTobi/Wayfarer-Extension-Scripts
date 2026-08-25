@@ -1,5 +1,5 @@
 // @name         POI Submission Availability
-// @version      1.0.0
+// @version      1.1.0
 // @description  adds information about submission availability (max, tomorrow)
 // @author       AlterTobi
 

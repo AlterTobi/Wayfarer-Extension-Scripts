@@ -1,5 +1,5 @@
 // @name         Anti Social
-// @version      1.0.1
+// @version      1.1.0
 // @description  hides group size selection from socialize card (greetings to @Tntnnbltn)
 // @author       AlterTobi
 
