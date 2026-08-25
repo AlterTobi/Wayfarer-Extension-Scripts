@@ -1,5 +1,5 @@
 // @name         Backup IDB Data from wayfarer tools
-// @version      0.1.0
+// @version      0.1.1
 // @description  backup and restore of wayfarer tools IDB data
 // @author       AlterTobi
 
