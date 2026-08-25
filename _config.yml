@@ -1,0 +1,12 @@
+theme: jekyll-theme-hacker
+title: Wayfarer Extension Scripts
+description: A collection of helpful userscripts and tools for Niantic Wayfarer – designed to make reviewing and nominations faster and easier.
+show_downloads: false
+plugins:
+  - jekyll-sitemap
+defaults:
+  -
+    scope:
+      path:            "dev/**/*"
+    values:
+      sitemap:         false
