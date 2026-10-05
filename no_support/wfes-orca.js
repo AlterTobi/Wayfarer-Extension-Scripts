@@ -1,5 +1,5 @@
 // @name         ORCa
-// @version      1.1.0
+// @version      1.1.1
 // @description  ORCa
 // @author       AlterTobi
 // @resource     orca https://altertobi.github.io/Wayfarer-Extension-Scripts/images/orca.png
@@ -13,6 +13,7 @@
       color: #333;
       margin-left: 2em;
       text-align: center;
+      align-self: center;
       display: block;
     }
     `;
