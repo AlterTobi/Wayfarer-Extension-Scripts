@@ -1,5 +1,5 @@
 // @name         Backup Restore IDB Data
-// @version      0.5.1
+// @version      0.5.2
 // @description  Allows backup and restore of WFES IDB data
 // @author       AlterTobi
 
@@ -12,7 +12,7 @@
   const myStyle = `.wfesBackupRestore {
       color: #333;
       margin-left: 2em;
-      padding-top: 0.3em;
+      align-self: center;
       text-align: center;
       display: block;
     }
