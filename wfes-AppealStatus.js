@@ -1,5 +1,5 @@
 // @name         Appeal Status
-// @version      1.1.0
+// @version      1.1.1
 // @description  tells you if an appeal is available
 // @author       AlterTobi
 
@@ -12,7 +12,7 @@
   const myStyle = `.wfesAppealStatus {
       color: #333;
       margin-left: 2em;
-      padding-top: 0.3em;
+      align-self: center;
       text-align: center;
       display: block;
     }
