@@ -1,5 +1,5 @@
 // @name         Backup IDB Data from wayfarer tools
-// @version      0.1.1
+// @version      0.1.2
 // @description  backup and restore of wayfarer tools IDB data
 // @author       AlterTobi
 
@@ -12,7 +12,7 @@
   const myStyle = `.wfesBackupRestoreOther {
       color: #333;
       margin-left: 2em;
-      padding-top: 0.3em;
+      align-self: center;
       text-align: center;
       display: block;
     }

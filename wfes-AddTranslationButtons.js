@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.4.0
+// @version      2.4.1
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.scopely.com/*
@@ -18,7 +18,7 @@
   const myStyle = `.wfesTranslate {
       color: #333;
       margin-left: 2em;
-      padding-top: 0.3em;
+      align-self: center;
       text-align: center;
       display: block;
     }

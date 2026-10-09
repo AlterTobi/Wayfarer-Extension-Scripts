@@ -1,5 +1,5 @@
 // @name        Expire Timer
-// @version     1.2.0
+// @version     1.2.1
 // @description Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author      MrJPGames / AlterTobi
 
@@ -11,7 +11,7 @@
   const myStyle = `.wfesExpire {
       color: #333;
       margin-left: 2em;
-      padding-top: 0.3em;
+      align-self: center;
       text-align: center;
       display: flex;
       align-items: center;
