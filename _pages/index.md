@@ -1,3 +1,9 @@
+# so long and thanks for all the fish
+.
+.
+.
+.
+
 ## ⚠️ Notice / Hinweis
 Active development of the Wayfarer scripts has been discontinued because I no longer use Wayfarer.
 [→ Details](discontinued.html)
