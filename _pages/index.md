@@ -1,4 +1,4 @@
-# so long and thanks for all the fish
+# so long, and thanks for all the fish
 .
 .
 .

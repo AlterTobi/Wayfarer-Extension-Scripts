@@ -1,4 +1,11 @@
-# Wayfarer Extension Scripts
+# so long, and thanks for all the fish
+.
+.
+.
+.
+
+
+Wayfarer Extension Scripts
 ---
 ## English
 
