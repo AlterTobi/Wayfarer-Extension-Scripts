@@ -1,8 +1,8 @@
 ## What is it?
-This site offers a collection of my userscripts and tools for [Niantic Wayfarer](https://wayfarer.scopely.com/), designed to help you review and manage nominations faster and more efficiently.
+This site offers a collection of my userscripts and tools for [Scopely Wayfarer](https://wayfarer.scopely.com/), designed to help you review and manage nominations faster and more efficiently.
 All listed extensions aim to improve the Wayfarer experience and make everyday tasks easier.
 
-Please note: These projects are unofficial and not affiliated with Niantic or Wayfarer.
+Please note: These projects are unofficial and not affiliated with Scopely or Wayfarer.
 Use them at your own risk.
 
 > Userscript manager such as [Tampermonkey](https://tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/) required!

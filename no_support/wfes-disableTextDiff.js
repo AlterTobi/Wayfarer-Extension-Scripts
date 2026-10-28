@@ -1,6 +1,6 @@
 // @name         Disable Text Diff
 // @version      1.1.0
-// @description  disables the Niantic text diff display by clicking at the slider
+// @description  disables the Wayfarer text diff display by clicking at the slider
 // @author       AlterTobi
 
 (function() {

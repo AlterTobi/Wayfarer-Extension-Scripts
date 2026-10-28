@@ -1,8 +1,8 @@
 ## Was ist das hier?
-Diese Seite bietet eine Sammlung meiner Userscripts und Tools für [Niantic Wayfarer](https://wayfarer.scopely.com/), die dir helfen sollen, Bewertungen und Vorschläge schneller und komfortabler zu bearbeiten.
+Diese Seite bietet eine Sammlung meiner Userscripts und Tools für [Scopely Wayfarer](https://wayfarer.scopely.com/), die dir helfen sollen, Bewertungen und Vorschläge schneller und komfortabler zu bearbeiten.
 Alle hier vorgestellten Erweiterungen wurden mit dem Ziel entwickelt, die Nutzung von Wayfarer zu verbessern und alltägliche Aufgaben zu vereinfachen.
 
-Bitte beachte: Diese Projekte sind inoffiziell und stehen in keiner Verbindung zu Niantic oder Wayfarer.
+Bitte beachte: Diese Projekte sind inoffiziell und stehen in keiner Verbindung zu Scopely oder Wayfarer.
 Die Verwendung erfolgt auf eigene Verantwortung.
 
 > ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) oder [Violentmonkey](https://violentmonkey.github.io/) ist erforderlich!

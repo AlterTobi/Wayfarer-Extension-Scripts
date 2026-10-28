@@ -143,7 +143,6 @@ def fill_meta(source, script_name):
   append_line('namespace', cfg['namespace'])
   append_line('homepage', cfg['homepage'])
   append_line('supportURL', cfg['supportURL'])
-  # append_line('icon', 'https://wayfarer.nianticlabs.com/imgpub/favicon-256.png')
   append_line('icon', cfg['favicon'])
   append_line('icon64', cfg['favicon64'])
   

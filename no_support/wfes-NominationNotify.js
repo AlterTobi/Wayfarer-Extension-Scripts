@@ -65,7 +65,7 @@
 
   const detectMissing = () => new Promise((resolve, reject) => {
     // check if saved nomination is not in current list
-    // might be in review by Niantic staff
+    // might be in review by Scopely staff
     const nomDict = window.wfes.f.makeIDbasedDictionary(window.wfes.g.nominationsList());
     window.wfes.f.localGet(lStoreList, []).then((historyDict)=>{
       const today = getCurrentDateStr();
@@ -156,10 +156,10 @@
             window.wfes.f.createNotification(`${notiTitle} was upgraded!`, "green", callbackConfig);
           }
 
-          // Niantic Review?
+          // Scopely Review?
           if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
           || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
-            window.wfes.f.createNotification(`${notiTitle} went into Niantic review!`, "fuchsia", callbackConfig);
+            window.wfes.f.createNotification(`${notiTitle} went into Scopely review!`, "fuchsia", callbackConfig);
           }
 
           // was missing?
