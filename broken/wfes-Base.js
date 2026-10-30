@@ -984,7 +984,10 @@
     getUserId().then((userID) => {
       resolve(userID);
     })
-      .catch( () => {resolve(tmpUserId);});
+      .catch( () => {
+        console.warn("%c" + GM_info.script.name + " keine Userid gefunden, nutze temp", "background-color: red;color: yellow");
+        resolve(tmpUserId);
+      });
   });
   window.wfes.g.wfPages = function() {
     return jCopy(wfes.WF_PAGES);
