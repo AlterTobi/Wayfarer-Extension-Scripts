@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.9.1
+// @version      3.0.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -983,7 +983,8 @@
   window.wfes.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
       resolve(userID);
-    });
+    })
+      .catch( () => {resolve(tmpUserId);});
   });
   window.wfes.g.wfPages = function() {
     return jCopy(wfes.WF_PAGES);
