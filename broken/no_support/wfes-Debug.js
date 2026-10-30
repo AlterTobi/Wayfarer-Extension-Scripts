@@ -260,6 +260,7 @@
     if (event.type.startsWith("WFES")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
       window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+      console.log(GM_info.script.name + "%c # " + event.type, "color: fuchsia");
     }
     return originalDispatch.call(this, event);
   };
