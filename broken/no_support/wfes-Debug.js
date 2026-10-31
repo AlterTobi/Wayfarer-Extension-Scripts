@@ -2,7 +2,7 @@
 // @version      1.5.0
 // @description  show some debugging info
 // @author       AlterTobi
-// @rquire       https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/js/userscript-logger.js
+// @require      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/js/userscript-logger.js
 
 (function() {
   "use strict";
