@@ -10,7 +10,7 @@
   "use strict";
 
   // wegen der *monkey Sandboxen
-  // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+  const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
@@ -136,12 +136,12 @@
   let _isMobile = false;
   let _isLoggedIn = true; // be optimistic
 
-  window.wfes = {};
-  window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
+  globalWindow.wfes = {};
+  globalWindow.wfes.f = globalWindow.wfes.g = globalWindow.wfes.s = {}; // functions, getter, setter
 
   // test for mobile platform, for browser compatibility see
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
-  if ((undefined !== window.navigator.userAgentData ) && window.navigator.userAgentData.mobile ) {
+  if ((undefined !== globalWindow.navigator.userAgentData ) && globalWindow.navigator.userAgentData.mobile ) {
     _isMobile = true;
   }
 
@@ -167,7 +167,7 @@
     if (wfes.version !== v) {
       // console.log("WF version changed from", wfes.version, "to", v);
       wfes.version = v;
-      window.dispatchEvent(new Event("WFESVersionChanged"));
+      globalWindow.dispatchEvent(new Event("WFESVersionChanged"));
     }
   }
 
@@ -188,13 +188,13 @@
       console.error(GM_info.script.name, ": userprofile does not contain email ", e);
     }
   }
-  window.addEventListener("WFESPropertiesLoaded", setUserId);
+  globalWindow.addEventListener("WFESPropertiesLoaded", setUserId);
 
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
     if (_isLoggedIn && (false === propsLoaded)) {
-      if ( null !== window.document.querySelector("body > app-root > app-wayfarer")) {
-        // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
+      if ( null !== globalWindow.document.querySelector("body > app-root > app-wayfarer")) {
+        // make sure, application is loaded, login is: globalWindow.document.querySelector('body > app-root > app-login')
         const theUrl = "/api/v1/vault/properties";
         const request = new XMLHttpRequest();
         request.open("GET", theUrl, true);
@@ -228,12 +228,12 @@
   /* =========== IndexedDB ============================= */
   const getIDBInstance = version => new Promise((resolve, reject) => {
 
-    if (!window.indexedDB) {
+    if (!globalWindow.indexedDB) {
       reject("This browser doesn't support IndexedDB!");
       return;
     }
 
-    const openRequest = window.indexedDB.open(idbName, version);
+    const openRequest = globalWindow.indexedDB.open(idbName, version);
     openRequest.onsuccess = event => {
       const db = event.target.result;
       resolve(db);
@@ -254,16 +254,16 @@
   /* =========== /IndexedDB ============================ */
 
   /* ================ overwrite XHR ================ */
-  const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
+  const openOrig = globalWindow.XMLHttpRequest.prototype.open, sendOrig = globalWindow.XMLHttpRequest.prototype.send;
 
   /* handle data */
   function handleReviewData(result) {
     // save review data in ...pagedata and sessionstore
-    window.wfes.f.sessionGet(sStoreReview, [] ).then((reviewSessionHist)=>{
-      wfes.review.sessionHist = window.wfes.f.makeIDbasedDictionary(reviewSessionHist);
+    globalWindow.wfes.f.sessionGet(sStoreReview, [] ).then((reviewSessionHist)=>{
+      wfes.review.sessionHist = globalWindow.wfes.f.makeIDbasedDictionary(reviewSessionHist);
       if (undefined === wfes.review.sessionHist[result.id]) {
         reviewSessionHist.push(result);
-        window.wfes.f.sessionSave(sStoreReview, reviewSessionHist);
+        globalWindow.wfes.f.sessionSave(sStoreReview, reviewSessionHist);
         wfes.review.sessionHist[result.id] = result;
       }
     });
@@ -272,7 +272,7 @@
     wfes.review.pageData = result;
     switch (wfes.review.pageData.type) {
       case "NEW":
-        window.dispatchEvent(new Event("WFESReviewPageNewLoaded"));
+        globalWindow.dispatchEvent(new Event("WFESReviewPageNewLoaded"));
         break;
       case "EDIT":
         wfes.edit.isEdit = true;
@@ -280,14 +280,14 @@
         wfes.edit.what.location = result.locationEdits.length > 1;
         wfes.edit.what.description = result.descriptionEdits.length > 0;
         wfes.edit.what.title = result.titleEdits.length > 0;
-        window.dispatchEvent(new Event("WFESReviewPageEditLoaded"));
+        globalWindow.dispatchEvent(new Event("WFESReviewPageEditLoaded"));
         break;
       case "PHOTO":
-        window.dispatchEvent(new Event("WFESReviewPagePhotoLoaded"));
+        globalWindow.dispatchEvent(new Event("WFESReviewPagePhotoLoaded"));
         break;
     }
-    window.dispatchEvent(new Event("WFESReviewPageLoaded"));
-    window.dispatchEvent(new Event("WFESPageLoaded"));
+    globalWindow.dispatchEvent(new Event("WFESReviewPageLoaded"));
+    globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
   }
 
   function handleLoadEvent(e) {
@@ -314,8 +314,8 @@
         case PREFIX + "home":
           wfes.currentPage = wfes.WF_PAGES.HOME;
           wfes.showcase.list = json.result.showcase;
-          window.dispatchEvent(new Event("WFESHomePageLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESHomePageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "review":
           wfes.currentPage = wfes.WF_PAGES.REVIEW;
@@ -327,50 +327,50 @@
           wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
           _isLoggedIn = false;
           wfes.loginConfig = json.result;
-          window.dispatchEvent(new Event("WFESStartpageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESStartpageLoaded"));
           break;
         case PREFIX + "profile":
           wfes.currentPage = wfes.WF_PAGES.PROFILE;
           wfes.profile = json.result;
-          window.dispatchEvent(new Event("WFESProfileLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESProfileLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "manage":
           wfes.currentPage = wfes.WF_PAGES.MANAGE;
           // nomination list
           wfes.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
           wfes.nominations.canAppeal = json.result.canAppeal;
-          window.dispatchEvent(new Event("WFESNominationListLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESNominationListLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "manage/detail":
           wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
           // nomination detail
           wfes.nominations.detail = json.result;
           // save nomination Details in Sessionstorage
-          window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+          globalWindow.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
             nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-            window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
-              window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-              window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+            globalWindow.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+              globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
             });
           });
           break;
         case PREFIX + "properties":
           wfes.currentPage = wfes.WF_PAGES.PROPERTIES;
           wfes.properties = json.result;
-          window.dispatchEvent(new Event("WFESPropertiesLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPropertiesLoaded"));
           break;
         case PREFIX + "settings":
           wfes.currentPage = wfes.WF_PAGES.SETTINGS;
           wfes.settings = json.result;
-          window.dispatchEvent(new Event("WFESSettingsLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESSettingsLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "help":
           wfes.currentPage = wfes.WF_PAGES.HELP;
-          window.dispatchEvent(new Event("WFESHelpPageLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESHelpPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "mapview/track/access":
           // has no result - do nothing
@@ -384,8 +384,8 @@
         case PREFIX + "submit/available":
           wfes.currentPage = wfes.WF_PAGES.SUBMIT;
           wfes.submitAvailable = json.result;
-          window.dispatchEvent(new Event("WFESSubmitAvailable"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESSubmitAvailable"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         default:
         // messages?language=de
@@ -396,39 +396,39 @@
             wfes.currentPage = wfes.WF_PAGES.MAP;
             if (this._url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
               wfes.mapData = json.result;
-              window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
-              window.dispatchEvent(new Event("WFESMapLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/gcs?")) {
               wfes.mapData = json.result;
-              window.dispatchEvent(new Event("WFESMapFullLoaded"));
-              window.dispatchEvent(new Event("WFESMapLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapFullLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/poi-images?")) {
               wfes.poiImages = json.result;
-              window.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
             } else if (this._url.startsWith(PREFIX + "mapview/poi-details?")) {
               wfes.poiDetails = json.result;
-              window.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
             } else {
               console.log("WFES Base - unhandled map ", this._url);
             }
           } else if (this._url.startsWith(PREFIX + "live-pois-in-radius")) {
             wfes.livePois = json.result;
-            window.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
+            globalWindow.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
           } else if(this._url.startsWith(PREFIX + "manage/detail")) {
             wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
             // nomination detail
             wfes.nominations.detail = json.result;
             // save nomination Details in Sessionstorage
-            window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+            globalWindow.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
               nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-              window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
-                window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-                window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+              globalWindow.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+                globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+                globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
               });
             });
           } else if (this._url.startsWith(PREFIX + "submit/get/drafts")) {
             wfes.drafts = json.result;
-            window.dispatchEvent(new Event("WFESGetDrafts"));
+            globalWindow.dispatchEvent(new Event("WFESGetDrafts"));
           } else {
             console.log("WFES Base - unhandled URL: ", this._url);
           }
@@ -461,7 +461,7 @@
           candidate = wfes.review.sessionHist[json.id];
           wfes.review.decision.candidate = candidate;
           wfes.review.decision.decision = json;
-          window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+          globalWindow.dispatchEvent(new Event("WFESReviewDecisionSent"));
           break;
         case PREFIX + "review/skip":
           json = JSON.parse(daten);
@@ -469,12 +469,12 @@
           wfes.review.decision.candidate = candidate;
           json.skipped = true;
           wfes.review.decision.decision = json;
-          window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+          globalWindow.dispatchEvent(new Event("WFESReviewDecisionSent"));
           break;
         case PREFIX + "manage/appeal":
           json = JSON.parse(daten);
           wfes.review.appeal = json;
-          window.dispatchEvent(new Event("WFESReviewAppealSent"));
+          globalWindow.dispatchEvent(new Event("WFESReviewAppealSent"));
           break;
         default:
           break;
@@ -483,15 +483,15 @@
     return sendOrig.apply(this, arguments);
   }
 
-  window.XMLHttpRequest.prototype.open = openReplacement;
-  window.XMLHttpRequest.prototype.send = sendReplacement;
+  globalWindow.XMLHttpRequest.prototype.open = openReplacement;
+  globalWindow.XMLHttpRequest.prototype.send = sendReplacement;
   /* ================ /overwrite XHR ================ */
 
   /* ================ showcase ====================== */
   function showCaseSwipe() {
-    const myDetail = window.document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
+    const myDetail = globalWindow.document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
     wfes.showcase.current = myDetail;
-    window.dispatchEvent(new Event("WFESShowCaseClick"));
+    globalWindow.dispatchEvent(new Event("WFESShowCaseClick"));
   }
 
   function showCaseLoaded() {
@@ -507,12 +507,12 @@
     }
 
     wfes.showcase.current = wfes.showcase.list[0];
-    const buttons = window.document.getElementsByClassName("wf-button showcase-gallery__button wf-button--icon ng-star-inserted");
+    const buttons = globalWindow.document.getElementsByClassName("wf-button showcase-gallery__button wf-button--icon ng-star-inserted");
     for (let i=0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", () => setTimeout(()=>{
-        const myDetail = window.document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
+        const myDetail = globalWindow.document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
         wfes.showcase.current = myDetail;
-        window.dispatchEvent(new Event("WFESShowCaseClick"));
+        globalWindow.dispatchEvent(new Event("WFESShowCaseClick"));
       }, 100));
     }
     if (_isMobile) {
@@ -531,13 +531,13 @@
     }
   }
 
-  window.addEventListener("WFESHomePageLoaded", () => {setTimeout(showCaseLoaded, 250);});
+  globalWindow.addEventListener("WFESHomePageLoaded", () => {setTimeout(showCaseLoaded, 250);});
   /* ================ /showcase ===================== */
 
   /* ================ nomination page =============== */
   function loadCachedNomination(nomItem) {
     if (undefined === wfes.nominations.detail) {
-      window.setTimeout(loadCachedNomination, 250, nomItem);
+      globalWindow.setTimeout(loadCachedNomination, 250, nomItem);
       return;
     }
     const myID = nomItem.__ngContext__[22].id;
@@ -545,7 +545,7 @@
       // already loaded, do nothing
       return;
     }
-    window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+    globalWindow.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
       const nomDetail = nominationDict[myID];
       if (undefined === nomDetail) {
         // nothing there, ignore
@@ -553,13 +553,13 @@
       }
       // set cached values
       wfes.nominations.detail = nomDetail;
-      window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+      globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"));
     });
   }
   function nominationsClickHander(elem) {
     const nomItem = elem.target.closest("app-submissions-list-item");
     if (nomItem) {
-      window.setTimeout(loadCachedNomination, 250, nomItem);
+      globalWindow.setTimeout(loadCachedNomination, 250, nomItem);
     } else {
       console.warn(GM_info.script.name, ": app-submissions-list-item missing");
     }
@@ -572,12 +572,12 @@
       console.warn(GM_info.script.name, ": app-submissions-list missing");
     }
   }
-  window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
+  globalWindow.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
   /* ================ /nomination page ============== */
 
   /* ================ basic functions =============== */
   // save data in "localstorage"
-  window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
+  globalWindow.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "localSave:", userId, name, content);
       const index = name+"_"+userId;
@@ -600,7 +600,7 @@
   });
 
   // get data from "localstorage"
-  window.wfes.f.iDBGetLScompat = (name, content = "") => new Promise((resolve, reject) => {
+  globalWindow.wfes.f.iDBGetLScompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
       const index = name+"_"+userId;
@@ -626,7 +626,7 @@
   });
 
   // save data in localstorage
-  window.wfes.f.localStorageSave = (name, content) => new Promise((resolve, reject) => {
+  globalWindow.wfes.f.localStorageSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       localStorage.setItem(name+"_"+userId, json);
@@ -635,7 +635,7 @@
   });
 
   // get data from localstorage
-  window.wfes.f.localStorageGet = (name, content = "") => new Promise((resolve, reject) => {
+  globalWindow.wfes.f.localStorageGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const data = JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
       resolve(data);
@@ -643,7 +643,7 @@
   });
 
   // remove data from localstorage
-  window.wfes.f.localStorageRemove = (name) => new Promise((resolve, reject) => {
+  globalWindow.wfes.f.localStorageRemove = (name) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       localStorage.removeItem(name+"_"+userId);
       resolve();
@@ -651,21 +651,21 @@
   });
 
   // get data from IDB or localstorage
-  window.wfes.f.localGet = (name, content = "") => new Promise((resolve, reject) => {
-    window.wfes.f.iDBGetLScompat(name, content)
+  globalWindow.wfes.f.localGet = (name, content = "") => new Promise((resolve, reject) => {
+    globalWindow.wfes.f.iDBGetLScompat(name, content)
       .then(data => {
         if ((data !== content)&&(undefined !== data)) { // got something
           resolve(data);
         } else {
-          window.wfes.f.localStorageGet(name, content)
+          globalWindow.wfes.f.localStorageGet(name, content)
             .then((data) => {
               // jetzt in IDB speichern
-              window.wfes.f.localSave(name, data)
+              globalWindow.wfes.f.localSave(name, data)
                 .then(()=>{
                   getUserId().then((userId) => {
                     if (tmpUserId !== userId) {
                       // wenn in IDB gespeichert und eine gültige userID da ist: löschen
-                      window.wfes.f.localStorageRemove(name);
+                      globalWindow.wfes.f.localStorageRemove(name);
                     }
                   });
                 });
@@ -676,7 +676,7 @@
   });
 
   // save data in sessionstorage
-  window.wfes.f.sessionSave = (name, content) => new Promise((resolve, reject) => {
+  globalWindow.wfes.f.sessionSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
       sessionStorage.setItem(name+"_"+userId, json);
@@ -685,7 +685,7 @@
   });
 
   // gete data from sessionstorage
-  window.wfes.f.sessionGet = (name, content = "") => new Promise((resolve, reject) => {
+  globalWindow.wfes.f.sessionGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const data = JSON.parse(sessionStorage.getItem(name+"_"+userId)) || content;
       resolve(data);
@@ -693,7 +693,7 @@
   });
 
   // add CSS to the head, if not there
-  window.wfes.f.addCSS = function(myID, styles) {
+  globalWindow.wfes.f.addCSS = function(myID, styles) {
     if ("string"===typeof(myID) && myID.length>0) {
       // already there?
       if (null === document.getElementById(myID)) {
@@ -714,7 +714,7 @@
   // all items and uses it's unique ID as key and stores relevant values under
   // that key. This way on checking we can simply find the ID when looking at
   // a current item
-  window.wfes.f.makeIDbasedDictionary = function(itemList) {
+  globalWindow.wfes.f.makeIDbasedDictionary = function(itemList) {
     const dict = {};
     let item;
     for (let i = 0; i < itemList.length; i++) {
@@ -724,15 +724,15 @@
     return dict;
   };
 
-  window.wfes.f.hasUserId = function() {
+  globalWindow.wfes.f.hasUserId = function() {
     return wfes.userId;
   };
 
-  window.wfes.f.hasMinVersion = function(version = "1.0.0") {
+  globalWindow.wfes.f.hasMinVersion = function(version = "1.0.0") {
     return version <= GM_info.script.version;
   };
 
-  window.wfes.f.createNotificationArea = function() {
+  globalWindow.wfes.f.createNotificationArea = function() {
     const myID = "wfesNotify";
     if ( null === document.getElementById(myID)) {
       const container = document.createElement("div");
@@ -743,7 +743,7 @@
     }
   };
 
-  window.wfes.f.createNotification = function(message = "no message", color = "green", callbackConfig = null) {
+  globalWindow.wfes.f.createNotification = function(message = "no message", color = "green", callbackConfig = null) {
     const notification = document.createElement("div");
     switch (color) {
       case "red":
@@ -848,12 +848,12 @@
     };
 
     if (!document.getElementById("wfesNotify")) {
-      window.wfes.f.createNotificationArea();
+      globalWindow.wfes.f.createNotificationArea();
     }
     document.getElementById("wfesNotify").appendChild(notification);
   };
 
-  window.wfes.f.exportIDB = async function(userId) {
+  globalWindow.wfes.f.exportIDB = async function(userId) {
     const db = await getIDBInstance();
 
     return new Promise((resolve, reject) => {
@@ -882,7 +882,7 @@
 
   };
 
-  window.wfes.f.importIDB = async function(records) {
+  globalWindow.wfes.f.importIDB = async function(records) {
     const db = await getIDBInstance();
 
     return new Promise((resolve, reject) => {
@@ -896,91 +896,91 @@
       tx.oncomplete = () => {
         db.close();
         resolve();
-        window.wfes.f.createNotification("import done");
+        globalWindow.wfes.f.createNotification("import done");
       };
 
       tx.onerror = reject;
     });
   };
 
-  window.wfes.f.isPage = function(...pages) {
+  globalWindow.wfes.f.isPage = function(...pages) {
     return pages.includes(wfes.currentPage);
   };
 
-  window.wfes.f.waitForElem = _waitForElem;
+  globalWindow.wfes.f.waitForElem = _waitForElem;
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */
-  window.wfes.g.baseVersion = function() {
+  globalWindow.wfes.g.baseVersion = function() {
     return GM_info.script.version;
   };
-  window.wfes.g.canAppeal = function() {
+  globalWindow.wfes.g.canAppeal = function() {
     return jCopy(wfes.nominations.canAppeal);
   };
-  window.wfes.g.curentPage = function() {
+  globalWindow.wfes.g.curentPage = function() {
     return jCopy(wfes.currentPage);
   };
-  window.wfes.g.drafts = function() {
+  globalWindow.wfes.g.drafts = function() {
     return jCopy(wfes.drafts);
   };
-  window.wfes.g.edit = function() {
+  globalWindow.wfes.g.edit = function() {
     return jCopy(wfes.edit);
   };
-  window.wfes.g.isMobile = function() {
+  globalWindow.wfes.g.isMobile = function() {
     return _isMobile;
   };
-  window.wfes.g.isLoggedIn = function() {
+  globalWindow.wfes.g.isLoggedIn = function() {
     return _isLoggedIn;
   };
-  window.wfes.g.loginConfig = function() {
+  globalWindow.wfes.g.loginConfig = function() {
     return jCopy(wfes.loginConfig);
   };
-  window.wfes.g.messages = function() {
+  globalWindow.wfes.g.messages = function() {
     return jCopy(wfes.messages);
   };
-  window.wfes.g.nominationDetail = function() {
+  globalWindow.wfes.g.nominationDetail = function() {
     return jCopy(wfes.nominations.detail);
   };
-  window.wfes.g.nominationsList = function() {
+  globalWindow.wfes.g.nominationsList = function() {
     return jCopy(wfes.nominations.list);
   };
-  window.wfes.g.profile = function() {
+  globalWindow.wfes.g.profile = function() {
     return jCopy(wfes.profile);
   };
-  window.wfes.g.properties = function() {
+  globalWindow.wfes.g.properties = function() {
     return jCopy(wfes.properties);
   };
-  window.wfes.g.reviewAppeal = function() {
+  globalWindow.wfes.g.reviewAppeal = function() {
     return jCopy(wfes.review.appeal);
   };
-  window.wfes.g.reviewDecision = function() {
+  globalWindow.wfes.g.reviewDecision = function() {
     return jCopy(wfes.review.decision);
   };
-  window.wfes.g.reviewPageData = function() {
+  globalWindow.wfes.g.reviewPageData = function() {
     return jCopy(wfes.review.pageData);
   };
-  window.wfes.g.settings = function() {
+  globalWindow.wfes.g.settings = function() {
     return jCopy(wfes.settings);
   };
-  window.wfes.g.showcase = function() {
+  globalWindow.wfes.g.showcase = function() {
     return jCopy(wfes.showcase);
   };
-  window.wfes.g.mapData = function() {
+  globalWindow.wfes.g.mapData = function() {
     return jCopy(wfes.mapData);
   };
-  window.wfes.g.livePois = function() {
+  globalWindow.wfes.g.livePois = function() {
     return jCopy(wfes.livePois);
   };
-  window.wfes.g.poiDetails = function() {
+  globalWindow.wfes.g.poiDetails = function() {
     return jCopy(wfes.poiDetails);
   };
-  window.wfes.g.poiImages = function() {
+  globalWindow.wfes.g.poiImages = function() {
     return jCopy(wfes.poiImages);
   };
-  window.wfes.g.submitAvailable = function() {
+  globalWindow.wfes.g.submitAvailable = function() {
     return jCopy(wfes.submitAvailable);
   };
-  window.wfes.g.userId = new Promise((resolve, reject) => {
+  globalWindow.wfes.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
       resolve(userID);
     })
@@ -989,33 +989,33 @@
         resolve(tmpUserId);
       });
   });
-  window.wfes.g.wfPages = function() {
+  globalWindow.wfes.g.wfPages = function() {
     return jCopy(wfes.WF_PAGES);
   };
-  window.wfes.g.wfVersion = function() {
+  globalWindow.wfes.g.wfVersion = function() {
     return jCopy(wfes.version);
   };
   /* ================ /getter ======================= */
 
   /* ================ setter ======================== */
-  window.wfes.s.callback = function(what, func) {
+  globalWindow.wfes.s.callback = function(what, func) {
     switch (what) {
       case "showcaseclick":
-        window.addEventListener("showcaseclick", func);
+        globalWindow.addEventListener("showcaseclick", func);
         break;
     }
   };
   /* ================ /setter ======================= */
 
   // make objects immutable
-  Object.freeze(window.wfes.f);
-  Object.freeze(window.wfes.g);
-  Object.freeze(window.wfes.s);
-  Object.freeze(window.wfes);
+  Object.freeze(globalWindow.wfes.f);
+  Object.freeze(globalWindow.wfes.g);
+  Object.freeze(globalWindow.wfes.s);
+  Object.freeze(globalWindow.wfes);
 
   if (document.location.pathname !== loginPath ) {
-    window.wfes.f.addCSS(myCssId, myStyle);
-    window.wfes.f.createNotificationArea();
+    globalWindow.wfes.f.addCSS(myCssId, myStyle);
+    globalWindow.wfes.f.createNotificationArea();
   }
 
   /* we are done :-) */
