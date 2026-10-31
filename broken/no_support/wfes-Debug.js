@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      1.4.0
+// @version      1.5.0
 // @description  show some debugging info
 // @author       AlterTobi
 
