@@ -12,6 +12,8 @@
   // wegen der *monkey Sandboxen
   const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
+  const logger = new globalWindow.UserScriptLogger(GM_info.script.name, true);
+
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
   const loginPath = "/login";
@@ -292,6 +294,12 @@
 
   function handleLoadEvent(e) {
     try {
+      logger.custom()
+        .blue()
+        .bgYellow()
+        .text("load handler")
+        .print();
+
       const response = this.response;
       const json = JSON.parse(response);
       // ignore captcha
@@ -1020,4 +1028,5 @@
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.info("Script geladen.");
 })();
