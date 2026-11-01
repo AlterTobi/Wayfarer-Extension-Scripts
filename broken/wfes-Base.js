@@ -294,13 +294,17 @@
 
   function handleLoadEvent(e) {
     try {
+
+      logger.debug(handleLoadEvent);
+
+      const response = this.response;
+
       logger.custom()
         .blue()
         .bgYellow()
-        .text("load handler")
+        .text("response")
         .print();
 
-      const response = this.response;
       const json = JSON.parse(response);
       // ignore captcha
       if (json.captcha) {
@@ -1027,6 +1031,5 @@
   }
 
   /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-  logger.info("Script geladen.");
+  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
