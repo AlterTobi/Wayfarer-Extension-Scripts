@@ -34,3 +34,15 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           target-folder: dev
           single-commit: true # need no history
+
+      - name: Deploy JS lib
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_DEPLOY_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: _pages/js/
+          state-name:  ${{ secrets.FTP_STATE_NAME }}
+    
+
