@@ -145,7 +145,7 @@ def fill_meta(source, script_name):
   append_line('supportURL', cfg['supportURL'])
   append_line('icon', cfg['favicon'])
   append_line('icon64', cfg['favicon64'])
-  append_line('require', cfg['logger'])
+  append_line('require', cfg['logger']+ '?nonce=' + environ['GITHUB_RUN_NUMBER'])
 
   url_dist_base = cfg.get('url_dist_base',fallback = False)
   if url_dist_base:
