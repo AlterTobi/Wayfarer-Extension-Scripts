@@ -456,7 +456,7 @@
   function openReplacement(method, url, async, user, password) {
     this._url = url;
     this._method = method;
-    // console.log( "WFES OPEN: ", method, url );
+    logger.debug( "WFES OPEN: ", method, url );
     if (PREFIX === this._url.substr(0, PREFIX.length)) {
       // handle only Wayfarer URLs
       this.addEventListener("load", handleLoadEvent);
