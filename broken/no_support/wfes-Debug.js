@@ -7,7 +7,8 @@
   "use strict";
 
   // wegen der *monkey Sandboxen
-  const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+  // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+  const globalWindow = window;
 
   // 1. Initialisieren (Nimmt automatisch deinen Skriptnamen aus den Metadaten)
   const logger = new globalWindow.UserScriptLogger(GM_info.script.name, true);
