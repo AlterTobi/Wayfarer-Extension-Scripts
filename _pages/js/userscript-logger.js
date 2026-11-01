@@ -51,7 +51,7 @@ globalWindow.UserScriptLogger = (function() {
     bgBlue() { this.currentStyles.push("background: #00bcd4; padding: 1px 4px; border-radius: 3px;"); return this; }
     bgDark() { this.currentStyles.push("background: #222222; padding: 1px 4px; border-radius: 3px;"); return this; }
     bgGray() { this.currentStyles.push("background: #aaaaaa; padding: 1px 4px; border-radius: 3px;"); return this; }
-    
+
     // Formatierungen
     bold() { this.currentStyles.push("font-weight: bold;"); return this; }
     italic() { this.currentStyles.push("font-style: italic;"); return this; }
