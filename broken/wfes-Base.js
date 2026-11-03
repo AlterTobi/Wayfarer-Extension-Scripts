@@ -310,7 +310,7 @@
       }
 
       if ("OK" !== json.code) {
-        console.warn("WFES: got no OK from server", response);
+        console.warn("WFES: got no OK from server", json);
         return;
       }
       if (json.result) {
