@@ -1,5 +1,5 @@
 // @name         Backup Restore IDB Data
-// @version      0.5.2
+// @version      0.5.99
 // @description  Allows backup and restore of WFES IDB data
 // @author       AlterTobi
 
@@ -141,7 +141,7 @@
       console.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
     }
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
-    init();
+    // init();
   } else {
     const msg = GM_info.script.name + "Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
     console.warn(msg);

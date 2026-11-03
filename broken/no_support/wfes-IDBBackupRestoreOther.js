@@ -1,5 +1,5 @@
 // @name         Backup IDB Data from wayfarer tools
-// @version      0.1.2
+// @version      0.1.99
 // @description  backup and restore of wayfarer tools IDB data
 // @author       AlterTobi
 
@@ -215,7 +215,7 @@
       console.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
     }
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
-    init();
+    // init();
   } else {
     const msg = GM_info.script.name + "Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
     console.warn(msg);
