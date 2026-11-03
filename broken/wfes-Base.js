@@ -13,7 +13,7 @@
   // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
   const globalWindow = window;
 
-  const logger = new UserScriptLogger(GM_info.script.name, true);
+  const logger = new globalWindow.UserScriptLogger(GM_info.script.name, true);
 
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
@@ -455,34 +455,80 @@
 
   /* ================ overwrite fetch ================ */
   // AI notice: Gemini
+  /* ================ overwrite FETCH (GET & POST) ================ */
   const fetchOrig = window.fetch;
 
   window.fetch = async function(input, init) {
-    // Ermittle die URL (fetch akzeptiert Request-Objekte oder Strings)
+    // 1. URL ermitteln
     const url = "string" === typeof input ? input : input.url;
 
-    // Prüfen, ob die URL mit dem PREFIX übereinstimmt
     if (url && url.startsWith(PREFIX)) {
-      // Führe den originalen fetch-Aufruf aus
+      // 2. HTTP-Methode ermitteln (Standard bei fetch ist GET)
+      const method = (init && init.method) ? init.method.toUpperCase() : "GET";
+
+      // ====================================================
+      // BEHANDLUNG FÜR POST-REQUESTS (Ehemals sendReplacement)
+      // ====================================================
+      if ("POST" === method && init && init.body) {
+        try {
+          const daten = init.body;
+
+          // Falls der Body ein FormData- oder Blob-Objekt ist, müsste er anders gelesen werden.
+          // Bei JSON-Payloads ist es in der Regel ein String:
+          if ("string" === typeof daten) {
+            let candidate, json;
+
+            switch (url) {
+              case PREFIX + "review":
+                json = JSON.parse(daten);
+                candidate = wfes.review.sessionHist[json.id];
+                wfes.review.decision.candidate = candidate;
+                wfes.review.decision.decision = json;
+                globalWindow.dispatchEvent(new Event("WFESReviewDecisionSent"));
+                break;
+              case PREFIX + "review/skip":
+                json = JSON.parse(daten);
+                candidate = wfes.review.sessionHist[json.id];
+                wfes.review.decision.candidate = candidate;
+                json.skipped = true;
+                wfes.review.decision.decision = json;
+                globalWindow.dispatchEvent(new Event("WFESReviewDecisionSent"));
+                break;
+              case PREFIX + "manage/appeal":
+                json = JSON.parse(daten);
+                wfes.review.appeal = json;
+                globalWindow.dispatchEvent(new Event("WFESReviewAppealSent"));
+                break;
+              default:
+                break;
+            }
+          }
+        } catch (err) {
+          logger.error("Fehler beim Verarbeiten der POST-Daten:", err);
+        }
+      }
+
+      // ====================================================
+      // ORIGINALEN FETCH AUSFÜHREN & RESPONSE ABFANGEN (GET)
+      // ====================================================
       const response = await fetchOrig.apply(this, arguments);
 
-      // Wichtig: Response klonen, da der Body sonst für die Webseite blockiert ist
-      const responseClone = response.clone();
+      if ("GET" === method) {
+        const responseClone = response.clone();
 
-      // Hier wird die asynchrone Verarbeitung gestartet, ohne auf das Ende zu warten
-      (async() => {
-        try {
-          const json = await responseClone.json();
-          handleFetchData(url, json); // Dein bestehender Code bleibt unverändert
-        } catch (err) {
-          console.error("Fehler beim Parsen des JSON:", err);
-        }
-      })();
-
+        // Hier wird die asynchrone Verarbeitung gestartet, ohne auf das Ende zu warten
+        (async() => {
+          try {
+            const json = await responseClone.json();
+            handleFetchData(url, json); // Dein bestehender Code bleibt unverändert
+          } catch (err) {
+            logger.error("Fehler beim Parsen des JSON:", err);
+          }
+        })();
+      }
       return response;
     }
 
-    // Alle anderen URLs normal durchwinken
     return fetchOrig.apply(this, arguments);
   };
   /* ================ /overwrite fetch =============== */

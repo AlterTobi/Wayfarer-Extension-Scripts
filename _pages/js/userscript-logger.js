@@ -2,8 +2,8 @@
 // wegen der *monkey Sandboxen
 // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
-// globalWindow.UserScriptLogger = (function() {
-UserScriptLogger = (function() {
+//  globalWindow.UserScriptLogger = (function() {
+window.UserScriptLogger = (function() {
   "use strict";
 
   class CustomLogBuilder {
