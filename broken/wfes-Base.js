@@ -295,16 +295,14 @@
   /* ================ handle fetch data ================ */
 
 
-  function handleFetchData(url, response) {
-    logger.debug("handleFetchData");
+  function handleFetchData(url, json) {
+    logger.debug("handleFetchData", url);
     try {
       logger.custom()
         .blue()
         .bgYellow()
-        .text(response)
+        .text(json)
         .print();
-
-      const json = JSON.parse(response);
 
       // ignore captcha
       if (json.captcha) {
@@ -443,7 +441,7 @@
             wfes.drafts = json.result;
             globalWindow.dispatchEvent(new Event("WFESGetDrafts"));
           } else {
-            logger.debug("WFES Base - unhandled URL: ", url);
+            logger.error("WFES Base - unhandled URL: ", url);
           }
           break;
       }
