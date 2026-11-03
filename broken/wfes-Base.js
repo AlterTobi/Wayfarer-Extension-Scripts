@@ -256,8 +256,6 @@
   });
   /* =========== /IndexedDB ============================ */
 
-  /* ================ overwrite XHR ================ */
-  const openOrig = globalWindow.XMLHttpRequest.prototype.open, sendOrig = globalWindow.XMLHttpRequest.prototype.send;
 
   /* handle data */
   function handleReviewData(result) {
@@ -292,6 +290,208 @@
     globalWindow.dispatchEvent(new Event("WFESReviewPageLoaded"));
     globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
   }
+
+
+  /* ================ handle fetch data ================ */
+
+
+  function handleFetchData(url, response) {
+    logger.debug(handleFetchData);
+    try {
+      logger.custom()
+        .blue()
+        .bgYellow()
+        .text("response")
+        .print();
+
+      const json = JSON.parse(response);
+
+      // ignore captcha
+      if (json.captcha) {
+        return;
+      }
+
+      if ("OK" !== json.code) {
+        console.warn("WFES: got no OK from server", response);
+        return;
+      }
+      if (json.result) {
+        checkWfVersion(json.version);
+      } else {
+        logger.warn("WFES: got no result from server");
+        return;
+      }
+
+      let lang;
+      switch (url) {
+        case PREFIX + "home":
+          wfes.currentPage = wfes.WF_PAGES.HOME;
+          wfes.showcase.list = json.result.showcase;
+          globalWindow.dispatchEvent(new Event("WFESHomePageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
+          break;
+        case PREFIX + "review":
+          wfes.currentPage = wfes.WF_PAGES.REVIEW;
+          if ("GET" === this._method) {
+            handleReviewData(json.result);
+          }
+          break;
+        case PREFIX + "loginconfig":
+          wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
+          _isLoggedIn = false;
+          wfes.loginConfig = json.result;
+          globalWindow.dispatchEvent(new Event("WFESStartpageLoaded"));
+          break;
+        case PREFIX + "profile":
+          wfes.currentPage = wfes.WF_PAGES.PROFILE;
+          wfes.profile = json.result;
+          globalWindow.dispatchEvent(new Event("WFESProfileLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
+          break;
+        case PREFIX + "manage":
+          wfes.currentPage = wfes.WF_PAGES.MANAGE;
+          // nomination list
+          wfes.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
+          wfes.nominations.canAppeal = json.result.canAppeal;
+          globalWindow.dispatchEvent(new Event("WFESNominationListLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
+          break;
+        case PREFIX + "manage/detail":
+          wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
+          // nomination detail
+          wfes.nominations.detail = json.result;
+          // save nomination Details in Sessionstorage
+          globalWindow.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+            nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
+            globalWindow.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+              globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+            });
+          });
+          break;
+        case PREFIX + "properties":
+          wfes.currentPage = wfes.WF_PAGES.PROPERTIES;
+          wfes.properties = json.result;
+          globalWindow.dispatchEvent(new Event("WFESPropertiesLoaded"));
+          break;
+        case PREFIX + "settings":
+          wfes.currentPage = wfes.WF_PAGES.SETTINGS;
+          wfes.settings = json.result;
+          globalWindow.dispatchEvent(new Event("WFESSettingsLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
+          break;
+        case PREFIX + "help":
+          wfes.currentPage = wfes.WF_PAGES.HELP;
+          globalWindow.dispatchEvent(new Event("WFESHelpPageLoaded"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
+          break;
+        case PREFIX + "mapview/track/access":
+          // has no result - do nothing
+          break;
+        case PREFIX + "mapview/track/zoom-range-entered":
+          // has no result - do nothing
+          break;
+        case PREFIX + "static-map-url":
+          // map tile - do nothing
+          break;
+        case PREFIX + "submit/available":
+          wfes.currentPage = wfes.WF_PAGES.SUBMIT;
+          wfes.submitAvailable = json.result;
+          globalWindow.dispatchEvent(new Event("WFESSubmitAvailable"));
+          globalWindow.dispatchEvent(new Event("WFESPageLoaded"));
+          break;
+        default:
+        // messages?language=de
+          if (PREFIX + "messages?language=" === url.substr(0, 18 + PREFIX.length)) {
+            lang = url.substr(18 + PREFIX.length);
+            wfes.messages[lang] = json.result;
+          } else if (url.startsWith(PREFIX + "mapview")) {
+            wfes.currentPage = wfes.WF_PAGES.MAP;
+            if (url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
+              wfes.mapData = json.result;
+              globalWindow.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapLoaded"));
+            } else if (url.startsWith(PREFIX + "mapview/gcs?")) {
+              wfes.mapData = json.result;
+              globalWindow.dispatchEvent(new Event("WFESMapFullLoaded"));
+              globalWindow.dispatchEvent(new Event("WFESMapLoaded"));
+            } else if (url.startsWith(PREFIX + "mapview/poi-images?")) {
+              wfes.poiImages = json.result;
+              globalWindow.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
+            } else if (url.startsWith(PREFIX + "mapview/poi-details?")) {
+              wfes.poiDetails = json.result;
+              globalWindow.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
+            } else {
+              console.log("WFES Base - unhandled map ", url);
+            }
+          } else if (url.startsWith(PREFIX + "live-pois-in-radius")) {
+            wfes.livePois = json.result;
+            globalWindow.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
+          } else if(url.startsWith(PREFIX + "manage/detail")) {
+            wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
+            // nomination detail
+            wfes.nominations.detail = json.result;
+            // save nomination Details in Sessionstorage
+            globalWindow.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
+              nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
+              globalWindow.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
+                globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"));
+                globalWindow.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+              });
+            });
+          } else if (url.startsWith(PREFIX + "submit/get/drafts")) {
+            wfes.drafts = json.result;
+            globalWindow.dispatchEvent(new Event("WFESGetDrafts"));
+          } else {
+            logger.debug("WFES Base - unhandled URL: ", url);
+          }
+          break;
+      }
+
+    } catch (e) {
+      logger.warn( "WFES: failed to parse response from server", e);
+    }
+  }
+  /* ================ / handle fetch data ================ */
+
+
+  /* ================ overwrite fetch ================ */
+  // AI notice: Gemini
+  const fetchOrig = window.fetch;
+
+  window.fetch = async function(input, init) {
+    // Ermittle die URL (fetch akzeptiert Request-Objekte oder Strings)
+    const url = "string" === typeof input ? input : input.url;
+
+    // Prüfen, ob die URL mit dem PREFIX übereinstimmt
+    if (url && url.startsWith(PREFIX)) {
+      // Führe den originalen fetch-Aufruf aus
+      const response = await fetchOrig.apply(this, arguments);
+
+      // Wichtig: Response klonen, da der Body sonst für die Webseite blockiert ist
+      const responseClone = response.clone();
+
+      // Hier wird die asynchrone Verarbeitung gestartet, ohne auf das Ende zu warten
+      (async() => {
+        try {
+          const json = await responseClone.json();
+          handleFetchData(url, json); // Dein bestehender Code bleibt unverändert
+        } catch (err) {
+          console.error("Fehler beim Parsen des JSON:", err);
+        }
+      })();
+
+      return response;
+    }
+
+    // Alle anderen URLs normal durchwinken
+    return fetchOrig.apply(this, arguments);
+  };
+  /* ================ /overwrite fetch =============== */
+
+  /* ================ overwrite XHR ================ */
+  const openOrig = globalWindow.XMLHttpRequest.prototype.open, sendOrig = globalWindow.XMLHttpRequest.prototype.send;
+
 
   function handleLoadEvent(e) {
     try {
