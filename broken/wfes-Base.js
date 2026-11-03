@@ -141,6 +141,11 @@
   window.wfes = {};
   window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
 
+  // Konstanten für selecttoren
+  // const wfAppRoot = "body > app-root > app-wayfarer";
+  const wfAppRoot = "#root > div > header";
+
+
   // test for mobile platform, for browser compatibility see
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
   if ((undefined !== window.navigator.userAgentData ) && window.navigator.userAgentData.mobile ) {
@@ -194,8 +199,9 @@
 
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
+    logger.debug('_getPropsOnce');
     if (_isLoggedIn && (false === propsLoaded)) {
-      if (null !== window.document.querySelector("body > app-root > app-wayfarer")) {
+      if (null !== window.document.querySelector(wfAppRoot)) {
         // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
         const theUrl = "/api/v1/vault/properties";
 
@@ -216,6 +222,8 @@
           });
 
         propsLoaded = true;
+      } else {
+        logger.error("no props und kein WF");
       }
     }
   }
