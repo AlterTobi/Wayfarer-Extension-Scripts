@@ -296,12 +296,12 @@
 
 
   function handleFetchData(url, response) {
-    logger.debug(handleFetchData);
+    logger.debug("handleFetchData");
     try {
       logger.custom()
         .blue()
         .bgYellow()
-        .text("response")
+        .text(response)
         .print();
 
       const json = JSON.parse(response);
