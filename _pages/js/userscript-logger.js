@@ -3,7 +3,7 @@
 // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
 // globalWindow.UserScriptLogger = (function() {
-window.UserScriptLogger = (function() {
+window.UserScriptLogger = function() {
   "use strict";
 
   class CustomLogBuilder {
@@ -96,4 +96,4 @@ window.UserScriptLogger = (function() {
 
     custom() { return new CustomLogBuilder(`[${this.scriptName}] `); }
   };
-})();
+};
