@@ -13,7 +13,7 @@
   // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
   const globalWindow = window;
 
-  const logger = new globalWindow.UserScriptLogger(GM_info.script.name, true);
+  const logger = new UserScriptLogger(GM_info.script.name, true);
 
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";

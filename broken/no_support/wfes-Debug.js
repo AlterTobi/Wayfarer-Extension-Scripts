@@ -11,7 +11,7 @@
   const globalWindow = window;
 
   // 1. Initialisieren (Nimmt automatisch deinen Skriptnamen aus den Metadaten)
-  const logger = new globalWindow.UserScriptLogger(GM_info.script.name, true);
+  const logger = new UserScriptLogger(GM_info.script.name, true);
 
 
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
