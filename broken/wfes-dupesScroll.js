@@ -1,5 +1,5 @@
 // @name         dupes Scroll
-// @version      1.2.0
+// @version      1.2.99
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 
@@ -45,4 +45,5 @@
   }
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.error("need BASE test");
 })();

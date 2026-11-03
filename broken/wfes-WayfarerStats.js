@@ -1,5 +1,5 @@
 // @name        Wayfarer Stats
-// @version     1.8.0
+// @version     1.8.99
 // @description save Wayfarer statistics in local browser storage
 // @author      AlterTobi
 
@@ -638,11 +638,12 @@ fnV1HwAAAABJRU5ErkJggg==`;
   /* =========== MAIN ================================ */
 
   // window.setTimeout(init, 200);
-  init(); // die promises sollten es richten :-)
+  //  init(); // die promises sollten es richten :-)
   // install Event Handlers
   window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(handleReview, 2000);});
   window.addEventListener("WFESProfileLoaded", handleProfile);
   window.addEventListener("WFESHomePageLoaded", handleShowcase);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.error("need BASE test");
 })();

@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.8.0
+// @version      1.8.99
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -247,4 +247,5 @@
   window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(NominationSelected, 10);});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.error("need BASE test");
 })();

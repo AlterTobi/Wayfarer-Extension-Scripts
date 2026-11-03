@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.4.0
+// @version      1.4.99
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -103,4 +103,5 @@
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.error("need BASE test");
 })();

@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.4.1
+// @version      2.4.99
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.scopely.com/*
@@ -427,4 +427,5 @@
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.error("need BASE test");
 })();
