@@ -1,8 +1,4 @@
 // userscript-logger.js
-// wegen der *monkey Sandboxen
-// const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
-
-//  globalWindow.UserScriptLogger = (function() {
 window.UserScriptLogger = (function() {
   "use strict";
 

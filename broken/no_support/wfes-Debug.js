@@ -6,12 +6,8 @@
 (function() {
   "use strict";
 
-  // wegen der *monkey Sandboxen
-  // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
-  const globalWindow = window;
-
   // 1. Initialisieren (Nimmt automatisch deinen Skriptnamen aus den Metadaten)
-  const logger = new globalWindow.UserScriptLogger(GM_info.script.name, true);
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
 
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
@@ -137,7 +133,7 @@
 
     const skipped = [];
 
-    globalWindow.wfes.f.addCSS(myCssId, myStyle);
+    window.wfes.f.addCSS(myCssId, myStyle);
     let overlay = document.getElementById(myID);
     if (!overlay) {
       overlay = document.createElement("div");
@@ -199,7 +195,7 @@
   }
 
   function reviewInfobox(lskips) {
-    const candidate = globalWindow.wfes.g.reviewPageData();
+    const candidate = window.wfes.g.reviewPageData();
     showDebugBox(candidate, lskips);
   }
 
@@ -222,7 +218,7 @@
     const lskips = ["supportingImageUrls", "imageUrl", "statement", "rejectReasons",
       "upgraded", "city", "state", "userAppealNotes", "canHold", "canReleaseHold", "appealNotes",
       "order", "day"];
-    const candidate = globalWindow.wfes.g.nominationDetail();
+    const candidate = window.wfes.g.nominationDetail();
     const poiId = wfes.g.nominationsList().find(obj => obj.id === candidate.id).poiData.id;
     if (poiId) {
       candidate.poiId = getGUIDFromID( poiId, matrix);
@@ -234,41 +230,41 @@
   function addMail2ProfilePic() {
     // email ADresse ausgeben
     let titletext;
-    const props = globalWindow.wfes.g.properties();
+    const props = window.wfes.g.properties();
     const email = props.socialProfile.email;
-    const uid = globalWindow.wfes.f.hasUserId();
+    const uid = window.wfes.f.hasUserId();
     if (uid) {
       titletext = email + " # " + uid;
     } else {
       titletext = email;
     }
-    globalWindow.wfes.f.waitForElem(profileImageSelector).then(elem=>{
+    window.wfes.f.waitForElem(profileImageSelector).then(elem=>{
       elem.setAttribute("title", titletext);
       elem.setAttribute("alt", titletext);
     });
   }
 
   // display debug ooverlay
-  globalWindow.addEventListener("WFESReviewPageNewLoaded", reviewNew);
-  globalWindow.addEventListener("WFESReviewPageEditLoaded", reviewEdit);
-  globalWindow.addEventListener("WFESReviewPagePhotoLoaded", newPhoto);
-  globalWindow.addEventListener("WFESNominationDetailLoaded", nominationDetail);
-  globalWindow.addEventListener("WFESPageLoaded", addMail2ProfilePic);
+  window.addEventListener("WFESReviewPageNewLoaded", reviewNew);
+  window.addEventListener("WFESReviewPageEditLoaded", reviewEdit);
+  window.addEventListener("WFESReviewPagePhotoLoaded", newPhoto);
+  window.addEventListener("WFESNominationDetailLoaded", nominationDetail);
+  window.addEventListener("WFESPageLoaded", addMail2ProfilePic);
 
   // remove debug ooverlay - explizit alle Seiten, weil WFESPageLoaded es sonst auch auf der review-Seite wieder entfernen würde
-  globalWindow.addEventListener("WFESReviewDecisionSent", removeInfobox);
-  globalWindow.addEventListener("WFESHomePageLoaded", removeInfobox);
-  globalWindow.addEventListener("WFESProfileLoaded", removeInfobox);
-  globalWindow.addEventListener("WFESHelpPageLoaded", removeInfobox);
-  globalWindow.addEventListener("WFESSettingsLoaded", removeInfobox);
-  globalWindow.addEventListener("WFESMapLoaded", removeInfobox);
+  window.addEventListener("WFESReviewDecisionSent", removeInfobox);
+  window.addEventListener("WFESHomePageLoaded", removeInfobox);
+  window.addEventListener("WFESProfileLoaded", removeInfobox);
+  window.addEventListener("WFESHelpPageLoaded", removeInfobox);
+  window.addEventListener("WFESSettingsLoaded", removeInfobox);
+  window.addEventListener("WFESMapLoaded", removeInfobox);
 
   // Events abfangen
-  const originalDispatch = globalWindow.dispatchEvent;
-  globalWindow.dispatchEvent = function(event) {
+  const originalDispatch = window.dispatchEvent;
+  window.dispatchEvent = function(event) {
     if (event.type.startsWith("WFES")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
-      globalWindow.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+      window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
       console.log(GM_info.script.name + "%c # " + event.type, "color: fuchsia");
     }
     return originalDispatch.call(this, event);
