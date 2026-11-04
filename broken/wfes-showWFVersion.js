@@ -6,12 +6,18 @@
 (function() {
   "use strict";
 
+  // Logger initialisieren
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
+  const sessvarMiss = "warnBase";
+  const baseMinVersion = "3.0.0";
+
   const versionDivID = "wfVersionDiv";
   const myCssId = "wfVersionCSS";
   const myStyle = `.wfVersionCSS {
     position: absolute;
     z-index: 9999;
-    right: 270px;
+    right: 100px;
     top: 10px;
     background-color: white;
     border: 2px solid red;
@@ -124,7 +130,7 @@
     }
   }
 
-  function init() {
+  function setup() {
     wfVersion = window.wfes.g.wfVersion();
     window.wfes.f.localGet(lStoreHist, []).then((hist)=>{
       showVersion(hist);
@@ -132,8 +138,26 @@
     });
   }
 
-  window.addEventListener("WFESVersionChanged", init);
+  const init = () => {
+    window.addEventListener("WFESVersionChanged", setup);
+  };
+
+  // === no changes needed below this line ======================
+  if("undefined" === typeof(wfes)) {
+    if (undefined === sessionStorage[sessvarMiss]) {
+      sessionStorage[sessvarMiss] = 1;
+      alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+      logger.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+    }
+  } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
+    init();
+  } else {
+    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    logger.warn(msg);
+    window.wfes.f.createNotification( msg, "red", {autoclose: 60});
+  }
 
   /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+
 })();

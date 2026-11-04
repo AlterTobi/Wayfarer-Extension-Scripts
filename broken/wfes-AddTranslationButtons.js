@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.4.99
+// @version      2.5.0
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.scopely.com/*
@@ -8,6 +8,11 @@
 
 (function() {
   "use strict";
+
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
+  const sessvarMiss = "warnBase";
+  const baseMinVersion = "3.0.0";
 
   const ORIGIN_WAYFARER = "https://wayfarer.scopely.com";
   const ORIGIN_DEEPL = "https://www.deepl.com";
@@ -410,8 +415,24 @@
   // ----- BEGIN - general instructions ------
   switch(window.origin) {
     case ORIGIN_WAYFARER:
-      console.log("Init Script loading:", GM_info.script.name, " - Wayfarer");
-      initWF();
+
+
+      if("undefined" === typeof(wfes)) {
+        if (undefined === sessionStorage[sessvarMiss]) {
+          sessionStorage[sessvarMiss] = 1;
+          alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+          logger.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+        }
+      } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
+        logger.info("Init Script loading:", GM_info.script.name, " - Wayfarer");
+        initWF();
+      } else {
+        const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+        logger.warn(msg);
+        window.wfes.f.createNotification( msg, "red", {autoclose: 60});
+      }
+
+
       break;
     case ORIGIN_DEEPL:
       console.log("Init Script loading:", GM_info.script.name, " - Deepl");
@@ -426,6 +447,5 @@
   }
 
   /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-  console.error("need BASE test");
+  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
