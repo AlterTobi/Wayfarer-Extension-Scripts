@@ -307,19 +307,13 @@
   function handleFetchData(url, json) {
     logger.debug("handleFetchData", url);
     try {
-      logger.custom()
-        .blue()
-        .bgYellow()
-        .text(json)
-        .print();
-
       // ignore captcha
       if (json.captcha) {
         return;
       }
 
       if ("OK" !== json.code) {
-        console.warn("WFES: got no OK from server", json);
+        logger.warn("WFES: got no OK from server", json);
         return;
       }
       if (json.result) {
@@ -429,7 +423,7 @@
               wfes.poiDetails = json.result;
               window.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
             } else {
-              console.log("WFES Base - unhandled map ", url);
+              logger.warn("WFES Base - unhandled map ", url);
             }
           } else if (url.startsWith(PREFIX + "live-pois-in-radius")) {
             wfes.livePois = json.result;
