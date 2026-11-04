@@ -6,7 +6,7 @@
 (function() {
   "use strict";
 
-  // Logger initialisieren 
+  // Logger initialisieren
   const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
   const profileImageSelector = "#root > div > header > div > button > div > img";
