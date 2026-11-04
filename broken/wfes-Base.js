@@ -270,7 +270,7 @@
   /* =========== /IndexedDB ============================ */
 
 
-  /* handle data */
+  /* ================ handle fetch data ================ */
   function handleReviewData(result) {
     // save review data in ...pagedata and sessionstore
     window.wfes.f.sessionGet(sStoreReview, [] ).then((reviewSessionHist)=>{
@@ -304,8 +304,6 @@
     window.dispatchEvent(new Event("WFESPageLoaded"));
   }
 
-
-  /* ================ handle fetch data ================ */
   function handleFetchData(url, json) {
     logger.debug("handleFetchData", url);
     try {
@@ -463,10 +461,8 @@
   }
   /* ================ / handle fetch data ================ */
 
-
-  /* ================ overwrite fetch ================ */
-  // AI notice: Gemini
   /* ================ overwrite FETCH (GET & POST) ================ */
+  // AI notice: Gemini
   const fetchOrig = window.fetch;
 
   window.fetch = async function(input, init) {
@@ -543,217 +539,6 @@
     return fetchOrig.apply(this, arguments);
   };
   /* ================ /overwrite fetch =============== */
-
-  /* ================ overwrite XHR ================ */
-  const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
-
-
-  function handleLoadEvent(e) {
-    try {
-
-      logger.debug(handleLoadEvent);
-
-      const response = this.response;
-
-      logger.custom()
-        .blue()
-        .bgYellow()
-        .text("response")
-        .print();
-
-      const json = JSON.parse(response);
-      // ignore captcha
-      if (json.captcha) {
-        return;
-      }
-      if ("OK" !== json.code) {
-        console.warn("WFES: got no OK from server", response);
-        return;
-      }
-      if (json.result) {
-        checkWfVersion(json.version);
-      } else {
-        console.warn("WFES: got no result from server");
-        return;
-      }
-
-      let lang;
-      switch (this._url) {
-        case PREFIX + "home":
-          wfes.currentPage = wfes.WF_PAGES.HOME;
-          wfes.showcase.list = json.result.showcase;
-          window.dispatchEvent(new Event("WFESHomePageLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
-          break;
-        case PREFIX + "review":
-          wfes.currentPage = wfes.WF_PAGES.REVIEW;
-          if ("GET" === this._method) {
-            handleReviewData(json.result);
-          }
-          break;
-        case PREFIX + "loginconfig":
-          wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
-          _isLoggedIn = false;
-          wfes.loginConfig = json.result;
-          window.dispatchEvent(new Event("WFESStartpageLoaded"));
-          break;
-        case PREFIX + "profile":
-          wfes.currentPage = wfes.WF_PAGES.PROFILE;
-          wfes.profile = json.result;
-          window.dispatchEvent(new Event("WFESProfileLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
-          break;
-        case PREFIX + "manage":
-          wfes.currentPage = wfes.WF_PAGES.MANAGE;
-          // nomination list
-          wfes.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
-          wfes.nominations.canAppeal = json.result.canAppeal;
-          window.dispatchEvent(new Event("WFESNominationListLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
-          break;
-        case PREFIX + "manage/detail":
-          wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
-          // nomination detail
-          wfes.nominations.detail = json.result;
-          // save nomination Details in Sessionstorage
-          window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
-            nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-            window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
-              window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-              window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
-            });
-          });
-          break;
-        case PREFIX + "properties":
-          wfes.currentPage = wfes.WF_PAGES.PROPERTIES;
-          wfes.properties = json.result;
-          window.dispatchEvent(new Event("WFESPropertiesLoaded"));
-          break;
-        case PREFIX + "settings":
-          wfes.currentPage = wfes.WF_PAGES.SETTINGS;
-          wfes.settings = json.result;
-          window.dispatchEvent(new Event("WFESSettingsLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
-          break;
-        case PREFIX + "help":
-          wfes.currentPage = wfes.WF_PAGES.HELP;
-          window.dispatchEvent(new Event("WFESHelpPageLoaded"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
-          break;
-        case PREFIX + "mapview/track/access":
-          // has no result - do nothing
-          break;
-        case PREFIX + "mapview/track/zoom-range-entered":
-          // has no result - do nothing
-          break;
-        case PREFIX + "static-map-url":
-          // map tile - do nothing
-          break;
-        case PREFIX + "submit/available":
-          wfes.currentPage = wfes.WF_PAGES.SUBMIT;
-          wfes.submitAvailable = json.result;
-          window.dispatchEvent(new Event("WFESSubmitAvailable"));
-          window.dispatchEvent(new Event("WFESPageLoaded"));
-          break;
-        default:
-        // messages?language=de
-          if (PREFIX + "messages?language=" === this._url.substr(0, 18 + PREFIX.length)) {
-            lang = this._url.substr(18 + PREFIX.length);
-            wfes.messages[lang] = json.result;
-          } else if (this._url.startsWith(PREFIX + "mapview")) {
-            wfes.currentPage = wfes.WF_PAGES.MAP;
-            if (this._url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
-              wfes.mapData = json.result;
-              window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
-              window.dispatchEvent(new Event("WFESMapLoaded"));
-            } else if (this._url.startsWith(PREFIX + "mapview/gcs?")) {
-              wfes.mapData = json.result;
-              window.dispatchEvent(new Event("WFESMapFullLoaded"));
-              window.dispatchEvent(new Event("WFESMapLoaded"));
-            } else if (this._url.startsWith(PREFIX + "mapview/poi-images?")) {
-              wfes.poiImages = json.result;
-              window.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
-            } else if (this._url.startsWith(PREFIX + "mapview/poi-details?")) {
-              wfes.poiDetails = json.result;
-              window.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
-            } else {
-              console.log("WFES Base - unhandled map ", this._url);
-            }
-          } else if (this._url.startsWith(PREFIX + "live-pois-in-radius")) {
-            wfes.livePois = json.result;
-            window.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
-          } else if(this._url.startsWith(PREFIX + "manage/detail")) {
-            wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
-            // nomination detail
-            wfes.nominations.detail = json.result;
-            // save nomination Details in Sessionstorage
-            window.wfes.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
-              nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
-              window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
-                window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-                window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
-              });
-            });
-          } else if (this._url.startsWith(PREFIX + "submit/get/drafts")) {
-            wfes.drafts = json.result;
-            window.dispatchEvent(new Event("WFESGetDrafts"));
-          } else {
-            console.log("WFES Base - unhandled URL: ", this._url);
-          }
-          break;
-      }
-    } catch (e) {
-      console.warn("WFES: failed to parse response from server");
-      console.log(e);
-    }
-  }
-
-  function openReplacement(method, url, async, user, password) {
-    this._url = url;
-    this._method = method;
-    logger.debug( "WFES OPEN: ", method, url );
-    if (PREFIX === this._url.substr(0, PREFIX.length)) {
-      // handle only Wayfarer URLs
-      this.addEventListener("load", handleLoadEvent);
-    }
-    return openOrig.apply(this, arguments);
-  }
-
-  function sendReplacement(daten) {
-    let candidate, json;
-    // handle only POST requests
-    if ("POST" === this._method) {
-      switch (this._url) {
-        case PREFIX + "review":
-          json = JSON.parse(daten);
-          candidate = wfes.review.sessionHist[json.id];
-          wfes.review.decision.candidate = candidate;
-          wfes.review.decision.decision = json;
-          window.dispatchEvent(new Event("WFESReviewDecisionSent"));
-          break;
-        case PREFIX + "review/skip":
-          json = JSON.parse(daten);
-          candidate = wfes.review.sessionHist[json.id];
-          wfes.review.decision.candidate = candidate;
-          json.skipped = true;
-          wfes.review.decision.decision = json;
-          window.dispatchEvent(new Event("WFESReviewDecisionSent"));
-          break;
-        case PREFIX + "manage/appeal":
-          json = JSON.parse(daten);
-          wfes.review.appeal = json;
-          window.dispatchEvent(new Event("WFESReviewAppealSent"));
-          break;
-        default:
-          break;
-      }
-    }
-    return sendOrig.apply(this, arguments);
-  }
-
-  window.XMLHttpRequest.prototype.open = openReplacement;
-  window.XMLHttpRequest.prototype.send = sendReplacement;
-  /* ================ /overwrite XHR ================ */
 
   /* ================ showcase ====================== */
   function showCaseSwipe() {
