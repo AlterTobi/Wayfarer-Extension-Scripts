@@ -9,9 +9,6 @@
   // 1. Initialisieren (Nimmt automatisch deinen Skriptnamen aus den Metadaten)
   const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
-
-  // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
-  // const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
   const profileImageSelector = "#root > div > header > div > button > div > img";
   const myID = "wfes-debugOverlay";
   const myCssId = "wfes-debugCSS";
@@ -274,49 +271,5 @@
   /* we are done :-) */
   // console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
   logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-  /*
-
-  // 2. Schnelle Standard-Logs nutzen
-  logger.info("Script geladen.");
-
-  // Kombination: Rot und Fett
-  logger.custom()
-    .red()
-    .bold()
-    .text("CRITICAL ERROR: ")
-    .text("Die Aktion konnte nicht ausgeführt werden.")
-    .print();
-
-  // Kombination: Weißer Text auf rotem Hintergrund (wie ein nativer Error-Badge)
-  logger.custom()
-    .white()
-    .bgRed()
-    .bold()
-    .text(" FAILED ")
-    .text(" Login-Versuch fehlgeschlagen.")
-    .print();
-
-  // Kombination: Gelber Hintergrund mit dunklem Text und kursiv
-  logger.custom()
-    .yellow()
-    .bgDark()
-    .italic()
-    .text(" Warnung: ")
-    .text(" CSS-Selektor wurde nicht sofort gefunden, warte auf DOM...")
-    .print();
-
-  // Wildes Mischen in einer Zeile
-  logger.custom()
-    .text("Das ist ")
-    .green()
-    .bold()
-    .text("grün & fett")
-    .text(", das ist normal, und das ist ")
-    .blue()
-    .italic()
-    .bgDark()
-    .text(" blau, kursiv mit dunklem Hintergrund ")
-    .print();
-*/
 
 })();
