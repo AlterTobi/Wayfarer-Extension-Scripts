@@ -435,15 +435,15 @@
 
       break;
     case ORIGIN_DEEPL:
-      console.log("Init Script loading:", GM_info.script.name, " - Deepl");
+      logger.info("Init Script loading: Deepl");
       initD();
       break;
     case ORIGIN_KAGI:
-      console.log("Init Script loading:", GM_info.script.name, " - Kagi");
+      logger.info("Init Script loading: Kagi");
       initK();
       break;
     default:
-      console.warn("unknown origin", window.origin, "not handled");
+      logger.warn("unknown origin", window.origin, "not handled");
   }
 
   /* we are done :-) */
