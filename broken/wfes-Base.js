@@ -748,6 +748,7 @@
   // add CSS to the head, if not there
   window.wfes.f.addCSS = function(myID, styles) {
     if ("string"===typeof(myID) && myID.length>0) {
+      logger.debug("addCSS - ID:", myID);
       // already there?
       if (null === document.getElementById(myID)) {
         _waitForElem("head").then( headElem => {
@@ -759,7 +760,7 @@
         );
       }
     } else {
-      console.error(GM_info.script.name, " addCSS() error: need ID to be defined");
+      logger.error(" addCSS() error: need ID to be defined");
     }
   };
 
@@ -1067,6 +1068,7 @@
   Object.freeze(window.wfes);
 
   if (document.location.pathname !== loginPath ) {
+    logger.debug("add CSS");
     window.wfes.f.addCSS(myCssId, myStyle);
     window.wfes.f.createNotificationArea();
   }
