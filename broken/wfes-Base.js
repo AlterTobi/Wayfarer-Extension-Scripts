@@ -199,12 +199,12 @@
 
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
-    logger.debug('_getPropsOnce');
+    logger.debug("_getPropsOnce");
     if (_isLoggedIn && (false === propsLoaded)) {
-      if (null !== window.document.querySelector(wfAppRoot)) {
-        // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
+      if (null === window.document.querySelector(wfAppRoot)) {
+        logger.error("no props und kein WF");
+      } else {
         const theUrl = "/api/v1/vault/properties";
-
         // Führe den Fetch-Aufruf aus
         fetch(theUrl)
           .then(response => {
@@ -220,10 +220,7 @@
             // Fängt Netzwerkfehler ab (z. B. wenn der Server komplett offline ist)
             logger.error("Netzwerkfehler beim Abrufen der Properties:", error);
           });
-
         propsLoaded = true;
-      } else {
-        logger.error("no props und kein WF");
       }
     }
   }

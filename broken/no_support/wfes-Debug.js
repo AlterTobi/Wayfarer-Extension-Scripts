@@ -11,7 +11,8 @@
 
 
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
-  const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
+  // const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
+  const profileImageSelector = "#root > div > header > div > button > div > img";
   const myID = "wfes-debugOverlay";
   const myCssId = "wfes-debugCSS";
   const myStyle = `.wfes-debug {
