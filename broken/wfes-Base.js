@@ -1072,5 +1072,5 @@
   }
 
   /* we are done :-) */
-  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.info("Script loaded version:" + GM_info.script.version);
 })();
