@@ -233,10 +233,15 @@
             if (!response.ok) {
               // Text-Inhalt der Antwort auslesen, um ihn im Fehlerfall zu loggen
               response.text().then(responseText => {
-                console.warn(response.statusText, responseText);
+                logger.warn(response.statusText, responseText);
               });
             } else {
-              logger.info("Response", response);
+
+              const responseClone = response.clone();
+              responseClone.json().then(json => {
+                logger.info("Response", json);
+              });
+
             }
           })
           .catch(error => {
