@@ -362,10 +362,11 @@
           }
           break;
         case PREFIX + "loginconfig":
-          wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
-          _isLoggedIn = false;
+          //  wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
+          // _isLoggedIn = false;
           wfes.loginConfig = json.result;
-          window.dispatchEvent(new Event("WFESStartpageLoaded"));
+          // window.dispatchEvent(new Event("WFESStartpageLoaded"));
+          window.dispatchEvent(new Event("WFESLoginConfigLoaded"));
           break;
         case PREFIX + "profile":
           wfes.currentPage = wfes.WF_PAGES.PROFILE;
