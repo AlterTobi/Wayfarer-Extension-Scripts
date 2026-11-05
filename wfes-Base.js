@@ -1,5 +1,5 @@
 // @name         Base
-// @version      3.0.0
+// @version      3.0.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -428,6 +428,9 @@
           break;
         case PREFIX + "static-map-url":
           // map tile - do nothing
+          break;
+        case PREFIX + "reverse-geocode":
+          // map do nothing
           break;
         case PREFIX + "submit/available":
           wfes.currentPage = wfes.WF_PAGES.SUBMIT;
