@@ -47,7 +47,7 @@ window.UserScriptLogger = (function() {
     bgGreen() { this.currentStyles.push("background: #4caf50; padding: 1px 4px; border-radius: 3px;"); return this; }
     bgBlue() { this.currentStyles.push("background: #00bcd4; padding: 1px 4px; border-radius: 3px;"); return this; }
     bgDark() { this.currentStyles.push("background: #222222; padding: 1px 4px; border-radius: 3px;"); return this; }
-    bgGray() { this.currentStyles.push("background: #aaaaaa; padding: 1px 4px; border-radius: 3px;"); return this; }
+    bgGray() { this.currentStyles.push("background: #cccccc; padding: 1px 4px; border-radius: 3px;"); return this; }
 
     // Formatierungen
     bold() { this.currentStyles.push("font-weight: bold;"); return this; }
@@ -72,10 +72,10 @@ window.UserScriptLogger = (function() {
       this.debugMode = debugMode;
       this.styles = {
         info:    "color: #000000; font-weight: bold; background: #ddd; padding: 2px 6px; border-radius: 3px;",
-        success: "color: #4caf50; font-weight: bold; background: #222; padding: 2px 6px; border-radius: 3px;",
+        success: "color: #4ccf50; font-weight: bold; background: #222; padding: 2px 6px; border-radius: 3px;",
         warn:    "color: #ff9800; font-weight: bold; background: #222; padding: 2px 6px; border-radius: 3px;",
-        error:   "color: #f44336; font-weight: bold; background: #222; padding: 2px 6px; border-radius: 3px;",
-        debug:   "color: #b0bec5; font-style: italic;"
+        error:   "color: #f74300; font-weight: bold; background: #222; padding: 2px 6px; border-radius: 3px;",
+        debug:   "color: #a0aea5; font-style: italic;"
       };
     }
     _baseLog(type, message, ...optionalParams) {
