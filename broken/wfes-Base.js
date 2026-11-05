@@ -25,8 +25,27 @@
   const idbLocalStorageCompat = "localStorage";
 
   const myCssId = "notifyAreaCSS";
-  const myStyle = `
-    /* Container */
+  const myStyle =` 
+    /* Google Font laden */
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;  /* Standardgröße, kannst du anpassen */
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+   /* Container */
         #wfesNotify {
           position: absolute;
           bottom: 1em;
@@ -307,6 +326,7 @@
   function handleFetchData(url, json) {
     logger.debug("handleFetchData", url);
     try {
+         logger.success(json);
       // ignore captcha
       if (json.captcha) {
         return;
