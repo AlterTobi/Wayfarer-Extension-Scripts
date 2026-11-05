@@ -224,7 +224,7 @@
         logger.error("no props und kein WF");
       } else {
         logger.debug("fetch props");
-        const theUrl = "/api/v1/vault/properties";
+        const theUrl = "https://wayfarer.scopely.com/api/v1/vault/properties";
         // Führe den Fetch-Aufruf aus
         fetch(theUrl)
           .then(response => {
