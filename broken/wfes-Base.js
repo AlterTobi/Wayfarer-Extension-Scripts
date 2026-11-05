@@ -153,7 +153,7 @@
   };
 
   const tmpUserId = "temporaryUserId";
-  let propsLoaded = false;
+  let _propsLoaded = false;
   let _isMobile = false;
   let _isLoggedIn = true; // be optimistic
 
@@ -219,27 +219,31 @@
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
     logger.debug("_getPropsOnce");
-    if (_isLoggedIn && (false === propsLoaded)) {
+    if (_isLoggedIn && (false === _propsLoaded)) {
       if (null === window.document.querySelector(wfAppRoot)) {
         logger.error("no props und kein WF");
       } else {
+        logger.debug("fetch props");
         const theUrl = "/api/v1/vault/properties";
         // Führe den Fetch-Aufruf aus
         fetch(theUrl)
           .then(response => {
             // response.ok ist true, wenn der Status zwischen 200 und 299 liegt
+            // eslint-disable-next-line no-negated-condition
             if (!response.ok) {
               // Text-Inhalt der Antwort auslesen, um ihn im Fehlerfall zu loggen
               response.text().then(responseText => {
                 console.warn(response.statusText, responseText);
               });
+            } else {
+              logger.info("Response", response);
             }
           })
           .catch(error => {
             // Fängt Netzwerkfehler ab (z. B. wenn der Server komplett offline ist)
             logger.error("Netzwerkfehler beim Abrufen der Properties:", error);
           });
-        propsLoaded = true;
+        _propsLoaded = true;
       }
     }
   }
@@ -326,7 +330,7 @@
   function handleFetchData(url, json) {
     logger.debug("handleFetchData", url);
     try {
-         logger.success(json);
+      logger.success(json);
       // ignore captcha
       if (json.captcha) {
         return;
