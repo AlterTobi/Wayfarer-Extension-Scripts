@@ -265,6 +265,7 @@
       window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
       // console.log(GM_info.script.name + "%c # " + event.type, "color: fuchsia");
       logger.custom().fuchsia()
+        .text("Event gesehen: ")
         .text(event.type)
         .print();
     }
