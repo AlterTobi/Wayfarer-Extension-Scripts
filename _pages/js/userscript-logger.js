@@ -38,7 +38,7 @@ window.UserScriptLogger = (function() {
     red() { this.currentStyles.push("color: #f44336;"); return this; }
     yellow() { this.currentStyles.push("color: #ff9800;"); return this; }
     green() { this.currentStyles.push("color: #4caf50;"); return this; }
-    blue() { this.currentStyles.push("color: #00bcd4;"); return this; }
+    blue() { this.currentStyles.push("color: #000c84;"); return this; }
     white() { this.currentStyles.push("color: #ffffff;"); return this; }
 
     // Hintergrundfarben (inklusive etwas Padding für schönere Optik)
