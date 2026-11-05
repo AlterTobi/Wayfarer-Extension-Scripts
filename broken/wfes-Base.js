@@ -218,7 +218,7 @@
 
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
-    logger.debug("_getPropsOnce");
+    logger.debug("_getPropsOnceaufgerufen. Eingeloggt:", _isLoggedIn, "Props bereits geladen:", _propsLoaded);
     if (_isLoggedIn && (false === _propsLoaded)) {
       if (null === window.document.querySelector(wfAppRoot)) {
         logger.error("no props und kein WF");
