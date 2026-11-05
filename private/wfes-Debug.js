@@ -1,12 +1,15 @@
 // @name         Debug
-// @version      1.4.0
+// @version      1.5.0
 // @description  show some debugging info
 // @author       AlterTobi
 
 (function() {
   "use strict";
-  // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
-  const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
+
+  // Logger initialisieren
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
+  const profileImageSelector = "#root > div > header > div > button > div > img";
   const myID = "wfes-debugOverlay";
   const myCssId = "wfes-debugCSS";
   const myStyle = `.wfes-debug {
@@ -260,10 +263,17 @@
     if (event.type.startsWith("WFES")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
       window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+      // console.log(GM_info.script.name + "%c # " + event.type, "color: fuchsia");
+      logger.custom().fuchsia()
+        .text("Event gesehen: ")
+        .text(event.type)
+        .print();
     }
     return originalDispatch.call(this, event);
   };
 
   /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  // console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.info("Script loaded version:", GM_info.script.version);
+
 })();

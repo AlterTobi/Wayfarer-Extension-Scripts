@@ -9,6 +9,7 @@ from pathlib import Path
 from os import environ
 from shutil import copytree
 from datetime import date, datetime
+from hashlib import shake_128
 
 extra_version = ''
 
@@ -146,6 +147,9 @@ def fill_meta(source, script_name):
   append_line('icon', cfg['favicon'])
   append_line('icon64', cfg['favicon64'])
   
+  nonce = environ['GITHUB_RUN_NUMBER'] + '-' + shake_128(script_name.encode("UTF-8")).hexdigest(5) 
+  append_line('require', cfg['logger']+ '?nonce=' + nonce)
+
   url_dist_base = cfg.get('url_dist_base',fallback = False)
   if url_dist_base:
     path = url_dist_base + script_name

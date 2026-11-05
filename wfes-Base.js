@@ -1,5 +1,5 @@
 // @name         Base
-// @version      2.9.1
+// @version      3.0.0
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -12,6 +12,8 @@
   // wegen der *monkey Sandboxen
   // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
   const loginPath = "/login";
@@ -23,8 +25,27 @@
   const idbLocalStorageCompat = "localStorage";
 
   const myCssId = "notifyAreaCSS";
-  const myStyle = `
-    /* Container */
+  const myStyle =` 
+    /* Google Font laden */
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;  /* Standardgröße, kannst du anpassen */
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+   /* Container */
         #wfesNotify {
           position: absolute;
           bottom: 1em;
@@ -132,12 +153,17 @@
   };
 
   const tmpUserId = "temporaryUserId";
-  let propsLoaded = false;
+  let _propsLoaded = false;
   let _isMobile = false;
-  let _isLoggedIn = true; // be optimistic
+  const _isLoggedIn = true; // be optimistic
 
   window.wfes = {};
   window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
+
+  // Konstanten für selecttoren
+  // const wfAppRoot = "body > app-root > app-wayfarer";
+  const wfAppRoot = "#root > div > header";
+
 
   // test for mobile platform, for browser compatibility see
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
@@ -192,19 +218,37 @@
 
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
-    if (_isLoggedIn && (false === propsLoaded)) {
-      if ( null !== window.document.querySelector("body > app-root > app-wayfarer")) {
-        // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
-        const theUrl = "/api/v1/vault/properties";
-        const request = new XMLHttpRequest();
-        request.open("GET", theUrl, true);
-        request.addEventListener("load", function(event) {
-          if (!(request.status >= 200 && request.status < 300)) {
-            console.warn(request.statusText, request.responseText);
-          }
-        });
-        request.send();
-        propsLoaded = true;
+    logger.debug("_getPropsOnce aufgerufen. Eingeloggt:", _isLoggedIn, "Props bereits geladen:", _propsLoaded);
+    if (_isLoggedIn && (false === _propsLoaded)) {
+      if (null === window.document.querySelector(wfAppRoot)) {
+        logger.error("no props und kein WF");
+      } else {
+        logger.debug("fetch props");
+        const theUrl = "https://wayfarer.scopely.com/api/v1/vault/properties";
+        // Führe den Fetch-Aufruf aus
+        fetch(theUrl)
+          .then(response => {
+            // response.ok ist true, wenn der Status zwischen 200 und 299 liegt
+            // eslint-disable-next-line no-negated-condition
+            if (!response.ok) {
+              // Text-Inhalt der Antwort auslesen, um ihn im Fehlerfall zu loggen
+              response.text().then(responseText => {
+                logger.warn(response.statusText, responseText);
+              });
+            } else {
+
+              const responseClone = response.clone();
+              responseClone.json().then(json => {
+                logger.info("Response", json);
+              });
+
+            }
+          })
+          .catch(error => {
+            // Fängt Netzwerkfehler ab (z. B. wenn der Server komplett offline ist)
+            logger.error("Netzwerkfehler beim Abrufen der Properties:", error);
+          });
+        _propsLoaded = true;
       }
     }
   }
@@ -253,10 +297,8 @@
   });
   /* =========== /IndexedDB ============================ */
 
-  /* ================ overwrite XHR ================ */
-  const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
 
-  /* handle data */
+  /* ================ handle fetch data ================ */
   function handleReviewData(result) {
     // save review data in ...pagedata and sessionstore
     window.wfes.f.sessionGet(sStoreReview, [] ).then((reviewSessionHist)=>{
@@ -290,27 +332,28 @@
     window.dispatchEvent(new Event("WFESPageLoaded"));
   }
 
-  function handleLoadEvent(e) {
+  function handleFetchData(url, json) {
+    logger.debug("handleFetchData", url);
     try {
-      const response = this.response;
-      const json = JSON.parse(response);
+      logger.debug(json);
       // ignore captcha
       if (json.captcha) {
         return;
       }
+
       if ("OK" !== json.code) {
-        console.warn("WFES: got no OK from server", response);
+        logger.warn("WFES: got no OK from server", json);
         return;
       }
       if (json.result) {
         checkWfVersion(json.version);
       } else {
-        console.warn("WFES: got no result from server");
+        logger.warn("WFES: got no result from server");
         return;
       }
 
       let lang;
-      switch (this._url) {
+      switch (url) {
         case PREFIX + "home":
           wfes.currentPage = wfes.WF_PAGES.HOME;
           wfes.showcase.list = json.result.showcase;
@@ -324,10 +367,11 @@
           }
           break;
         case PREFIX + "loginconfig":
-          wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
-          _isLoggedIn = false;
+          //  wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
+          // _isLoggedIn = false;
           wfes.loginConfig = json.result;
-          window.dispatchEvent(new Event("WFESStartpageLoaded"));
+          // window.dispatchEvent(new Event("WFESStartpageLoaded"));
+          window.dispatchEvent(new Event("WFESLoginConfigLoaded"));
           break;
         case PREFIX + "profile":
           wfes.currentPage = wfes.WF_PAGES.PROFILE;
@@ -372,6 +416,10 @@
           window.dispatchEvent(new Event("WFESHelpPageLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
+        case PREFIX + "punishments":
+          // @TODO set vars and Event
+          wfes.currentPage = wfes.WF_PAGES.HELP;
+          break;
         case PREFIX + "mapview/track/access":
           // has no result - do nothing
           break;
@@ -389,32 +437,32 @@
           break;
         default:
         // messages?language=de
-          if (PREFIX + "messages?language=" === this._url.substr(0, 18 + PREFIX.length)) {
-            lang = this._url.substr(18 + PREFIX.length);
+          if (PREFIX + "messages?language=" === url.substr(0, 18 + PREFIX.length)) {
+            lang = url.substr(18 + PREFIX.length);
             wfes.messages[lang] = json.result;
-          } else if (this._url.startsWith(PREFIX + "mapview")) {
+          } else if (url.startsWith(PREFIX + "mapview")) {
             wfes.currentPage = wfes.WF_PAGES.MAP;
-            if (this._url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
+            if (url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
-            } else if (this._url.startsWith(PREFIX + "mapview/gcs?")) {
+            } else if (url.startsWith(PREFIX + "mapview/gcs?")) {
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapFullLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
-            } else if (this._url.startsWith(PREFIX + "mapview/poi-images?")) {
+            } else if (url.startsWith(PREFIX + "mapview/poi-images?")) {
               wfes.poiImages = json.result;
               window.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
-            } else if (this._url.startsWith(PREFIX + "mapview/poi-details?")) {
+            } else if (url.startsWith(PREFIX + "mapview/poi-details?")) {
               wfes.poiDetails = json.result;
               window.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
             } else {
-              console.log("WFES Base - unhandled map ", this._url);
+              logger.warn("WFES Base - unhandled map ", url);
             }
-          } else if (this._url.startsWith(PREFIX + "live-pois-in-radius")) {
+          } else if (url.startsWith(PREFIX + "live-pois-in-radius")) {
             wfes.livePois = json.result;
             window.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
-          } else if(this._url.startsWith(PREFIX + "manage/detail")) {
+          } else if(url.startsWith(PREFIX + "manage/detail")) {
             wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
             // nomination detail
             wfes.nominations.detail = json.result;
@@ -426,66 +474,99 @@
                 window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
               });
             });
-          } else if (this._url.startsWith(PREFIX + "submit/get/drafts")) {
+          } else if (url.startsWith(PREFIX + "submit/get/drafts")) {
             wfes.drafts = json.result;
             window.dispatchEvent(new Event("WFESGetDrafts"));
           } else {
-            console.log("WFES Base - unhandled URL: ", this._url);
+            logger.error("WFES Base - unhandled URL: ", url);
           }
           break;
       }
+
     } catch (e) {
-      console.warn("WFES: failed to parse response from server");
-      console.log(e);
+      logger.warn( "WFES: failed to parse response from server", e);
     }
   }
+  /* ================ / handle fetch data ================ */
 
-  function openReplacement(method, url, async, user, password) {
-    this._url = url;
-    this._method = method;
-    // console.log( "WFES OPEN: ", method, url );
-    if (PREFIX === this._url.substr(0, PREFIX.length)) {
-      // handle only Wayfarer URLs
-      this.addEventListener("load", handleLoadEvent);
-    }
-    return openOrig.apply(this, arguments);
-  }
+  /* ================ overwrite FETCH (GET & POST) ================ */
+  // AI notice: Gemini
+  const fetchOrig = window.fetch;
 
-  function sendReplacement(daten) {
-    let candidate, json;
-    // handle only POST requests
-    if ("POST" === this._method) {
-      switch (this._url) {
-        case PREFIX + "review":
-          json = JSON.parse(daten);
-          candidate = wfes.review.sessionHist[json.id];
-          wfes.review.decision.candidate = candidate;
-          wfes.review.decision.decision = json;
-          window.dispatchEvent(new Event("WFESReviewDecisionSent"));
-          break;
-        case PREFIX + "review/skip":
-          json = JSON.parse(daten);
-          candidate = wfes.review.sessionHist[json.id];
-          wfes.review.decision.candidate = candidate;
-          json.skipped = true;
-          wfes.review.decision.decision = json;
-          window.dispatchEvent(new Event("WFESReviewDecisionSent"));
-          break;
-        case PREFIX + "manage/appeal":
-          json = JSON.parse(daten);
-          wfes.review.appeal = json;
-          window.dispatchEvent(new Event("WFESReviewAppealSent"));
-          break;
-        default:
-          break;
+  window.fetch = async function(input, init) {
+    // 1. URL ermitteln
+    const url = "string" === typeof input ? input : input.url;
+
+    if (url && url.startsWith(PREFIX)) {
+      // 2. HTTP-Methode ermitteln (Standard bei fetch ist GET)
+      const method = (init && init.method) ? init.method.toUpperCase() : "GET";
+
+      // ====================================================
+      // BEHANDLUNG FÜR POST-REQUESTS (Ehemals sendReplacement)
+      // ====================================================
+      if ("POST" === method && init && init.body) {
+        try {
+          const daten = init.body;
+
+          // Falls der Body ein FormData- oder Blob-Objekt ist, müsste er anders gelesen werden.
+          // Bei JSON-Payloads ist es in der Regel ein String:
+          if ("string" === typeof daten) {
+            let candidate, json;
+
+            switch (url) {
+              case PREFIX + "review":
+                json = JSON.parse(daten);
+                candidate = wfes.review.sessionHist[json.id];
+                wfes.review.decision.candidate = candidate;
+                wfes.review.decision.decision = json;
+                window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+                break;
+              case PREFIX + "review/skip":
+                json = JSON.parse(daten);
+                candidate = wfes.review.sessionHist[json.id];
+                wfes.review.decision.candidate = candidate;
+                json.skipped = true;
+                wfes.review.decision.decision = json;
+                window.dispatchEvent(new Event("WFESReviewDecisionSent"));
+                break;
+              case PREFIX + "manage/appeal":
+                json = JSON.parse(daten);
+                wfes.review.appeal = json;
+                window.dispatchEvent(new Event("WFESReviewAppealSent"));
+                break;
+              default:
+                break;
+            }
+          }
+        } catch (err) {
+          logger.error("Fehler beim Verarbeiten der POST-Daten:", err);
+        }
       }
-    }
-    return sendOrig.apply(this, arguments);
-  }
 
-  window.XMLHttpRequest.prototype.open = openReplacement;
-  window.XMLHttpRequest.prototype.send = sendReplacement;
-  /* ================ /overwrite XHR ================ */
+      // ====================================================
+      // ORIGINALEN FETCH AUSFÜHREN & RESPONSE ABFANGEN (GET)
+      // ====================================================
+      const response = await fetchOrig.apply(this, arguments);
+
+      if ("GET" === method) {
+        const responseClone = response.clone();
+
+        // Hier wird die asynchrone Verarbeitung gestartet, ohne auf das Ende zu warten
+        (async() => {
+          try {
+            const json = await responseClone.json();
+            handleFetchData(url, json); // Dein bestehender Code bleibt unverändert
+          } catch (err) {
+            logger.error("Fehler beim Parsen des JSON:", err);
+          }
+        })();
+      }
+      return response;
+    }
+
+    return fetchOrig.apply(this, arguments);
+  };
+  /* ================ /overwrite fetch =============== */
 
   /* ================ showcase ====================== */
   function showCaseSwipe() {
@@ -695,6 +776,10 @@
   // add CSS to the head, if not there
   window.wfes.f.addCSS = function(myID, styles) {
     if ("string"===typeof(myID) && myID.length>0) {
+      logger.custom().blue()
+        .bgGray()
+        .text("addCSS - ID:" + myID)
+        .print();
       // already there?
       if (null === document.getElementById(myID)) {
         _waitForElem("head").then( headElem => {
@@ -706,7 +791,7 @@
         );
       }
     } else {
-      console.error(GM_info.script.name, " addCSS() error: need ID to be defined");
+      logger.error(" addCSS() error: need ID to be defined");
     }
   };
 
@@ -983,7 +1068,11 @@
   window.wfes.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
       resolve(userID);
-    });
+    })
+      .catch( () => {
+        console.warn("%c" + GM_info.script.name + " keine Userid gefunden, nutze temp", "background-color: red;color: yellow");
+        resolve(tmpUserId);
+      });
   });
   window.wfes.g.wfPages = function() {
     return jCopy(wfes.WF_PAGES);
@@ -1010,10 +1099,11 @@
   Object.freeze(window.wfes);
 
   if (document.location.pathname !== loginPath ) {
+    logger.debug("add CSS");
     window.wfes.f.addCSS(myCssId, myStyle);
     window.wfes.f.createNotificationArea();
   }
 
   /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.info("Script loaded version:" + GM_info.script.version);
 })();
