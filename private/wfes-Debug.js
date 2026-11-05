@@ -264,7 +264,9 @@
       const jetzt = new Date().toLocaleTimeString("de-DE");
       window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
       // console.log(GM_info.script.name + "%c # " + event.type, "color: fuchsia");
-      logger.custom().fuchsia().text(event.type).print();
+      logger.custom().fuchsia()
+        .text(event.type)
+        .print();
     }
     return originalDispatch.call(this, event);
   };

@@ -41,7 +41,7 @@ window.UserScriptLogger = (function() {
     blue() { this.currentStyles.push("color: #000c84;"); return this; }
     white() { this.currentStyles.push("color: #ffffff;"); return this; }
     fuchsia() { this.currentStyles.push("color: fuchsia;"); return this; }
-    
+
 
     // Hintergrundfarben (inklusive etwas Padding für schönere Optik)
     bgRed() { this.currentStyles.push("background: #f44336; padding: 1px 4px; border-radius: 3px;"); return this; }
