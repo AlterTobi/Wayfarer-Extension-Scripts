@@ -410,6 +410,10 @@
           window.dispatchEvent(new Event("WFESHelpPageLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
+        case PREFIX + "punishments":
+            // @TODO set vars and Event
+          wfes.currentPage = wfes.WF_PAGES.HELP;
+          break;
         case PREFIX + "mapview/track/access":
           // has no result - do nothing
           break;
