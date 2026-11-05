@@ -155,7 +155,7 @@
   const tmpUserId = "temporaryUserId";
   let _propsLoaded = false;
   let _isMobile = false;
-  let _isLoggedIn = true; // be optimistic
+  const _isLoggedIn = true; // be optimistic
 
   window.wfes = {};
   window.wfes.f = window.wfes.g = window.wfes.s = {}; // functions, getter, setter
@@ -412,7 +412,7 @@
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
         case PREFIX + "punishments":
-            // @TODO set vars and Event
+          // @TODO set vars and Event
           wfes.currentPage = wfes.WF_PAGES.HELP;
           break;
         case PREFIX + "mapview/track/access":
