@@ -12,7 +12,7 @@
   // wegen der *monkey Sandboxen
   // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
-  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+  const logger = new window.UserScriptLogger(GM_info.script.name, false);
 
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
