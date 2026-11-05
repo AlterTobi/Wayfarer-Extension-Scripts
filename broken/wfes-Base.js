@@ -330,7 +330,7 @@
   function handleFetchData(url, json) {
     logger.debug("handleFetchData", url);
     try {
-      logger.success(json);
+      logger.debug(json);
       // ignore captcha
       if (json.captcha) {
         return;
