@@ -84,7 +84,16 @@ window.UserScriptLogger = (function() {
       if ("debug" === type && !this.debugMode) {return;}
       const style = this.styles[type] || "";
       const prefix = `[${this.scriptName}] [${type.toUpperCase()}]`;
-      if (style) { console.log(`%c${prefix}`, style, message, ...optionalParams); } else { console.log(prefix, message, ...optionalParams); }
+      if (style) {
+        // %o sorgt dafür, dass der Browser das Argument explizit als interaktives Objekt rendert
+        if ("object" === typeof message && message !== null) {
+          console.log(`%c${prefix} %o`, style, message, ...optionalParams);
+        } else {
+          console.log(`%c${prefix}`, style, message, ...optionalParams);
+        }
+      } else {
+        console.log(prefix, message, ...optionalParams);
+      }
     }
     info(msg, ...args) { this._baseLog("info", msg, ...args); }
     success(msg, ...args) { this._baseLog("success", msg, ...args); }
