@@ -768,7 +768,7 @@
     if ("string"===typeof(myID) && myID.length>0) {
       logger.custom().blue()
         .bgGray()
-        .text("addCSS - ID:", myID)
+        .text("addCSS - ID:" + myID)
         .print();
       // already there?
       if (null === document.getElementById(myID)) {
