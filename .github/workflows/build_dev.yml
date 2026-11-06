@@ -27,6 +27,11 @@ jobs:
           cd _buildscripts
           /usr/bin/python3 ./build.py -c build_dev.ini
 
+      - name: Inject Pages Workflow into Build 📦
+        run: |
+          mkdir -p build/.github/workflows
+          cp .github/workflows/jekyll-gh-pages.yml build/.github/workflows/
+
       - name: Deploy JS lib
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:

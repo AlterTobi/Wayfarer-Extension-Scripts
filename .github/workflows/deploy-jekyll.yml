@@ -3,7 +3,7 @@ name: Custom Pages Jekyll Build
 on:
   push:
     branches:
-      - gh-pages
+      - keine
       
   workflow_dispatch:
 
@@ -38,7 +38,7 @@ jobs:
         # Installiert dein Theme und dein Sitemap-Plugin vor dem Build
         run: |
           gem install jekyll jekyll-theme-hacker jekyll-sitemap
-          jekyll build --baseurl "${{ steps:pages.outputs.base_path }}"
+          jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
