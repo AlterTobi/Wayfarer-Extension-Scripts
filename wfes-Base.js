@@ -363,9 +363,7 @@
           break;
         case PREFIX + "review":
           wfes.currentPage = wfes.WF_PAGES.REVIEW;
-          if ("GET" === this._method) {
-            handleReviewData(json.result);
-          }
+          handleReviewData(json.result);
           break;
         case PREFIX + "loginconfig":
           //  wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
@@ -481,6 +479,8 @@
           } else if (url.startsWith(PREFIX + "submit/get/drafts")) {
             wfes.drafts = json.result;
             window.dispatchEvent(new Event("WFESGetDrafts"));
+          } else if (url.startsWith(PREFIX + "reverse-geocode")) {
+            // map do nothing
           } else {
             logger.error("WFES Base - unhandled URL: ", url);
           }
