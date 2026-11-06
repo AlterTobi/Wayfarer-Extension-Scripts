@@ -3,6 +3,7 @@
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
+// @require      https://toolbox.gefallenehelden.de/jslib/userscript-logger.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
