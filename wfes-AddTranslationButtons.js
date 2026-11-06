@@ -14,6 +14,8 @@
   const sessvarMiss = "warnBase";
   const baseMinVersion = "3.0.0";
 
+  const wfHeaderSelector = "#root > div > header";
+
   const ORIGIN_WAYFARER = "https://wayfarer.scopely.com";
   const ORIGIN_DEEPL = "https://www.deepl.com";
   const ORIGIN_KAGI = "https://translate.kagi.com";
@@ -102,7 +104,7 @@
         payload: text
       }, origin);
     } catch (e) {
-      console.warn("Nachricht konnte nicht gesendet werden:", e.message);
+      logger.warn("Nachricht konnte nicht gesendet werden:", e.message);
     }
   }
 
@@ -138,7 +140,12 @@
           engine.twindow = window.open(engine.url, target);
 
           watchWindow(engine.twindow, () => {
-            console.log(engine.name, "Übersetzungsfenster wurde geschlossen.");
+            logger.custom().bgYellow()
+              .blue()
+              .text(engine.name)
+              .bgYellow()
+              .black()
+              .text("Übersetzungsfenster wurde geschlossen.");
             engine.twindow = null;
             engine.ready = false;
             engine.pendingText = null;
@@ -146,12 +153,12 @@
         }
         break;
       default:
-        console.warn("unbekannte Engine:", currentEngine, "not handeled");
+        logger.warn("unbekannte Engine:", currentEngine, "not handeled");
     }
   }
 
   function createButton(text) {
-    window.wfes.f.waitForElem("wf-logo").then(elem => {
+    window.wfes.f.waitForElem(wfHeaderSelector).then(elem => {
       // remove if exist
       removeButton();
       const div = document.createElement("div");
@@ -190,8 +197,9 @@
       div.appendChild(select);
       div.appendChild(button);
 
-      const container = elem.parentNode.parentNode;
-      container.appendChild(div);
+      // const container = elem.parentNode.parentNode;
+      // container.appendChild(div);
+      elem.appendChild(div);
     })
       .catch((e) => {
         console.warn(GM_info.script.name, ": ", e);
