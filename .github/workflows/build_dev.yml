@@ -51,3 +51,4 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           target-folder: dev
           single-commit: true # need no history
+          include-github-folder: true # sonst kommt der workflow nicht mit
