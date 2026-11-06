@@ -31,7 +31,7 @@ jobs:
         run: |
           ls -la
           mkdir -p build/.github/workflows
-          cp .github/workflows/jekyll-gh-pages.yml build/github/workflows/
+          cp .github/workflows/jekyll-gh-pages.yml build/.github/workflows/
           ls -la build/.github/workflows
 
       - name: Deploy JS lib
