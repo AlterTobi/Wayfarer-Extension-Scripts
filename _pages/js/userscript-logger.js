@@ -39,6 +39,7 @@ window.UserScriptLogger = (function() {
     yellow() { this.currentStyles.push("color: #ff9800;"); return this; }
     green() { this.currentStyles.push("color: #4caf50;"); return this; }
     blue() { this.currentStyles.push("color: #000c84;"); return this; }
+    black() { this.currentStyles.push("color: #000"); return this; }
     white() { this.currentStyles.push("color: #ffffff;"); return this; }
     fuchsia() { this.currentStyles.push("color: fuchsia;"); return this; }
 
