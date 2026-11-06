@@ -1,8 +1,9 @@
 // @name         Base
-// @version      3.0.0
+// @version      3.0.1
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
+// @require      https://toolbox.gefallenehelden.de/jslib/userscript-logger.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
@@ -362,9 +363,7 @@
           break;
         case PREFIX + "review":
           wfes.currentPage = wfes.WF_PAGES.REVIEW;
-          if ("GET" === this._method) {
-            handleReviewData(json.result);
-          }
+          handleReviewData(json.result);
           break;
         case PREFIX + "loginconfig":
           //  wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
@@ -429,6 +428,9 @@
         case PREFIX + "static-map-url":
           // map tile - do nothing
           break;
+        case PREFIX + "reverse-geocode":
+          // map do nothing
+          break;
         case PREFIX + "submit/available":
           wfes.currentPage = wfes.WF_PAGES.SUBMIT;
           wfes.submitAvailable = json.result;
@@ -477,6 +479,8 @@
           } else if (url.startsWith(PREFIX + "submit/get/drafts")) {
             wfes.drafts = json.result;
             window.dispatchEvent(new Event("WFESGetDrafts"));
+          } else if (url.startsWith(PREFIX + "reverse-geocode")) {
+            // map do nothing
           } else {
             logger.error("WFES Base - unhandled URL: ", url);
           }
