@@ -9,7 +9,8 @@
   // Logger initialisieren
   const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
-  const profileImageSelector = "#root > div > header > div > button > div > img";
+  const profileImageSelector = "#root > div > header > div.relative.shrink-0 > button > div > img";
+                                
   const myID = "wfes-debugOverlay";
   const myCssId = "wfes-debugCSS";
   const myStyle = `.wfes-debug {
