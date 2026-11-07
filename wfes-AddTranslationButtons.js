@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.5.0
+// @version      2.5.1
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.scopely.com/*
@@ -23,8 +23,8 @@
   // ----- BEGIN - the Wayfarer part ------
   const myCSSId = "wfesTranslateCSS";
   const myStyle = `.wfesTranslate {
-      color: #333;
-      margin-left: 2em;
+      color: #efefef;
+      margin-left: 1em;
       align-self: center;
       text-align: center;
       display: block;
@@ -162,7 +162,7 @@
       // remove if exist
       removeButton();
       const div = document.createElement("div");
-      div.className = "wfesTranslate";
+      div.className = "wfesTranslate flex-1";
       div.id = buttonID;
 
       const select = document.createElement("select");
@@ -199,7 +199,8 @@
 
       // const container = elem.parentNode.parentNode;
       // container.appendChild(div);
-      elem.appendChild(div);
+      // elem.appendChild(div);
+      elem.insertBefore(div, elem.lastElementChild);
     })
       .catch((e) => {
         console.warn(GM_info.script.name, ": ", e);
