@@ -195,7 +195,7 @@
     window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
   }
 
-//  init();
+  //  init();
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
