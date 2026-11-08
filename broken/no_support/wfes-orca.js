@@ -1,5 +1,5 @@
 // @name         ORCa
-// @version      1.1.1
+// @version      1.1.98
 // @description  ORCa
 // @author       AlterTobi
 // @resource     orca https://altertobi.github.io/Wayfarer-Extension-Scripts/images/orca.png
@@ -7,6 +7,8 @@
 
 (function() {
   "use strict";
+
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
   const myCssId = "wfesORCaCSS";
   const myStyle = `.wfesORC {
@@ -91,9 +93,11 @@
       console.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
     }
   } else {
-    init();
+    // init();
   }
 
   /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.error("need fix and update");
+
+
 })();

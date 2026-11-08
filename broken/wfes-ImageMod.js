@@ -5,7 +5,9 @@
 
 (function() {
   "use strict";
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
+  /*
   let _currentSupImage = 0; // zähler des aktuellen Zusatzbildes
   let _supImageCount = 1; // wieviel Zusatzbilder gibt es?
   let _supImages; // speichern die imageUrls
@@ -243,8 +245,10 @@
     }
   }
 
-  // window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(addFullSizeImageLinksNomDetail, 100);});
-  // window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinksReview, 100);});
+  window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(addFullSizeImageLinksNomDetail, 100);});
+  window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinksReview, 100);});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+*/
+  logger.error("need fix");
 })();

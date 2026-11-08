@@ -1,11 +1,13 @@
 // @name         Click Enlarge Images
-// @version      1.1.0
+// @version      1.1.98
 // @description  auto-click the enlarge images symbols (requires image mod script)
 // @author       AlterTobi
 
 (function() {
   "use strict";
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
+  /*
   const l1Sel = "app-photo-b > wf-review-card-b > div.wf-review-card__body > div > a.lupe";
   const l2Sel = "a#lupesup";
 
@@ -24,8 +26,10 @@
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
-  window.addEventListener("WFESReviewPageNewLoaded", () => {setTimeout(click, 500);});
+  // window.addEventListener("WFESReviewPageNewLoaded", () => {setTimeout(click, 500);});
 
-  /* we are done :-) */
+
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+*/
+  logger.error("need fix and update");
 })();
