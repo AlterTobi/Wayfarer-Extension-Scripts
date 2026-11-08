@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.5.0
+// @version      1.5.98
 // @description  open fullsize images in "named" tabs
 // @author       AlterTobi
 
@@ -243,8 +243,8 @@
     }
   }
 
-  window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(addFullSizeImageLinksNomDetail, 100);});
-  window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinksReview, 100);});
+  // window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(addFullSizeImageLinksNomDetail, 100);});
+  // window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinksReview, 100);});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
