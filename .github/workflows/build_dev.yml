@@ -32,15 +32,15 @@ jobs:
 #          mkdir -p build/.github/workflows
 #          cp .github/workflows/jekyll-gh-pages.yml build/.github/workflows/
 
-      - name: Deploy JS lib
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_DEPLOY_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./_pages/js/
-          state-name:  ${{ secrets.FTP_STATE_NAME }}
+#      - name: Deploy JS lib
+#        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+#        with:
+#          server: ${{ secrets.FTP_DEPLOY_SERVER }}
+#          username: ${{ secrets.FTP_USERNAME }}
+#          password: ${{ secrets.FTP_PASSWORD }}
+#          protocol: ftps
+#          local-dir: ./_pages/js/
+#          state-name:  ${{ secrets.FTP_STATE_NAME }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
