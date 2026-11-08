@@ -15,6 +15,9 @@
 
   const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
+  /* Wayfarer CSS Constants */
+  const wfHeaderSelector = "#root > div > header";
+
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
   const loginPath = "/login";
@@ -269,6 +272,13 @@
     };
     checkUID(1);
   });
+
+  function _removeButton(buttonID) {
+    const button = document.getElementById(buttonID);
+    if (button !== null) {
+      button.remove();
+    }
+  }
 
   /* =========== IndexedDB ============================= */
   const getIDBInstance = version => new Promise((resolve, reject) => {
@@ -997,6 +1007,20 @@
   };
 
   window.wfes.f.waitForElem = _waitForElem;
+
+  window.wfes.f.createHeaderButton = function(button, id) {
+    _waitForElem(wfHeaderSelector).then(elem => {
+      _removeButton(id);
+      // div.classList.add("anotherClass");
+      elem.insertBefore(button, elem.lastElementChild);
+    })
+      .catch((e) => {
+        logger.warn(e);
+      });
+
+  };
+
+  window.wfes.f.removeButton = _removeButton;
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */

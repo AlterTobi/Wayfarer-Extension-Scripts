@@ -1,15 +1,19 @@
 // @name        Expire Timer
-// @version     1.2.1
+// @version     1.2.99
 // @description Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author      MrJPGames / AlterTobi
 
 (function() {
   "use strict";
 
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
   const sessvarMiss = "warnBase";
+  const baseMinVersion = "3.0.0";
+
   const myCSSId = "wfesExpireCSS";
   const myStyle = `.wfesExpire {
-      color: #333;
+      color: #efefef;
       margin-left: 2em;
       align-self: center;
       text-align: center;
@@ -23,13 +27,6 @@
 
   const buttonID = "expireButton";
   let timeElem;
-
-  function removeButton() {
-    const button = document.getElementById(buttonID);
-    if (button !== null) {
-      button.remove();
-    }
-  }
 
   // Helper functions
   function pad(num, size) {
@@ -56,29 +53,26 @@
 
   function createTimer(message) {
     window.wfes.f.addCSS(myCSSId, myStyle);
-    wfes.f.waitForElem("wf-logo").then(elem=>{
-      const div = document.createElement("div");
-      div.className = "wfesExpire";
-      div.id = buttonID;
-      const expireTimer = document.createElement("span");
-      expireTimer.appendChild(document.createTextNode(message));
-      div.appendChild(expireTimer);
-      timeElem = document.createElement("div");
-      timeElem.appendChild(document.createTextNode("??:??"));
-      timeElem.style.display = "inline-block";
-      div.appendChild(timeElem);
-      const container = elem.parentNode.parentNode;
-      container.appendChild(div);
-      updateTimer();
-    })
-      .catch(e => {
-        console.warn(GM_info.script.name, ": ", e);
-      });
+
+    const div = document.createElement("div");
+    div.className = "wfesExpire";
+    div.id = buttonID;
+    const expireTimer = document.createElement("span");
+    expireTimer.appendChild(document.createTextNode(message));
+    div.appendChild(expireTimer);
+    timeElem = document.createElement("div");
+    timeElem.appendChild(document.createTextNode("??:??"));
+    timeElem.style.display = "inline-block";
+    div.appendChild(timeElem);
+
+    window.wfes.f.createHeaderButton(div, buttonID);
+    updateTimer();
+
   }
 
   const init = () => {
     window.addEventListener("WFESReviewPageLoaded", () => createTimer("Time remaining: "));
-    window.addEventListener("WFESReviewDecisionSent", removeButton);
+    window.addEventListener("WFESReviewDecisionSent", () => window.wfes.f.removeButton(buttonID));
   };
 
 
@@ -87,11 +81,16 @@
     if (undefined === sessionStorage[sessvarMiss]) {
       sessionStorage[sessvarMiss] = 1;
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
-      console.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
+      logger.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
     }
-  } else {
+  } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
+  } else {
+    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    logger.warn(msg);
+    window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  /* we are done :-) */
+  logger.info("Script loaded: version:" + GM_info.script.version);
 })();
