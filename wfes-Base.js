@@ -1011,6 +1011,7 @@
   window.wfes.f.createHeaderButton = function(button, id) {
     _waitForElem(wfHeaderSelector).then(elem => {
       _removeButton(id);
+      // div.classList.add("anotherClass");
       elem.insertBefore(button, elem.lastElementChild);
     })
       .catch((e) => {
