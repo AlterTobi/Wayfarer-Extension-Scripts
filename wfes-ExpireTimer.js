@@ -13,7 +13,7 @@
 
   const myCSSId = "wfesExpireCSS";
   const myStyle = `.wfesExpire {
-      color: #333;
+      color: #efefef;
       margin-left: 2em;
       align-self: center;
       text-align: center;
