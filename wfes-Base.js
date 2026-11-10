@@ -228,24 +228,36 @@
         logger.error("no props und kein WF");
       } else {
         logger.debug("fetch props");
-        const theUrl = "https://wayfarer.scopely.com/api/v1/vault/properties";
+        const theUrl = "/api/v1/vault/properties";
         // Führe den Fetch-Aufruf aus
         fetch(theUrl)
           .then(response => {
             // response.ok ist true, wenn der Status zwischen 200 und 299 liegt
-            // eslint-disable-next-line no-negated-condition
+
             if (!response.ok) {
               // Text-Inhalt der Antwort auslesen, um ihn im Fehlerfall zu loggen
-              response.text().then(responseText => {
+              return response.text().then(responseText => {
                 logger.warn(response.statusText, responseText);
+                throw new Error("Server-Fehler beim Abruf der Properties");
               });
-            } else {
+            }
 
-              const responseClone = response.clone();
-              responseClone.json().then(json => {
-                logger.info("Response", json);
-              });
-
+            // Wenn die Antwort okay ist, den Body als JSON parsen
+            return response.json();
+          })
+          .then(json => {
+            try {
+              // Sicheren Snapshot für das Userscript erstellen (entkoppelt vom Seiten-Kontext)
+              const jsonSafe = structuredClone(json);
+              wfes.properties = jsonSafe;
+              window.dispatchEvent(new Event("WFESPropertiesLoaded"));
+              logger.success("Properties erfolgreich geladen und gespeichert:", jsonSafe);
+            } catch {
+              // Fallback, falls structuredClone bei nativen Objekten fehlschlägt
+              const jsonSafe = jCopy(json);
+              // Hier ebenfalls zuweisen, falls nötig
+              wfes.properties = jsonSafe;
+              window.dispatchEvent(new Event("WFESPropertiesLoaded"));
             }
           })
           .catch(error => {
