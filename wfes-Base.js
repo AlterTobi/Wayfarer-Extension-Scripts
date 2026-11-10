@@ -275,7 +275,7 @@
       if (tries > 20) {
         // resolve(tmpUserId);
         _getPropsOnce();
-        reject();
+        reject(new Error("Timeout: UserId konnte nach 20 Versuchen nicht ermittelt werden."));
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
@@ -707,6 +707,45 @@
   });
 
   // get data from "localstorage"
+  window.wfes.f.iDBGetLScompat = async(name, content = "") => {
+    try {
+      // Beide Promises nacheinander synchron lesbar abwarten
+      const userId = await getUserId();
+      const db = await getIDBInstance();
+
+      const index = name + "_" + userId;
+
+      // Das eigentliche IndexedDB-Request in ein Promise verpacken
+      return new Promise((resolve) => {
+        const tx = db.transaction([idbLocalStorageCompat], "readonly");
+        tx.oncomplete = () => { db.close(); };
+        tx.onerror = (event) => { console.log("transaction error:", event); };
+
+        const objectStore = tx.objectStore(idbLocalStorageCompat);
+        const request = objectStore.get(index);
+
+        request.onsuccess = () => {
+          if (request.result) {
+            resolve(request.result.data);
+          } else {
+            resolve(content);
+          }
+        };
+
+        request.onerror = (event) => {
+          console.log("error retrieving data:", event);
+          resolve(content);
+        };
+      });
+
+    } catch (error) {
+      // Fängt Fehler von getUserId(), getIDBInstance() und allen anderen Exceptions ab
+      logger.warn("iDBGetLScompat Fehler abgefangen (Nutze Fallback):", error);
+      return content; // Gibt im Fehlerfall sicher den Standardinhalt zurück
+    }
+  };
+  /*
+  // get data from "localstorage"
   window.wfes.f.iDBGetLScompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
@@ -731,6 +770,7 @@
       });
     });
   });
+*/
 
   // save data in localstorage
   window.wfes.f.localStorageSave = (name, content) => new Promise((resolve, reject) => {
