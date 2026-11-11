@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 1.3.0
+// @version 1.3.99
 // @description CSS modifcations for Wayfarer >= 5.7
 // @author AlterTobi (CSS parts by AlfonsoML)
 
@@ -195,7 +195,7 @@
     window.addEventListener("WFESReviewPageEditLoaded", editImproveCSS);
   }
 
-  init();
+  //  init();
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();

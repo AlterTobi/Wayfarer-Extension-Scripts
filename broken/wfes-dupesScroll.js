@@ -1,5 +1,5 @@
 // @name         dupes Scroll
-// @version      1.3.0
+// @version      1.3.98
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 
@@ -55,7 +55,7 @@
       logger.error("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
     }
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
-    init();
+    //    init();
   } else {
     const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
     logger.warn(msg);
@@ -63,7 +63,6 @@
   }
 
   /* we are done :-) */
-  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-
+  logger.error("need fix and update");
 
 })();

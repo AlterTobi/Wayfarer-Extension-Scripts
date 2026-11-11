@@ -1,11 +1,13 @@
 // @name maps open in
-// @version 1.6.0
+// @version 1.6.98
 // @description add "Open In" for maps
 // @author AlterTobi
 
 (function() {
   "use strict";
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
+  /*
   // map URLs, %lat%, %lng% will be replaced by nominations coordinates
   const customMaps = [
     { title: "Google", url: "https://maps.google.com/maps?q=%lat%,%lng%"},
@@ -40,7 +42,6 @@
     .dropdown-content {
       display: none;
       position: absolute;
-      /* left: -.25em; */
       transform: translateY(-100%);
       border-radius: 5px;
       background-color: #f9f9f9;
@@ -201,8 +202,9 @@
     addButtonShowCase(mainButton);
   }
 
-  let selNomTimerId = null;
-  let loadNomTimerId = null;
+  const selNomTimerId = null;
+  const loadNomTimerId = null;
+
 
   window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addDropdownReview, 100);});
   window.addEventListener("WFESNominationDetailLoaded", () => { clearTimeout(selNomTimerId); selNomTimerId = setTimeout(addDropdownNomination, 250);});
@@ -213,4 +215,6 @@
   window.addEventListener("WFESShowCaseClick", showCaseClick);
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+*/
+  logger.error("need fix and update");
 })();

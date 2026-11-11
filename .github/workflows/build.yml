@@ -21,6 +21,11 @@ jobs:
           cd _buildscripts
           /usr/bin/python3 ./build.py
 
+#      - name: Inject Pages Workflow into Build 📦
+#        run: |
+#          mkdir -p build/.github/workflows
+#          cp .github/workflows/jekyll-gh-pages.yml build/.github/workflows/
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:

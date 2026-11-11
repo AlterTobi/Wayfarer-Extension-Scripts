@@ -1,8 +1,9 @@
 // @name         Base
-// @version      3.0.0
+// @version      3.0.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
+// @require      https://toolbox.gefallenehelden.de/jslib/userscript-logger.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
@@ -13,6 +14,9 @@
   // const globalWindow = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
   const logger = new window.UserScriptLogger(GM_info.script.name, false);
+
+  /* Wayfarer CSS Constants */
+  const wfHeaderSelector = "#root > div > header";
 
   /* WFES data structures */
   const PREFIX = "/api/v1/vault/";
@@ -224,24 +228,36 @@
         logger.error("no props und kein WF");
       } else {
         logger.debug("fetch props");
-        const theUrl = "https://wayfarer.scopely.com/api/v1/vault/properties";
+        const theUrl = "/api/v1/vault/properties";
         // Führe den Fetch-Aufruf aus
         fetch(theUrl)
           .then(response => {
             // response.ok ist true, wenn der Status zwischen 200 und 299 liegt
-            // eslint-disable-next-line no-negated-condition
+
             if (!response.ok) {
               // Text-Inhalt der Antwort auslesen, um ihn im Fehlerfall zu loggen
-              response.text().then(responseText => {
+              return response.text().then(responseText => {
                 logger.warn(response.statusText, responseText);
+                throw new Error("Server-Fehler beim Abruf der Properties");
               });
-            } else {
+            }
 
-              const responseClone = response.clone();
-              responseClone.json().then(json => {
-                logger.info("Response", json);
-              });
-
+            // Wenn die Antwort okay ist, den Body als JSON parsen
+            return response.json();
+          })
+          .then(json => {
+            try {
+              // Sicheren Snapshot für das Userscript erstellen (entkoppelt vom Seiten-Kontext)
+              const jsonSafe = structuredClone(json);
+              wfes.properties = jsonSafe;
+              window.dispatchEvent(new Event("WFESPropertiesLoaded"));
+              logger.success("Properties erfolgreich geladen und gespeichert:", jsonSafe);
+            } catch {
+              // Fallback, falls structuredClone bei nativen Objekten fehlschlägt
+              const jsonSafe = jCopy(json);
+              // Hier ebenfalls zuweisen, falls nötig
+              wfes.properties = jsonSafe;
+              window.dispatchEvent(new Event("WFESPropertiesLoaded"));
             }
           })
           .catch(error => {
@@ -259,7 +275,7 @@
       if (tries > 20) {
         // resolve(tmpUserId);
         _getPropsOnce();
-        reject();
+        reject(new Error("Timeout: UserId konnte nach 20 Versuchen nicht ermittelt werden."));
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
@@ -268,6 +284,13 @@
     };
     checkUID(1);
   });
+
+  function _removeButton(buttonID) {
+    const button = document.getElementById(buttonID);
+    if (button !== null) {
+      button.remove();
+    }
+  }
 
   /* =========== IndexedDB ============================= */
   const getIDBInstance = version => new Promise((resolve, reject) => {
@@ -362,9 +385,7 @@
           break;
         case PREFIX + "review":
           wfes.currentPage = wfes.WF_PAGES.REVIEW;
-          if ("GET" === this._method) {
-            handleReviewData(json.result);
-          }
+          handleReviewData(json.result);
           break;
         case PREFIX + "loginconfig":
           //  wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
@@ -429,6 +450,9 @@
         case PREFIX + "static-map-url":
           // map tile - do nothing
           break;
+        case PREFIX + "reverse-geocode":
+          // map do nothing
+          break;
         case PREFIX + "submit/available":
           wfes.currentPage = wfes.WF_PAGES.SUBMIT;
           wfes.submitAvailable = json.result;
@@ -477,6 +501,8 @@
           } else if (url.startsWith(PREFIX + "submit/get/drafts")) {
             wfes.drafts = json.result;
             window.dispatchEvent(new Event("WFESGetDrafts"));
+          } else if (url.startsWith(PREFIX + "reverse-geocode")) {
+            // map do nothing
           } else {
             logger.error("WFES Base - unhandled URL: ", url);
           }
@@ -681,6 +707,45 @@
   });
 
   // get data from "localstorage"
+  window.wfes.f.iDBGetLScompat = async(name, content = "") => {
+    try {
+      // Beide Promises nacheinander synchron lesbar abwarten
+      const userId = await getUserId();
+      const db = await getIDBInstance();
+
+      const index = name + "_" + userId;
+
+      // Das eigentliche IndexedDB-Request in ein Promise verpacken
+      return new Promise((resolve) => {
+        const tx = db.transaction([idbLocalStorageCompat], "readonly");
+        tx.oncomplete = () => { db.close(); };
+        tx.onerror = (event) => { console.log("transaction error:", event); };
+
+        const objectStore = tx.objectStore(idbLocalStorageCompat);
+        const request = objectStore.get(index);
+
+        request.onsuccess = () => {
+          if (request.result) {
+            resolve(request.result.data);
+          } else {
+            resolve(content);
+          }
+        };
+
+        request.onerror = (event) => {
+          console.log("error retrieving data:", event);
+          resolve(content);
+        };
+      });
+
+    } catch (error) {
+      // Fängt Fehler von getUserId(), getIDBInstance() und allen anderen Exceptions ab
+      logger.warn("iDBGetLScompat Fehler abgefangen (Nutze Fallback):", error);
+      return content; // Gibt im Fehlerfall sicher den Standardinhalt zurück
+    }
+  };
+  /*
+  // get data from "localstorage"
   window.wfes.f.iDBGetLScompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
@@ -705,6 +770,7 @@
       });
     });
   });
+*/
 
   // save data in localstorage
   window.wfes.f.localStorageSave = (name, content) => new Promise((resolve, reject) => {
@@ -993,6 +1059,20 @@
   };
 
   window.wfes.f.waitForElem = _waitForElem;
+
+  window.wfes.f.createHeaderButton = function(button, id) {
+    _waitForElem(wfHeaderSelector).then(elem => {
+      _removeButton(id);
+      // div.classList.add("anotherClass");
+      elem.insertBefore(button, elem.lastElementChild);
+    })
+      .catch((e) => {
+        logger.warn(e);
+      });
+
+  };
+
+  window.wfes.f.removeButton = _removeButton;
   /* ================ /basic functions=============== */
 
   /* ================ getter ======================== */
