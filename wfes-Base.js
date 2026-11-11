@@ -1,5 +1,5 @@
 // @name         Base
-// @version      3.0.1
+// @version      3.0.2
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -228,24 +228,36 @@
         logger.error("no props und kein WF");
       } else {
         logger.debug("fetch props");
-        const theUrl = "https://wayfarer.scopely.com/api/v1/vault/properties";
+        const theUrl = "/api/v1/vault/properties";
         // Führe den Fetch-Aufruf aus
         fetch(theUrl)
           .then(response => {
             // response.ok ist true, wenn der Status zwischen 200 und 299 liegt
-            // eslint-disable-next-line no-negated-condition
+
             if (!response.ok) {
               // Text-Inhalt der Antwort auslesen, um ihn im Fehlerfall zu loggen
-              response.text().then(responseText => {
+              return response.text().then(responseText => {
                 logger.warn(response.statusText, responseText);
+                throw new Error("Server-Fehler beim Abruf der Properties");
               });
-            } else {
+            }
 
-              const responseClone = response.clone();
-              responseClone.json().then(json => {
-                logger.info("Response", json);
-              });
-
+            // Wenn die Antwort okay ist, den Body als JSON parsen
+            return response.json();
+          })
+          .then(json => {
+            try {
+              // Sicheren Snapshot für das Userscript erstellen (entkoppelt vom Seiten-Kontext)
+              const jsonSafe = structuredClone(json);
+              wfes.properties = jsonSafe;
+              window.dispatchEvent(new Event("WFESPropertiesLoaded"));
+              logger.success("Properties erfolgreich geladen und gespeichert:", jsonSafe);
+            } catch {
+              // Fallback, falls structuredClone bei nativen Objekten fehlschlägt
+              const jsonSafe = jCopy(json);
+              // Hier ebenfalls zuweisen, falls nötig
+              wfes.properties = jsonSafe;
+              window.dispatchEvent(new Event("WFESPropertiesLoaded"));
             }
           })
           .catch(error => {
@@ -263,7 +275,7 @@
       if (tries > 20) {
         // resolve(tmpUserId);
         _getPropsOnce();
-        reject();
+        reject(new Error("Timeout: UserId konnte nach 20 Versuchen nicht ermittelt werden."));
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
@@ -695,6 +707,45 @@
   });
 
   // get data from "localstorage"
+  window.wfes.f.iDBGetLScompat = async(name, content = "") => {
+    try {
+      // Beide Promises nacheinander synchron lesbar abwarten
+      const userId = await getUserId();
+      const db = await getIDBInstance();
+
+      const index = name + "_" + userId;
+
+      // Das eigentliche IndexedDB-Request in ein Promise verpacken
+      return new Promise((resolve) => {
+        const tx = db.transaction([idbLocalStorageCompat], "readonly");
+        tx.oncomplete = () => { db.close(); };
+        tx.onerror = (event) => { console.log("transaction error:", event); };
+
+        const objectStore = tx.objectStore(idbLocalStorageCompat);
+        const request = objectStore.get(index);
+
+        request.onsuccess = () => {
+          if (request.result) {
+            resolve(request.result.data);
+          } else {
+            resolve(content);
+          }
+        };
+
+        request.onerror = (event) => {
+          console.log("error retrieving data:", event);
+          resolve(content);
+        };
+      });
+
+    } catch (error) {
+      // Fängt Fehler von getUserId(), getIDBInstance() und allen anderen Exceptions ab
+      logger.warn("iDBGetLScompat Fehler abgefangen (Nutze Fallback):", error);
+      return content; // Gibt im Fehlerfall sicher den Standardinhalt zurück
+    }
+  };
+  /*
+  // get data from "localstorage"
   window.wfes.f.iDBGetLScompat = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "iDBGetLScompat:", userId, name);
@@ -719,6 +770,7 @@
       });
     });
   });
+*/
 
   // save data in localstorage
   window.wfes.f.localStorageSave = (name, content) => new Promise((resolve, reject) => {
