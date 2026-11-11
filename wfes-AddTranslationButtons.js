@@ -32,7 +32,8 @@
     .dark .wfesTranslate {
       color: #ddd;
     }
-    .wfesTranslate select {
+    .wfesTranslate select,
+    .wfesTranslate option {
         margin-bottom: 0.2em; /* Abstand zwischen Dropdown und Button */
         background-color: inherit; /* firefox macht sonst grau */
     }
