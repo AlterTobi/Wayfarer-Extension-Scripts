@@ -1,5 +1,5 @@
 // @name         dupes Scroll
-// @version      1.3.99
+// @version      1.4.0
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 
@@ -13,7 +13,6 @@
 
   function filmStripScroll() {
     // Make film strip (duplicates) scrollable
-    // const filmStripSelector ="#check-duplicates-card div.w-full.flex.overflow-x-auto.overflow-y-hidden.ng-star-inserted";
     const filmStripSelector ="#check-duplicates-card div.flex.w-full.min-w-0.gap-3.overflow-x-auto.overflow-y-hidden";
     const candidate = window.wfes.g.reviewPageData();
 
