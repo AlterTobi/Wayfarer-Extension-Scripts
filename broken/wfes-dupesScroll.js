@@ -63,6 +63,6 @@
   }
 
   /* we are done :-) */
-  logger.error("need fix and update");
+  logger.info("Script loaded: version:" + GM_info.script.version);
 
 })();
