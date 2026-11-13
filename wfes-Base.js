@@ -842,10 +842,7 @@
   // add CSS to the head, if not there
   window.wfes.f.addCSS = function(myID, styles) {
     if ("string"===typeof(myID) && myID.length>0) {
-      logger.custom().blue()
-        .bgGray()
-        .text("addCSS - ID:" + myID)
-        .print();
+      // logger.custom().blue().bgGray().text("addCSS - ID:" + myID).print();
       // already there?
       if (null === document.getElementById(myID)) {
         _waitForElem("head").then( headElem => {
