@@ -1,9 +1,9 @@
 // @name         Base
-// @version      3.0.2
+// @version      3.0.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
-// @require      https://toolbox.gefallenehelden.de/jslib/userscript-logger.js
+// @require      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/js/userscript-logger.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
