@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      2.5.1
+// @version      2.5.2
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.scopely.com/*
@@ -36,6 +36,9 @@
     .wfesTranslate option {
         margin-bottom: 0.2em; /* Abstand zwischen Dropdown und Button */
         background-color: inherit; /* firefox macht sonst grau */
+    }
+    .wfesTranslate option {
+        color: black;
     }
     .wfesTranslateButton {
         display: block; /* Button wird unterhalb des Selects angezeigt */
