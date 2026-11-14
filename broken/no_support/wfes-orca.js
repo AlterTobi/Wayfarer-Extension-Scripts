@@ -8,8 +8,9 @@
 (function() {
   "use strict";
 
-  const logger = new window.UserScriptLogger(GM_info.script.name, true);
-
+  const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+  const logger = new w.UserScriptLogger(GM_info.script.name, true);
+  /*
   const myCssId = "wfesORCaCSS";
   const myStyle = `.wfesORC {
       color: #333;
@@ -82,8 +83,8 @@
   }
 
   function init() {
-    window.addEventListener("WFESReviewPageNewLoaded", ORCa);
-    window.addEventListener("WFESReviewDecisionSent", removeButton);
+    addEventListener("WFESReviewPageNewLoaded", ORCa);
+    addEventListener("WFESReviewDecisionSent", removeButton);
   }
 
   if("undefined" === typeof(wfes)) {
@@ -96,6 +97,7 @@
     // init();
   }
 
+*/
   /* we are done :-) */
   logger.error("need fix and update");
 

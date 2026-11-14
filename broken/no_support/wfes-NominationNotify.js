@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.9.0
+// @version      1.9.98
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -265,7 +265,6 @@
     window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
-  /* we are done :-) */
-  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.error("need fix and update");
 
 })();

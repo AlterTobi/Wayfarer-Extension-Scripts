@@ -1,10 +1,14 @@
 // @name         Appeal Data
-// @version      1.5.0
+// @version      1.5.98
 // @description  save and show appeal your statements
 // @author       AlterTobi
 
 (function() {
   "use strict";
+
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
+  /*
 
   const sessvarMiss = "warnBase";
   const baseMinVersion = "2.3.0";
@@ -107,7 +111,7 @@
     console.warn(GM_info.script.name, "Need at least wfes-Base version ", baseMinVersion, " Please upgrade.");
   }
 
-  /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-
+*/
+  logger.error("need fix and update");
+  logger.info("this tool is potentially obsolete");
 })();

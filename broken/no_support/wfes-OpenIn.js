@@ -217,4 +217,5 @@
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 */
   logger.error("need fix and update");
+  logger.info("please user other Wayfarer tools for open-in");
 })();
