@@ -1,5 +1,5 @@
 // @name         POI Submission Availability
-// @version      1.1.98
+// @version      1.1.99
 // @description  adds information about submission availability (max, tomorrow)
 
 (function() {
@@ -44,7 +44,8 @@
     }
   `;
 
-  const DRAFT_SELECTOR = "app-submit-wayspot-entry > div > div.drafts-section";
+  //  const DRAFT_SELECTOR = "app-submit-wayspot-entry > div > div.drafts-section";
+  const DRAFT_SELECTOR = "#root > div > div > div > div > div > nav";
 
   const DESCRIPTIONS = {
     POI_CATEGORY_VOTE_SUBMISSION: "add category",
