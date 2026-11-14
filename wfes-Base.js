@@ -272,14 +272,14 @@
   // wait for UserId
   const getUserId = () => new Promise((resolve, reject) => {
     const checkUID = tries => {
-      if (tries > 20) {
+      if (tries > 25) {
         // resolve(tmpUserId);
         _getPropsOnce();
         reject(new Error("Timeout: UserId konnte nach 20 Versuchen nicht ermittelt werden."));
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
-        setTimeout(() => checkUID(tries + 1), 200);
+        setTimeout(() => checkUID(tries + 1), 400);
       }
     };
     checkUID(1);
