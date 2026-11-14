@@ -10,7 +10,7 @@
 
   const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
   const logger = new w.UserScriptLogger(GM_info.script.name, true);
-
+  /*
   const myCssId = "wfesORCaCSS";
   const myStyle = `.wfesORC {
       color: #333;
@@ -97,6 +97,7 @@
     // init();
   }
 
+*/
   /* we are done :-) */
   logger.error("need fix and update");
 

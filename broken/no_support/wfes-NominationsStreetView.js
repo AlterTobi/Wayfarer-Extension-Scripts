@@ -1,13 +1,16 @@
 // @name         Nomination page StreetView
-// @version      1.2.0
+// @version      1.2.98
 // @description  Adds the streetview view a reviewer will see on your own nominations!
 // @author       MrJPGames / AlterTobi
 
-/* global google */
+//* global google */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "marker" }]*/
 
 (function() {
   "use strict";
+
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+  /*
 
   let SVMap;
   let panorama = null;
@@ -104,4 +107,7 @@
   window.addEventListener("WFESNominationDetailLoaded", setStreetView);
   // window.addEventListener("WFESNominationDetailLoaded", scrollUp);
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  */
+
+  logger.error("need fix and update");
 })();

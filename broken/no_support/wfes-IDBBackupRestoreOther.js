@@ -5,6 +5,9 @@
 
 (function() {
   "use strict";
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
+  /*
 
   const sessvarMiss = "warnBase";
   const baseMinVersion = "2.8.5";
@@ -55,7 +58,7 @@
     }
   }
 
-  /* =========== IndexedDB ============================= */
+  // =========== IndexedDB =============================
   const getIDBInstance = version => new Promise((resolve, reject) => {
 
     if (!window.indexedDB) {
@@ -73,7 +76,7 @@
       reject(event.target.error);
     };
   });
-  /* =========== /IndexedDB ============================ */
+  // =========== /IndexedDB ============================
 
   const exportIDB = async function() {
     const db = await getIDBInstance();
@@ -127,26 +130,6 @@
 
   const importIDB = async function(records) {
     return records;
-    /*
-    const db = await getIDBInstance();
-
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction([idbLocalStorageCompat], "readwrite");
-      const store = tx.objectStore(idbLocalStorageCompat);
-
-      for (const record of records) {
-        store.put(record);
-      }
-
-      tx.oncomplete = () => {
-        db.close();
-        resolve();
-        window.wfes.f.createNotification("import done");
-      };
-
-      tx.onerror = reject;
-    });
-*/
   };
   function showButton() {
     window.wfes.f.waitForElem("wf-logo").then(elem => {
@@ -222,6 +205,7 @@
     window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
-  /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  */
+  logger.error("need fix and update");
+
 })();
