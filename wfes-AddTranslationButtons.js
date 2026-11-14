@@ -1,7 +1,6 @@
 // @name         Add Translation Buttons
 // @version      2.5.2
 // @description  Adds a button to translate the text associated with a wayspot
-// @author       AlterTobi
 // @match        https://wayfarer.scopely.com/*
 // @match        https://www.deepl.com/*
 // @match        https://translate.kagi.com/*
