@@ -1,9 +1,9 @@
 // @name         Base
-// @version      3.0.2
+// @version      3.0.3
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
-// @require      https://toolbox.gefallenehelden.de/jslib/userscript-logger.js
+// @require      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/js/userscript-logger.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
@@ -272,14 +272,14 @@
   // wait for UserId
   const getUserId = () => new Promise((resolve, reject) => {
     const checkUID = tries => {
-      if (tries > 20) {
+      if (tries > 25) {
         // resolve(tmpUserId);
         _getPropsOnce();
         reject(new Error("Timeout: UserId konnte nach 20 Versuchen nicht ermittelt werden."));
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
-        setTimeout(() => checkUID(tries + 1), 200);
+        setTimeout(() => checkUID(tries + 1), 400);
       }
     };
     checkUID(1);
@@ -842,10 +842,7 @@
   // add CSS to the head, if not there
   window.wfes.f.addCSS = function(myID, styles) {
     if ("string"===typeof(myID) && myID.length>0) {
-      logger.custom().blue()
-        .bgGray()
-        .text("addCSS - ID:" + myID)
-        .print();
+      // logger.custom().blue().bgGray().text("addCSS - ID:" + myID).print();
       // already there?
       if (null === document.getElementById(myID)) {
         _waitForElem("head").then( headElem => {
