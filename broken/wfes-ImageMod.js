@@ -91,7 +91,7 @@
   // === Hilfsfunktionen ========================================
   const addFullImageButton = (elem, url, target, position = "afterEnd", styleClass = "lupe", elemId = "", spanClass = "") => {
     if (!elem) {
-      logger.warn(`Target element for full image button (${target}) not found.`);
+      logger.warn(`Target element for full image button (${elem}) not found.`);
       return;
     }
 
