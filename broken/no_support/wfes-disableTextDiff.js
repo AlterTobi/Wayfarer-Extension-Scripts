@@ -16,7 +16,7 @@
       window.wfes.f.waitForElem(matSlider).then( () =>{
         const sliders = document.querySelectorAll(inputSlider);
         sliders.forEach((s) => {
-          if ("true" === s.getAttribute("aria-checked")) {
+          if (s.getAttribute("aria-checked") === "true") {
             s.click();
           }
         });

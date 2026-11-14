@@ -30,7 +30,7 @@
     if ((counter-- > 0)) {
       // only on location edits
       if (edit.what.location) {
-        if ("undefined" === typeof(google)) {
+        if (typeof(google) === "undefined") {
           clearTimeout(timerId);
           timerId = setTimeout(addOrigMarker, 250);
           return;
@@ -57,5 +57,5 @@
     timerId = setTimeout(addOrigMarker, 250);
   } );
 
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 })();

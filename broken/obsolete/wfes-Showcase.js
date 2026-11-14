@@ -61,7 +61,7 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     const userBox = window.document.getElementsByClassName("showcase-item__image-caption nightwind-prevent")[0];
     let klasse = null;
 
-    if (null === document.getElementById(myGameID)) {
+    if (document.getElementById(myGameID) === null) {
       const gameLogo = document.createElement("div");
       gameLogo.setAttribute("id", myGameID);
       userBox.appendChild(gameLogo);
@@ -101,6 +101,6 @@ IYqHgkTBHM2N/P+MPR7hIjB3OzN427/WvgQYAPTTeKqgtlNiAAAAAElFTkSuQmCC');
     () => { clearTimeout(loadHomeTimerId); loadHomeTimerId = setTimeout(homePageLoaded, 200);});
 
   window.addEventListener("WFESShowCaseClick", showCaseClick);
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 
 })();

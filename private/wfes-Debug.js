@@ -73,7 +73,7 @@
       const target = decodedID.charCodeAt(j);
       let found = false;
 
-      if (32 === j) {
+      if (j === 32) {
         guid += ".";
         continue;
       }
@@ -154,7 +154,7 @@
           break;
         }
         case "t1": {
-          if (0.5 === candidate[key]) {
+          if (candidate[key] === 0.5) {
             content += `<p><strong>${key}:</strong> ${candidate[key]}</p>`;
           } else {
             content += `<p class="wfes-red"><strong>${key}:</strong> ${candidate[key]}</p>`;
@@ -233,7 +233,7 @@
     const email = props.socialProfile.email;
     const uid = window.wfes.f.hasUserId();
     if (uid) {
-      titletext = email + " # " + uid;
+      titletext = `${email } # ${ uid}`;
     } else {
       titletext = email;
     }
@@ -263,7 +263,7 @@
   window.dispatchEvent = function(event) {
     if (event.type.startsWith("WFES")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
-      window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+      window.wfes.f.createNotification(`${jetzt } #${ ++notificationCounter } ${ event.type}`, "fuchsia", {autoclose: 30});
       // console.log(GM_info.script.name + "%c # " + event.type, "color: fuchsia");
       logger.custom().fuchsia()
         .text("Event gesehen: ")

@@ -8,7 +8,7 @@
 (function() {
   "use strict";
 
-  const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+  const w = typeof unsafeWindow === "undefined" ? window : unsafeWindow;
   const logger = new w.UserScriptLogger(GM_info.script.name, true);
   /*
   const myCssId = "wfesORCaCSS";

@@ -40,7 +40,7 @@
 
     if (undefined !== candidate.statement) {
       const urls = candidate.statement.match(myReg);
-      if (null !== urls) {
+      if (urls !== null) {
         window.wfes.f.waitForElem(supStmtSel)
           .then(elem => {
             urls.forEach(function(url) {
@@ -58,5 +58,5 @@
 
   init();
 
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 })();

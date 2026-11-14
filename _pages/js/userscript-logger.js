@@ -16,7 +16,7 @@ window.UserScriptLogger = (function() {
       this.formatStr += `%c${msg}`;
 
       // Wenn keine Styles für dieses Segment definiert wurden, nutzen wir den Browser-Standard
-      if (0 === this.currentStyles.length) {
+      if (this.currentStyles.length === 0) {
         this.styles.push("color: inherit; font-weight: normal; font-style: normal; background: transparent; padding: 0;");
       } else {
         this.styles.push(this.currentStyles.join(" "));
@@ -82,12 +82,12 @@ window.UserScriptLogger = (function() {
       };
     }
     _baseLog(type, message, ...optionalParams) {
-      if ("debug" === type && !this.debugMode) {return;}
+      if (type === "debug" && !this.debugMode) {return;}
       const style = this.styles[type] || "";
       const prefix = `[${this.scriptName}] [${type.toUpperCase()}]`;
       if (style) {
         // %o sorgt dafür, dass der Browser das Argument explizit als interaktives Objekt rendert
-        if ("object" === typeof message && message !== null) {
+        if (typeof message === "object" && message !== null) {
           console.log(`%c${prefix} %o`, style, message, ...optionalParams);
         } else {
           console.log(`%c${prefix}`, style, message, ...optionalParams);

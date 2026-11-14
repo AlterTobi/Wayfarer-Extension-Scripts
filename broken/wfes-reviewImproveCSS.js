@@ -79,7 +79,7 @@
       window.wfes.f.waitForElem(selector).then((elem)=>{elem.classList.add("wfes-mh100p");})
         .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
       // remove description texts
-      const seltext = selector + " > div.wf-review-card__header > div:nth-child(1) > div";
+      const seltext = `${selector } > div.wf-review-card__header > div:nth-child(1) > div`;
       window.wfes.f.waitForElem(seltext).then((elem)=>{elem.classList.add("wfes-none");})
         .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     });
@@ -197,5 +197,5 @@
 
   //  init();
 
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 })();

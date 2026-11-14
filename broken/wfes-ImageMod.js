@@ -1,13 +1,10 @@
 // @name         image Mods
 // @version      1.5.98
 // @description  open fullsize images in "named" tabs
-// @author       AlterTobi
 
 (function() {
   "use strict";
-  const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
-  /*
   let _currentSupImage = 0; // zähler des aktuellen Zusatzbildes
   let _supImageCount = 1; // wieviel Zusatzbilder gibt es?
   let _supImages; // speichern die imageUrls
@@ -23,7 +20,7 @@
     const a = document.createElement("a");
     const span = document.createElement("span");
 
-    span.className = "material-icons material-icons-fontsize " + spanclass;
+    span.className = `material-icons material-icons-fontsize ${ spanclass}`;
     span.appendChild(document.createTextNode("search"));
     a.appendChild(span);
     a.target = target;
@@ -103,21 +100,21 @@
     switch (myData.type) {
       case "NEW":
         elem = document.getElementsByClassName("wf-image-modal flex-grow bg-contain bg-center bg-no-repeat");
-        imageUrl = myData.imageUrl + "=s0";
+        imageUrl = `${myData.imageUrl }=s0`;
         addFullImageButton(elem[0], imageUrl, "mainImage");
 
         // Supporting Image
         if (myData.supportingImageUrls) {
           elem = document.getElementsByClassName("supporting-info-img-container");
-          if (1 === myData.supportingImageUrls.length) {
-            imageUrl = myData.supportingImageUrls[0] + "=s0";
+          if (myData.supportingImageUrls.length === 1) {
+            imageUrl = `${myData.supportingImageUrls[0] }=s0`;
             addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
           } else if (myData.supportingImageUrls.length > 1) {
             _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
             _currentSupImage = 0;
             _supImageCount = myData.supportingImageUrls.length;
             for (let i = 0; i < _supImageCount; i++) {
-              const imageUrl = myData.supportingImageUrls[i] + "=s0";
+              const imageUrl = `${myData.supportingImageUrls[i] }=s0`;
               _supImages.push(imageUrl);
             }
             addFullImageButton(elem[0], _supImages[0], "supportingImage", "afterEnd", "", supLensId);
@@ -127,13 +124,13 @@
         break;
       case "EDIT":
         elem = document.getElementsByClassName("wf-image-modal");
-        imageUrl = myData.imageUrl + "=s0";
+        imageUrl = `${myData.imageUrl }=s0`;
         addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin");
         break;
       case "PHOTO":
         elem = document.getElementsByClassName("photo-card__photo");
         for (let i=0; i < elem.length; i++) {
-          imageUrl = myData.newPhotos[i].value + "=s0";
+          imageUrl = `${myData.newPhotos[i].value }=s0`;
           addFullImageButton(elem[i].parentNode.parentNode.parentNode, imageUrl, "additionalImage", "beforeEnd", "lupe bottom");
         }
         break;
@@ -191,14 +188,14 @@
     let elem, imageUrl;
     const myData = window.wfes.g.nominationDetail();
     // only nominations, for edits use Wayfarer Contribution Management Layout
-    if ("NOMINATION" === myData.type) {
+    if (myData.type === "NOMINATION") {
       window.wfes.f.addCSS(myCssId, myStyle);
 
       elem = document.getElementsByClassName("wf-image-modal details-pane__image");
-      imageUrl = myData.imageUrl + "=s0";
+      imageUrl = `${myData.imageUrl }=s0`;
 
       // main Image
-      if ( null === document.getElementById(buttonIDmain)) {
+      if ( document.getElementById(buttonIDmain) === null) {
         addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin", "luperel", buttonIDmain, "absolute");
       } else {
         setImageURL(buttonIDmain, imageUrl);
@@ -208,9 +205,9 @@
       if (myData.supportingImageUrls) {
         elem = document.getElementsByClassName("supporting-images-container");
 
-        if (1 === myData.supportingImageUrls.length) {
-          imageUrl = myData.supportingImageUrls[0] + "=s0";
-          if ( null === document.getElementById(buttonIDsup)) {
+        if (myData.supportingImageUrls.length === 1) {
+          imageUrl = `${myData.supportingImageUrls[0] }=s0`;
+          if ( document.getElementById(buttonIDsup) === null) {
             // addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
             addFullImageButton(elem[0], imageUrl, "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
           } else {
@@ -222,11 +219,11 @@
           _currentSupImage = 0;
           _supImageCount = myData.supportingImageUrls.length;
           for (let i = 0; i < _supImageCount; i++) {
-            const imageUrl = myData.supportingImageUrls[i] + "=s0";
+            const imageUrl = `${myData.supportingImageUrls[i] }=s0`;
             _supImages.push(imageUrl);
           }
 
-          if ( null === document.getElementById(buttonIDsup)) {
+          if ( document.getElementById(buttonIDsup) === null) {
             // addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
             addFullImageButton(elem[0], _supImages[0], "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
           } else {
@@ -248,7 +245,7 @@
   window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(addFullSizeImageLinksNomDetail, 100);});
   window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinksReview, 100);});
 
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-*/
-  logger.error("need fix");
+  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
+
+
 })();
