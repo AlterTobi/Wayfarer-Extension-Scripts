@@ -1,13 +1,41 @@
 // @name URLify
-// @version 1.4.0
+// @version 1.4.98
 // @description detect links in supporting information
-// @author AlterTobi
 
 (function() {
   "use strict";
 
-  const myCssId = "wfes-urlifyCSS";
-  const myStyle = `.wfes-extLnkBtn{
+
+  const BASE_MIN_VERSION = "3.0.0";
+  const SESSION_VAR_MISS = "warnBase";
+  const SCRIPT_NAME = GM_info?.script?.name ?? "WFES - Script";
+  const SCRIPT_VERSION = GM_info?.script?.version ?? "unknown";
+
+  // === Basis-Prüfung & Logger (Standard für alle Skripte) =====
+  if (typeof window.wfes === "undefined") {
+    if (sessionStorage.getItem(SESSION_VAR_MISS) === null) {
+      sessionStorage.setItem(SESSION_VAR_MISS, "1");
+      const msg = `${SCRIPT_NAME}: Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/`;
+      alert(msg);
+      console.error(msg);
+    }
+    return;
+  }
+
+  // Ab hier existiert wfes garantiert -> Logger ist überall verfügbar
+  const logger = new window.UserScriptLogger(SCRIPT_NAME, true);
+
+  if (!window.wfes.f.hasMinVersion(BASE_MIN_VERSION)) {
+    const msg = `${SCRIPT_NAME}: Need at least wfes-Base version ${BASE_MIN_VERSION}. Please upgrade.`;
+    logger.warn(msg);
+    window.wfes.f.createNotification(msg, "red", { autoclose: 60 });
+    return;
+  }
+
+  // === Skript-spezifische Konfiguration & Logik ===============
+
+  const CSS_ID = "wfes-urlifyCSS";
+  const CSS_STYLE = `.wfes-extLnkBtn{
         border: 2pt solid white;
         border-radius: 2pt;
         width: 17pt;
@@ -36,9 +64,9 @@
 
   function detectURL() {
     const candidate = window.wfes.g.reviewPageData();
-    window.wfes.f.addCSS(myCssId, myStyle);
+    window.wfes.f.addCSS(CSS_ID, CSS_STYLE);
 
-    if (undefined !== candidate.statement) {
+    if (candidate.statement !== "undefined") {
       const urls = candidate.statement.match(myReg);
       if (urls !== null) {
         window.wfes.f.waitForElem(supStmtSel)
@@ -52,11 +80,12 @@
     }
   }
 
-  function init() {
+  const init = ()=> {
     window.addEventListener("WFESReviewPageNewLoaded", detectURL);
-  }
+  };
 
+  // === Start ==================================================
   init();
+  logger.info(`Script loaded: version: ${SCRIPT_VERSION}`);
 
-  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 })();
