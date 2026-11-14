@@ -1,5 +1,5 @@
 // @name         Appeal Status
-// @version      1.1.98
+// @version      1.1.99
 // @description  tells you if an appeal is available
 
 (function() {
@@ -33,7 +33,6 @@
 
   // === Skript-spezifische Konfiguration & Logik ===============
 
-  /*
   const myCssId = "wfesAppealStatusCSS";
   const myStyle = `.wfesAppealStatus {
       color: #333;
@@ -58,44 +57,30 @@
 
   const buttonID = "wfesAppealStatusButton";
 
-  function removeButton() {
-    const button = document.getElementById(buttonID);
-    if (button !== null) {
-      button.remove();
-    }
-  }
-
   function showButton() {
-    window.wfes.f.waitForElem("wf-logo").then(elem => {
-      // remove if exist
-      removeButton();
-      const div = document.createElement("div");
-      div.className = "wfesAppealStatus";
-      div.id = buttonID;
+    const div = document.createElement("div");
+    div.className = "wfesAppealStatus";
+    div.id = buttonID;
 
-      const headline = document.createElement("p");
-      headline.innerText = "Appeal";
+    const headline = document.createElement("p");
+    headline.innerText = "Appeal";
 
-      const canAppeal = window.wfes.g.canAppeal();
-      const statusButton = document.createElement("button");
-      statusButton.title = "appeal status";
+    const canAppeal = window.wfes.g.canAppeal();
+    const statusButton = document.createElement("button");
+    statusButton.title = "appeal status";
 
-      if (canAppeal) {
-        statusButton.className = "wfesAppealStatusButton wfesCYes";
-        statusButton.innerHTML = '<span class="material-icons">check_circle</span>';
-      } else {
-        statusButton.className = "wfesAppealStatusButton wfesCNo";
-        statusButton.innerHTML = '<span class="material-icons">cancel</span>';
-      }
+    if (canAppeal) {
+      statusButton.className = "wfesAppealStatusButton wfesCYes";
+      statusButton.innerHTML = '<span class="material-icons">check_circle</span>';
+    } else {
+      statusButton.className = "wfesAppealStatusButton wfesCNo";
+      statusButton.innerHTML = '<span class="material-icons">cancel</span>';
+    }
 
-      div.appendChild(headline);
-      div.appendChild(statusButton);
-      const container = elem.parentNode.parentNode;
-      container.appendChild(div);
-    })
-      .catch((e) => {
-        console.warn(GM_info.script.name, ": ", e);
-      });
+    div.appendChild(headline);
+    div.appendChild(statusButton);
+
+    window.wfes.f.createHeaderButton(div, buttonID);
   }
 
   const init = () => {
@@ -107,7 +92,5 @@
   // === Start ==================================================
   init();
   logger.info(`Script loaded: version: ${SCRIPT_VERSION}`);
-*/
-  logger.error(`need fix and update: ${SCRIPT_VERSION}`);
 
 })();
