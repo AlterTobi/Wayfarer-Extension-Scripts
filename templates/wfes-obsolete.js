@@ -1,7 +1,6 @@
 // @name         Obsolete
 // @version      1.0.0
 // @description  Obsolete Template (do not install)
-// @author       AlterTobi
 
 (function() {
   "use strict";
