@@ -35,7 +35,7 @@
 
   const myCssId = "wfesAppealStatusCSS";
   const myStyle = `.wfesAppealStatus {
-      color: #333;
+      color: #efefef;
       margin-left: 2em;
       align-self: center;
       text-align: center;
