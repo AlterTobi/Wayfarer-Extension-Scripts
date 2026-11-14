@@ -50,7 +50,7 @@
 
   const myReg = /((https?:\/\/)[-\w@:%_+.~#?,&/=!]+)/g;
   // const supStmtSel = "app-supporting-info-b > wf-review-card-b > div.wf-review-card__body > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted";
-  const supStmtSel = "#root > div > div > div > div > main > section > div > div:nth-child(1) > div.grid.grid-cols-1.gap-4.lg\:grid-cols-\[minmax\(0\,2fr\)_minmax\(0\,3fr\)_minmax\(0\,3fr\)\] > div:nth-child(3) > div > div.wf-review-card__body.flex.w-full.min-w-0.flex-1.overflow-y-auto > div > div > div.rounded-2xl.bg-wf-surface-contrast.p-5.text-base.leading-6.font-medium.text-wf-text-on-contrast";
+  const supStmtSel = "#root > div > div > div > div > main > section > div > div:nth-child(1) > div.grid.grid-cols-1.gap-4.lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)_minmax(0,3fr)] > div:nth-child(3) > div > div.wf-review-card__body.flex.w-full.min-w-0.flex-1.overflow-y-auto > div > div > div.rounded-2xl.bg-wf-surface-contrast.p-5.text-base.leading-6.font-medium.text-wf-text-on-contrast";
   // Button setzen
   function setSmallButton(url, elem) {
     const wfesExtLnkBtn = document.createElement("a");
