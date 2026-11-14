@@ -1,5 +1,5 @@
 // @name         POI Submission Availability
-// @version      1.1.99
+// @version      1.2.0
 // @description  adds information about submission availability (max, tomorrow)
 
 (function() {
