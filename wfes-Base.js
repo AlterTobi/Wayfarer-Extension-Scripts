@@ -1,5 +1,5 @@
 // @name         Base
-// @version      3.0.3
+// @version      3.0.4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
@@ -679,7 +679,7 @@
       console.warn(GM_info.script.name, ": app-submissions-list missing");
     }
   }
-  window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
+  // window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
   /* ================ /nomination page ============== */
 
   /* ================ basic functions =============== */
