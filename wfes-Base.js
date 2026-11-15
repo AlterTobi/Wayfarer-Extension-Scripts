@@ -275,7 +275,7 @@
       if (tries > 25) {
         // resolve(tmpUserId);
         _getPropsOnce();
-        reject(new Error("Timeout: UserId konnte nach 20 Versuchen nicht ermittelt werden."));
+        reject(new Error("Timeout: UserId konnte nach 25 Versuchen nicht ermittelt werden."));
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
@@ -642,6 +642,7 @@
   /* ================ /showcase ===================== */
 
   /* ================ nomination page =============== */
+  /* nomlist sieht anders aus
   function loadCachedNomination(nomItem) {
     if (undefined === wfes.nominations.detail) {
       window.setTimeout(loadCachedNomination, 250, nomItem);
@@ -663,6 +664,7 @@
       window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
     });
   }
+
   function nominationsClickHander(elem) {
     const nomItem = elem.target.closest("app-submissions-list-item");
     if (nomItem) {
@@ -679,7 +681,8 @@
       console.warn(GM_info.script.name, ": app-submissions-list missing");
     }
   }
-  // window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
+   window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
+*/
   /* ================ /nomination page ============== */
 
   /* ================ basic functions =============== */
