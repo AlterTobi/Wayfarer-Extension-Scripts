@@ -3,11 +3,13 @@ import pluginJs from "@eslint/js";
 import stylisticJs from "@stylistic/eslint-plugin";
 
 export default [
-  {files: ["**/*.js"],
-    ignores: ["**/eslint.config.mjs"],
-    languageOptions: {sourceType: "script"}},
+  { ignores: ["**/eslint.config.mjs"] },
+  {
+    files: ["**/*.js"],
+    languageOptions: { sourceType: "script" }
+  },
   {languageOptions: {
-    ecmaVersion: 14,
+    ecmaVersion: "latest",
     globals: {
       ...globals.browser,
       ...globals.greasemonkey,
@@ -44,12 +46,11 @@ export default [
     "prefer-const": "warn",
     "prefer-spread": "warn",
     // "prefer-rest-params": "warn",
-    "space-before-function-paren": ["error", "never"],
-    "spaced-comment": ["warn", "always"],
+    "prefer-template": "warn",
     "strict": ["error", "function"],
     //      "strict": ["error", "global"],
     //      "strict": ["error", "never"],
-    "yoda": ["error", "always", { "onlyEquality": true }],
+    "yoda": ["warn", "never"],
 
     // keine Warnung für die init() Funktion
     "no-unused-vars": ["error", { "varsIgnorePattern": "init|ignored" }],
@@ -59,7 +60,7 @@ export default [
     "@stylistic/js/brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
     "@stylistic/js/comma-dangle": ["warn", "only-multiline"],
     "@stylistic/js/comma-spacing": ["warn", { "before": false, "after": true }],
-    "@/func-call-spacing": ["warn", "never"],
+    "@stylistic/js/function-call-spacing": ["warn", "never"],
     "@stylistic/js/indent": ["warn", 2, { "SwitchCase": 1 }],
     "@stylistic/js/newline-per-chained-call": "warn",
     "@stylistic/js/no-multi-spaces": "warn",
@@ -72,6 +73,8 @@ export default [
     "@stylistic/js/semi-spacing": ["warn", {"before": false, "after": true}],
     "@stylistic/js/semi-style": ["warn", "last"],
     "@stylistic/js/space-before-blocks": "warn",
+    "@stylistic/js/space-before-function-paren": ["warn", "never"],
+    "@stylistic/js/spaced-comment": ["warn", "always"],
     "@stylistic/js/switch-colon-spacing": ["error", {"after": true, "before": false}]
   }}
 ];

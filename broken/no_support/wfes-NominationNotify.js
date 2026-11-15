@@ -1,5 +1,5 @@
 // @name         Nomination Notify
-// @version      1.9.0
+// @version      1.9.98
 // @description  show nomination status updates
 // @author       AlterTobi
 
@@ -108,7 +108,7 @@
   function detectChange() {
     const nomList = window.wfes.g.nominationsList();
     window.wfes.f.localGet(lStoreList, []).then((historyDict)=>{
-      if ( 0 === historyDict.length) {
+      if ( historyDict.length === 0) {
         // first run, save
         window.wfes.f.localSave(lStoreList, window.wfes.f.makeIDbasedDictionary(nomList));
       }else{
@@ -133,7 +133,7 @@
           };
 
           // set title for notification
-          const notiTitle = nom.type + ": " + nom.title;
+          const notiTitle = `${nom.type }: ${ nom.title}`;
 
           historicalData = historyDict[nom.id];
           myDates = [];
@@ -156,37 +156,37 @@
           }
 
           // upgrade?
-          if (false === historicalData.upgraded && true === nom.upgraded) {
+          if ((historicalData.upgraded === false) && (nom.upgraded === true)) {
             myDates.push([today, "UPGRADE"]);
             window.wfes.f.createNotification(`${notiTitle} was upgraded!`, "green", callbackConfig);
           }
 
           // Scopely Review?
-          if ((false === historicalData.isNianticControlled && true === nom.isNianticControlled)
-          || (( "NIANTIC_REVIEW"!== historicalData.status) && ("NIANTIC_REVIEW" === nom.status))) {
+          if ((historicalData.isNianticControlled === false && nom.isNianticControlled === true)
+          || (( historicalData.status!== "NIANTIC_REVIEW") && (nom.status === "NIANTIC_REVIEW"))) {
             window.wfes.f.createNotification(`${notiTitle} went into Scopely review!`, "fuchsia", callbackConfig);
           }
 
           // was missing?
-          if (("MISSING" === historicalData.status)) {
+          if ((historicalData.status === "MISSING")) {
             window.wfes.f.createNotification(`${notiTitle} returned`, "orange", callbackConfig);
           }
           // In queue -> In voting
-          if ((historicalData.status !== "VOTING") && ("VOTING" === nom.status)) {
+          if ((historicalData.status !== "VOTING") && (nom.status === "VOTING")) {
             window.wfes.f.createNotification(`${notiTitle} went into voting!`, "green", callbackConfig);
-          } else if ((historicalData.status !== "HELD") && ("HELD" === nom.status)) {
+          } else if ((historicalData.status !== "HELD") && (nom.status === "HELD")) {
             // only if nomination is "old"
             if (getDateDiff(nom.day) > noHeldMsgDays) {
               window.wfes.f.createNotification(`${notiTitle} put on HOLD!`, "red", callbackConfig);
             }
-          } else if ((historicalData.status !== "APPEALED") && ("APPEALED" === nom.status)) {
+          } else if ((historicalData.status !== "APPEALED") && (nom.status === "APPEALED")) {
             window.wfes.f.createNotification(`${notiTitle} was appealed!`, "green", callbackConfig);
           } else if (historicalData.status !== "ACCEPTED" && historicalData.status !== "REJECTED" && historicalData.status !== "DUPLICATE") {
-            if ("ACCEPTED" === nom.status) {
+            if (nom.status === "ACCEPTED") {
               window.wfes.f.createNotification(`${notiTitle} was accepted!`, "green", callbackConfig);
-            }else if("REJECTED" === nom.status) {
+            }else if(nom.status === "REJECTED") {
               window.wfes.f.createNotification(`${notiTitle} was rejected!`, "red", callbackConfig);
-            }else if("DUPLICATE" === nom.status) {
+            }else if(nom.status === "DUPLICATE") {
               window.wfes.f.createNotification(`${notiTitle} was marked as a duplicate!`, "", callbackConfig);
             }
           }
@@ -228,14 +228,14 @@
       }
       elem.appendChild(document.createTextNode(""));
       let p = document.createElement("p");
-      p.appendChild(document.createTextNode(nomDetail.day + " - NOMINATED"));
+      p.appendChild(document.createTextNode(`${nomDetail.day } - NOMINATED`));
       elem.appendChild(p);
       for ( let i = 0; i < myDates.length; i++) {
-        if ((0 === i ) && ("NOMINATED" === myDates[i][1])) {
+        if ((i === 0 ) && (myDates[i][1] === "NOMINATED")) {
           continue;
         }
         p = document.createElement("p");
-        p.appendChild(document.createTextNode(myDates[i][0] + " - " + myDates[i][1]));
+        p.appendChild(document.createTextNode(`${myDates[i][0] } - ${ myDates[i][1]}`));
         elem.appendChild(p);
       }
     });
@@ -251,7 +251,7 @@
   };
 
   // === no changes needed below this line ======================
-  if("undefined" === typeof(wfes)) {
+  if(typeof(wfes) === "undefined") {
     if (undefined === sessionStorage[sessvarMiss]) {
       sessionStorage[sessvarMiss] = 1;
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
@@ -260,12 +260,11 @@
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
-    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    const msg = `${GM_info.script.name }: Need at least wfes-Base version ${ baseMinVersion } Please upgrade.`;
     logger.warn(msg);
     window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
-  /* we are done :-) */
-  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.error("need fix and update");
 
 })();

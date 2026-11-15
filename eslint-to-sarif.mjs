@@ -27,12 +27,12 @@ try {
       },
       results: eslintJson.flatMap(file => file.messages.map(msg => ({
         ruleId: msg.ruleId || "generic",
-        level: 2 === msg.severity ? "error" : "note",
+        level: msg.severity === 2 ? "error" : "note",
         message: { text: msg.message },
         locations: [{
           physicalLocation: {
             artifactLocation: {
-              uri: file.filePath.replace(process.cwd() + "/", "")
+              uri: file.filePath.replace(`${process.cwd() }/`, "")
             },
             region: {
               startLine: msg.line || 1,
@@ -50,7 +50,7 @@ try {
   } else {
     console.log("ℹ️ Keine Fehler gefunden. results.sarif ist leer (planmäßig).");
   }
-} catch (err) {
+} catch(err) {
   console.error("Fehler:", err.message);
   process.exit(1);
 }

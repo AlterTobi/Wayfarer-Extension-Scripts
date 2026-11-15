@@ -15,11 +15,11 @@
   const baseMinVersion = "3.0.0";
 
   // define names
-  const lStoreStats = selfname+"_Stats";
-  const lStorePogo = selfname+"_PoGoCount";
-  const lStoreCheck = selfname+"_IsChecked";
-  const lStoreCheckS2 = selfname+"_IsCheckedS2";
-  const lStoreUpgrades = selfname+"_myUpgrades";
+  const lStoreStats = `${selfname}_Stats`;
+  const lStorePogo = `${selfname}_PoGoCount`;
+  const lStoreCheck = `${selfname}_IsChecked`;
+  const lStoreCheckS2 = `${selfname}_IsCheckedS2`;
+  const lStoreUpgrades = `${selfname}_myUpgrades`;
   const mapId = "DEMO_MAP_ID";
 
   const myCssId = "wayfarerStatsCSS";
@@ -80,16 +80,16 @@ fnV1HwAAAABJRU5ErkJggg==`;
     curdate.setTime(time);
 
     const Jahr = curdate.getFullYear().toString(),
-      Monat = ("0" + ( 1 + curdate.getMonth())).slice(-2),
-      Tag = ("0" + curdate.getDate()).slice(-2);
+      Monat = (`0${ 1 + curdate.getMonth()}`).slice(-2),
+      Tag = (`0${ curdate.getDate()}`).slice(-2);
 
-    const ymd = Tag + "." + Monat + "." + Jahr;
+    const ymd = `${Tag }.${ Monat }.${ Jahr}`;
     return ymd;
   }
 
   function upgrades() {
     /* die Upgrades zählen */
-    console.log(selfname + " zähle Upgrades");
+    console.log(`${selfname } zähle Upgrades`);
     const profile = window.wfes.g.profile();
     const progress = profile.progress;
     const total = profile.total;
@@ -133,7 +133,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
     }
 
     if (heuteTS > last) {
-      console.log(selfname + " saving stats");
+      console.log(`${selfname } saving stats`);
 
       const profile = window.wfes.g.profile();
 
@@ -239,7 +239,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
     }
     function set_warning(image) {
       const elem = window.document.querySelector("div.wf-page-header");
-      elem.insertAdjacentHTML("beforeEnd", '<img style="width: 64px;height: 64px;" src="' + image + '">');
+      elem.insertAdjacentHTML("beforeEnd", `<img style="width: 64px;height: 64px;" src="${ image }">`);
     }
 
     const newPortalData = window.wfes.g.reviewPageData();
@@ -247,25 +247,25 @@ fnV1HwAAAABJRU5ErkJggg==`;
     const statement = newPortalData.statement === undefined ? "" : newPortalData.statement.trim();
     const type = newPortalData.type;
     let subtype = 0;
-    let usertext = statement + " " +
-      newPortalData.title + " " +
-      newPortalData.description;
+    let usertext = `${statement } ${
+      newPortalData.title } ${
+      newPortalData.description}`;
 
-    if ( ("NEW" === type) && ("" !== statement) ) {
+    if ( (type === "NEW") && (statement !== "") ) {
       subtype = 1;
     }
 
-    if ( "EDIT" === type ) {
+    if ( type === "EDIT" ) {
       for (const d of newPortalData.descriptionEdits) {
-        usertext += " " + d.value;
+        usertext += ` ${ d.value}`;
       }
       for (const t of newPortalData.titleEdits) {
-        usertext += " " + t.value;
+        usertext += ` ${ t.value}`;
       }
     }
 
-    if ("" === usertext) {
-      console.warn(selfname + " kein Text - das ist ein Bug");
+    if (usertext === "") {
+      console.warn(`${selfname } kein Text - das ist ein Bug`);
     } else {
       const hasPoketext = pruefeText(usertext, pokeArr);
 
@@ -309,14 +309,14 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const cText = isChecked ? "checked" : "";
       const s2Text = isCheckedS2 ? "checked" : "";
       section.insertAdjacentHTML("beforeEnd",
-        '<div id="statsdiv"></div>' +
-         '<div id="gamesdiv"></div>' +
-         '<div id="buttonsdiv" class="pull-right">reverse: <input type="checkbox" id="reversebox" ' + cText + "/>" +
-         '<button class="button-primary" id="WFRStatsBtn">show my stats</button>'+
-         '<button class="button-primary" id="WFRSUpgrBtn">show my upgrades</button>' +
-         '<button class="button-primary" id="WFRMarkBtn">WFR Marker Map</button>' +
-         '<button class="button-primary" id="WFRHeatBtn">WFR HeatMap</button>' +
-         'show S2 grid: <input type="checkbox" id="s2box" ' + s2Text + "/>" +
+        "<div id=\"statsdiv\"></div>" +
+         "<div id=\"gamesdiv\"></div>" +
+         `<div id="buttonsdiv" class="pull-right">reverse: <input type="checkbox" id="reversebox" ${ cText }/>` +
+         "<button class=\"button-primary\" id=\"WFRStatsBtn\">show my stats</button>"+
+         "<button class=\"button-primary\" id=\"WFRSUpgrBtn\">show my upgrades</button>" +
+         "<button class=\"button-primary\" id=\"WFRMarkBtn\">WFR Marker Map</button>" +
+         "<button class=\"button-primary\" id=\"WFRHeatBtn\">WFR HeatMap</button>" +
+         `show S2 grid: <input type="checkbox" id="s2box" ${ s2Text }/>` +
          "</div>"
       );
     }
@@ -328,9 +328,9 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const week = Math.min(7, wfrStats.length - 1);
 
       // Tabelle für die Statistik
-      document.getElementById("statsdiv").insertAdjacentHTML("beforeEnd", '<table border="2"><thead><tr><th></th><th colspan="5">total</th><th colspan="5">yesterday</th><th colspan="5">last ' + week + " days (sliding window)</th></tr>"+
-        '<tr style="border-bottom: 1px solid;"><th>date</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th></tr></thead>'+
-        '<tbody id="statstablebody"></tbody></table>');
+      document.getElementById("statsdiv").insertAdjacentHTML("beforeEnd", `<table border="2"><thead><tr><th></th><th colspan="5">total</th><th colspan="5">yesterday</th><th colspan="5">last ${ week } days (sliding window)</th></tr>`+
+        "<tr style=\"border-bottom: 1px solid;\"><th>date</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th><th>reviewed</th><th>created</th><th>rejected</th><th>dup</th><th>%</th></tr></thead>"+
+        "<tbody id=\"statstablebody\"></tbody></table>");
       const innertable = document.getElementById("statstablebody");
 
       // Statistik einfügen
@@ -363,10 +363,10 @@ fnV1HwAAAABJRU5ErkJggg==`;
         } else {
           wproz = wrev = wacc = wrej = wdup = " -- ";
         }
-        innertable.insertAdjacentHTML("beforeEnd", "<tr><td>" + ymd +"</td><td>" + wfrStats[i].reviewed + "</td><td>"+
-         wfrStats[i].accepted + "</td><td>" + wfrStats[i].rejected + "</td><td>" + wfrStats[i].duplicated + "</td><td>" + prozent.toFixed(2) + "%</td>"+
-         "<td>" + grev + "</td><td>" + gacc + "</td><td>" + grej + "</td><td>" + gdup + "</td><td>(" + gproz + "%)</td>" +
-         "<td>" + wrev + "</td><td>" + wacc + "</td><td>" + wrej + "</td><td>" + wdup + "</td><td>(" + wproz + "%)</td></tr>");
+        innertable.insertAdjacentHTML("beforeEnd", `<tr><td>${ ymd }</td><td>${ wfrStats[i].reviewed }</td><td>${
+          wfrStats[i].accepted }</td><td>${ wfrStats[i].rejected }</td><td>${ wfrStats[i].duplicated }</td><td>${ prozent.toFixed(2) }%</td>`+
+         `<td>${ grev }</td><td>${ gacc }</td><td>${ grej }</td><td>${ gdup }</td><td>(${ gproz }%)</td>` +
+         `<td>${ wrev }</td><td>${ wacc }</td><td>${ wrej }</td><td>${ wdup }</td><td>(${ wproz }%)</td></tr>`);
       }
       const tproz = trev > 0 ? (100*(tacc+trej+tdup)/trev).toFixed(2) : " -- ";
       const agr = tacc+trej+tdup;
@@ -374,18 +374,18 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const rproz = agr > 0 ? (100*trej/agr).toFixed(2) : " -- ";
       const dproz = agr > 0 ? (100*tdup/agr).toFixed(2) : " -- ";
 
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><td colspan="6" rowspan="2"></td>'+
-       "<td>" + trev + "</td><td>" + tacc + "</td><td>" + trej + "</td><td>" + tdup + "</td><td>(" + tproz + "%)</td>" +
-       '<td colspan="5" rowspan="2"></td></tr>' +
-       "<td></td><td>" + aproz + "%</td><td>" + rproz + "%</td><td>" + dproz + "%</td><td></td>");
+      innertable.insertAdjacentHTML("beforeEnd", "<tr style=\"border-top: 2px solid;\"><td colspan=\"6\" rowspan=\"2\"></td>"+
+       `<td>${ trev }</td><td>${ tacc }</td><td>${ trej }</td><td>${ tdup }</td><td>(${ tproz }%)</td>` +
+       "<td colspan=\"5\" rowspan=\"2\"></td></tr>" +
+       `<td></td><td>${ aproz }%</td><td>${ rproz }%</td><td>${ dproz }%</td><td></td>`);
     }
 
 
     function buttonFuncs() {
       // Stats
       function _writeLine(stats) {
-        const dupes = "undefined" === typeof(stats.duplicated) ? "" : stats.duplicated;
-        body.insertAdjacentHTML("beforeEnd", YMDfromTime(stats.datum) + ";" + stats.reviewed + ";" + stats.accepted + ";" + stats.rejected + ";" + dupes + "<br/>");
+        const dupes = typeof(stats.duplicated) === "undefined" ? "" : stats.duplicated;
+        body.insertAdjacentHTML("beforeEnd", `${YMDfromTime(stats.datum) };${ stats.reviewed };${ stats.accepted };${ stats.rejected };${ dupes }<br/>`);
       }
       document.getElementById("WFRStatsBtn").addEventListener("click", function() {
         emptyPage("/#mystats");
@@ -407,11 +407,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
         window.wfes.f.localGet(lStoreUpgrades, []).then((myup)=>{
           if (isChecked) {
             for (let i = myup.length -1; i >= 0; i--) {
-              body.insertAdjacentHTML("beforeEnd", myup[i].datum + ";" + myup[i].progress + ";" + myup[i].total + "<br/>");
+              body.insertAdjacentHTML("beforeEnd", `${myup[i].datum };${ myup[i].progress };${ myup[i].total }<br/>`);
             }
           } else {
             for (let i = 0; i < myup.length; i++) {
-              body.insertAdjacentHTML("beforeEnd", myup[i].datum + ";" + myup[i].progress + ";" + myup[i].total + "<br/>");
+              body.insertAdjacentHTML("beforeEnd", `${myup[i].datum };${ myup[i].progress };${ myup[i].total }<br/>`);
             }
           }
           window.wfes.f.localSave(lStoreCheck, isChecked);
@@ -421,7 +421,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
       function showMap() {
         let histText, innerScript = "";
 
-        if ("WFRHeatBtn" === this.id ) {
+        if (this.id === "WFRHeatBtn" ) {
           histText = "/#wfrheatmap";
           window.wfes.f.localSave(lStoreCheckS2, isCheckedS2);
           innerScript += `
@@ -431,8 +431,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
             // nur die neuesten 500
             const lat = PoGoStats[i].latE6/1E6;
             const lng = PoGoStats[i].lngE6/1E6;
-            innerScript += "new google.maps.LatLng("+lat+","+lng+"),";
-            if ( 0 === i) { break; }// weniger geht nicht
+            innerScript += `new google.maps.LatLng(${lat},${lng}),`;
+            if ( i === 0) { break; }// weniger geht nicht
           }
           innerScript += `]}
             heatmap = new google.maps.visualization.HeatmapLayer({
@@ -453,7 +453,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
               }`;
           }
 
-        } else if ("WFRMarkBtn" === this.id ) {
+        } else if (this.id === "WFRMarkBtn" ) {
           histText = "/#wfrmarker";
           const iconBase = "https://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/";
 
@@ -470,42 +470,42 @@ fnV1HwAAAABJRU5ErkJggg==`;
             switch (PoGoStats[i].typ) {
               case "EDIT":
                 ti1 = "Edit";
-                ico = "Map-Marker-Ball-Right-" + color + "-icon.png";
+                ico = `Map-Marker-Ball-Right-${ color }-icon.png`;
                 break;
               case "NEW":
                 switch (PoGoStats[i].subtyp) {
                   case 0:
                     ti1 = "NEW Redacted";
-                    ico = "Map-Marker-Push-Pin-1-"+color+"-icon.png";
+                    ico = `Map-Marker-Push-Pin-1-${color}-icon.png`;
                     break;
                   case 1:
                     ti1 = "NEW ";
-                    ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
+                    ico = `Map-Marker-Marker-Outside-${color}-icon.png`;
                     break;
                 }
                 break;
               case "PHOTO":
                 ti1 = "Photo";
-                ico = "Map-Marker-Flag-1-Right-" + color + "-icon.png";
+                ico = `Map-Marker-Flag-1-Right-${ color }-icon.png`;
                 break;
               default:
                 ti1 = "unknowm";
-                ico = "Map-Marker-Chequered-Flag-Right-" + color + "-icon.png";
+                ico = `Map-Marker-Chequered-Flag-Right-${ color }-icon.png`;
                 break;
             }
-            const title = ti1 + " " + ti2;
+            const title = `${ti1 } ${ ti2}`;
             const icon = iconBase + ico;
 
-            innerScript += "const markerImg"+i+" = document.createElement(\"img\"); ";
+            innerScript += `const markerImg${i} = document.createElement("img"); `;
 
-            innerScript += "markerImg"+i+".src = '" + icon + "';" +
+            innerScript += `markerImg${i}.src = '${ icon }';` +
                "marker = new google.maps.marker.AdvancedMarkerElement({" +
               "map," +
-              "position: {lat:"+lat+",lng:"+lng+"}," +
-              "title: '" + title + "'," +
-              "content: markerImg" + i +
-              "});\n";
-            if ( 0 === i) { break; }// weniger geht nicht
+              `position: {lat:${lat},lng:${lng}},` +
+              `title: '${ title }',` +
+              `content: markerImg${ i
+              }});\n`;
+            if ( i === 0) { break; }// weniger geht nicht
           }
         }
 
@@ -538,7 +538,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
             })
           `;
 
-        script.innerHTML += innerScript + "}";
+        script.innerHTML += `${innerScript }}`;
 
         body.appendChild(script);
 
@@ -589,7 +589,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
                 if (PoGoStats[i].pogo) { prip++; }
                 break;
               default:
-                console.warn("PoGoTable: falscher subtyp: " + PoGoStats[i].subtyp);
+                console.warn(`PoGoTable: falscher subtyp: ${ PoGoStats[i].subtyp}`);
             }
             break;
           case "PHOTO":
@@ -597,7 +597,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
             if (PoGoStats[i].pogo) { phop++; }
             break;
           default:
-            console.warn(selfname + " falscher typ: " + PoGoStats[i].typ);
+            console.warn(`${selfname } falscher typ: ${ PoGoStats[i].typ}`);
         }
       }
 
@@ -616,8 +616,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const edigp = revg > 0 ? (100*edig/revg).toFixed(2) : " -- ";
       const phogp = revg > 0 ? (100*phog/revg).toFixed(2) : " -- ";
 
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><th colspan="2">reviews total </th><td>' + redg + "</td><td>"+redgp+"%</td><td>"+
-                         prig + "</td><td>"+prigp+"%</td><td>" + edig + "</td><td>"+edigp+"%</td><td>" + phog + "</td><td>"+phogp+"%</td><td>" + revg + "</td></tr>");
+      innertable.insertAdjacentHTML("beforeEnd", `<tr style="border-top: 2px solid;"><th colspan="2">reviews total </th><td>${ redg }</td><td>${redgp}%</td><td>${
+        prig }</td><td>${prigp}%</td><td>${ edig }</td><td>${edigp}%</td><td>${ phog }</td><td>${phogp}%</td><td>${ revg }</td></tr>`);
 
       // PoGo Prozente
       const redgpp = revp > 0 ? (100*redp/revp).toFixed(2) : " -- ";
@@ -625,10 +625,10 @@ fnV1HwAAAABJRU5ErkJggg==`;
       const edigpp = revp > 0 ? (100*edip/revp).toFixed(2) : " -- ";
       const phogpp = revp > 0 ? (100*phop/revp).toFixed(2) : " -- ";
 
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 1px solid;"><th></th><th>thereof  Pokémon </th><td>' + redp + "</td><td>"+redgpp+"%</td><td>"+ prip +
-                        "</td><td>"+prigpp+"%</td><td>" + edip + "</td><td>"+edigpp+"%</td><td>" + phop + "</td><td>"+phogpp+"%</td><td>" + revp + "</td></tr>");
-      innertable.insertAdjacentHTML("beforeEnd", '<tr><th></th><th>in percent </th><th colspan="2">' + redpp + '%</th><th colspan="2">'+ pripp +
-                        '%</th><th colspan="2">' + edipp + '%</th><th colspan="2">' + phopp + "%</th><th>" + revpp + "%</th></tr>");
+      innertable.insertAdjacentHTML("beforeEnd", `<tr style="border-top: 1px solid;"><th></th><th>thereof  Pokémon </th><td>${ redp }</td><td>${redgpp}%</td><td>${ prip
+      }</td><td>${prigpp}%</td><td>${ edip }</td><td>${edigpp}%</td><td>${ phop }</td><td>${phogpp}%</td><td>${ revp }</td></tr>`);
+      innertable.insertAdjacentHTML("beforeEnd", `<tr><th></th><th>in percent </th><th colspan="2">${ redpp }%</th><th colspan="2">${ pripp
+      }%</th><th colspan="2">${ edipp }%</th><th colspan="2">${ phopp }%</th><th>${ revpp }%</th></tr>`);
     }
 
     // ---
@@ -653,7 +653,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
   };
 
   // === no changes needed below this line ======================
-  if("undefined" === typeof(wfes)) {
+  if(typeof(wfes) === "undefined") {
     if (undefined === sessionStorage[sessvarMiss]) {
       sessionStorage[sessvarMiss] = 1;
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
@@ -662,11 +662,11 @@ fnV1HwAAAABJRU5ErkJggg==`;
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
-    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    const msg = `${GM_info.script.name }: Need at least wfes-Base version ${ baseMinVersion } Please upgrade.`;
     logger.warn(msg);
     window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
   /* we are done :-) */
-  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.info("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 })();

@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.5.0
+// @version      1.5.98
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -20,15 +20,15 @@
 
   // based on example from https://www.w3schools.com/js/js_cookies.asp
   function _getCookie(cname) {
-    const name = cname + "=";
+    const name = `${cname }=`;
     const decodedCookie = decodeURIComponent(document.cookie);
     const ca = decodedCookie.split(";");
     for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
-      while (" " === c.charAt(0)) {
+      while (c.charAt(0) === " ") {
         c = c.substring(1);
       }
-      if (0 === c.indexOf(name)) {
+      if (c.indexOf(name) === 0) {
         return c.substring(name.length, c.length);
       }
     }
@@ -85,7 +85,7 @@
     for (let i = 0; i < nomList.length; i++) {
       nom = nomList[i];
       // process all new / in queue - NOMINATION only
-      if (("NOMINATION" === nom.type) && ("NOMINATED" === nom.status)) {
+      if ((nom.type === "NOMINATION") && (nom.status === "NOMINATED")) {
         // search for '#hold'
         if (nom.statement.toLowerCase().search(searchRegex) > -1) {
           const o = {};
@@ -106,7 +106,7 @@
   };
 
   // === no changes needed below this line ======================
-  if("undefined" === typeof(wfes)) {
+  if(typeof(wfes) === "undefined") {
     if (undefined === sessionStorage[sessvarMiss]) {
       sessionStorage[sessvarMiss] = 1;
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
@@ -115,12 +115,12 @@
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
-    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    const msg = `${GM_info.script.name }: Need at least wfes-Base version ${ baseMinVersion } Please upgrade.`;
     logger.warn(msg);
     window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
   /* we are done :-) */
-  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-
+  logger.info("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
+  logger.error("need fix and update");
 })();

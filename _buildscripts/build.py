@@ -141,6 +141,7 @@ def fill_meta(source, script_name):
 
       append_line(key,value)
 
+  append_line('author',cfg['author'])
   append_line('namespace', cfg['namespace'])
   append_line('homepage', cfg['homepage'])
   append_line('supportURL', cfg['supportURL'])

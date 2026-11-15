@@ -57,7 +57,7 @@
 
     const versionButton = document.createElement("button");
     versionButton.setAttribute("id", "version-button");
-    versionButton.appendChild(document.createTextNode("Version: " + wfVersion));
+    versionButton.appendChild(document.createTextNode(`Version: ${ wfVersion}`));
     versionDropdown.appendChild(versionButton);
 
     const versionList = document.createElement("ul");
@@ -75,7 +75,7 @@
     }
 
     let versionDiv = document.getElementById(versionDivID);
-    if (null === versionDiv) {
+    if (versionDiv === null) {
       const bodyElem = document.getElementsByTagName("body")[0];
       versionDiv = document.createElement("div");
       versionDiv.setAttribute("class", "wfVersionCSS");
@@ -92,10 +92,10 @@
 
   function versionChanged(version) {
     console.warn(GM_info.script.name, "version changed");
-    const msgStr = "WF version change " + version;
+    const msgStr = `WF version change ${ version}`;
     window.wfes.f.createNotification(msgStr, "red");
     const elem = document.getElementById(versionDivID);
-    if (null !== elem) {
+    if (elem !== null) {
       elem.classList.add("wfes-versionChanged");
     }
   }
@@ -143,7 +143,7 @@
   };
 
   // === no changes needed below this line ======================
-  if("undefined" === typeof(wfes)) {
+  if(typeof(wfes) === "undefined") {
     if (undefined === sessionStorage[sessvarMiss]) {
       sessionStorage[sessvarMiss] = 1;
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
@@ -152,12 +152,12 @@
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
-    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    const msg = `${GM_info.script.name }: Need at least wfes-Base version ${ baseMinVersion } Please upgrade.`;
     logger.warn(msg);
     window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
   /* we are done :-) */
-  logger.info("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  logger.info("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 
 })();

@@ -41,7 +41,7 @@
       }
   `;
 
-  const translationURL = "https://www.deepl.com/translator#auto/"+navigator.language+"/";
+  const translationURL = `https://www.deepl.com/translator#auto/${navigator.language}/`;
 
   function getTranslateAllButton(allText, btnText="Translate all") {
     const translateDiv = document.createElement("div");
@@ -82,8 +82,8 @@
 
     window.wfes.f.addCSS(myCssId, myStyle);
 
-    let allText = candidate.title + "\n\n";
-    allText += candidate.description + "\n\n";
+    let allText = `${candidate.title }\n\n`;
+    allText += `${candidate.description }\n\n`;
 
     elem = document.querySelector("#title-description-card > div.wf-review-card__body > div > a");
     setSmallButton(candidate.title, elem);
@@ -91,7 +91,7 @@
     elem = document.querySelector("#title-description-card > div.wf-review-card__body > div > div");
     setSmallButton(candidate.description, elem);
 
-    if ("" !== candidate.supportingImageUrl) {
+    if (candidate.supportingImageUrl !== "") {
       elem = document.querySelector("app-supporting-info > wf-review-card > div.wf-review-card__body > div > div.mt-2.bg-gray-200.px-4.py-2.ng-star-inserted");
       setSmallButton(candidate.statement, elem);
       allText += candidate.statement;
@@ -114,15 +114,15 @@
     window.wfes.f.addCSS(myCssId, myStyle);
 
     // has title
-    if ("" !== candidate.title) {
-      allText += candidate.title + "\n\n";
+    if (candidate.title !== "") {
+      allText += `${candidate.title }\n\n`;
       elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div.review-edit-info__info.text-xl.break-words");
       setSmallButton(candidate.title, elem);
     }
 
     // has description
-    if ("" !== candidate.description) {
-      allText += candidate.description + "\n\n";
+    if (candidate.description !== "") {
+      allText += `${candidate.description }\n\n`;
       elem = document.querySelector("app-review-edit > div > app-review-edit-info > div.review-edit-info.card.p-4.ng-star-inserted > div.mt-4.ng-star-inserted > div > div:nth-child(3)");
       setSmallButton(candidate.description, elem);
     }
@@ -130,8 +130,8 @@
     // is title-edit
     if (edit.what.title) {
       for (let i = 0; i < candidate.titleEdits.length; i++) {
-        allText += candidate.titleEdits[i].value + "\n\n";
-        editText += candidate.titleEdits[i].value + "\n\n";
+        allText += `${candidate.titleEdits[i].value }\n\n`;
+        editText += `${candidate.titleEdits[i].value }\n\n`;
       }
       translateButtonAll = getTranslateAllButton(editText, "Translate");
       elem = document.querySelector("app-select-title-edit > wf-review-card > div.wf-review-card__header > div");
@@ -142,9 +142,9 @@
     if (edit.what.description) {
       editText = "";
       for (let i = 0; i < candidate.descriptionEdits.length; i++) {
-        if ("" !== candidate.descriptionEdits[i].value) {
-          allText += candidate.descriptionEdits[i].value + "\n\n";
-          editText += candidate.descriptionEdits[i].value + "\n\n";
+        if (candidate.descriptionEdits[i].value !== "") {
+          allText += `${candidate.descriptionEdits[i].value }\n\n`;
+          editText += `${candidate.descriptionEdits[i].value }\n\n`;
         }
       }
       translateButtonAll = getTranslateAllButton(editText, "Translate");
@@ -166,16 +166,16 @@
 
     window.wfes.f.addCSS(myCssId, myStyle);
 
-    if("" !== candidate.title) {
+    if(candidate.title !== "") {
       elem = document.querySelector("app-review-photo > div div.text-lg");
       setSmallButton(candidate.title, elem);
-      allText += candidate.title + "\n\n";
+      allText += `${candidate.title }\n\n`;
     }
 
-    if("" !== candidate.description) {
+    if(candidate.description !== "") {
       elem = document.querySelector("app-review-photo > div div.flex.flex-col > div.mt-2");
       setSmallButton(candidate.description, elem);
-      allText += candidate.description + "\n\n";
+      allText += `${candidate.description }\n\n`;
     }
 
     // translate all
@@ -188,6 +188,6 @@
   window.addEventListener("WFESReviewPageEditLoaded", () => { setTimeout(addAllButons, 100);});
   window.addEventListener("WFESReviewPagePhotoLoaded", () => { setTimeout(addPhotoTranslationButtons, 100);});
 
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
   console.warn(GM_info.script.name, ": This script is no longer supported, please remove.");
 })();

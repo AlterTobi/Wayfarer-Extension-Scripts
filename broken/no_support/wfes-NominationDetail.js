@@ -1,10 +1,13 @@
 // @name          Nomination Detail
-// @version      1.1.0
+// @version      1.1.98
 // @description  improvements for nomination detail page
 // @author       AlterTobi
 
 (function() {
   "use strict";
+  const logger = new window.UserScriptLogger(GM_info.script.name, true);
+
+  /*
 
   let propsLoaded = false;
   let needDiv = true;
@@ -71,4 +74,6 @@
   window.addEventListener("WFESPropertiesLoaded", () => {propsLoaded = true;});
 
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+*/
+  logger.error("need fix and update");
 })();

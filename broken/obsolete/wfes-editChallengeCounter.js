@@ -300,7 +300,7 @@
   function createButton(header, text, count) {
     window.wfes.f.waitForElem("wf-logo").then(elem=>{
       const buttonEl = document.getElementById(buttonID);
-      if (null !== buttonEl) {
+      if (buttonEl !== null) {
         // remove
         buttonEl.remove();
       }
@@ -339,8 +339,8 @@
     TYPES.forEach(type => {
       resultSum += result[type];
     });
-    const resulttext = " (P" + result.PHOTO + " T" + result.EDIT_TITLE +
-      " D" + result.EDIT_DESCRIPTION + " L" + result.EDIT_LOCATION + ")";
+    const resulttext = ` (P${ result.PHOTO } T${ result.EDIT_TITLE
+    } D${ result.EDIT_DESCRIPTION } L${ result.EDIT_LOCATION })`;
 
     createButton("2024 Edit Challenge", resulttext, resultSum);
   }
@@ -351,7 +351,7 @@
   };
 
   // === no changes needed below this line ======================
-  if("undefined" === typeof(wfes)) {
+  if(typeof(wfes) === "undefined") {
     if (undefined === sessionStorage[sessvarMiss]) {
       sessionStorage[sessvarMiss] = 1;
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
@@ -362,5 +362,5 @@
   }
 
   /* we are done :-) */
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+  console.log("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
 })();

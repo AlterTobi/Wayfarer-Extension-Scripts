@@ -1,254 +1,249 @@
 // @name         image Mods
-// @version      1.5.98
+// @version      1.5.99
 // @description  open fullsize images in "named" tabs
-// @author       AlterTobi
 
 (function() {
   "use strict";
-  const logger = new window.UserScriptLogger(GM_info.script.name, true);
 
-  /*
-  let _currentSupImage = 0; // zähler des aktuellen Zusatzbildes
-  let _supImageCount = 1; // wieviel Zusatzbilder gibt es?
-  let _supImages; // speichern die imageUrls
+  const BASE_MIN_VERSION = "3.0.0";
+  const SESSION_VAR_MISS = "warnBase";
+  const SCRIPT_NAME = GM_info?.script?.name ?? "WFES - Image Mods";
+  const SCRIPT_VERSION = GM_info?.script?.version ?? "unknown";
 
-  const reviewSupBtnPrevSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.prev-button";
-  const reviewSupBtnNextSelector = "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.next-button";
-  const contribSupBtnPrevSelector = "app-details-pane wf-image-carousel button.nav-button.prev-button";
-  const contribSupBtnNextSelector = "app-details-pane wf-image-carousel button.nav-button.next-button";
+  // === Basis-Prüfung & Logger =================================
+  if (typeof window.wfes === "undefined") {
+    if (sessionStorage.getItem(SESSION_VAR_MISS) === null) {
+      sessionStorage.setItem(SESSION_VAR_MISS, "1");
+      const msg = `${SCRIPT_NAME}: Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/`;
+      alert(msg);
+      console.error(msg);
+    }
+    return;
+  }
 
-  const supLensId= "lupesup";
+  const logger = new window.UserScriptLogger(SCRIPT_NAME, true);
 
-  function addFullImageButton(elem, url, target, position = "afterEnd", styleclass = "lupe", elemID=false, spanclass = "") {
-    const a = document.createElement("a");
+  if (!window.wfes.f.hasMinVersion(BASE_MIN_VERSION)) {
+    const msg = `${SCRIPT_NAME}: Need at least wfes-Base version ${BASE_MIN_VERSION}. Please upgrade.`;
+    logger.warn(msg);
+    window.wfes.f.createNotification(msg, "red", { autoclose: 60 });
+    return;
+  }
+
+  // === Konfiguration & Konstanten =============================
+  const SELECTORS = {
+    reviewSupBtnPrev: "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.prev-button",
+    reviewSupBtnNext: "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.next-button",
+    contribSupBtnPrev: "app-details-pane wf-image-carousel button.nav-button.prev-button",
+    contribSupBtnNext: "app-details-pane wf-image-carousel button.nav-button.next-button",
+  };
+
+  const IDS = {
+    supLensReview: "lupesup",
+    btnMainNom: "imageModsBtnMain",
+    btnSupNom: "imageModsBtnSup",
+    cssReview: "imageModsCSSReview",
+    cssNomDetail: "imageModsCSSNomDetail",
+  };
+
+  const CSS_REVIEW = `
+    .material-icons-fontsize {
+      font-size: 48px;
+    }
+    .lupe {
+      position: absolute;
+      left: 0px;
+    }
+    #lupesup {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: 300;
+    }
+    .bottom {
+      bottom: 0px;
+    }
+  `;
+
+  const CSS_NOM_DETAIL = `
+    .material-icons-fontsize {
+      font-size: 48px;
+    }
+    .lupesup {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: 300;
+    }
+    .luperel {
+      position: relative;
+      left: 0px;
+    }
+    .absolute {
+      position: absolute;
+    }
+  `;
+
+  // === Status für Karussell-Zusatzbilder ======================
+  let currentSupImage = 0;
+  let supImages = [];
+
+  // === Hilfsfunktionen ========================================
+  const addFullImageButton = (elem, url, target, position = "afterEnd", styleClass = "lupe", elemId = "", spanClass = "") => {
+    if (!elem) {
+      logger.warn(`Target element for full image button (${elem}) not found.`);
+      return;
+    }
+
+    const link = document.createElement("a");
     const span = document.createElement("span");
 
-    span.className = "material-icons material-icons-fontsize " + spanclass;
-    span.appendChild(document.createTextNode("search"));
-    a.appendChild(span);
-    a.target = target;
-    a.href = url;
-    if (elemID) {
-      a.id = elemID;
+    span.className = `material-icons material-icons-fontsize ${spanClass}`.trim();
+    span.textContent = "search";
+
+    link.appendChild(span);
+    link.target = target;
+    link.href = url;
+    link.className = styleClass;
+    if (elemId) {
+      link.id = elemId;
     }
-    a.className = styleclass;
-    switch (position) {
-      case "afterEnd":
-      case "beforeBegin":
-        elem.parentNode.style.position = "relative";
+
+    if (position === "afterEnd" || position === "beforeBegin") {
+      elem.parentNode.style.position = "relative";
+    } else if (position === "beforeEnd" || position === "afterBegin") {
+      elem.style.position = "relative";
+    }
+
+    elem.insertAdjacentElement(position, link);
+  };
+
+  const setImageUrl = (buttonId, imageUrl) => {
+    const elem = document.getElementById(buttonId);
+    if (elem) {
+      elem.href = imageUrl;
+    }
+  };
+
+  const cycleSupImage = (step, targetButtonId) => {
+    const count = supImages.length;
+    if (count === 0) {
+      return;
+    }
+    currentSupImage = (currentSupImage + step + count) % count;
+    setImageUrl(targetButtonId, supImages[currentSupImage]);
+  };
+
+  const bindCarouselHandlers = (prevSelector, nextSelector, targetButtonId) => {
+    window.wfes.f.waitForElem(prevSelector).then((elem) => {
+      if (!elem.dataset.contribClickBound) {
+        elem.addEventListener("click", () => cycleSupImage(-1, targetButtonId));
+        elem.dataset.contribClickBound = "1";
+      }
+    });
+
+    window.wfes.f.waitForElem(nextSelector).then((elem) => {
+      if (!elem.dataset.contribClickBound) {
+        elem.addEventListener("click", () => cycleSupImage(1, targetButtonId));
+        elem.dataset.contribClickBound = "1";
+      }
+    });
+  };
+
+  // === Review-Seite ===========================================
+  const addFullSizeImageLinksReview = () => {
+    const reviewData = window.wfes.g.reviewPageData();
+    window.wfes.f.addCSS(IDS.cssReview, CSS_REVIEW);
+
+    switch (reviewData.type) {
+      case "NEW": {
+        const mainElem = document.querySelector('div[data-testid="review-new-nomination-photo-slot"]');
+        addFullImageButton(mainElem, `${reviewData.imageUrl}=s0`, "mainImage");
+
+        if (Array.isArray(reviewData.supportingImageUrls) && reviewData.supportingImageUrls.length > 0) {
+          const supElem = document.querySelector('div[data-testid="review-new-supporting-info-slot"] div[role="group"]');
+          supImages = reviewData.supportingImageUrls.map((url) => `${url}=s0`);
+          currentSupImage = 0;
+
+          addFullImageButton(supElem, supImages[0], "supportingImage", "afterEnd", "", IDS.supLensReview);
+
+          if (supImages.length > 1) {
+            bindCarouselHandlers(SELECTORS.reviewSupBtnPrev, SELECTORS.reviewSupBtnNext, IDS.supLensReview);
+          }
+        }
         break;
-      case "beforeEnd":
-      case "afterBegin":
-        elem.style.position = "relative";
+      }
+
+      case "EDIT": {
+        const editElem = document.getElementsByClassName("wf-image-modal")[0];
+        addFullImageButton(editElem, `${reviewData.imageUrl}=s0`, "mainImage", "beforeBegin");
         break;
+      }
+
+      case "PHOTO": {
+        const photoElems = document.getElementsByClassName("photo-card__photo");
+        for (let i = 0; i < photoElems.length; i++) {
+          const container = photoElems[i].parentNode?.parentNode?.parentNode;
+          const photoUrl = `${reviewData.newPhotos[i].value}=s0`;
+          addFullImageButton(container, photoUrl, "additionalImage", "beforeEnd", "lupe bottom");
+        }
+        break;
+      }
+
       default:
         break;
     }
-    elem.insertAdjacentElement(position, a);
-  }
+  };
 
-  // setImage URL on existing element
-  function setImageURL(buttonID, imageUrl) {
-    const elem = document.getElementById(buttonID);
-    elem.href = imageUrl;
-  }
+  // === Nomination-Details (Contributions) =====================
+  const addFullSizeImageLinksNomDetail = () => {
+    const nomData = window.wfes.g.nominationDetail();
 
-  // Review Handler
-  function handleButtonClick(value) {
-    // Modulo rechnen - _supImageCount addieren um negative Werte zu vermeiden
-    _currentSupImage = (_currentSupImage + value + _supImageCount) % _supImageCount;
-    setImageURL(supLensId, _supImages[_currentSupImage]);
-  }
-
-  // Click-Handler for supporting images (left/right)
-  function reviewAddClickHandlerSupImg() {
-    window.wfes.f.waitForElem(reviewSupBtnPrevSelector).then(elem=> {
-      if (!elem.dataset.contribClickBound) {
-        elem.addEventListener("click", () => handleButtonClick(-1));
-        elem.dataset.contribClickBound = "1";
-      }
-    });
-    window.wfes.f.waitForElem(reviewSupBtnNextSelector).then(elem=> {
-      if (!elem.dataset.contribClickBound) {
-        elem.addEventListener("click", () => handleButtonClick( 1));
-        elem.dataset.contribClickBound = "1";
-      }
-    });
-  }
-
-  function addFullSizeImageLinksReview() {
-    const myCssId = "imageModsCSSReview";
-    const myStyle = `.material-icons-fontsize {
-        font-size: 48px;
-      }
-      .lupe {
-        position: absolute;
-        left: 0px;
-      }
-      #lupesup {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        z-index: 300;
-      }
-      .bottom {
-        bottom: 0px;
-      }
-    `;
-
-    let elem, imageUrl;
-    const myData = window.wfes.g.reviewPageData();
-
-    window.wfes.f.addCSS(myCssId, myStyle);
-    switch (myData.type) {
-      case "NEW":
-        elem = document.getElementsByClassName("wf-image-modal flex-grow bg-contain bg-center bg-no-repeat");
-        imageUrl = myData.imageUrl + "=s0";
-        addFullImageButton(elem[0], imageUrl, "mainImage");
-
-        // Supporting Image
-        if (myData.supportingImageUrls) {
-          elem = document.getElementsByClassName("supporting-info-img-container");
-          if (1 === myData.supportingImageUrls.length) {
-            imageUrl = myData.supportingImageUrls[0] + "=s0";
-            addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
-          } else if (myData.supportingImageUrls.length > 1) {
-            _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
-            _currentSupImage = 0;
-            _supImageCount = myData.supportingImageUrls.length;
-            for (let i = 0; i < _supImageCount; i++) {
-              const imageUrl = myData.supportingImageUrls[i] + "=s0";
-              _supImages.push(imageUrl);
-            }
-            addFullImageButton(elem[0], _supImages[0], "supportingImage", "afterEnd", "", supLensId);
-            reviewAddClickHandlerSupImg();
-          }
-        }
-        break;
-      case "EDIT":
-        elem = document.getElementsByClassName("wf-image-modal");
-        imageUrl = myData.imageUrl + "=s0";
-        addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin");
-        break;
-      case "PHOTO":
-        elem = document.getElementsByClassName("photo-card__photo");
-        for (let i=0; i < elem.length; i++) {
-          imageUrl = myData.newPhotos[i].value + "=s0";
-          addFullImageButton(elem[i].parentNode.parentNode.parentNode, imageUrl, "additionalImage", "beforeEnd", "lupe bottom");
-        }
-        break;
-    }
-  }
-
-  // Contribution List Handler
-  const buttonIDmain = "imageModsBtnMain";
-  const buttonIDsup = "imageModsBtnSup";
-
-  function contribHandleButtonClick(value) {
-    // Modulo rechnen - _supImageCount addieren um negative Werte zu vermeiden
-    _currentSupImage = (_currentSupImage + value + _supImageCount) % _supImageCount;
-    setImageURL(buttonIDsup, _supImages[_currentSupImage]);
-  }
-
-
-  // Click-Handler for supporting images (left/right)
-  function contribAddClickHandlerSupImg() {
-    window.wfes.f.waitForElem(contribSupBtnPrevSelector).then(elem=> {
-      if (!elem.dataset.contribClickBound) {
-        elem.addEventListener("click", () => contribHandleButtonClick(-1));
-        elem.dataset.contribClickBound = "1";
-      }
-    });
-    window.wfes.f.waitForElem(contribSupBtnNextSelector).then(elem=> {
-      if (!elem.dataset.contribClickBound) {
-        elem.addEventListener("click", () => contribHandleButtonClick( 1));
-        elem.dataset.contribClickBound = "1";
-      }
-    });
-  }
-
-
-  function addFullSizeImageLinksNomDetail() {
-    const myCssId = "imageModsCSSNomDetail";
-    const myStyle = `.material-icons-fontsize {
-        font-size: 48px;
-      }
-      .lupesup {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        z-index: 300;
-      }
-      .luperel {
-        position: relative;
-        left: 0px;
-      }
-      .absolute {
-        position: absolute;
-      }
-    `;
-
-    let elem, imageUrl;
-    const myData = window.wfes.g.nominationDetail();
-    // only nominations, for edits use Wayfarer Contribution Management Layout
-    if ("NOMINATION" === myData.type) {
-      window.wfes.f.addCSS(myCssId, myStyle);
-
-      elem = document.getElementsByClassName("wf-image-modal details-pane__image");
-      imageUrl = myData.imageUrl + "=s0";
-
-      // main Image
-      if ( null === document.getElementById(buttonIDmain)) {
-        addFullImageButton(elem[0], imageUrl, "mainImage", "beforeBegin", "luperel", buttonIDmain, "absolute");
-      } else {
-        setImageURL(buttonIDmain, imageUrl);
-      }
-
-      // Supporting Image
-      if (myData.supportingImageUrls) {
-        elem = document.getElementsByClassName("supporting-images-container");
-
-        if (1 === myData.supportingImageUrls.length) {
-          imageUrl = myData.supportingImageUrls[0] + "=s0";
-          if ( null === document.getElementById(buttonIDsup)) {
-            // addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
-            addFullImageButton(elem[0], imageUrl, "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
-          } else {
-            setImageURL(buttonIDsup, imageUrl);
-          }
-
-        } else if (myData.supportingImageUrls.length > 1) {
-          _supImages = []; // leeren, falls die vom vorhergehenden noch gefüllt sind))
-          _currentSupImage = 0;
-          _supImageCount = myData.supportingImageUrls.length;
-          for (let i = 0; i < _supImageCount; i++) {
-            const imageUrl = myData.supportingImageUrls[i] + "=s0";
-            _supImages.push(imageUrl);
-          }
-
-          if ( null === document.getElementById(buttonIDsup)) {
-            // addFullImageButton(elem[0], imageUrl, "supportingImage", "afterEnd", "", supLensId);
-            addFullImageButton(elem[0], _supImages[0], "supportingImage", "beforeEnd", "lupesup", buttonIDsup);
-          } else {
-            setImageURL(buttonIDsup, _supImages[0]);
-          }
-          contribAddClickHandlerSupImg();
-        }
-
-      }
-    } else {
-      // remove magnifier
-      [buttonIDmain, buttonIDsup].forEach(buttonID => {
-        const element = document.getElementById(buttonID);
-        if (element) {element.remove();}
+    if (nomData.type !== "NOMINATION") {
+      [IDS.btnMainNom, IDS.btnSupNom].forEach((buttonId) => {
+        document.getElementById(buttonId)?.remove();
       });
+      return;
     }
-  }
 
-  window.addEventListener("WFESNominationDetailLoaded", () => {setTimeout(addFullSizeImageLinksNomDetail, 100);});
-  window.addEventListener("WFESReviewPageLoaded", () => {setTimeout(addFullSizeImageLinksReview, 100);});
+    window.wfes.f.addCSS(IDS.cssNomDetail, CSS_NOM_DETAIL);
 
-  console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
-*/
-  logger.error("need fix");
+    const mainElem = document.getElementsByClassName("wf-image-modal details-pane__image")[0];
+    const mainImageUrl = `${nomData.imageUrl}=s0`;
+
+    if (document.getElementById(IDS.btnMainNom) === null) {
+      addFullImageButton(mainElem, mainImageUrl, "mainImage", "beforeBegin", "luperel", IDS.btnMainNom, "absolute");
+    } else {
+      setImageUrl(IDS.btnMainNom, mainImageUrl);
+    }
+
+    if (Array.isArray(nomData.supportingImageUrls) && nomData.supportingImageUrls.length > 0) {
+      const supElem = document.getElementsByClassName("supporting-images-container")[0];
+      supImages = nomData.supportingImageUrls.map((url) => `${url}=s0`);
+      currentSupImage = 0;
+
+      if (document.getElementById(IDS.btnSupNom) === null) {
+        addFullImageButton(supElem, supImages[0], "supportingImage", "beforeEnd", "lupesup", IDS.btnSupNom);
+      } else {
+        setImageUrl(IDS.btnSupNom, supImages[0]);
+      }
+
+      if (supImages.length > 1) {
+        bindCarouselHandlers(SELECTORS.contribSupBtnPrev, SELECTORS.contribSupBtnNext, IDS.btnSupNom);
+      }
+    }
+  };
+
+  // === Initialisierung & Start ================================
+  const init = () => {
+    window.addEventListener("WFESNominationDetailLoaded", () => {
+      setTimeout(addFullSizeImageLinksNomDetail, 100);
+    });
+    window.addEventListener("WFESReviewPageLoaded", () => {
+      setTimeout(addFullSizeImageLinksReview, 100);
+    });
+  };
+
+  init();
+  logger.info(`Script loaded: version: ${SCRIPT_VERSION}`);
 })();

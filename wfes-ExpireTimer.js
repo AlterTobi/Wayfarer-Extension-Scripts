@@ -30,8 +30,8 @@
 
   // Helper functions
   function pad(num, size) {
-    let s = num + "";
-    while (s.length < size) {s = "0" + s;}
+    let s = `${num }`;
+    while (s.length < size) {s = `0${ s}`;}
     return s;
   }
 
@@ -42,7 +42,7 @@
     if (tDiff > 0) {
       const tDiffMin = Math.floor(tDiff / 1000 / 60);
       const tDiffSec = Math.ceil((tDiff / 1000) - (60 * tDiffMin));
-      timeElem.innerText = pad(tDiffMin, 2) + ":" + pad(tDiffSec, 2);
+      timeElem.innerText = `${pad(tDiffMin, 2) }:${ pad(tDiffSec, 2)}`;
       // Retrigger function in 1 second
       setTimeout(updateTimer, 1000);
     } else {
@@ -77,7 +77,7 @@
 
 
   // === no changes needed below this line ======================
-  if("undefined" === typeof(wfes)) {
+  if(typeof(wfes) === "undefined") {
     if (undefined === sessionStorage[sessvarMiss]) {
       sessionStorage[sessvarMiss] = 1;
       alert("Missing WFES Base. Please install from https://altertobi.github.io/Wayfarer-Extension-Scripts/");
@@ -86,11 +86,11 @@
   } else if (window.wfes.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
-    const msg = GM_info.script.name + ": Need at least wfes-Base version " + baseMinVersion+ " Please upgrade.";
+    const msg = `${GM_info.script.name }: Need at least wfes-Base version ${ baseMinVersion } Please upgrade.`;
     logger.warn(msg);
     window.wfes.f.createNotification( msg, "red", {autoclose: 60});
   }
 
   /* we are done :-) */
-  logger.info("Script loaded: version:" + GM_info.script.version);
+  logger.info(`Script loaded: version:${ GM_info.script.version}`);
 })();

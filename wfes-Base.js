@@ -1,9 +1,9 @@
 // @name         Base
-// @version      3.0.2
+// @version      3.0.4
 // @description  basic functionality for WFES
 // @author       AlterTobi
 // @run-at       document-start
-// @require      https://toolbox.gefallenehelden.de/jslib/userscript-logger.js
+// @require      https://altertobi.github.io/Wayfarer-Extension-Scripts/dev/js/userscript-logger.js
 
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
@@ -223,8 +223,8 @@
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
     logger.debug("_getPropsOnce aufgerufen. Eingeloggt:", _isLoggedIn, "Props bereits geladen:", _propsLoaded);
-    if (_isLoggedIn && (false === _propsLoaded)) {
-      if (null === window.document.querySelector(wfAppRoot)) {
+    if (_isLoggedIn && (_propsLoaded === false)) {
+      if (window.document.querySelector(wfAppRoot) === null) {
         logger.error("no props und kein WF");
       } else {
         logger.debug("fetch props");
@@ -272,14 +272,14 @@
   // wait for UserId
   const getUserId = () => new Promise((resolve, reject) => {
     const checkUID = tries => {
-      if (tries > 20) {
+      if (tries > 25) {
         // resolve(tmpUserId);
         _getPropsOnce();
-        reject(new Error("Timeout: UserId konnte nach 20 Versuchen nicht ermittelt werden."));
+        reject(new Error("Timeout: UserId konnte nach 25 Versuchen nicht ermittelt werden."));
       } else if (wfes.userId) {
         resolve(wfes.userId);
       } else {
-        setTimeout(() => checkUID(tries + 1), 200);
+        setTimeout(() => checkUID(tries + 1), 400);
       }
     };
     checkUID(1);
@@ -364,7 +364,7 @@
         return;
       }
 
-      if ("OK" !== json.code) {
+      if (json.code !== "OK") {
         logger.warn("WFES: got no OK from server", json);
         return;
       }
@@ -377,30 +377,30 @@
 
       let lang;
       switch (url) {
-        case PREFIX + "home":
+        case `${PREFIX }home`:
           wfes.currentPage = wfes.WF_PAGES.HOME;
           wfes.showcase.list = json.result.showcase;
           window.dispatchEvent(new Event("WFESHomePageLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
-        case PREFIX + "review":
+        case `${PREFIX }review`:
           wfes.currentPage = wfes.WF_PAGES.REVIEW;
           handleReviewData(json.result);
           break;
-        case PREFIX + "loginconfig":
+        case `${PREFIX }loginconfig`:
           //  wfes.currentPage = wfes.WF_PAGES.STARTPAGE;
           // _isLoggedIn = false;
           wfes.loginConfig = json.result;
           // window.dispatchEvent(new Event("WFESStartpageLoaded"));
           window.dispatchEvent(new Event("WFESLoginConfigLoaded"));
           break;
-        case PREFIX + "profile":
+        case `${PREFIX }profile`:
           wfes.currentPage = wfes.WF_PAGES.PROFILE;
           wfes.profile = json.result;
           window.dispatchEvent(new Event("WFESProfileLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
-        case PREFIX + "manage":
+        case `${PREFIX }manage`:
           wfes.currentPage = wfes.WF_PAGES.MANAGE;
           // nomination list
           wfes.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
@@ -408,7 +408,7 @@
           window.dispatchEvent(new Event("WFESNominationListLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
-        case PREFIX + "manage/detail":
+        case `${PREFIX }manage/detail`:
           wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
           // nomination detail
           wfes.nominations.detail = json.result;
@@ -417,43 +417,43 @@
             nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
             window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
               window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-              window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+              window.dispatchEvent(new Event(`WFESNominationDetailLoaded${json.result.type}`));
             });
           });
           break;
-        case PREFIX + "properties":
+        case `${PREFIX }properties`:
           wfes.currentPage = wfes.WF_PAGES.PROPERTIES;
           wfes.properties = json.result;
           window.dispatchEvent(new Event("WFESPropertiesLoaded"));
           break;
-        case PREFIX + "settings":
+        case `${PREFIX }settings`:
           wfes.currentPage = wfes.WF_PAGES.SETTINGS;
           wfes.settings = json.result;
           window.dispatchEvent(new Event("WFESSettingsLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
-        case PREFIX + "help":
+        case `${PREFIX }help`:
           wfes.currentPage = wfes.WF_PAGES.HELP;
           window.dispatchEvent(new Event("WFESHelpPageLoaded"));
           window.dispatchEvent(new Event("WFESPageLoaded"));
           break;
-        case PREFIX + "punishments":
+        case `${PREFIX }punishments`:
           // @TODO set vars and Event
           wfes.currentPage = wfes.WF_PAGES.HELP;
           break;
-        case PREFIX + "mapview/track/access":
+        case `${PREFIX }mapview/track/access`:
           // has no result - do nothing
           break;
-        case PREFIX + "mapview/track/zoom-range-entered":
+        case `${PREFIX }mapview/track/zoom-range-entered`:
           // has no result - do nothing
           break;
-        case PREFIX + "static-map-url":
+        case `${PREFIX }static-map-url`:
           // map tile - do nothing
           break;
-        case PREFIX + "reverse-geocode":
+        case `${PREFIX }reverse-geocode`:
           // map do nothing
           break;
-        case PREFIX + "submit/available":
+        case `${PREFIX }submit/available`:
           wfes.currentPage = wfes.WF_PAGES.SUBMIT;
           wfes.submitAvailable = json.result;
           window.dispatchEvent(new Event("WFESSubmitAvailable"));
@@ -461,32 +461,32 @@
           break;
         default:
         // messages?language=de
-          if (PREFIX + "messages?language=" === url.substr(0, 18 + PREFIX.length)) {
+          if (`${PREFIX }messages?language=` === url.substr(0, 18 + PREFIX.length)) {
             lang = url.substr(18 + PREFIX.length);
             wfes.messages[lang] = json.result;
-          } else if (url.startsWith(PREFIX + "mapview")) {
+          } else if (url.startsWith(`${PREFIX }mapview`)) {
             wfes.currentPage = wfes.WF_PAGES.MAP;
-            if (url.startsWith(PREFIX + "mapview/lowzoom/gcs?")) {
+            if (url.startsWith(`${PREFIX }mapview/lowzoom/gcs?`)) {
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapLowzoomLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
-            } else if (url.startsWith(PREFIX + "mapview/gcs?")) {
+            } else if (url.startsWith(`${PREFIX }mapview/gcs?`)) {
               wfes.mapData = json.result;
               window.dispatchEvent(new Event("WFESMapFullLoaded"));
               window.dispatchEvent(new Event("WFESMapLoaded"));
-            } else if (url.startsWith(PREFIX + "mapview/poi-images?")) {
+            } else if (url.startsWith(`${PREFIX }mapview/poi-images?`)) {
               wfes.poiImages = json.result;
               window.dispatchEvent(new Event("WFESMapPoiImagesLoaded"));
-            } else if (url.startsWith(PREFIX + "mapview/poi-details?")) {
+            } else if (url.startsWith(`${PREFIX }mapview/poi-details?`)) {
               wfes.poiDetails = json.result;
               window.dispatchEvent(new Event("WFESMapPoiDetailsLoaded"));
             } else {
               logger.warn("WFES Base - unhandled map ", url);
             }
-          } else if (url.startsWith(PREFIX + "live-pois-in-radius")) {
+          } else if (url.startsWith(`${PREFIX }live-pois-in-radius`)) {
             wfes.livePois = json.result;
             window.dispatchEvent(new Event("WFESMapLivePoisInRadius"));
-          } else if(url.startsWith(PREFIX + "manage/detail")) {
+          } else if(url.startsWith(`${PREFIX }manage/detail`)) {
             wfes.currentPage = wfes.WF_PAGES.MANAGE_DETAIL;
             // nomination detail
             wfes.nominations.detail = json.result;
@@ -495,13 +495,13 @@
               nominationDict[wfes.nominations.detail.id] = wfes.nominations.detail;
               window.wfes.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
                 window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
-                window.dispatchEvent(new Event("WFESNominationDetailLoaded"+json.result.type));
+                window.dispatchEvent(new Event(`WFESNominationDetailLoaded${json.result.type}`));
               });
             });
-          } else if (url.startsWith(PREFIX + "submit/get/drafts")) {
+          } else if (url.startsWith(`${PREFIX }submit/get/drafts`)) {
             wfes.drafts = json.result;
             window.dispatchEvent(new Event("WFESGetDrafts"));
-          } else if (url.startsWith(PREFIX + "reverse-geocode")) {
+          } else if (url.startsWith(`${PREFIX }reverse-geocode`)) {
             // map do nothing
           } else {
             logger.error("WFES Base - unhandled URL: ", url);
@@ -509,7 +509,7 @@
           break;
       }
 
-    } catch (e) {
+    } catch(e) {
       logger.warn( "WFES: failed to parse response from server", e);
     }
   }
@@ -521,7 +521,7 @@
 
   window.fetch = async function(input, init) {
     // 1. URL ermitteln
-    const url = "string" === typeof input ? input : input.url;
+    const url = typeof input === "string" ? input : input.url;
 
     if (url && url.startsWith(PREFIX)) {
       // 2. HTTP-Methode ermitteln (Standard bei fetch ist GET)
@@ -530,24 +530,24 @@
       // ====================================================
       // BEHANDLUNG FÜR POST-REQUESTS (Ehemals sendReplacement)
       // ====================================================
-      if ("POST" === method && init && init.body) {
+      if (method === "POST" && init && init.body) {
         try {
           const daten = init.body;
 
           // Falls der Body ein FormData- oder Blob-Objekt ist, müsste er anders gelesen werden.
           // Bei JSON-Payloads ist es in der Regel ein String:
-          if ("string" === typeof daten) {
+          if (typeof daten === "string") {
             let candidate, json;
 
             switch (url) {
-              case PREFIX + "review":
+              case `${PREFIX }review`:
                 json = JSON.parse(daten);
                 candidate = wfes.review.sessionHist[json.id];
                 wfes.review.decision.candidate = candidate;
                 wfes.review.decision.decision = json;
                 window.dispatchEvent(new Event("WFESReviewDecisionSent"));
                 break;
-              case PREFIX + "review/skip":
+              case `${PREFIX }review/skip`:
                 json = JSON.parse(daten);
                 candidate = wfes.review.sessionHist[json.id];
                 wfes.review.decision.candidate = candidate;
@@ -555,7 +555,7 @@
                 wfes.review.decision.decision = json;
                 window.dispatchEvent(new Event("WFESReviewDecisionSent"));
                 break;
-              case PREFIX + "manage/appeal":
+              case `${PREFIX }manage/appeal`:
                 json = JSON.parse(daten);
                 wfes.review.appeal = json;
                 window.dispatchEvent(new Event("WFESReviewAppealSent"));
@@ -564,7 +564,7 @@
                 break;
             }
           }
-        } catch (err) {
+        } catch(err) {
           logger.error("Fehler beim Verarbeiten der POST-Daten:", err);
         }
       }
@@ -574,7 +574,7 @@
       // ====================================================
       const response = await fetchOrig.apply(this, arguments);
 
-      if ("GET" === method) {
+      if (method === "GET") {
         const responseClone = response.clone();
 
         // Hier wird die asynchrone Verarbeitung gestartet, ohne auf das Ende zu warten
@@ -582,7 +582,7 @@
           try {
             const json = await responseClone.json();
             handleFetchData(url, json); // Dein bestehender Code bleibt unverändert
-          } catch (err) {
+          } catch(err) {
             logger.error("Fehler beim Parsen des JSON:", err);
           }
         })();
@@ -642,6 +642,7 @@
   /* ================ /showcase ===================== */
 
   /* ================ nomination page =============== */
+  /* nomlist sieht anders aus
   function loadCachedNomination(nomItem) {
     if (undefined === wfes.nominations.detail) {
       window.setTimeout(loadCachedNomination, 250, nomItem);
@@ -663,6 +664,7 @@
       window.dispatchEvent(new Event("WFESNominationDetailLoaded"));
     });
   }
+
   function nominationsClickHander(elem) {
     const nomItem = elem.target.closest("app-submissions-list-item");
     if (nomItem) {
@@ -679,7 +681,8 @@
       console.warn(GM_info.script.name, ": app-submissions-list missing");
     }
   }
-  window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
+   window.addEventListener("WFESNominationListLoaded", addNominationsClickHandler);
+*/
   /* ================ /nomination page ============== */
 
   /* ================ basic functions =============== */
@@ -687,7 +690,7 @@
   window.wfes.f.localSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       // console.log(GM_info.script.name, "localSave:", userId, name, content);
-      const index = name+"_"+userId;
+      const index = `${name}_${userId}`;
       const data = {index: index, data:content};
       getIDBInstance().then(db => {
         const tx = db.transaction([idbLocalStorageCompat], "readwrite");
@@ -713,7 +716,7 @@
       const userId = await getUserId();
       const db = await getIDBInstance();
 
-      const index = name + "_" + userId;
+      const index = `${name }_${ userId}`;
 
       // Das eigentliche IndexedDB-Request in ein Promise verpacken
       return new Promise((resolve) => {
@@ -738,7 +741,7 @@
         };
       });
 
-    } catch (error) {
+    } catch(error) {
       // Fängt Fehler von getUserId(), getIDBInstance() und allen anderen Exceptions ab
       logger.warn("iDBGetLScompat Fehler abgefangen (Nutze Fallback):", error);
       return content; // Gibt im Fehlerfall sicher den Standardinhalt zurück
@@ -776,7 +779,7 @@
   window.wfes.f.localStorageSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
-      localStorage.setItem(name+"_"+userId, json);
+      localStorage.setItem(`${name}_${userId}`, json);
       resolve();
     });
   });
@@ -784,7 +787,7 @@
   // get data from localstorage
   window.wfes.f.localStorageGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
-      const data = JSON.parse(localStorage.getItem(name+"_"+userId)) || JSON.parse(localStorage.getItem(name)) || content;
+      const data = JSON.parse(localStorage.getItem(`${name}_${userId}`)) || JSON.parse(localStorage.getItem(name)) || content;
       resolve(data);
     });
   });
@@ -792,7 +795,7 @@
   // remove data from localstorage
   window.wfes.f.localStorageRemove = (name) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
-      localStorage.removeItem(name+"_"+userId);
+      localStorage.removeItem(`${name}_${userId}`);
       resolve();
     });
   });
@@ -826,7 +829,7 @@
   window.wfes.f.sessionSave = (name, content) => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
       const json = JSON.stringify(content);
-      sessionStorage.setItem(name+"_"+userId, json);
+      sessionStorage.setItem(`${name}_${userId}`, json);
       resolve();
     });
   });
@@ -834,20 +837,17 @@
   // gete data from sessionstorage
   window.wfes.f.sessionGet = (name, content = "") => new Promise((resolve, reject) => {
     getUserId().then((userId) => {
-      const data = JSON.parse(sessionStorage.getItem(name+"_"+userId)) || content;
+      const data = JSON.parse(sessionStorage.getItem(`${name}_${userId}`)) || content;
       resolve(data);
     });
   });
 
   // add CSS to the head, if not there
   window.wfes.f.addCSS = function(myID, styles) {
-    if ("string"===typeof(myID) && myID.length>0) {
-      logger.custom().blue()
-        .bgGray()
-        .text("addCSS - ID:" + myID)
-        .print();
+    if (typeof(myID)==="string" && myID.length>0) {
+      // logger.custom().blue().bgGray().text("addCSS - ID:" + myID).print();
       // already there?
-      if (null === document.getElementById(myID)) {
+      if (document.getElementById(myID) === null) {
         _waitForElem("head").then( headElem => {
           const customStyleElem = document.createElement("style");
           customStyleElem.setAttribute("id", myID);
@@ -885,7 +885,7 @@
 
   window.wfes.f.createNotificationArea = function() {
     const myID = "wfesNotify";
-    if ( null === document.getElementById(myID)) {
+    if ( document.getElementById(myID) === null) {
       const container = document.createElement("div");
       container.id = myID;
       _waitForElem("body").then(body => {
@@ -917,7 +917,7 @@
     const notificationContent = document.createElement("div");
     notificationContent.setAttribute("class", "wfesNotificationContent");
 
-    if ("string" === typeof message) {
+    if (typeof message === "string") {
       const content = document.createElement("p");
       content.textContent = message;
       notificationContent.appendChild(content);
@@ -925,7 +925,7 @@
       const textGroup = document.createElement("div");
       textGroup.setAttribute("class", "wfesTextGroup");
       message.forEach(item => {
-        if ("string" === typeof item) {
+        if (typeof item === "string") {
           const content = document.createElement("p");
           content.textContent = item;
           textGroup.appendChild(content);
@@ -954,7 +954,7 @@
     // Handle Callbacks - Buttons, autoclose...
     if (callbackConfig) {
       // do we have a callback function?
-      if ("function" === typeof callbackConfig.callback) {
+      if (typeof callbackConfig.callback === "function") {
         const actionButton = document.createElement("button");
         actionButton.setAttribute("class", "wfesNotiButton material-icons");
 
@@ -1023,7 +1023,7 @@
           return;
         }
 
-        if (cursor.key.endsWith("_" + userId)) {
+        if (cursor.key.endsWith(`_${ userId}`)) {
           result.push(cursor.value);
         }
 
@@ -1150,7 +1150,7 @@
       resolve(userID);
     })
       .catch( () => {
-        console.warn("%c" + GM_info.script.name + " keine Userid gefunden, nutze temp", "background-color: red;color: yellow");
+        console.warn(`%c${ GM_info.script.name } keine Userid gefunden, nutze temp`, "background-color: red;color: yellow");
         resolve(tmpUserId);
       });
   });
@@ -1185,5 +1185,5 @@
   }
 
   /* we are done :-) */
-  logger.info("Script loaded version:" + GM_info.script.version);
+  logger.info(`Script loaded version:${ GM_info.script.version}`);
 })();
