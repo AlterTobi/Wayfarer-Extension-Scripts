@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      1.5.0
+// @version      1.5.98
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
