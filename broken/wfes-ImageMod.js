@@ -157,11 +157,11 @@
 
     switch (reviewData.type) {
       case "NEW": {
-        const mainElem = document.getElementsByClassName("wf-image-modal flex-grow bg-contain bg-center bg-no-repeat")[0];
+        const mainElem = document.querySelector('div[data-testid="review-new-nomination-photo-slot"]');
         addFullImageButton(mainElem, `${reviewData.imageUrl}=s0`, "mainImage");
 
         if (Array.isArray(reviewData.supportingImageUrls) && reviewData.supportingImageUrls.length > 0) {
-          const supElem = document.getElementsByClassName("supporting-info-img-container")[0];
+          const supElem = document.querySelector('div[data-testid="review-new-supporting-info-slot"] div[role="group"]');
           supImages = reviewData.supportingImageUrls.map((url) => `${url}=s0`);
           currentSupImage = 0;
 
