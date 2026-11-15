@@ -1,5 +1,5 @@
 // @name URLify
-// @version 1.4.99
+// @version 1.5.0
 // @description detect links in supporting information
 
 (function() {
