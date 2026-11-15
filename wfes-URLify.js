@@ -1,10 +1,9 @@
 // @name URLify
-// @version 1.5.0
+// @version 1.5.1
 // @description detect links in supporting information
 
 (function() {
   "use strict";
-
 
   const BASE_MIN_VERSION = "3.0.0";
   const SESSION_VAR_MISS = "warnBase";
@@ -45,7 +44,7 @@
         color: black;
         display: inline-block;
         box-shadow: 0 0 2px grey;
-        margin-top: 1em;
+        margin-top: 1em 0.2em;
       }
   `;
 
