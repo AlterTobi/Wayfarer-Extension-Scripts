@@ -1,5 +1,5 @@
 // @name         Appeal Status
-// @version      1.1.99
+// @version      1.2.0
 // @description  tells you if an appeal is available
 
 (function() {
