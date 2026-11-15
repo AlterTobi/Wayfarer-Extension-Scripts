@@ -122,5 +122,5 @@
 
   /* we are done :-) */
   logger.info("Script loaded:", GM_info.script.name, `v${ GM_info.script.version}`);
-
+  logger.error("need fix and update");
 })();
