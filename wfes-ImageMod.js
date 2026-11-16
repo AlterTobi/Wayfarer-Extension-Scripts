@@ -1,5 +1,5 @@
 // @name         image Mods
-// @version      1.5.99
+// @version      1.6.0
 // @description  open fullsize images in "named" tabs
 
 (function() {
@@ -32,8 +32,10 @@
 
   // === Konfiguration & Konstanten =============================
   const SELECTORS = {
-    reviewSupBtnPrev: "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.prev-button",
-    reviewSupBtnNext: "app-supporting-info-b > wf-review-card-b wf-image-carousel button.nav-button.next-button",
+    reviewSupBtnPrev: 'div[data-testid="supporting-info"] > div > div > button:nth-child(1)',
+    reviewSupBtnNext: 'div[data-testid="supporting-info"] > div > div > button:nth-child(2)',
+    reviewMainPhoto: 'div[data-testid="nomination-photo"]',
+    reviewSupportingPhotos: 'div[data-testid="review-new-supporting-info-slot"] div[role="group"]',
     contribSupBtnPrev: "app-details-pane wf-image-carousel button.nav-button.prev-button",
     contribSupBtnNext: "app-details-pane wf-image-carousel button.nav-button.next-button",
   };
@@ -49,6 +51,7 @@
   const CSS_REVIEW = `
     .material-icons-fontsize {
       font-size: 48px;
+      color: #20B8E3;
     }
     .lupe {
       position: absolute;
@@ -58,14 +61,14 @@
       position: absolute;
       left: 0px;
       top: 0px;
-      z-index: 300;
+      z-index: 20;
     }
     .bottom {
       bottom: 0px;
     }
   `;
 
-  const CSS_NOM_DETAIL = `
+  /*  const CSS_NOM_DETAIL = `
     .material-icons-fontsize {
       font-size: 48px;
     }
@@ -83,7 +86,7 @@
       position: absolute;
     }
   `;
-
+*/
   // === Status für Karussell-Zusatzbilder ======================
   let currentSupImage = 0;
   let supImages = [];
@@ -157,11 +160,11 @@
 
     switch (reviewData.type) {
       case "NEW": {
-        const mainElem = document.querySelector('div[data-testid="review-new-nomination-photo-slot"]');
+        const mainElem = document.querySelector(SELECTORS.reviewMainPhoto);
         addFullImageButton(mainElem, `${reviewData.imageUrl}=s0`, "mainImage");
 
         if (Array.isArray(reviewData.supportingImageUrls) && reviewData.supportingImageUrls.length > 0) {
-          const supElem = document.querySelector('div[data-testid="review-new-supporting-info-slot"] div[role="group"]');
+          const supElem = document.querySelector(SELECTORS.reviewSupportingPhotos);
           supImages = reviewData.supportingImageUrls.map((url) => `${url}=s0`);
           currentSupImage = 0;
 
@@ -196,7 +199,8 @@
   };
 
   // === Nomination-Details (Contributions) =====================
-  const addFullSizeImageLinksNomDetail = () => {
+  /*
+    const addFullSizeImageLinksNomDetail = () => {
     const nomData = window.wfes.g.nominationDetail();
 
     if (nomData.type !== "NOMINATION") {
@@ -233,12 +237,14 @@
       }
     }
   };
-
+*/
   // === Initialisierung & Start ================================
   const init = () => {
+    /*
     window.addEventListener("WFESNominationDetailLoaded", () => {
       setTimeout(addFullSizeImageLinksNomDetail, 100);
     });
+    */
     window.addEventListener("WFESReviewPageLoaded", () => {
       setTimeout(addFullSizeImageLinksReview, 100);
     });
