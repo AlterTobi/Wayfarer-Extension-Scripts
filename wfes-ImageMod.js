@@ -68,7 +68,7 @@
     }
   `;
 
-  const CSS_NOM_DETAIL = `
+  /*  const CSS_NOM_DETAIL = `
     .material-icons-fontsize {
       font-size: 48px;
     }
@@ -86,7 +86,7 @@
       position: absolute;
     }
   `;
-
+*/
   // === Status für Karussell-Zusatzbilder ======================
   let currentSupImage = 0;
   let supImages = [];
@@ -199,7 +199,8 @@
   };
 
   // === Nomination-Details (Contributions) =====================
-  const addFullSizeImageLinksNomDetail = () => {
+  /*
+    const addFullSizeImageLinksNomDetail = () => {
     const nomData = window.wfes.g.nominationDetail();
 
     if (nomData.type !== "NOMINATION") {
@@ -236,12 +237,14 @@
       }
     }
   };
-
+*/
   // === Initialisierung & Start ================================
   const init = () => {
+    /*
     window.addEventListener("WFESNominationDetailLoaded", () => {
       setTimeout(addFullSizeImageLinksNomDetail, 100);
     });
+    */
     window.addEventListener("WFESReviewPageLoaded", () => {
       setTimeout(addFullSizeImageLinksReview, 100);
     });
